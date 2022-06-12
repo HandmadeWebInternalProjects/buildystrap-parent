@@ -1,0 +1,83 @@
+@extends('layouts.app')
+
+@section('content')
+
+	@php
+		$container = get_theme_mod( 'understrap_container_type' );
+	@endphp
+
+	<div class="wrapper" id="error-404-wrapper">
+
+		<div class="{{ echo esc_attr( $container ) }}" id="content" tabindex="-1">
+
+			<div class="row">
+
+				<div class="col-md-12 content-area" id="primary">
+
+					<main class="site-main" id="main">
+
+						<section class="error-404 not-found">
+
+							<header class="page-header">
+
+								<h1 class="page-title">{{ esc_html_e( 'Oops! That page can&rsquo;t be found.', 'buildystrap' ) }}</h1>
+
+							</header><!-- .page-header -->
+
+							<div class="page-content">
+
+								<p>{{ esc_html_e( 'It looks like nothing was found at this location. Maybe try a search?', 'buildystrap' ) }}</p>
+
+								{!! get_search_form() !!}
+
+								{!! the_widget( 'WP_Widget_Recent_Posts' ) !!}
+
+								{{-- // Only show the widget if site has multiple categories. --}}
+								@if( understrap_categorized_blog() )
+
+									<div class="widget widget_categories">
+
+										<h2 class="widget-title">{{ esc_html_e( 'Most Used Categories', 'buildystrap' ) }}</h2>
+
+										<ul>
+											{!!
+												wp_list_categories(
+													array(
+														'orderby'  => 'count',
+														'order'    => 'DESC',
+														'show_count' => 1,
+														'title_li' => '',
+														'number'   => 10,
+													)
+												)
+											!!}
+										</ul>
+
+									</div><!-- .widget -->
+
+								@endif
+
+								@php
+									/* translators: %1$s: smiley */
+									$archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'buildystrap' ), convert_smilies( ':)' ) ) . '</p>';
+								@endphp
+
+								{!! the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$archive_content" ) !!}
+
+								{!! the_widget( 'WP_Widget_Tag_Cloud' ) !!}
+
+							</div><!-- .page-content -->
+
+						</section><!-- .error-404 -->
+
+					</main><!-- #main -->
+
+				</div><!-- #primary -->
+
+			</div><!-- .row -->
+
+		</div><!-- #content -->
+
+	</div><!-- #error-404-wrapper -->
+
+@endsection
