@@ -1,0 +1,44 @@
+<?php
+
+if (!function_exists('add_filters')) {
+    /**
+     * Bind single callback to multiple filters
+     *
+     * @param  iterable $filters  List of filters
+     * @param  callable $callback
+     * @param  integer  $priority
+     * @param  integer  $args
+     * @return void
+     */
+    function add_filters(iterable $filters, $callback, $priority = 10, $args = 2)
+    {
+        return \Roots\add_filters($filters, $callback, $priority, $args);
+    }
+}
+
+if (!function_exists('add_actions')) {
+    /**
+     * Bind single callback to multiple actions
+     *
+     * @param  iterable $actions  List of actions
+     * @param  callable $callback
+     * @param  integer  $priority
+     * @param  integer  $args
+     * @return void
+     */
+    function add_actions(iterable $actions, $callback, $priority = 10, $args = 2)
+    {
+        return \Roots\add_actions($actions, $callback, $priority, $args);
+    }
+}
+
+if (!function_exists('class_extends')) {
+    function class_extends(string $class, string $parent): bool
+    {
+        if (!class_exists($class) || !class_exists($parent) || !is_a($class, $parent, true)) {
+            return false;
+        }
+
+        return true;
+    }
+}

@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.backup
+.DS_Store
+.pnpm-debug.log
+mix-manifest.json
