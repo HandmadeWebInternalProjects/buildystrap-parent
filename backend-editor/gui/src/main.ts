@@ -10,19 +10,20 @@ app.component("draggable", draggable);
 
 const bundledComponents = import.meta.globEager("./components/**/*.vue");
 Object.entries(bundledComponents).forEach(([path, m]) => {
-  const name = path
-    .split("/")
-    .pop()
-    .replace(/\.\w+$/, "");
+  const name =
+    path
+      ?.split("/")
+      ?.pop()
+      ?.replace(/\.\w+$/, "") || "";
   app.component(name, m.default);
 });
 
 const Buildy = class {
   app: any;
-  bootingCallbacks: Array;
-  bootedCallbacks: Array;
+  bootingCallbacks: { (data: string): void }[];
+  bootedCallbacks: { (data: string): void }[];
 
-  constructor(app) {
+  constructor(app: any) {
     this.app = app;
     this.bootingCallbacks = [];
     this.bootedCallbacks = [];
@@ -36,7 +37,7 @@ const Buildy = class {
     this.bootedCallbacks.push(callback);
   }
 
-  register(name: string, component) {
+  register(name: string, component: object) {
     this.app.component(name, component);
   }
 
@@ -54,6 +55,12 @@ const Buildy = class {
     this.bootedCallbacks = [];
   }
 };
+
+declare global {
+  interface Window {
+    Buildy?: any;
+  }
+}
 
 window.Buildy = new Buildy(app);
 

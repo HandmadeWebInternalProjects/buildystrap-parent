@@ -1,6 +1,31 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { recursifyID } from "./utils/id.js";
+
+// interface Section {
+//   type: string;
+//   uuid: string;
+//   rows: Row[];
+// }
+
+// interface Row {
+//   type: string;
+//   uuid: string;
+//   columns: Column[];
+// }
+
+// interface Column {
+//   type: string;
+//   uuid: string;
+//   modules: Module[];
+// }
+
+// interface Module {
+//   type: string;
+//   uuid: string;
+//   value: object[];
+// }
+
 const builder = ref([
   {
     uuid: "1",
