@@ -5,9 +5,18 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  rows: {
+    type: Array,
+    required: true,
+  },
+  rowIndex: {
+    type: Number,
+    required: true,
+  },
 });
 
 const columns = ref(props.component?.columns || []);
+const row = ref(props.component);
 </script>
 
 <template lang="">
@@ -18,6 +27,13 @@ const columns = ref(props.component?.columns || []);
         <grid-column :component="column" />
       </template>
     </div>
+    <module-controls
+      class="transition-all duration-200 text-green-light absolute right-1 bottom-1 mx-auto"
+      direction="row"
+      :component="row"
+      :value="rows"
+      :index="rowIndex"
+    />
   </div>
 </template>
 

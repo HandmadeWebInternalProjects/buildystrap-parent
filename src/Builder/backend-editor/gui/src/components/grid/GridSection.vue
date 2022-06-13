@@ -21,8 +21,13 @@ const rows = ref(props.component?.rows || []);
       item-key="uuid"
       class="section-draggable d-flex flex-grow-1 p-3 flex-grow flex-column gap-3 group"
     >
-      <template #item="{ element }">
-        <grid-row :key="`row-${element.uuid}`" :component="element" />
+      <template #item="{ element, index }">
+        <grid-row
+          :key="`row-${element.uuid}`"
+          :row-index="index"
+          :rows="rows"
+          :component="element"
+        />
       </template>
     </draggable>
   </div>
