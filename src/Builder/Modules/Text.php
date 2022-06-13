@@ -2,7 +2,7 @@
 
 namespace Buildystrap\Builder\Modules;
 
-use Buildystrap\Builder\Module;
+use Buildystrap\Builder\Extends\Module;
 
 class Text extends Module
 {

@@ -1,6 +1,6 @@
 
 <div class="row">
-    @foreach($columns as $column)
+    @foreach($row->columns() as $column)
         {!! $column->render() !!}
     @endforeach
 </div>

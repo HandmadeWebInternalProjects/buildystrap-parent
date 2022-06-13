@@ -2,30 +2,20 @@
 
 namespace Buildystrap\Builder;
 
+use Buildystrap\Builder\Layout\Container;
+
 class Renderer
 {
-    public $sections;
+    public Container $container;
 
-    public function __construct(string $content)
+    public function __construct(Container $container)
     {
-        $this->sections = collect([]);
-
-        $content = json_decode($content) ?? [];
-
-        if (!empty($content->sections)) {
-            foreach ($content->sections as $section) {
-                if ($section->enabled ?? false) {
-                    $item = new Section($section);
-
-                    $this->sections->push($item);
-                }
-            }
-        }
+        $this->container = $container;
     }
 
     public function render()
     {
-        return view('builder::container')->with('sections', $this->sections)->render();
+        return $this->container->render();
     }
 
     public function __toString()

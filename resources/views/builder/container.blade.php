@@ -1,6 +1,6 @@
 
 <div class="container">
-    @foreach($sections as $section)
+    @foreach($container->sections() as $section)
         {!! $section->render() !!}
     @endforeach
 </div>

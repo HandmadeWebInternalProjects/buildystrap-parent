@@ -1,7 +1,5 @@
 <?php
 
-// Exit if accessed directly.
-
 use Buildystrap\Builder;
 
 defined('ABSPATH') || exit;
@@ -17,7 +15,7 @@ defined('ABSPATH') || exit;
 |
 */
 
-if (! file_exists($composer = __DIR__.'/vendor/autoload.php')) {
+if (!file_exists($composer = __DIR__.'/vendor/autoload.php')) {
     wp_die(__('Error locating autoloader. Please run <code>composer install</code>.'));
 }
 

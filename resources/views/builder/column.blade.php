@@ -1,6 +1,6 @@
 
 <div class="column">
-    @foreach($modules as $module)
+    @foreach($column->modules() as $module)
         {!! $module->render() !!}
     @endforeach
 </div>

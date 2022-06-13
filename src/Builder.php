@@ -2,12 +2,13 @@
 
 namespace Buildystrap;
 
-use Buildystrap\Builder\Module;
-use Buildystrap\Builder\Renderer;
+use Buildystrap\Builder\Content;
+use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Modules\Text;
+use Buildystrap\Builder\Renderer;
+use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Exception;
 
 class Builder
 {
@@ -60,7 +61,7 @@ class Builder
 
         static::$addons[$slug] = [
             'module' => $module,
-            'params' => array_merge(['path' => $path], $params)
+            'params' => array_merge(['path' => $path], $params),
         ];
 
         if (!empty($params['stylesheet'])) {
@@ -96,7 +97,7 @@ class Builder
         $slug = Str::slug($slug);
 
         if (!class_extends($module, Module::class)) {
-            throw new Exception("{$module} does not extend ". Module::class);
+            throw new Exception("{$module} does not extend ".Module::class);
         }
 
         static::$modules[$slug] = $module;
@@ -116,6 +117,8 @@ class Builder
 
     public static function renderFromContent(string $content)
     {
-        return new Renderer($content);
+        $container = new Content($content);
+
+        return new Renderer($container->container());
     }
 }

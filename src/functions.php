@@ -33,5 +33,5 @@ add_actions([
     'switch_theme',
     'after_switch_theme',
     'admin_action_do-theme-upgrade',
-    'upgrader_process_complete'
+    'upgrader_process_complete',
 ], [Theme::class, 'clear_on_update']);

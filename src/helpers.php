@@ -2,15 +2,11 @@
 
 if (!function_exists('add_filters')) {
     /**
-     * Bind single callback to multiple filters
+     * Bind single callback to multiple filters.
      *
-     * @param  iterable $filters  List of filters
-     * @param  callable $callback
-     * @param  integer  $priority
-     * @param  integer  $args
-     * @return void
+     * @param iterable $filters List of filters
      */
-    function add_filters(iterable $filters, $callback, $priority = 10, $args = 2)
+    function add_filters(iterable $filters, callable $callback, int $priority = 10, int $args = 1): mixed
     {
         return \Roots\add_filters($filters, $callback, $priority, $args);
     }
@@ -18,15 +14,11 @@ if (!function_exists('add_filters')) {
 
 if (!function_exists('add_actions')) {
     /**
-     * Bind single callback to multiple actions
+     * Bind single callback to multiple actions.
      *
-     * @param  iterable $actions  List of actions
-     * @param  callable $callback
-     * @param  integer  $priority
-     * @param  integer  $args
-     * @return void
+     * @param iterable $actions List of actions
      */
-    function add_actions(iterable $actions, $callback, $priority = 10, $args = 2)
+    function add_actions(iterable $actions, callable $callback, int $priority = 10, int $args = 1): mixed
     {
         return \Roots\add_actions($actions, $callback, $priority, $args);
     }

@@ -10,7 +10,7 @@ class Theme
     protected static array $templates = [];
 
     /**
-     * Enqueue Theme Styles
+     * Enqueue Theme Styles.
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class Theme
     }
 
     /**
-     * Enqueue Theme Scripts
+     * Enqueue Theme Scripts.
      *
      * @return void
      */
@@ -34,17 +34,14 @@ class Theme
     }
 
     /**
-     * Set the blade template loading order
-     *
-     * @param array $files
-     * @return array
+     * Set the blade template loading order.
      */
     public static function filter_template_hierarchy(array $files): array
     {
         foreach ($files as $file) {
             $file = Str::replaceLast('.php', '', $file);
 
-            if ($file === 'index' || in_array($file, static::$templates)) {
+            if ('index' === $file || in_array($file, static::$templates)) {
                 continue;
             }
 
@@ -55,9 +52,7 @@ class Theme
     }
 
     /**
-     * Get the blade template loading order
-     *
-     * @return array
+     * Get the blade template loading order.
      */
     public static function get_template_hierarchy(): array
     {
