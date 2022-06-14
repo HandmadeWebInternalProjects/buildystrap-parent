@@ -9,10 +9,19 @@ export const generateModuleID = (type: string) => {
 };
 
 export const recursifyID = (item: any) => {
-  if (!Array.isArray(item)) {
+  if (item.uuid || item.uuid === "") {
+    item.uuid = generateModuleID(item.type);
+  }
+  const items =
+    ((Array.isArray(item) && item) ||
+      item?.rows ||
+      item?.columns ||
+      item?.modules) ??
+    [];
+  if (!Array.isArray(items)) {
     return false;
   }
-  item.forEach((el) => {
+  items.forEach((el: any) => {
     if (el.uuid || el.uuid === "") {
       el.uuid = generateModuleID(el.type);
     }

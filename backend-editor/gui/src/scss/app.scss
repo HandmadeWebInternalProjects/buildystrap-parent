@@ -6,6 +6,9 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+$enable-grid-classes: false;
+$enable-cssgrid: true;
+
 $all-colors: map-merge-multiple(
   $blues,
   $indigos,
@@ -54,8 +57,23 @@ $utilities: map-merge(
   )
 );
 
-$enable-grid-classes: false;
-$enable-cssgrid: true;
+$utilities: map-merge(
+  $utilities,
+  (
+    "color":
+      map-merge(
+        map-get($utilities, "color"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "color"), "values"),
+              ($all-colors)
+            ),
+          state: hover,
+        )
+      ),
+  )
+);
 
 $utilities: map-merge(
   $utilities,
@@ -65,6 +83,16 @@ $utilities: map-merge(
       css-variable-name: border-style,
       class: border,
       values: dotted dashed,
+    ),
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "cursor": (
+      property: cursor,
+      values: pointer copy crosshair grab grabbing help move no-drop not-allowed,
     ),
   )
 );

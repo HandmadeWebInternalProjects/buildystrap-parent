@@ -1,12 +1,34 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import { Buildy } from "./components/Buildy";
 
 import App from "./App.vue";
-import draggable from "vuedraggable";
 
 const app = createApp(App);
 app.use(createPinia());
+
+import draggable from "vuedraggable";
 app.component("draggable", draggable);
+
+/* import the fontawesome core */
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+/* import specific icons */
+import {
+  faPlusCircle,
+  faPenToSquare,
+  faCopy,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+/* add icons to the library */
+library.add(faPlusCircle, faPenToSquare, faCopy, faTrash);
+
+/* add font awesome icon component */
+app.component("font-awesome-icon", FontAwesomeIcon);
 
 const bundledComponents = import.meta.globEager("./components/**/*.vue");
 Object.entries(bundledComponents).forEach(([path, m]) => {
@@ -17,44 +39,6 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
       ?.replace(/\.\w+$/, "") || "";
   app.component(name, m.default);
 });
-
-const Buildy = class {
-  app: any;
-  bootingCallbacks: { (data: string): void }[];
-  bootedCallbacks: { (data: string): void }[];
-
-  constructor(app: any) {
-    this.app = app;
-    this.bootingCallbacks = [];
-    this.bootedCallbacks = [];
-  }
-
-  booting(callback: (arg: any) => void) {
-    this.bootingCallbacks.push(callback);
-  }
-
-  booted(callback: (arg: any) => void) {
-    this.bootedCallbacks.push(callback);
-  }
-
-  register(name: string, component: object) {
-    this.app.component(name, component);
-  }
-
-  start() {
-    this.bootingCallbacks.forEach((callback: (arg: any) => void) =>
-      callback(this.app)
-    );
-    this.bootingCallbacks = [];
-
-    app.mount("#app");
-
-    this.bootedCallbacks.forEach((callback: (arg: any) => void) =>
-      callback(this.app)
-    );
-    this.bootedCallbacks = [];
-  }
-};
 
 declare global {
   interface Window {

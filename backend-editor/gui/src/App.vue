@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { recursifyID } from "./utils/id.js";
+import { recursifyID } from "./utils/id";
 
 // interface Section {
 //   type: string;
@@ -40,7 +40,7 @@ const builder = ref([
             type: "column",
             modules: [
               {
-                id: "6",
+                uuid: "6",
                 type: "text-module",
                 fields: ["text-fieldtype"],
                 value: "",
@@ -83,7 +83,7 @@ const builder = ref([
     ],
   },
   {
-    uuid: "1",
+    uuid: "10",
     type: "section",
     rows: [
       {
@@ -143,10 +143,11 @@ recursifyID(builder.value);
       item-key="uuid"
       class="section-draggable d-flex flex-grow flex-column gap-3 group"
     >
-      <template #item="{ element }">
+      <template #item="{ element, index }">
         <component
           :is="`grid-${element.type}`"
-          :key="`element-${element.uuid}`"
+          :section-index="index"
+          :sections="builder"
           :component="element"
         />
       </template>

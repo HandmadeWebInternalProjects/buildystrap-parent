@@ -17,13 +17,13 @@ const modules = ref(props.component?.modules || []);
       v-model="modules"
       group="modules"
       item-key="uuid"
-      class="section-draggable d-flex flex-grow flex-column p-3 gap-3 group"
+      class="section-draggable h-100 d-flex flex-grow flex-column p-3 gap-3 group"
     >
-      <template #item="{ element }">
-        <component
-          :is="element.type"
-          :key="`modules-${element.uuid}`"
+      <template #item="{ element, index }">
+        <module-base
           :component="element"
+          :columns="modules"
+          :component-index="index"
         />
       </template>
     </draggable>
