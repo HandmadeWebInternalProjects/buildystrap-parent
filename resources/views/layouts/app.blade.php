@@ -1,7 +1,7 @@
 @include('partials.header')
 
-@if(json_decode(get_the_content()))
-    {!! Buildystrap\Builder::renderFromContent(get_the_content())->render() !!}
+@if(Buildystrap\Builder::isEnabled())
+    {!! the_content() !!}
 @else
     @yield('content')
 @endif

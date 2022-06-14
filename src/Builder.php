@@ -42,8 +42,37 @@ class Builder implements Bootable
 
             view()->addNamespace('builder-modules', static::paths());
 
+            add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
+
             do_action('buildystrap::builder::boot');
         }
+    }
+
+    public static function the_content($content)
+    {
+        /*
+         * Possibly crude way of intercepting the output of the_content()
+         * We intercept the_content() via a Wordpress filter.
+         * Normally you would modify $content in some way and then return it as normal.
+         *
+         * However in this case, we want the raw unformatted content.
+         */
+        if (static::isEnabled()) {
+            if (is_admin() || defined('REST_REQUEST') && REST_REQUEST) {
+                return; // Stop shortcode render on backend Or via REST.
+            }
+
+            // Get the current post.
+            $post = get_queried_object();
+
+            return static::renderFromContent($post->post_content)->render();
+        }
+
+        /*
+         * If the Page Builder was not enabled on this post.
+         * Return the content, as is.
+         */
+        return $content;
     }
 
     public static function enabledTypes(): array

@@ -7503,14 +7503,13 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
   setup(__props) {
     var _a;
     const props = __props;
-    const modules = ref(((_a = props.component) == null ? void 0 : _a.modules) || []);
+    const modules = ref((_a = props.component) == null ? void 0 : _a.modules);
     return (_ctx, _cache) => {
       const _component_module_base = resolveComponent("module-base");
       const _component_draggable = resolveComponent("draggable");
       return openBlock(), createElementBlock("div", _hoisted_1$3, [
         createVNode(_component_draggable, {
-          modelValue: modules.value,
-          "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => modules.value = $event),
+          list: modules.value,
           group: "modules",
           "item-key": "uuid",
           class: "section-draggable h-100 d-flex flex-grow flex-column p-3 gap-3 group"
@@ -7523,7 +7522,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
             }, null, 8, ["component", "columns", "component-index"])
           ]),
           _: 1
-        }, 8, ["modelValue"])
+        }, 8, ["list"])
       ]);
     };
   }
@@ -7626,8 +7625,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
         _hoisted_2,
         createBaseVNode("div", _hoisted_3, [
           createVNode(_component_draggable, {
-            modelValue: rows.value,
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => rows.value = $event),
+            list: rows.value,
             group: "rows",
             handle: ".sortable-handle",
             "item-key": "uuid",
@@ -7641,7 +7639,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
               }, null, 8, ["row-index", "rows", "component"])
             ]),
             _: 1
-          }, 8, ["modelValue"]),
+          }, 8, ["list"]),
           createVNode(_component_module_controls, {
             class: "justify-content-end px-3 py-2 text-800",
             direction: "row",
@@ -7794,63 +7792,19 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             ]
           }
         ]
-      },
-      {
-        uuid: "10",
-        type: "section",
-        rows: [
-          {
-            uuid: "2",
-            type: "row",
-            columns: [
-              {
-                uuid: "3",
-                type: "column",
-                modules: []
-              },
-              {
-                uuid: "4",
-                type: "column",
-                modules: []
-              },
-              {
-                uuid: "5",
-                type: "column",
-                modules: []
-              }
-            ]
-          },
-          {
-            uuid: "2",
-            type: "row",
-            columns: [
-              {
-                uuid: "3",
-                type: "column",
-                modules: []
-              },
-              {
-                uuid: "4",
-                type: "column",
-                modules: []
-              },
-              {
-                uuid: "5",
-                type: "column",
-                modules: []
-              }
-            ]
-          }
-        ]
       }
     ]);
     recursifyID(builder.value);
+    watch(builder, (newValue) => {
+      console.log(newValue);
+    }, {
+      deep: true
+    });
     return (_ctx, _cache) => {
       const _component_draggable = resolveComponent("draggable");
       return openBlock(), createElementBlock("div", _hoisted_1, [
         createVNode(_component_draggable, {
-          modelValue: builder.value,
-          "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => builder.value = $event),
+          list: builder.value,
           handle: ".sortable-handle",
           group: "sections",
           "item-key": "uuid",
@@ -7864,7 +7818,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             }, null, 8, ["section-index", "sections", "component"]))
           ]),
           _: 1
-        }, 8, ["modelValue"])
+        }, 8, ["list"])
       ]);
     };
   }
