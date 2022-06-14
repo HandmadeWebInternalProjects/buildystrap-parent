@@ -82,7 +82,7 @@ class Builder implements Bootable
         return array_merge($defaults, config('builder.enabled_post_types', []));
     }
 
-    public static function isEnabled(): bool
+    public static function isEnabled(int $id = 0): bool
     {
         $isEnabled = false;
 
@@ -90,10 +90,10 @@ class Builder implements Bootable
             $screen = get_current_screen();
 
             if (in_array($screen->post_type, static::enabledTypes()) && 'post' === $screen->base) {
-                $isEnabled = get_field('buildy::enabled');
+                $isEnabled = get_field('buildy::enabled', $id);
             }
         } else {
-            $isEnabled = get_field('buildy::enabled');
+            $isEnabled = get_field('buildy::enabled', $id);
         }
 
         return $isEnabled ?? false;
