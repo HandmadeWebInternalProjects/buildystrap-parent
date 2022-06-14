@@ -84,7 +84,9 @@ class Builder implements Bootable
 
     public static function isEnabled(int $id = 0): bool
     {
-        $isEnabled = false;
+        if (!function_exists('get_field')) {
+            return false;
+        }
 
         if (is_admin()) {
             $screen = get_current_screen();
