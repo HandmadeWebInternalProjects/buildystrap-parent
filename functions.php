@@ -1,7 +1,5 @@
 <?php
 
-use Buildystrap\Builder;
-
 defined('ABSPATH') || exit;
 
 /*
@@ -33,8 +31,6 @@ require $composer;
 |
 */
 \Roots\bootloader();
-
-add_action('init', [Builder::class, 'boot']);
 
 // Load Understrap functions
 require __DIR__.'/understrap/functions.php';

@@ -6,13 +6,15 @@ use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Modules\Text;
 use Buildystrap\Builder\Renderer;
+use Buildystrap\Interfaces\Bootable;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class Builder
+class Builder implements Bootable
 {
     protected static bool $booted = false;
+
     protected static array $addons = [];
 
     protected static array $modules = [
@@ -40,7 +42,7 @@ class Builder
 
             view()->addNamespace('builder-modules', static::paths());
 
-            do_action('buildystrap::boot');
+            do_action('buildystrap::builder::boot');
         }
     }
 
