@@ -165,7 +165,7 @@ recursifyID(builder.value);
   cursor: grab;
   border: 1px solid rgba(0, 0, 0, 0.06);
   background-color: rgba(0, 0, 0, 0.03);
-  background-image: url(/public/images/drag-dots.svg);
+  background-image: url(/images/drag-dots.svg);
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }

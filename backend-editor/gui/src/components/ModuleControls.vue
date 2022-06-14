@@ -66,7 +66,16 @@ const parentArray = ref(props.value || []);
 const index = ref(props.index);
 const component = ref(props.component);
 
-const settings = computed(() => {
+interface Icon {
+  icon: string[];
+  title: string;
+  class?: string;
+  order: number;
+  component?: any;
+  action?: () => void;
+}
+
+const settings = computed((): Icon[] => {
   return Object.values({
     menu: {
       icon: ["fas", "pen-to-square"],
