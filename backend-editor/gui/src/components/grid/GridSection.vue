@@ -27,7 +27,7 @@ const rows = ref(props.component?.rows);
     <div class="sortable-handle absolute top-0 left-0 h-full"></div>
     <div class="flex-grow-1">
       <draggable
-        v-model="rows"
+        :list="rows"
         group="rows"
         handle=".sortable-handle"
         item-key="uuid"
