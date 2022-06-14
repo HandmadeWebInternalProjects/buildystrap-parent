@@ -61,7 +61,7 @@ class Theme implements Bootable
     public static function enqueue_styles()
     {
         $stylesheet = is_plugin_active('woocommerce/woocommerce.php') ? 'parent-style-woocommerce.css' : 'parent-style.css';
-        wp_enqueue_style('parent-style', get_template_directory_uri()."/dist/css/{$stylesheet}", [], wp_get_theme('buildystrap-parent')->get('Version'));
+        wp_enqueue_style('parent-style', get_template_directory_uri()."/public/css/{$stylesheet}", [], wp_get_theme('buildystrap-parent')->get('Version'));
 
         // Font Awesome
         wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
@@ -74,7 +74,7 @@ class Theme implements Bootable
      */
     public static function enqueue_scripts()
     {
-        wp_enqueue_script('parent-script', get_template_directory_uri().'/dist/js/parent-script.js', [], wp_get_theme('buildystrap-parent')->get('Version'));
+        wp_enqueue_script('parent-script', get_template_directory_uri().'/public/js/parent-script.js', [], wp_get_theme('buildystrap-parent')->get('Version'));
     }
 
     /**

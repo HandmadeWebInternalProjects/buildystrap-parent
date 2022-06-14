@@ -29,8 +29,8 @@ class BuilderBackend implements Bootable
         // wp_dequeue_script('jquery');
         // wp_enqueue_script('jquery', '', [], false, false);
 
-        wp_enqueue_style('buildy-editor', get_template_directory_uri().'/dist/css/buildy-editor.css', [], wp_get_theme('buildystrap-parent')->get('Version'));
-        wp_enqueue_script('buildy-editor', get_template_directory_uri().'/dist/js/buildy-editor.js', [], wp_get_theme('buildystrap-parent')->get('Version'), true);
+        wp_enqueue_style('buildy-editor', get_template_directory_uri().'/public/css/buildy-editor.css', [], wp_get_theme('buildystrap-parent')->get('Version'));
+        wp_enqueue_script('buildy-editor', get_template_directory_uri().'/public/js/buildy-editor.js', [], wp_get_theme('buildystrap-parent')->get('Version'), true);
     }
 
     public static function admin_edit_form_after_editor($post)

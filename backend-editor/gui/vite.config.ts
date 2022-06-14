@@ -1,3 +1,5 @@
+const path = require('path')
+
 import { fileURLToPath, URL } from "url";
 
 import { defineConfig } from "vite";
@@ -11,7 +13,16 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  rollupOutputOptions: {
-    entryFileNames: "[name].js",
-  },
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, 'src/main.ts'),
+      name: 'script',
+      fileName: (format) => `script.${format}.js`
+    },
+    // rollupOptions: {
+    //   output: {
+    //     entryFileNames: "[name].js",
+    //   },
+    // }
+  }
 });
