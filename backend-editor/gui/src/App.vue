@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { recursifyID } from "./utils/id";
 
 // interface Section {
@@ -82,62 +82,72 @@ const builder = ref([
       },
     ],
   },
-  {
-    uuid: "10",
-    type: "section",
-    rows: [
-      {
-        uuid: "2",
-        type: "row",
-        columns: [
-          {
-            uuid: "3",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "4",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "5",
-            type: "column",
-            modules: [],
-          },
-        ],
-      },
-      {
-        uuid: "2",
-        type: "row",
-        columns: [
-          {
-            uuid: "3",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "4",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "5",
-            type: "column",
-            modules: [],
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   uuid: "10",
+  //   type: "section",
+  //   rows: [
+  //     {
+  //       uuid: "2",
+  //       type: "row",
+  //       columns: [
+  //         {
+  //           uuid: "3",
+  //           type: "column",
+  //           modules: [],
+  //         },
+  //         {
+  //           uuid: "4",
+  //           type: "column",
+  //           modules: [],
+  //         },
+  //         {
+  //           uuid: "5",
+  //           type: "column",
+  //           modules: [],
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       uuid: "2",
+  //       type: "row",
+  //       columns: [
+  //         {
+  //           uuid: "3",
+  //           type: "column",
+  //           modules: [],
+  //         },
+  //         {
+  //           uuid: "4",
+  //           type: "column",
+  //           modules: [],
+  //         },
+  //         {
+  //           uuid: "5",
+  //           type: "column",
+  //           modules: [],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ]);
 recursifyID(builder.value);
+
+watch(
+  builder,
+  (newValue) => {
+    console.log(newValue);
+  },
+  {
+    deep: true,
+  }
+);
 </script>
 
 <template>
   <div class="container py-3 d-flex flex-column rounded gap-3">
     <draggable
-      v-model="builder"
+      :list="builder"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
