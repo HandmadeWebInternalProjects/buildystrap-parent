@@ -13,8 +13,6 @@
         <component
           v-if="setting.component"
           :component="component"
-          :value="value"
-          :index="index"
           :is="setting.component"
         />
         <font-awesome-icon
@@ -80,7 +78,7 @@ const settings = computed((): Icon[] => {
     menu: {
       icon: ["fas", "pen-to-square"],
       title: "Open settings modal",
-      // action: this.openModal,
+      component: "off-canvas",
       order: 10,
     },
     add: {
@@ -108,7 +106,7 @@ const settings = computed((): Icon[] => {
     delete: {
       icon: ["fas", "trash"],
       title: "Delete this module",
-      // action: this.removeModule,
+      action: removeModule,
       order: 40,
     },
     // ...this.customSettings,
@@ -117,12 +115,12 @@ const settings = computed((): Icon[] => {
     .sort((a: { order: number }, b: { order: number }) => a.order - b.order);
 });
 
-const addModule = () => {
+const addModule = (): void => {
   // const newModule = createModule(UCFirst(this.type || this.component.type));
   // this.value.splice(this.index + 1, 0, newModule);
 };
 
-const cloneModule = () => {
+const cloneModule = (): void => {
   let clone = JSON.parse(JSON.stringify(component.value));
   // Generate ID's for each nested module
   recursifyID(clone);
@@ -131,11 +129,11 @@ const cloneModule = () => {
   parentArray.value.splice(index.value + 1, 0, clone);
 };
 
-const removeModule = () => {
-  // this.value.splice(this.index, 1);
+const removeModule = (): void => {
+  parentArray.value.splice(index.value, 1);
 };
 
-const openModal = () => {
+const openModal = (): void => {
   // this.$modals.open(name);
 };
 </script>

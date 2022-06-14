@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Buildy } from "./components/Buildy";
+import "bootstrap";
 
 import App from "./App.vue";
 
