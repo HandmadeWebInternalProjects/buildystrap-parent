@@ -66,14 +66,6 @@ class Builder implements Bootable
             'params' => array_merge(['path' => $path], $params),
         ];
 
-        if (!empty($params['stylesheet'])) {
-            wp_enqueue_style("buildystrap-module:{$slug}", $params['stylesheet']);
-        }
-
-        if (!empty($params['script'])) {
-            wp_enqueue_script("buildystrap-module:{$slug}", $params['script']);
-        }
-
         if (!in_array($path, static::paths())) {
             view()->addNamespace('builder-modules', $path);
             static::$paths[] = $path;

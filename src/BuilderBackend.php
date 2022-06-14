@@ -28,9 +28,19 @@ class BuilderBackend implements Bootable
         // Load jQuery in the header rather than footer.
         // wp_dequeue_script('jquery');
         // wp_enqueue_script('jquery', '', [], false, false);
-
         wp_enqueue_style('buildy-editor', get_template_directory_uri().'/public/css/buildy-editor.css', [], wp_get_theme('buildystrap-parent')->get('Version'));
         wp_enqueue_script('buildy-editor', get_template_directory_uri().'/public/js/buildy-editor.js', [], wp_get_theme('buildystrap-parent')->get('Version'), true);
+
+        $addons = Builder::addons();
+        foreach ($addons as $slug => $addon) {
+            if (!empty($addon['params']['stylesheet'])) {
+                wp_enqueue_style("buildy-module:{$slug}", $addon['params']['stylesheet'], ['buildy-editor']);
+            }
+
+            if (!empty($addon['params']['script'])) {
+                wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ['buildy-editor'], false, true);
+            }
+        }
     }
 
     public static function admin_edit_form_after_editor($post)
