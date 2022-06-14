@@ -19,12 +19,18 @@ class BuilderBackend implements Bootable
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor']);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor']);
 
+            include 'acf.php';
+
             do_action('buildy::builder-backend::boot');
         }
     }
 
     public static function admin_enqueue_scripts()
     {
+        if (!Builder::isEnabled()) {
+            return;
+        }
+
         // Load jQuery in the header rather than footer.
         // wp_dequeue_script('jquery');
         // wp_enqueue_script('jquery', '', [], false, false);
@@ -45,6 +51,10 @@ class BuilderBackend implements Bootable
 
     public static function admin_edit_form_after_editor($post)
     {
+        if (!Builder::isEnabled()) {
+            return;
+        }
+
         // This Div Loads Vue
         echo '<div id="app"></div>';
 
@@ -54,11 +64,10 @@ class BuilderBackend implements Bootable
 
     public static function admin_wp_default_editor($r)
     {
-        // TODO conditional check if pagebuilder is enabled for this post type
-        if (true) {
-            return 'html'; // HTML / Text tab in TinyMCE
+        if (!Builder::isEnabled()) {
+            return $r;
         }
 
-        return $r;
+        return 'html'; // HTML / Text tab in TinyMCE
     }
 }

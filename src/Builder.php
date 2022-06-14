@@ -46,7 +46,31 @@ class Builder implements Bootable
         }
     }
 
-    // add_action('buildystrap::boot', function () {
+    public static function enabledTypes(): array
+    {
+        $defaults = ['page'];
+
+        return array_merge($defaults, config('builder.enabled_post_types', []));
+    }
+
+    public static function isEnabled(): bool
+    {
+        $isEnabled = false;
+
+        if (is_admin()) {
+            $screen = get_current_screen();
+
+            if (in_array($screen->post_type, static::enabledTypes()) && 'post' === $screen->base) {
+                $isEnabled = get_field('buildy::enabled');
+            }
+        } else {
+            $isEnabled = get_field('buildy::enabled');
+        }
+
+        return $isEnabled ?? false;
+    }
+
+    // add_action('buildystrap::builder::boot', function () {
     //     Builder::registerAddon(
     //         'markdown',
     //         Markdown::class,
