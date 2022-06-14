@@ -7,6 +7,7 @@ use stdClass;
 
 abstract class Module implements ModuleInterface
 {
+    protected string $uuid;
     protected bool $enabled;
 
     protected string $type;
@@ -16,12 +17,28 @@ abstract class Module implements ModuleInterface
 
     public function __construct(stdClass $module)
     {
+        $this->uuid = $module->uuid;
         $this->enabled = $module->enabled ?? false;
 
         $this->type = $module->type;
 
         $this->value = $module->value;
         $this->raw = $module->value;
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function enabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function type(): string
+    {
+        return $this->type;
     }
 
     public function augment(): static
