@@ -45,7 +45,7 @@ class BuilderBackend implements Bootable
     public static function admin_wp_default_editor($r)
     {
         // TODO conditional check if pagebuilder is enabled for this post type
-        if (false) {
+        if (true) {
             return 'html'; // HTML / Text tab in TinyMCE
         }
 
