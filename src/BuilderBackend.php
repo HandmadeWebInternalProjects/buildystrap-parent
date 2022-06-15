@@ -31,21 +31,24 @@ class BuilderBackend implements Bootable
             return;
         }
 
-        $guiPath = 'public/builder-gui';
-        $manifestFile = get_template_directory()."/{$guiPath}/manifest.json";
+        $manifest = new ViteManifest('manifest.json', get_template_directory().'/public/builder-gui', get_template_directory_uri().'/public/builder-gui');
 
-        if (file_exists($manifestFile) && $manifest = json_decode(file_get_contents($manifestFile), true)) {
-            $jsFile = $manifest['src/main.ts']['file'];
+        $jsEntryFile = 'src/main.ts';
 
+        if ($manifest->has($jsEntryFile)) {
             // Load jQuery in the header rather than footer.
             // wp_dequeue_script('jquery');
             // wp_enqueue_script('jquery', '', [], false, false);
 
-            foreach ($manifest['src/main.ts']['css'] as $cssFile) {
-                wp_enqueue_style("buildy-editor:{$cssFile}", get_template_directory_uri()."/{$guiPath}/{$cssFile}");
-            }
+            if (!config('builder.dev_mode')) {
+                foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
+                    wp_enqueue_style("buildy-editor:{$cssFile}", $manifest->getUrlFor($cssFile));
+                }
 
-            wp_enqueue_script("buildy-editor:{$jsFile}", get_template_directory_uri()."/{$guiPath}/{$jsFile}", [], false, true);
+                if ($jsFile = $manifest->getScriptFor($jsEntryFile)) {
+                    wp_enqueue_script("buildy-editor:{$jsFile}", $manifest->getUrlFor($jsFile), [], false, true);
+                }
+            }
 
             $addons = Builder::addons();
             foreach ($addons as $slug => $addon) {
@@ -71,6 +74,10 @@ class BuilderBackend implements Bootable
 
         // This style hides the Wordpress text editor.
         echo '<style>#postdivrich { display: none !important; }</style>';
+
+        if (config('builder.dev_mode')) {
+            echo '<script type="module" src="http://localhost:3000/src/main.ts"></script>';
+        }
     }
 
     public static function admin_wp_default_editor($r)
