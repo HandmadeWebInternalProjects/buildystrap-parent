@@ -31,20 +31,31 @@ class BuilderBackend implements Bootable
             return;
         }
 
-        // Load jQuery in the header rather than footer.
-        // wp_dequeue_script('jquery');
-        // wp_enqueue_script('jquery', '', [], false, false);
-        wp_enqueue_style('buildy-editor', get_template_directory_uri().'/public/css/buildy-editor.css', [], wp_get_theme('buildystrap-parent')->get('Version'));
-        wp_enqueue_script('buildy-editor', get_template_directory_uri().'/public/js/buildy-editor.js', [], wp_get_theme('buildystrap-parent')->get('Version'), true);
+        $guiPath = 'public/builder-gui';
+        $manifestFile = get_template_directory()."/{$guiPath}/manifest.json";
 
-        $addons = Builder::addons();
-        foreach ($addons as $slug => $addon) {
-            if (!empty($addon['params']['stylesheet'])) {
-                wp_enqueue_style("buildy-module:{$slug}", $addon['params']['stylesheet'], ['buildy-editor']);
+        if (file_exists($manifestFile) && $manifest = json_decode(file_get_contents($manifestFile), true)) {
+            $jsFile = $manifest['src/main.ts']['file'];
+
+            // Load jQuery in the header rather than footer.
+            // wp_dequeue_script('jquery');
+            // wp_enqueue_script('jquery', '', [], false, false);
+
+            foreach ($manifest['src/main.ts']['css'] as $cssFile) {
+                wp_enqueue_style("buildy-editor:{$cssFile}", get_template_directory_uri()."/{$guiPath}/{$cssFile}");
             }
 
-            if (!empty($addon['params']['script'])) {
-                wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ['buildy-editor'], false, true);
+            wp_enqueue_script("buildy-editor:{$jsFile}", get_template_directory_uri()."/{$guiPath}/{$jsFile}", [], false, true);
+
+            $addons = Builder::addons();
+            foreach ($addons as $slug => $addon) {
+                if (!empty($addon['params']['stylesheet'])) {
+                    wp_enqueue_style("buildy-module:{$slug}", $addon['params']['stylesheet'], ['buildy-editor']);
+                }
+
+                if (!empty($addon['params']['script'])) {
+                    wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ['buildy-editor'], false, true);
+                }
             }
         }
     }
