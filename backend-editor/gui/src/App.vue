@@ -1,30 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { recursifyID } from "./utils/id";
 
-// interface Section {
-//   type: string;
-//   uuid: string;
-//   rows: Row[];
-// }
-
-// interface Row {
-//   type: string;
-//   uuid: string;
-//   columns: Column[];
-// }
-
-// interface Column {
-//   type: string;
-//   uuid: string;
-//   modules: Module[];
-// }
-
-// interface Module {
-//   type: string;
-//   uuid: string;
-//   value: object[];
-// }
+const pageBuilderOutput = computed((): string => {
+  if (builder.value.length) {
+    return JSON.stringify(builder.value);
+  }
+  return "";
+});
 
 const builder = ref([
   {
@@ -145,6 +128,12 @@ watch(
 </script>
 
 <template>
+  <textarea
+    id="buider-output"
+    class="mt-1 mb-4 w-full invisible"
+    name="content"
+    :value="pageBuilderOutput"
+  />
   <div class="container py-3 d-flex flex-column rounded gap-3">
     <draggable
       :list="builder"
