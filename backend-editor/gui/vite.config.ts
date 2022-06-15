@@ -14,15 +14,11 @@ export default defineConfig({
     },
   },
   build: {
-    lib: {
-      entry: path.resolve(__dirname, 'src/main.ts'),
-      name: 'script',
-      fileName: (format) => `script.${format}.js`
-    },
-    // rollupOptions: {
-    //   output: {
-    //     entryFileNames: "[name].js",
-    //   },
-    // }
+    outDir: '../../public/builder-gui',
+    emptyOutDir: true,
+    manifest: true,
+    rollupOptions: {
+      input: 'src/main.ts'
+    }
   }
 });

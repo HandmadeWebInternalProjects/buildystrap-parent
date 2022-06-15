@@ -1,3 +1,5 @@
+import 'vite/modulepreload-polyfill'
+
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Buildy } from "./components/Buildy";

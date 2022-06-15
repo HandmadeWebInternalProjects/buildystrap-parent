@@ -31,20 +31,34 @@ class BuilderBackend implements Bootable
             return;
         }
 
-        // Load jQuery in the header rather than footer.
-        // wp_dequeue_script('jquery');
-        // wp_enqueue_script('jquery', '', [], false, false);
-        wp_enqueue_style('buildy-editor', get_template_directory_uri().'/public/css/buildy-editor.css', [], wp_get_theme('buildystrap-parent')->get('Version'));
-        wp_enqueue_script('buildy-editor', get_template_directory_uri().'/public/js/buildy-editor.js', [], wp_get_theme('buildystrap-parent')->get('Version'), true);
+        $manifest = new ViteManifest('manifest.json', get_template_directory().'/public/builder-gui', get_template_directory_uri().'/public/builder-gui');
 
-        $addons = Builder::addons();
-        foreach ($addons as $slug => $addon) {
-            if (!empty($addon['params']['stylesheet'])) {
-                wp_enqueue_style("buildy-module:{$slug}", $addon['params']['stylesheet'], ['buildy-editor']);
+        $jsEntryFile = 'src/main.ts';
+
+        if ($manifest->has($jsEntryFile)) {
+            // Load jQuery in the header rather than footer.
+            // wp_dequeue_script('jquery');
+            // wp_enqueue_script('jquery', '', [], false, false);
+
+            if (!config('builder.dev_mode')) {
+                foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
+                    wp_enqueue_style("buildy-editor:{$cssFile}", $manifest->getUrlFor($cssFile));
+                }
+
+                if ($jsFile = $manifest->getScriptFor($jsEntryFile)) {
+                    wp_enqueue_script("buildy-editor:{$jsFile}", $manifest->getUrlFor($jsFile), [], false, true);
+                }
             }
 
-            if (!empty($addon['params']['script'])) {
-                wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ['buildy-editor'], false, true);
+            $addons = Builder::addons();
+            foreach ($addons as $slug => $addon) {
+                if (!empty($addon['params']['stylesheet'])) {
+                    wp_enqueue_style("buildy-module:{$slug}", $addon['params']['stylesheet'], ['buildy-editor']);
+                }
+
+                if (!empty($addon['params']['script'])) {
+                    wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ['buildy-editor'], false, true);
+                }
             }
         }
     }
@@ -60,6 +74,10 @@ class BuilderBackend implements Bootable
 
         // This style hides the Wordpress text editor.
         echo '<style>#postdivrich { display: none !important; }</style>';
+
+        if (config('builder.dev_mode')) {
+            echo '<script type="module" src="http://localhost:3000/src/main.ts"></script>';
+        }
     }
 
     public static function admin_wp_default_editor($r)

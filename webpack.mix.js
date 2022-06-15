@@ -27,13 +27,6 @@ mix.options({
     }
 });
 
-mix.js('resources/js/frontend.js', 'public/js/parent-script.js')
-    .sass('resources/sass/frontend.scss', 'public/css/parent-style.css')
-    .sass('resources/sass/frontend-woocommerce.scss', 'public/css/parent-style-woocommerce.css');
-
-mix.copyDirectory('backend-editor/gui/dist/images', 'public/images');
-
-mix.copy('backend-editor/gui/dist/style.css', 'public/css/buildy-editor.css');
-
-// mix.copy('backend-editor/gui/dist/script.umd.js', 'public/css/buildy-editor.js');
-mix.copy('backend-editor/gui/dist/script.es.js', 'public/js/buildy-editor.js');
+mix.js('resources/js/frontend.js', 'public/parent-script.js')
+    .sass('resources/sass/frontend.scss', 'public/parent-style.css')
+    .sass('resources/sass/frontend-woocommerce.scss', 'public/parent-style-woocommerce.css');
