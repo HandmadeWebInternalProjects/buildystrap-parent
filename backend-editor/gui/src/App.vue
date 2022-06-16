@@ -134,7 +134,7 @@ watch(
     name="content"
     :value="pageBuilderOutput"
   />
-  <div class="container py-3 d-flex flex-column rounded gap-3">
+  <div class="container d-flex flex-column rounded gap-3">
     <draggable
       :list="builder"
       handle=".sortable-handle"
@@ -162,10 +162,22 @@ watch(
   padding: 8px;
   cursor: -webkit-grab;
   cursor: grab;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background-color: rgba(0, 0, 0, 0.03);
-  background-image: url(../images/drag-dots.svg);
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: $gray-100;
+  border-right: 1px solid $gray-300;
+  &::before {
+    width: 12px;
+    height: 24px;
+    content: "";
+    display: block;
+    background-image: radial-gradient($gray-400 0.05rem, transparent 0);
+    background-repeat: both;
+    background-size: 6px 6px;
+    background-position: 1px -1px;
+    position: absolute;
+  }
 }
 </style>

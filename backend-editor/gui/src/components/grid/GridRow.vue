@@ -31,7 +31,7 @@ const rowIndex = ref(props.rowIndex);
         </template>
       </div>
       <module-controls
-        class="justify-content-end px-3 py-2 text-800"
+        class="justify-content-end px-3 py-2 text-600"
         direction="row"
         :component="row"
         :value="rows"

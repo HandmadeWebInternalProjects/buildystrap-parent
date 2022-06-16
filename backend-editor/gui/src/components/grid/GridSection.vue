@@ -38,7 +38,7 @@ const rows = ref(props.component?.rows);
         </template>
       </draggable>
       <module-controls
-        class="justify-content-end px-3 py-2 text-800"
+        class="justify-content-end px-3 py-2 text-600"
         direction="row"
         :component="section"
         :value="sections"

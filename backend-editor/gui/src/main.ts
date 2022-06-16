@@ -1,4 +1,4 @@
-import 'vite/modulepreload-polyfill'
+import "vite/modulepreload-polyfill";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
@@ -22,13 +22,14 @@ import {
   faPenToSquare,
   faCopy,
   faTrash,
+  faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* add icons to the library */
-library.add(faPlusCircle, faPenToSquare, faCopy, faTrash);
+library.add(faPlusCircle, faPenToSquare, faCopy, faTrash, faEllipsisVertical);
 
 /* add font awesome icon component */
 app.component("font-awesome-icon", FontAwesomeIcon);

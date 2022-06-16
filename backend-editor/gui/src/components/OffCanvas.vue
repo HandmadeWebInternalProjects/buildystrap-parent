@@ -41,7 +41,7 @@ const handleClose = () => {
       'shown.bs.offcanvas': handleOpen,
       'hidden.bs.offcanvas': handleClose,
     }"
-    class="offcanvas offcanvas-end text-600"
+    class="offcanvas offcanvas-end text-600 py-4"
     tabindex="-1"
     :id="`module-${component.uuid}`"
     aria-labelledby="offcanvasRightLabel"
