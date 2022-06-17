@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+
 const props = defineProps({
   component: {
     type: Object,
@@ -17,13 +18,11 @@ const props = defineProps({
 
 const component = ref(props.component);
 const columns = ref(props.columns);
-const componentIndex = ref(props.componentIndex);
+const componentIndex = computed((): number => props.componentIndex);
 </script>
 <template>
   <div class="bg-700 shadow-sm text-white rounded-1 d-flex">
-    <div
-      class="sortable-handle bg-600 border-800 absolute top-0 left-0 h-full"
-    ></div>
+    <div class="sortable-handle absolute top-0 left-0 h-full"></div>
     <div class="d-flex flex-column align-items-center flex-grow-1">
       <span class="d-block py-1">{{ component.type }}</span>
       <module-controls

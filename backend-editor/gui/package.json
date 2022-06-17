@@ -18,6 +18,7 @@
     "@popperjs/core": "^2.11.5",
     "bootstrap": "^5.2.0-beta1",
     "pinia": "^2.0.14",
+    "portal-vue": "3.0.0-beta.0",
     "uuid": "^8.3.2",
     "vue": "^3.2.36",
     "vuedraggable": "^4.1.0"

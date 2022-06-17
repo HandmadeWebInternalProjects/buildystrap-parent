@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+
 const props = defineProps({
   component: {
     type: Object,
     required: true,
   },
-  rows: {
+  parentArray: {
     type: Array,
     required: true,
   },
@@ -17,8 +18,8 @@ const props = defineProps({
 
 const columns = ref(props.component?.columns || []);
 const row = ref(props.component);
-const rows = ref(props.rows);
-const rowIndex = ref(props.rowIndex);
+const parentArray = ref(props.parentArray);
+const rowIndex = computed(() => props.rowIndex);
 </script>
 
 <template>
@@ -34,7 +35,7 @@ const rowIndex = ref(props.rowIndex);
         class="justify-content-end px-3 py-2 text-600"
         direction="row"
         :component="row"
-        :value="rows"
+        :value="parentArray"
         :index="rowIndex"
       />
     </div>

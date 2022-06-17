@@ -68,7 +68,7 @@ class BuilderBackend implements Bootable
         if (!Builder::isEnabled()) {
             return;
         }
-
+        
         // This Div Loads Vue
         echo '<div id="app"></div>';
 

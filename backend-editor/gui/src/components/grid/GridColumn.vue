@@ -8,7 +8,9 @@ const props = defineProps({
   },
 });
 
+const component = ref(props.component);
 const modules = ref(props.component?.modules);
+const toggleModuleSelection = ref(false);
 </script>
 
 <template>
@@ -30,7 +32,11 @@ const modules = ref(props.component?.modules);
         />
       </template>
       <template #footer>
-        <button class="btn btn-outline-secondary mx-auto btn-sm">
+        <button
+          @click="toggleModuleSelection = !toggleModuleSelection"
+          type="button"
+          class="btn btn-outline-secondary mx-auto btn-sm"
+        >
           <font-awesome-icon
             :icon="['fas', 'plus-circle']"
             width="15"
@@ -39,9 +45,19 @@ const modules = ref(props.component?.modules);
             class="cursor-pointer pulse"
           ></font-awesome-icon>
           Add Module
-        </button></template
-      >
+        </button>
+      </template>
     </draggable>
+    <buildy-stack
+      @close="toggleModuleSelection = false"
+      v-if="toggleModuleSelection"
+      half
+      name="module-selector"
+    >
+      <div class="p-5">
+        <p>Hello from the Module Selector Stack</p>
+      </div>
+    </buildy-stack>
   </div>
 </template>
 

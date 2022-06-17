@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { recursifyID } from "../utils/id";
+import { recursifyID } from "../../utils/id";
 // import { UCFirst } from "../../functions/helpers";
 // import { createModule } from "../../factories/modules/moduleFactory";
 // import { EvaIcon } from "vue-eva-icons";
@@ -60,8 +60,8 @@ const props = defineProps({
   type: String,
 });
 
+const index = computed(() => props.index);
 const parentArray = ref(props.value || []);
-const index = ref(props.index);
 const component = ref(props.component);
 
 interface Icon {
@@ -78,7 +78,7 @@ const settings = computed((): Icon[] => {
     menu: {
       icon: ["fas", "pen-to-square"],
       title: "Open settings modal",
-      component: "off-canvas",
+      component: "edit-module",
       order: 10,
     },
     add: {

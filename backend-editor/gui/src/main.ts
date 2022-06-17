@@ -1,14 +1,24 @@
 import "vite/modulepreload-polyfill";
 
-import { createApp } from "vue";
-import { createPinia } from "pinia";
-import { Buildy } from "./components/Buildy";
+import { createApp, provide } from "vue";
+import type { BuildyInterface } from "./components/Buildy";
+import App from "./App.vue";
+const app = createApp(App);
+
 import "bootstrap";
 
-import App from "./App.vue";
+declare global {
+  interface Window {
+    Buildy: BuildyInterface;
+    builderContent?: string;
+  }
+}
 
-const app = createApp(App);
+import { createPinia } from "pinia";
 app.use(createPinia());
+
+import PortalVue from "portal-vue";
+app.use(PortalVue);
 
 import draggable from "vuedraggable";
 app.component("draggable", draggable);
@@ -44,12 +54,10 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
   app.component(name, m.default);
 });
 
-declare global {
-  interface Window {
-    Buildy?: any;
-  }
-}
-
+import { Buildy } from "./components/Buildy";
 window.Buildy = new Buildy(app);
+
+import { $buildy } from "./injection_keys/buildy";
+provide($buildy, window.Buildy);
 
 window.Buildy.start();

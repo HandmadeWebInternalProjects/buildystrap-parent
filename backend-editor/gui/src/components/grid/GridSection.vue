@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const props = defineProps({
   component: {
     type: Object,
     required: true,
   },
-  sections: {
+  parentArray: {
     type: Array,
     required: true,
   },
@@ -17,8 +17,8 @@ const props = defineProps({
 });
 
 const section = ref(props.component || {});
-const sections = ref(props.sections || []);
-const sectionIndex = ref(props.sectionIndex || 0);
+const parentArray = ref(props.parentArray || []);
+const sectionIndex = computed(() => props.sectionIndex || 0);
 const rows = ref(props.component?.rows);
 </script>
 
@@ -34,14 +34,18 @@ const rows = ref(props.component?.rows);
         class="section-draggable d-flex flex-grow-1 p-3 pb-0 flex-grow flex-column gap-3 group"
       >
         <template #item="{ element, index }">
-          <grid-row :row-index="index" :rows="rows" :component="element" />
+          <grid-row
+            :row-index="index"
+            :parent-array="rows"
+            :component="element"
+          />
         </template>
       </draggable>
       <module-controls
         class="justify-content-end px-3 py-2 text-600"
         direction="row"
         :component="section"
-        :value="sections"
+        :value="parentArray"
         :index="sectionIndex"
       />
     </div>

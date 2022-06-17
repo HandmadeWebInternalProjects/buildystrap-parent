@@ -1,125 +1,20 @@
 <script setup lang="ts">
-import { ref, watch, computed } from "vue";
-import { recursifyID } from "./utils/id";
+import { ref, watch } from "vue";
+import { useStacks } from "./components/stacks/useStacks";
 
-const pageBuilderOutput = computed((): string => {
-  if (builder.value.length) {
-    return JSON.stringify(builder.value);
-  }
-  return "";
-});
+const contentEl = document.getElementById("content");
+const builder = ref([]);
 
-const builder = ref([
-  {
-    uuid: "1",
-    type: "section",
-    rows: [
-      {
-        uuid: "2",
-        type: "row",
-        columns: [
-          {
-            uuid: "3",
-            type: "column",
-            modules: [
-              {
-                uuid: "6",
-                type: "text-module",
-                fields: ["text-fieldtype"],
-                value: "",
-              },
-            ],
-          },
-          {
-            uuid: "4",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "5",
-            type: "column",
-            modules: [],
-          },
-        ],
-      },
-      {
-        uuid: "2",
-        type: "row",
-        columns: [
-          {
-            uuid: "3",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "4",
-            type: "column",
-            modules: [],
-          },
-          {
-            uuid: "5",
-            type: "column",
-            modules: [],
-          },
-        ],
-      },
-    ],
-  },
-  // {
-  //   uuid: "10",
-  //   type: "section",
-  //   rows: [
-  //     {
-  //       uuid: "2",
-  //       type: "row",
-  //       columns: [
-  //         {
-  //           uuid: "3",
-  //           type: "column",
-  //           modules: [],
-  //         },
-  //         {
-  //           uuid: "4",
-  //           type: "column",
-  //           modules: [],
-  //         },
-  //         {
-  //           uuid: "5",
-  //           type: "column",
-  //           modules: [],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       uuid: "2",
-  //       type: "row",
-  //       columns: [
-  //         {
-  //           uuid: "3",
-  //           type: "column",
-  //           modules: [],
-  //         },
-  //         {
-  //           uuid: "4",
-  //           type: "column",
-  //           modules: [],
-  //         },
-  //         {
-  //           uuid: "5",
-  //           type: "column",
-  //           modules: [],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
-]);
-recursifyID(builder.value);
+const { getStacks } = useStacks();
+
+if (contentEl && contentEl.innerText) {
+  builder.value = JSON.parse(contentEl.innerText);
+}
 
 watch(
   builder,
   (newValue) => {
-    console.log(newValue);
+    contentEl && (contentEl.innerText = JSON.stringify(newValue));
   },
   {
     deep: true,
@@ -128,13 +23,10 @@ watch(
 </script>
 
 <template>
-  <textarea
-    id="buider-output"
-    class="mt-1 mb-4 w-full invisible"
-    name="content"
-    :value="pageBuilderOutput"
-  />
-  <div class="container d-flex flex-column rounded gap-3">
+  <stacks v-if="getStacks.length"></stacks>
+  <portal-target name="destination" multiple />
+
+  <div class="container shadow-sm d-flex flex-column rounded gap-3 py-4 px-0">
     <draggable
       :list="builder"
       handle=".sortable-handle"
@@ -146,7 +38,7 @@ watch(
         <component
           :is="`grid-${element.type}`"
           :section-index="index"
-          :sections="builder"
+          :parent-array="builder"
           :component="element"
         />
       </template>
@@ -166,8 +58,8 @@ watch(
   align-items: center;
   justify-content: center;
   position: relative;
-  background: $gray-100;
-  border-right: 1px solid $gray-300;
+  background: $gray-600;
+  border-right: 1px solid $gray-800;
   &::before {
     width: 12px;
     height: 24px;
