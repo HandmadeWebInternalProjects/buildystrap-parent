@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends($template ?? 'layouts.default')
 
 @section('content')
 
