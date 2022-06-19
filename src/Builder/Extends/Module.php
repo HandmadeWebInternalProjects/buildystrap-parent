@@ -2,7 +2,7 @@
 
 namespace Buildystrap\Builder\Extends;
 
-use Exception;
+use Buildystrap\Builder;
 use Illuminate\Support\Collection;
 use stdClass;
 
@@ -28,13 +28,9 @@ abstract class Module
 
         $this->fields = collect($module->fields)->map(function ($item, $handle) {
             if ($blueprintField = (object) $this->blueprint()->get($handle)) {
-                $field = $blueprintField->type;
-
-                if (!class_extends($field, Field::class)) {
-                    throw new Exception("{$field} does not extend ".Field::class);
+                if ($field = Builder::getField($blueprintField->type)) {
+                    return new $field($item->value);
                 }
-
-                return new $field($item->value);
             }
         })->filter();
 
