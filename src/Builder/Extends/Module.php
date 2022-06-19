@@ -15,7 +15,7 @@ abstract class Module
     protected Collection $fields;
     protected Collection $values;
 
-    abstract protected function blueprint(): array;
+    abstract protected function blueprint(): Collection;
 
     abstract protected function augment();
 
@@ -26,18 +26,17 @@ abstract class Module
 
         $this->type = $module->type;
 
-        $this->fields = collect([]);
-        $this->values = collect($module->values);
+        $this->fields = collect($module->fields)->map(function ($item, $handle) {
+            if ($blueprintField = (object) $this->blueprint()->get($handle)) {
+                $field = $blueprintField->type;
 
-        foreach ($this->blueprint() as $key => $field) {
-            if ($value = $this->values->get($key)) {
                 if (!class_extends($field, Field::class)) {
                     throw new Exception("{$field} does not extend ".Field::class);
                 }
 
-                $this->fields->put($key, new $field($value));
+                return new $field($item->value);
             }
-        }
+        })->filter();
 
         $this->augment();
     }
