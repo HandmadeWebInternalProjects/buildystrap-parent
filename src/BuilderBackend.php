@@ -42,11 +42,12 @@ class BuilderBackend implements Bootable
 
             if (!config('builder.dev_mode')) {
                 foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
-                    wp_enqueue_style("buildy-editor:{$cssFile}", $manifest->getUrlFor($cssFile));
+                    wp_enqueue_style('buildy-editor', $manifest->getUrlFor($cssFile));
+                    break;
                 }
 
                 if ($jsFile = $manifest->getScriptFor($jsEntryFile)) {
-                    wp_enqueue_script("buildy-editor:{$jsFile}", $manifest->getUrlFor($jsFile), [], false, true);
+                    wp_enqueue_script('buildy-editor', $manifest->getUrlFor($jsFile), [], false, true);
                 }
             }
 
@@ -68,7 +69,7 @@ class BuilderBackend implements Bootable
         if (!Builder::isEnabled()) {
             return;
         }
-        
+
         // This Div Loads Vue
         echo '<div id="app"></div>';
 

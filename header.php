@@ -2,5 +2,4 @@
 
 defined('ABSPATH') || exit;
 
-// Blade
-echo view('partials.header', get_defined_vars())->render();
+echo view('partials.header')->render();

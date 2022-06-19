@@ -4,7 +4,7 @@ namespace Buildystrap;
 
 use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Module;
-use Buildystrap\Builder\Modules\Text;
+use Buildystrap\Builder\Modules\Blurb;
 use Buildystrap\Builder\Renderer;
 use Buildystrap\Interfaces\Bootable;
 use Exception;
@@ -18,7 +18,7 @@ class Builder implements Bootable
     protected static array $addons = [];
 
     protected static array $modules = [
-        'text' => Text::class,
+        'blurb' => Blurb::class,
     ];
 
     protected static array $paths = [];
