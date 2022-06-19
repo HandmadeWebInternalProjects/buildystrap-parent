@@ -1,4 +1,4 @@
-@extends($template ?? 'layouts.default')
+@extends(extendable_layout())
 
 @section('content')
 

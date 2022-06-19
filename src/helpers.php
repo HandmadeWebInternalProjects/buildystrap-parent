@@ -1,5 +1,22 @@
 <?php
 
+use Illuminate\Support\Str;
+
+if (!function_exists('extendable_layout')) {
+    function extendable_layout($post = null, string $default = 'default')
+    {
+        if ($template = get_page_template_slug($post)) {
+            $template = Str::replaceLast('.php', '', $template);
+            $template = Str::replace('/', '.', $template);
+            $template = Str::replaceFirst('page-templates', '', $template);
+        } else {
+            $template = $default;
+        }
+
+        return "layouts.{$template}";
+    }
+}
+
 if (!function_exists('add_filters')) {
     /**
      * Bind single callback to multiple filters.
