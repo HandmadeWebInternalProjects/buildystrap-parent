@@ -57,6 +57,11 @@ abstract class Module
         return $this->enabled;
     }
 
+    public function field(string $field)
+    {
+        return $this->fields()->get($field);
+    }
+
     public function fields(): Collection
     {
         return $this->fields;
