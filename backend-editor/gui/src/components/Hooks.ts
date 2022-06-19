@@ -4,8 +4,12 @@ interface HookConstructor {
 
 export interface HookInterface {
   queue: { [key: string]: any };
-  add(name: string, callback: (arg: any) => void, priority: number): void;
-  run(name: string, args: any): void;
+  add(
+    name: string,
+    callback: (resolve: any, reject: any, ...args: any[]) => void,
+    priority?: number
+  ): void;
+  run(name: string, args: any): Promise<any>;
   remove(name: string, callback: (arg: any) => void): void;
   clear(name: string): void;
   getCallbacks(name: string): any[];
@@ -27,7 +31,11 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    *    console.log('myHook ran!')
    * })
    */
-  add(name: string, callback: any, priority = 10) {
+  add(
+    name: string,
+    callback: (resolve: any, reject: any, ...args: any[]) => void,
+    priority = 10
+  ) {
     if (this.queue[name] === undefined) {
       this.queue[name] = [];
     }

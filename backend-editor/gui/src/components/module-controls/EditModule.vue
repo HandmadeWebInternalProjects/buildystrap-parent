@@ -28,7 +28,7 @@ const settingsToggle = ref(false);
     name="module-settings"
   >
     <div class="p-5">
-      <p>Hello from the {{ component.type }} Editor Stack</p>
+      <component :is="component.type" />
     </div>
   </buildy-stack>
 </template>

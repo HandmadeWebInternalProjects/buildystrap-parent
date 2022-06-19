@@ -83,7 +83,6 @@ const portalName: Ref<string | null> = ref(null);
 // const escBinding = ref(null);
 
 const isTopStack = computed(() => {
-  console.log(getStacks.value.length, depth.value);
   return getStacks.value.length === depth.value;
 });
 

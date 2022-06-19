@@ -5,7 +5,7 @@ import type { BuildyInterface } from "./components/Buildy";
 import App from "./App.vue";
 const app = createApp(App);
 
-import "bootstrap";
+// import "bootstrap";
 
 declare global {
   interface Window {

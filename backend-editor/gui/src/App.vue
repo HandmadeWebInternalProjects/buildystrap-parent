@@ -26,7 +26,7 @@ watch(
   <stacks v-if="getStacks.length"></stacks>
   <portal-target name="destination" multiple />
 
-  <div class="container shadow-sm d-flex flex-column rounded gap-3 py-4 px-0">
+  <div class="container shadow-sm d-flex flex-column rounded gap-3 mt-4 px-0">
     <draggable
       :list="builder"
       handle=".sortable-handle"
@@ -48,6 +48,10 @@ watch(
 
 <style lang="scss">
 @import "./scss/app.scss";
+
+#app {
+  padding-top: 1rem;
+}
 
 .sortable-handle {
   width: 1rem;

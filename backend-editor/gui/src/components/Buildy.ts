@@ -1,4 +1,5 @@
 import Bus from "./Events";
+import Components from "./Components";
 import Hooks from "./Hooks";
 import type { Component } from "vue";
 
@@ -10,9 +11,9 @@ export interface BuildyInterface {
   app: any;
   bootingCallbacks: { (arg: any): void }[];
   bootedCallbacks: { (arg: any): void }[];
-  components: object[];
   $bus: typeof Bus;
   $hooks: typeof Hooks;
+  $components: typeof Components;
   booting(callback: (arg: any) => void): void;
   booted(callback: (arg: any) => void): void;
   registerComponent(name: string, component: Component): void;
@@ -23,17 +24,17 @@ export const Buildy: BuildyConstructor = class Buildy {
   app: any;
   bootingCallbacks: any[];
   bootedCallbacks: any[];
-  components: { name: string; component: any }[];
   $bus: typeof Bus;
   $hooks: typeof Hooks;
+  $components: typeof Components;
 
   constructor(app: any) {
     this.app = app;
     this.bootingCallbacks = [];
     this.bootedCallbacks = [];
-    this.components = [];
     this.$bus = Bus;
     this.$hooks = Hooks;
+    this.$components = Components;
   }
 
   booting(callback: any) {
@@ -45,7 +46,7 @@ export const Buildy: BuildyConstructor = class Buildy {
   }
 
   registerComponent(name: string, component: any) {
-    this.components.push({ name, component });
+    this.$components.add({ name, component });
     this.app.component(name, component);
   }
 
