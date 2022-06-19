@@ -2,13 +2,13 @@
 
 namespace Buildystrap\Builder\Extends;
 
-use Buildystrap\Builder\Interfaces\LayoutInterface;
-
-abstract class Layout implements LayoutInterface
+abstract class Layout
 {
     protected string $uuid;
     protected bool $enabled;
     protected string $type;
+
+    abstract public function render(): string;
 
     public function __construct($instance)
     {

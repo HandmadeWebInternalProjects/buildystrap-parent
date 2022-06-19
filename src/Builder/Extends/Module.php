@@ -2,18 +2,22 @@
 
 namespace Buildystrap\Builder\Extends;
 
-use Buildystrap\Builder\Interfaces\ModuleInterface;
+use Exception;
+use Illuminate\Support\Collection;
 use stdClass;
 
-abstract class Module implements ModuleInterface
+abstract class Module
 {
     protected string $uuid;
+    protected string $type;
     protected bool $enabled;
 
-    protected string $type;
+    protected Collection $fields;
+    protected Collection $values;
 
-    protected mixed $value;
-    protected string $raw;
+    abstract protected function blueprint(): array;
+
+    abstract protected function augment();
 
     public function __construct(stdClass $module)
     {
@@ -22,8 +26,20 @@ abstract class Module implements ModuleInterface
 
         $this->type = $module->type;
 
-        $this->value = $module->value;
-        $this->raw = $module->value;
+        $this->fields = collect([]);
+        $this->values = collect($module->values);
+
+        foreach ($this->blueprint() as $key => $field) {
+            if ($value = $this->values->get($key)) {
+                if (!class_extends($field, Field::class)) {
+                    throw new Exception("{$field} does not extend ".Field::class);
+                }
+
+                $this->fields->put($key, new $field($value));
+            }
+        }
+
+        $this->augment();
     }
 
     public function uuid(): string
@@ -31,21 +47,19 @@ abstract class Module implements ModuleInterface
         return $this->uuid;
     }
 
-    public function enabled(): bool
-    {
-        return $this->enabled;
-    }
-
     public function type(): string
     {
         return $this->type;
     }
 
-    public function augment(): static
+    public function enabled(): bool
     {
-        $this->value = $this->value();
+        return $this->enabled;
+    }
 
-        return $this;
+    public function fields(): Collection
+    {
+        return $this->fields;
     }
 
     public function render(): string
@@ -55,17 +69,17 @@ abstract class Module implements ModuleInterface
             'builder::moduleNotFound',
         ];
 
-        return view()->first($views)->with('module', $this->augment())->render();
+        return view()->first($views)->with('module', $this)->render();
     }
 
-    public function __call($name, $arguments): mixed
-    {
-        if (property_exists($this, $name)) {
-            return $this->$name;
-        }
+    // public function __call($name, $arguments): mixed
+    // {
+    //     if (property_exists($this, $name)) {
+    //         return $this->$name;
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     public function __toString(): string
     {
