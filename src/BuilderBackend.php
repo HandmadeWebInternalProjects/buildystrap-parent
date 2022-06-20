@@ -15,7 +15,7 @@ class BuilderBackend implements Bootable
         if (!static::$booted) {
             static::$booted = true;
 
-            add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts']);
+            add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], 1000);
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
 
@@ -40,14 +40,16 @@ class BuilderBackend implements Bootable
             // wp_dequeue_script('jquery');
             // wp_enqueue_script('jquery', '', [], false, false);
 
+            $jsFile = $manifest->getScriptFor($jsEntryFile);
+
             if (!config('builder.dev_mode')) {
                 foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
                     wp_enqueue_style('buildy-editor', $manifest->getUrlFor($cssFile));
                     break;
                 }
 
-                if ($jsFile = $manifest->getScriptFor($jsEntryFile)) {
-                    wp_enqueue_script('buildy-editor', $manifest->getUrlFor($jsFile), [], false, true);
+                if ($jsFile) {
+                    wp_enqueue_script("buildy-editor:{$jsFile}", $manifest->getUrlFor($jsFile), [], false, true);
                 }
             }
 
@@ -58,7 +60,7 @@ class BuilderBackend implements Bootable
                 }
 
                 if (!empty($addon['params']['script'])) {
-                    wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ['buildy-editor'], false, true);
+                    wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ["buildy-editor:{$jsFile}"], false, true);
                 }
             }
         }

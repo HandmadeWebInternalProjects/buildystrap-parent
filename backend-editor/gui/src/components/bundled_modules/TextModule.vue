@@ -1,13 +1,39 @@
 <script lang="ts" setup>
-import { ref, toRefs, onBeforeMount } from "vue";
-import { useModule, ModuleProps } from "../bundled_modules/useModule";
+import { ref, onBeforeMount } from "vue";
+import { useModule } from "../bundled_modules/useModule";
 
-const props = defineProps(ModuleProps);
+const props = defineProps({
+  type: {
+    type: String,
+    default: "",
+  },
+  uuid: {
+    type: String,
+    default: "",
+  },
+  handle: {
+    type: String,
+    default: "",
+  },
+  value: {
+    type: [String, Object, Array],
+    default: "",
+  },
+  fields: {
+    type: Array,
+    default: () => [],
+  },
+  config: {
+    type: Object,
+    default: () => ({}),
+  },
+  meta: {
+    type: Object,
+    default: () => ({}),
+  },
+});
 
 const fields = ref(props.fields);
-
-const emit = defineEmits(["update", "updateMeta"]);
-const { save } = useModule();
 
 const handleUpdate = (value: any) => {
   console.log(value);
@@ -23,7 +49,7 @@ fields.value.push({
 onBeforeMount(() => {
   window.Buildy.$hooks.run("text-fieldtype-init", {
     fields,
-    addField(field: typeof ModuleProps): void {
+    addField(field: typeof props): void {
       fields.value.push(field);
       console.log({ fields: fields.value });
     },

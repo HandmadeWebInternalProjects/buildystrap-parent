@@ -1,15 +1,45 @@
 <script lang="ts" setup>
-import { withProps, useFieldType } from "./useFieldType";
+import { useFieldType } from "./useFieldType";
 import { toRefs } from "vue";
 
-const props = defineProps({ ...withProps() });
+const props = defineProps({
+  type: {
+    type: String,
+    default: "",
+  },
+  uuid: {
+    type: String,
+    default: "",
+  },
+  handle: {
+    type: String,
+    default: "",
+  },
+  value: {
+    type: [String, Object, Array],
+    default: "",
+  },
+  fields: {
+    type: Array,
+    default: () => [],
+  },
+  config: {
+    type: Object,
+    default: () => ({}),
+  },
+  meta: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+
 const { handle, config, value } = toRefs(props);
 
 const textConfigDefaults = {
   input_type: "text",
 };
 
-config.value = { ...textConfigDefaults, ...config.value };
+const configWithDefaults = { ...textConfigDefaults, ...config.value };
 
 const emit = defineEmits(["update", "updateMeta"]);
 const { update } = useFieldType(emit);
@@ -19,7 +49,7 @@ const { update } = useFieldType(emit);
   <div>
     <input
       :handle="handle"
-      :type="config.input_type"
+      :type="configWithDefaults.input_type"
       :value="value"
       @input="update(($event?.target as HTMLInputElement)?.value)"
       placeholder="text fieldtype"
