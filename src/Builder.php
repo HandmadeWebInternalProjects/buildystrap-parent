@@ -207,8 +207,8 @@ class Builder implements Bootable
 
     public static function renderFromContent(string $content)
     {
-        $container = new Content($content);
+        $content = new Content($content);
 
-        return new Renderer($container->container());
+        return new Renderer($content->container());
     }
 }

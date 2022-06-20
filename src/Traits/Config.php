@@ -4,7 +4,7 @@ namespace Buildystrap\Traits;
 
 use Illuminate\Support\Arr;
 
-trait hasConfig
+trait Config
 {
     protected array $config = [];
 
