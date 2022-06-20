@@ -53,15 +53,12 @@ class BuilderBackend implements Bootable
                 }
             }
 
-            $addons = Builder::addons();
-            foreach ($addons as $slug => $addon) {
-                if (!empty($addon['params']['stylesheet'])) {
-                    wp_enqueue_style("buildy-module:{$slug}", $addon['params']['stylesheet'], ['buildy-editor']);
-                }
+            foreach (Builder::getBackendScripts() as $handle => $script) {
+                wp_enqueue_script("buildy-module:{$handle}", $script, ['buildy-editor'], false, false);
+            }
 
-                if (!empty($addon['params']['script'])) {
-                    wp_enqueue_script("buildy-module:{$slug}", $addon['params']['script'], ["buildy-editor:{$jsFile}"], false, true);
-                }
+            foreach (Builder::getBackendStyles() as $handle => $style) {
+                wp_enqueue_style("buildy-module:{$handle}", $style, ['buildy-editor']);
             }
         }
     }

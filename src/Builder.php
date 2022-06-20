@@ -3,8 +3,8 @@
 namespace Buildystrap;
 
 use Buildystrap\Builder\Content;
+use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
-use Buildystrap\Builder\Modules\Blurb;
 use Buildystrap\Builder\Renderer;
 use Buildystrap\Interfaces\Bootable;
 use Exception;
@@ -15,37 +15,141 @@ class Builder implements Bootable
 {
     protected static bool $booted = false;
 
-    protected static array $addons = [];
+    protected static array $fields = [
+        'text' => \Buildystrap\Builder\Fields\Text::class,
+    ];
 
     protected static array $modules = [
-        'blurb' => Blurb::class,
+        'blurb' => \Buildystrap\Builder\Modules\Blurb::class,
     ];
 
     protected static array $paths = [];
+    protected static array $scripts = [];
+    protected static array $styles = [];
 
     public static function boot()
     {
         if (!static::$booted) {
             static::$booted = true;
 
-            $paths = collect(config('view.paths'))
+            add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
+
+            static::bootFields();
+            static::bootModules();
+            static::bootPaths();
+
+            do_action('buildystrap::builder::boot');
+        }
+    }
+
+    protected static function bootFields()
+    {
+        foreach (static::$fields as $field) {
+            if (!class_extends($field, Field::class)) {
+                throw new Exception("{$field} does not extend ".Field::class);
+            }
+        }
+    }
+
+    public static function registerField(string $handle, string $field)
+    {
+        if (!class_extends($field, Field::class)) {
+            throw new Exception("{$field} does not extend ".Field::class);
+        }
+
+        static::$fields[Str::slug($handle)] = $field;
+
+        return static::fields();
+    }
+
+    public static function fields()
+    {
+        return static::$fields;
+    }
+
+    public static function getField(string $handle)
+    {
+        return Arr::get(static::fields(), Str::slug($handle));
+    }
+
+    protected static function bootModules()
+    {
+        foreach (static::$modules as $module) {
+            if (!class_extends($module, Module::class)) {
+                throw new Exception("{$module} does not extend ".Module::class);
+            }
+        }
+    }
+
+    public static function registerModule(string $handle, string $module)
+    {
+        if (!class_extends($module, Module::class)) {
+            throw new Exception("{$module} does not extend ".Module::class);
+        }
+
+        static::$modules[Str::slug($handle)] = $module;
+
+        return static::modules();
+    }
+
+    public static function modules()
+    {
+        return static::$modules;
+    }
+
+    public static function getModule(string $handle)
+    {
+        return Arr::get(static::modules(), Str::slug($handle));
+    }
+
+    public static function registerPath(string $path)
+    {
+        if (!in_array($path, static::paths())) {
+            view()->addNamespace('builder-modules', $path);
+            static::$paths[] = $path;
+        }
+    }
+
+    protected static function bootPaths()
+    {
+        $paths = collect(config('view.paths'))
                 ->map(function ($path) {
                     return "{$path}/builder";
                 })->toArray();
 
-            view()->addNamespace('builder', $paths);
+        view()->addNamespace('builder', $paths);
 
-            static::$paths = collect($paths)
+        static::$paths = collect($paths)
                 ->map(function ($path) {
                     return "{$path}/modules";
                 })->toArray();
 
-            view()->addNamespace('builder-modules', static::paths());
+        view()->addNamespace('builder-modules', static::paths());
+    }
 
-            add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
+    public static function paths()
+    {
+        return static::$paths;
+    }
 
-            do_action('buildystrap::builder::boot');
-        }
+    public static function getBackendScripts(): array
+    {
+        return static::$scripts;
+    }
+
+    public static function registerBackendScript(string $handle, string $script)
+    {
+        static::$scripts[Str::slug($handle)] = $script;
+    }
+
+    public static function getBackendStyles(): array
+    {
+        return static::$styles;
+    }
+
+    public static function registerBackendStyle(string $handle, string $style)
+    {
+        static::$styles[Str::slug($handle)] = $style;
     }
 
     public static function the_content($content)
@@ -99,69 +203,6 @@ class Builder implements Bootable
         }
 
         return $isEnabled ?? false;
-    }
-
-    // add_action('buildystrap::builder::boot', function () {
-    //     Builder::registerAddon(
-    //         'markdown',
-    //         Markdown::class,
-    //         __DIR__.'/resources/views',
-    //         [
-    //             'stylesheet' => '',
-    //             'script' => '',
-    //         ]
-    //     );
-    // });
-    public static function registerAddon(string $slug, string $module, string $path, array $params = [])
-    {
-        $slug = Str::slug($slug);
-
-        static::$addons[$slug] = [
-            'module' => $module,
-            'params' => array_merge(['path' => $path], $params),
-        ];
-
-        if (!in_array($path, static::paths())) {
-            view()->addNamespace('builder-modules', $path);
-            static::$paths[] = $path;
-        }
-
-        static::registerModule($slug, $module);
-
-        return static::addons();
-    }
-
-    public static function paths()
-    {
-        return static::$paths;
-    }
-
-    public static function addons()
-    {
-        return static::$addons;
-    }
-
-    public static function registerModule(string $slug, string $module)
-    {
-        $slug = Str::slug($slug);
-
-        if (!class_extends($module, Module::class)) {
-            throw new Exception("{$module} does not extend ".Module::class);
-        }
-
-        static::$modules[$slug] = $module;
-
-        return static::modules();
-    }
-
-    public static function modules()
-    {
-        return static::$modules;
-    }
-
-    public static function getModule(string $module)
-    {
-        return Arr::get(static::modules(), Str::slug($module));
     }
 
     public static function renderFromContent(string $content)
