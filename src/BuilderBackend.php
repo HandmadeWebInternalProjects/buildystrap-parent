@@ -15,7 +15,7 @@ class BuilderBackend implements Bootable
         if (!static::$booted) {
             static::$booted = true;
 
-            add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], 1000);
+            add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], PHP_INT_MAX);
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
 
