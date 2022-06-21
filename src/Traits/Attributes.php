@@ -20,7 +20,7 @@ trait Attributes
     }
 
     /**
-     * @param  array  $attributes
+     * @param array $attributes
      * @return array
      */
     public function setAttributes(array $attributes): array
@@ -29,8 +29,8 @@ trait Attributes
     }
 
     /**
-     * @param  string  $key
-     * @param  mixed|null  $default
+     * @param string $key
+     * @param mixed|null $default
      * @return mixed
      */
     public function getAttribute(string $key, mixed $default = null): mixed
@@ -39,8 +39,8 @@ trait Attributes
     }
 
     /**
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      * @return array
      */
     public function setAttribute(string $key, mixed $value): array

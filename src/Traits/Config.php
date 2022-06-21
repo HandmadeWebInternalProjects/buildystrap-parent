@@ -4,6 +4,8 @@ namespace Buildystrap\Traits;
 
 use Illuminate\Support\Arr;
 
+use function is_array;
+
 trait Config
 {
     /**
@@ -12,8 +14,8 @@ trait Config
     protected array $config = [];
 
     /**
-     * @param  string|null  $key
-     * @param  mixed|null  $default
+     * @param string|null $key
+     * @param mixed|null $default
      * @return mixed
      */
     public function getConfig(?string $key = null, mixed $default = null): mixed
@@ -26,8 +28,8 @@ trait Config
     }
 
     /**
-     * @param  array|string  $config
-     * @param  mixed|null  $value
+     * @param array|string $config
+     * @param mixed|null $value
      * @return array
      */
     public function setConfig(array|string $config, mixed $value = null): array

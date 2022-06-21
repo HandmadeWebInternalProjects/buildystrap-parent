@@ -4,6 +4,11 @@ namespace Buildystrap;
 
 use Illuminate\Support\Collection;
 
+use function collect;
+use function file_exists;
+use function file_get_contents;
+use function json_decode;
+
 class ViteManifest
 {
     protected string $file;
@@ -20,7 +25,9 @@ class ViteManifest
 
         $this->items = collect([]);
 
-        if (file_exists("$this->path/$this->file") && $items = json_decode(file_get_contents("$this->path/$this->file"))) {
+        if (file_exists("$this->path/$this->file") && $items = json_decode(
+                file_get_contents("$this->path/$this->file")
+            )) {
             foreach ($items as $item) {
                 $this->items->put($item->src, $item);
             }

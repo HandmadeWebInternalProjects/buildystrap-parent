@@ -5,6 +5,23 @@ namespace Buildystrap;
 use Illuminate\Support\Str;
 use WP_Upgrader;
 
+use function add_action;
+use function add_actions;
+use function add_filters;
+use function array_merge;
+use function cache;
+use function config;
+use function do_action;
+use function get_template_directory_uri;
+use function glob;
+use function is_file;
+use function is_plugin_active;
+use function storage_path;
+use function unlink;
+use function wp_enqueue_script;
+use function wp_enqueue_style;
+use function wp_get_theme;
+
 class Theme
 {
     protected static bool $booted = false;
@@ -54,14 +71,18 @@ class Theme
 
     /**
      * Enqueue Theme Styles.
-     *
-     * @return void
      */
     public static function enqueue_styles(): void
     {
-        $stylesheet = is_plugin_active('woocommerce/woocommerce.php') ? 'parent-style-woocommerce.css' : 'parent-style.css';
-        wp_enqueue_style('parent-style', get_template_directory_uri()."/public/{$stylesheet}", [],
-            wp_get_theme('buildystrap-parent')->get('Version'));
+        $stylesheet = is_plugin_active(
+            'woocommerce/woocommerce.php'
+        ) ? 'parent-style-woocommerce.css' : 'parent-style.css';
+        wp_enqueue_style(
+            'parent-style',
+            get_template_directory_uri() . "/public/{$stylesheet}",
+            [],
+            wp_get_theme('buildystrap-parent')->get('Version')
+        );
 
         // Font Awesome
         wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
@@ -69,13 +90,15 @@ class Theme
 
     /**
      * Enqueue Theme Scripts.
-     *
-     * @return void
      */
     public static function enqueue_scripts(): void
     {
-        wp_enqueue_script('parent-script', get_template_directory_uri().'/public/parent-script.js', [],
-            wp_get_theme('buildystrap-parent')->get('Version'));
+        wp_enqueue_script(
+            'parent-script',
+            get_template_directory_uri() . '/public/parent-script.js',
+            [],
+            wp_get_theme('buildystrap-parent')->get('Version')
+        );
     }
 
     /**

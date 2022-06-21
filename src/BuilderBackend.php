@@ -2,6 +2,14 @@
 
 namespace Buildystrap;
 
+use function add_action;
+use function add_filter;
+use function config;
+use function do_action;
+use function get_template_directory_uri;
+use function wp_enqueue_script;
+use function wp_enqueue_style;
+
 class BuilderBackend
 {
     protected static bool $booted = false;
@@ -29,8 +37,10 @@ class BuilderBackend
             return null;
         }
 
-        $manifest = new ViteManifest('manifest.json', get_template_directory().'/public/builder-gui',
-            get_template_directory_uri().'/public/builder-gui');
+        $manifest = new ViteManifest(
+            'manifest.json', get_template_directory() . '/public/builder-gui',
+            get_template_directory_uri() . '/public/builder-gui'
+        );
 
         $jsEntryFile = 'src/main.ts';
 
@@ -71,7 +81,7 @@ class BuilderBackend
         // This Div Loads Vue
         echo '<div id="app"></div>';
 
-        // This style hides the Wordpress text editor.
+        // This style hides the WordPress text editor.
         echo '<style>#postdivrich { display: none !important; }</style>';
 
         if (config('builder.dev_mode')) {

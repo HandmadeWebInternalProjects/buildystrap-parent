@@ -12,6 +12,22 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+use function add_filter;
+use function array_merge;
+use function class_extends;
+use function collect;
+use function config;
+use function do_action;
+use function function_exists;
+use function get_current_screen;
+use function get_field;
+use function get_queried_object;
+use function in_array;
+use function is_admin;
+use function view;
+
+use const REST_REQUEST;
+
 class Builder
 {
     protected static bool $booted = false;
@@ -53,7 +69,7 @@ class Builder
     {
         foreach (static::$fields as $field) {
             if (!class_extends($field, Field::class)) {
-                throw new Exception("$field does not extend ".Field::class);
+                throw new Exception("$field does not extend " . Field::class);
             }
         }
     }
@@ -65,7 +81,7 @@ class Builder
     {
         foreach (static::$modules as $module) {
             if (!class_extends($module, Module::class)) {
-                throw new Exception("$module does not extend ".Module::class);
+                throw new Exception("$module does not extend " . Module::class);
             }
         }
     }
@@ -98,7 +114,7 @@ class Builder
     public static function registerField(string $handle, string $field): array
     {
         if (!class_extends($field, Field::class)) {
-            throw new Exception("$field does not extend ".Field::class);
+            throw new Exception("$field does not extend " . Field::class);
         }
 
         static::$fields[Str::slug($handle)] = $field;
@@ -122,7 +138,7 @@ class Builder
     public static function registerModule(string $handle, string $module): array
     {
         if (!class_extends($module, Module::class)) {
-            throw new Exception("$module does not extend ".Module::class);
+            throw new Exception("$module does not extend " . Module::class);
         }
 
         static::$modules[Str::slug($handle)] = $module;

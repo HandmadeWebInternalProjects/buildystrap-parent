@@ -5,6 +5,8 @@ namespace Buildystrap\Builder\Modules;
 use Buildystrap\Builder\Extends\Module;
 use Illuminate\Support\Collection;
 
+use function collect;
+
 class BlurbModule extends Module
 {
     protected function blueprint(): Collection

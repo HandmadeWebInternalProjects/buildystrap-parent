@@ -6,6 +6,8 @@ use Buildystrap\Builder;
 use Buildystrap\Builder\Extends\Layout;
 use stdClass;
 
+use function view;
+
 class Column extends Layout
 {
     public array $modules = [];

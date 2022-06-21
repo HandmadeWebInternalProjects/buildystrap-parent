@@ -2,6 +2,8 @@
 
 namespace Buildystrap\Builder\Layout;
 
+use function view;
+
 class Container
 {
     protected array $sections = [];

@@ -18,7 +18,7 @@ abstract class Layout
         $this->uuid = $instance->uuid;
         $this->type = $instance->type;
 
-        $this->config = (array) $instance->config ?? [];
+        $this->config = (array)$instance->config ?? [];
     }
 
     public function uuid(): string

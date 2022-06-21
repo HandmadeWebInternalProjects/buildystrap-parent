@@ -8,6 +8,9 @@ use Buildystrap\Traits\Config;
 use Illuminate\Support\Collection;
 use stdClass;
 
+use function collect;
+use function view;
+
 abstract class Module
 {
     use Attributes;
@@ -28,7 +31,7 @@ abstract class Module
         $this->type = $module->type;
 
         $this->fields = collect($module->fields)->map(function ($item, $handle) {
-            if ($blueprintField = (object) $this->blueprint()->get($handle)) {
+            if ($blueprintField = (object)$this->blueprint()->get($handle)) {
                 if ($field = Builder::getField($blueprintField->type)) {
                     return new $field($item->value);
                 }

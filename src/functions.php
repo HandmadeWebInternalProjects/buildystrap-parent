@@ -9,5 +9,5 @@ add_action('acf/init', [BuilderBackend::class, 'boot']);
 add_action('init', [Theme::class, 'boot']);
 
 add_action('buildystrap::builder::boot', function () {
-    Builder::registerBackendScript('text', get_template_directory_uri().'/buildy-addons/test/test.js');
+    Builder::registerBackendScript('text', get_template_directory_uri() . '/buildy-addons/test/test.js');
 });
