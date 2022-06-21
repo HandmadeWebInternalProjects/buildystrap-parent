@@ -64,11 +64,13 @@ const index = computed(() => props.index);
 const parentArray = ref(props.value || []);
 const component = ref(props.component);
 
+const customSettings = ref(props.customSettings);
+
 interface Icon {
-  icon: string[];
-  title: string;
+  icon?: string[];
+  title?: string;
   class?: string;
-  order: number;
+  order?: number;
   component?: any;
   action?: () => void;
 }
@@ -109,7 +111,7 @@ const settings = computed((): Icon[] => {
       action: removeModule,
       order: 40,
     },
-    // ...this.customSettings,
+    ...customSettings.value,
   })
     .filter((el: any) => el)
     .sort((a: { order: number }, b: { order: number }) => a.order - b.order);

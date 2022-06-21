@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount } from "vue";
-import { useModule } from "../bundled_modules/useModule";
+import { reactive, onBeforeMount } from "vue";
+import { storeToRefs } from "pinia";
+import { useBuilderStore } from "../../stores/builder";
+// import { useModule } from "../bundled_modules/useModule";
 
 const props = defineProps({
   type: {
@@ -16,12 +18,8 @@ const props = defineProps({
     default: "",
   },
   value: {
-    type: [String, Object, Array],
+    type: Object,
     default: "",
-  },
-  fields: {
-    type: Array,
-    default: () => [],
   },
   config: {
     type: Object,
@@ -33,38 +31,25 @@ const props = defineProps({
   },
 });
 
-const fields = ref(props.fields);
+const { getFieldDefaults } = useBuilderStore();
+
+const fieldDefaults = getFieldDefaults(props.type);
+
+// Temp, this will come from props or getDeep
+const value = reactive(props.value);
 
 const handleUpdate = (value: any) => {
   console.log(value);
 };
-
-fields.value.push({
-  type: "text-fieldtype",
-  handle: "value",
-  value: "Orig",
-  config: { input_type: "email" },
-});
-
-onBeforeMount(() => {
-  window.Buildy.$hooks.run("text-fieldtype-init", {
-    fields,
-    addField(field: typeof props): void {
-      fields.value.push(field);
-      console.log({ fields: fields.value });
-    },
-  });
-});
 </script>
 <template lang="">
   <component
-    v-for="field in fields"
+    v-for="field in fieldDefaults"
     :handle="field.handle"
-    :config="field.config ?? null"
+    :config="field.config || {}"
     :key="field.handle"
-    :value="field.value"
+    v-model="value[field.handle]"
     :is="field.type"
-    @update="handleUpdate"
   />
 </template>
 

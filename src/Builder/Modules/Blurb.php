@@ -11,7 +11,7 @@ class Blurb extends Module
     {
         return collect([
             'text' => [
-                'type' => 'text',
+                'type' => 'text-fieldtype',
             ],
         ]);
     }

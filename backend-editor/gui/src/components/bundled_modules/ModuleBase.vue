@@ -31,6 +31,7 @@ const componentIndex = computed((): number => props.componentIndex);
         :component="component"
         :value="columns"
         :index="componentIndex"
+        :custom-settings="{ add: false }"
       />
     </div>
   </div>

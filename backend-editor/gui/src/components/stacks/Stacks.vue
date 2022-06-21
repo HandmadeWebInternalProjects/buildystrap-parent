@@ -48,7 +48,7 @@ onUnmounted(() => {
   .stack-container {
     position: absolute;
     inset: 0;
-    transition: transform 0.4s ease;
+    transition: all 0.2s ease;
   }
 
   .stack-overlay {
@@ -58,7 +58,7 @@ onUnmounted(() => {
     z-index: 99;
     opacity: 0.2;
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
 
     &.stack-overlay-fade-enter-active,
     &.stack-overlay-fade-leave-to {
@@ -102,6 +102,7 @@ onUnmounted(() => {
 @media all and (max-width: 980px) {
   .stacks-on-stacks .stack-container {
     transform: translateX(100%) !important;
+    left: 0 !important;
   }
 }
 </style>

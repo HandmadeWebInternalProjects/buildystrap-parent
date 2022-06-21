@@ -8,7 +8,6 @@ const props = defineProps({
   },
 });
 
-const component = ref(props.component);
 const modules = ref(props.component?.modules);
 const toggleModuleSelection = ref(false);
 </script>
@@ -61,4 +60,8 @@ const toggleModuleSelection = ref(false);
   </div>
 </template>
 
-<style lang=""></style>
+<style lang="scss">
+.fade-move {
+  opacity: 0;
+}
+</style>
