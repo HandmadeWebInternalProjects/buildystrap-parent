@@ -47,12 +47,12 @@
             "modules": [
               {
                 "uuid": "fhgju76574y5tgfhdfghg",
-                "type": "blurb",
+                "type": "blurb-module",
                 "config": {},
                 "attributes": {},
                 "fields": {
                   "text": {
-                    "type": "text",
+                    "type": "text-field",
                     "value": "Hello"
                   }
                 }
