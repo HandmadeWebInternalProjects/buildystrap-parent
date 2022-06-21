@@ -2,6 +2,8 @@
 
 namespace Buildystrap\Builder\Layout;
 
+use function view;
+
 class Container
 {
     protected array $sections = [];
@@ -13,11 +15,6 @@ class Container
         }
     }
 
-    public function render(): string
-    {
-        return view('builder::container')->with('container', $this)->render();
-    }
-
     public function sections(): array
     {
         return $this->sections;
@@ -26,5 +23,10 @@ class Container
     public function __toString(): string
     {
         return $this->render();
+    }
+
+    public function render(): string
+    {
+        return view('builder::container')->with('container', $this)->render();
     }
 }

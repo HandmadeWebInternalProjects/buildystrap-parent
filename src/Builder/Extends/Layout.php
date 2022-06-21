@@ -2,23 +2,23 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Config;
 
 abstract class Layout
 {
+    use Attributes;
     use Config;
 
     protected string $uuid;
     protected string $type;
-
-    abstract public function render(): string;
 
     public function __construct($instance)
     {
         $this->uuid = $instance->uuid;
         $this->type = $instance->type;
 
-        $this->config = (array) $instance->config ?? [];
+        $this->config = (array)$instance->config ?? [];
     }
 
     public function uuid(): string
@@ -40,4 +40,6 @@ abstract class Layout
     {
         return $this->render();
     }
+
+    abstract public function render(): string;
 }

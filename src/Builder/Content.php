@@ -4,6 +4,8 @@ namespace Buildystrap\Builder;
 
 use Buildystrap\Builder\Layout\Container;
 
+use function json_decode;
+
 class Content
 {
     public Container $container;

@@ -1,5 +1,7 @@
 <?php
 
+use function Roots\bootloader;
+
 defined('ABSPATH') || exit;
 
 /*
@@ -30,7 +32,7 @@ require $composer;
 | the IoC container for the system binding all of the various parts.
 |
 */
-\Roots\bootloader();
+bootloader();
 
 // Load Understrap functions
 require __DIR__.'/understrap/functions.php';

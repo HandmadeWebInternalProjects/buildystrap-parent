@@ -2,17 +2,33 @@
 
 namespace Buildystrap;
 
-use Buildystrap\Interfaces\Bootable;
 use Illuminate\Support\Str;
 use WP_Upgrader;
 
-class Theme implements Bootable
+use function add_action;
+use function add_actions;
+use function add_filters;
+use function array_merge;
+use function cache;
+use function config;
+use function do_action;
+use function get_template_directory_uri;
+use function glob;
+use function is_file;
+use function is_plugin_active;
+use function storage_path;
+use function unlink;
+use function wp_enqueue_script;
+use function wp_enqueue_style;
+use function wp_get_theme;
+
+class Theme
 {
     protected static bool $booted = false;
 
     protected static array $templates = [];
 
-    public static function boot()
+    public static function boot(): void
     {
         if (!static::$booted) {
             static::$booted = true;
@@ -55,13 +71,18 @@ class Theme implements Bootable
 
     /**
      * Enqueue Theme Styles.
-     *
-     * @return void
      */
-    public static function enqueue_styles()
+    public static function enqueue_styles(): void
     {
-        $stylesheet = is_plugin_active('woocommerce/woocommerce.php') ? 'parent-style-woocommerce.css' : 'parent-style.css';
-        wp_enqueue_style('parent-style', get_template_directory_uri()."/public/{$stylesheet}", [], wp_get_theme('buildystrap-parent')->get('Version'));
+        $stylesheet = is_plugin_active(
+            'woocommerce/woocommerce.php'
+        ) ? 'parent-style-woocommerce.css' : 'parent-style.css';
+        wp_enqueue_style(
+            'parent-style',
+            get_template_directory_uri() . "/public/{$stylesheet}",
+            [],
+            wp_get_theme('buildystrap-parent')->get('Version')
+        );
 
         // Font Awesome
         wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
@@ -69,12 +90,15 @@ class Theme implements Bootable
 
     /**
      * Enqueue Theme Scripts.
-     *
-     * @return void
      */
-    public static function enqueue_scripts()
+    public static function enqueue_scripts(): void
     {
-        wp_enqueue_script('parent-script', get_template_directory_uri().'/public/parent-script.js', [], wp_get_theme('buildystrap-parent')->get('Version'));
+        wp_enqueue_script(
+            'parent-script',
+            get_template_directory_uri() . '/public/parent-script.js',
+            [],
+            wp_get_theme('buildystrap-parent')->get('Version')
+        );
     }
 
     /**
@@ -103,7 +127,7 @@ class Theme implements Bootable
         return array_merge(static::$templates, ['index']);
     }
 
-    public static function clear_on_update($upgrader = null, $options = [])
+    public static function clear_on_update($upgrader = null, $options = []): void
     {
         $shouldClear = false;
 
@@ -120,7 +144,7 @@ class Theme implements Bootable
         }
     }
 
-    public static function optimize_clear()
+    public static function optimize_clear(): void
     {
         // view:clear
         static::view_clear();
@@ -132,7 +156,7 @@ class Theme implements Bootable
         static::clear_compiled();
     }
 
-    public static function view_clear()
+    public static function view_clear(): void
     {
         $path = config('view.compiled');
 
@@ -141,12 +165,12 @@ class Theme implements Bootable
         }
     }
 
-    public static function cache_clear()
+    public static function cache_clear(): void
     {
         cache()->clear();
     }
 
-    public static function clear_compiled()
+    public static function clear_compiled(): void
     {
         if (is_file($servicesPath = storage_path('framework/cache/packages.php'))) {
             @unlink($servicesPath);
