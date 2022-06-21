@@ -34,7 +34,7 @@ const designToggle = ref(false);
         :type="component.type"
         :value="component.value"
       />
-      <div @click="designToggle = true" class="btn">Open Design Tab</div>
+      <div @click="designToggle = true" class="btn mt-3">Open Design Tab</div>
       <buildy-stack
         name="design-tab"
         half
