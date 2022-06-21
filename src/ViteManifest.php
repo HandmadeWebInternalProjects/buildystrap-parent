@@ -20,30 +20,30 @@ class ViteManifest
 
         $this->items = collect([]);
 
-        if (file_exists("{$this->path}/{$this->file}") && $items = json_decode(file_get_contents("{$this->path}/{$this->file}"))) {
+        if (file_exists("$this->path/$this->file") && $items = json_decode(file_get_contents("$this->path/$this->file"))) {
             foreach ($items as $item) {
                 $this->items->put($item->src, $item);
             }
         }
     }
 
-    public function getScriptFor(string $src)
+    public function getScriptFor(string $src): mixed
     {
-        return optional($this->items->get($src))->file;
+        return $this->items->get($src)->file ?? null;
     }
 
     public function getStylesFor(string $src): array
     {
-        return optional($this->items->get($src))->css ?? [];
+        return $this->items->get($src)->css ?? [];
     }
 
     public function getUrlFor(string $file): string
     {
-        return "{$this->url}/{$file}";
+        return "$this->url/$file";
     }
 
-    public function __call($name, $arguments)
+    public function has(string $key): bool
     {
-        return method_exists($this->items, $name) ? call_user_func_array([$this->items, $name], $arguments) : null;
+        return $this->items->has($key);
     }
 }

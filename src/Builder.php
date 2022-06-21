@@ -5,29 +5,33 @@ namespace Buildystrap;
 use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
+use Buildystrap\Builder\Fields\TextField;
+use Buildystrap\Builder\Modules\BlurbModule;
 use Buildystrap\Builder\Renderer;
-use Buildystrap\Interfaces\Bootable;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class Builder implements Bootable
+class Builder
 {
     protected static bool $booted = false;
 
     protected static array $fields = [
-        'text' => \Buildystrap\Builder\Fields\Text::class,
+        'text-field' => TextField::class,
     ];
 
     protected static array $modules = [
-        'blurb' => \Buildystrap\Builder\Modules\Blurb::class,
+        'blurb-module' => BlurbModule::class,
     ];
 
     protected static array $paths = [];
     protected static array $scripts = [];
     protected static array $styles = [];
 
-    public static function boot()
+    /**
+     * @throws Exception
+     */
+    public static function boot(): void
     {
         if (!static::$booted) {
             static::$booted = true;
@@ -42,19 +46,59 @@ class Builder implements Bootable
         }
     }
 
-    protected static function bootFields()
+    /**
+     * @throws Exception
+     */
+    protected static function bootFields(): void
     {
         foreach (static::$fields as $field) {
             if (!class_extends($field, Field::class)) {
-                throw new Exception("{$field} does not extend ".Field::class);
+                throw new Exception("$field does not extend ".Field::class);
             }
         }
     }
 
-    public static function registerField(string $handle, string $field)
+    /**
+     * @throws Exception
+     */
+    protected static function bootModules(): void
+    {
+        foreach (static::$modules as $module) {
+            if (!class_extends($module, Module::class)) {
+                throw new Exception("$module does not extend ".Module::class);
+            }
+        }
+    }
+
+    protected static function bootPaths(): void
+    {
+        $paths = collect(config('view.paths'))
+            ->map(function ($path) {
+                return "$path/builder";
+            })->toArray();
+
+        view()->addNamespace('builder', $paths);
+
+        static::$paths = collect($paths)
+            ->map(function ($path) {
+                return "$path/modules";
+            })->toArray();
+
+        view()->addNamespace('builder-modules', static::paths());
+    }
+
+    public static function paths(): array
+    {
+        return static::$paths;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function registerField(string $handle, string $field): array
     {
         if (!class_extends($field, Field::class)) {
-            throw new Exception("{$field} does not extend ".Field::class);
+            throw new Exception("$field does not extend ".Field::class);
         }
 
         static::$fields[Str::slug($handle)] = $field;
@@ -62,29 +106,23 @@ class Builder implements Bootable
         return static::fields();
     }
 
-    public static function fields()
+    public static function fields(): array
     {
         return static::$fields;
     }
 
-    public static function getField(string $handle)
+    public static function getField(string $handle): mixed
     {
         return Arr::get(static::fields(), Str::slug($handle));
     }
 
-    protected static function bootModules()
-    {
-        foreach (static::$modules as $module) {
-            if (!class_extends($module, Module::class)) {
-                throw new Exception("{$module} does not extend ".Module::class);
-            }
-        }
-    }
-
-    public static function registerModule(string $handle, string $module)
+    /**
+     * @throws Exception
+     */
+    public static function registerModule(string $handle, string $module): array
     {
         if (!class_extends($module, Module::class)) {
-            throw new Exception("{$module} does not extend ".Module::class);
+            throw new Exception("$module does not extend ".Module::class);
         }
 
         static::$modules[Str::slug($handle)] = $module;
@@ -92,17 +130,17 @@ class Builder implements Bootable
         return static::modules();
     }
 
-    public static function modules()
+    public static function modules(): array
     {
         return static::$modules;
     }
 
-    public static function getModule(string $handle)
+    public static function getModule(string $handle): mixed
     {
         return Arr::get(static::modules(), Str::slug($handle));
     }
 
-    public static function registerPath(string $path)
+    public static function registerPath(string $path): void
     {
         if (!in_array($path, static::paths())) {
             view()->addNamespace('builder-modules', $path);
@@ -110,34 +148,12 @@ class Builder implements Bootable
         }
     }
 
-    protected static function bootPaths()
-    {
-        $paths = collect(config('view.paths'))
-                ->map(function ($path) {
-                    return "{$path}/builder";
-                })->toArray();
-
-        view()->addNamespace('builder', $paths);
-
-        static::$paths = collect($paths)
-                ->map(function ($path) {
-                    return "{$path}/modules";
-                })->toArray();
-
-        view()->addNamespace('builder-modules', static::paths());
-    }
-
-    public static function paths()
-    {
-        return static::$paths;
-    }
-
     public static function getBackendScripts(): array
     {
         return static::$scripts;
     }
 
-    public static function registerBackendScript(string $handle, string $script)
+    public static function registerBackendScript(string $handle, string $script): void
     {
         static::$scripts[Str::slug($handle)] = $script;
     }
@@ -147,12 +163,12 @@ class Builder implements Bootable
         return static::$styles;
     }
 
-    public static function registerBackendStyle(string $handle, string $style)
+    public static function registerBackendStyle(string $handle, string $style): void
     {
         static::$styles[Str::slug($handle)] = $style;
     }
 
-    public static function the_content($content)
+    public static function the_content($content): mixed
     {
         /*
          * Possibly crude way of intercepting the output of the_content()
@@ -163,7 +179,7 @@ class Builder implements Bootable
          */
         if (static::isEnabled()) {
             if (is_admin() || defined('REST_REQUEST') && REST_REQUEST) {
-                return; // Stop shortcode render on backend Or via REST.
+                return null; // Stop shortcode render on backend Or via REST.
             }
 
             // Get the current post.
@@ -176,14 +192,8 @@ class Builder implements Bootable
          * If the Page Builder was not enabled on this post.
          * Return the content, as is.
          */
+
         return $content;
-    }
-
-    public static function enabledTypes(): array
-    {
-        $defaults = ['page'];
-
-        return array_merge($defaults, config('builder.enabled_post_types', []));
     }
 
     public static function isEnabled(int $id = 0): bool
@@ -205,7 +215,14 @@ class Builder implements Bootable
         return $isEnabled ?? false;
     }
 
-    public static function renderFromContent(string $content)
+    public static function enabledTypes(): array
+    {
+        $defaults = ['page'];
+
+        return array_merge($defaults, config('builder.enabled_post_types', []));
+    }
+
+    public static function renderFromContent(string $content): Renderer
     {
         $content = new Content($content);
 

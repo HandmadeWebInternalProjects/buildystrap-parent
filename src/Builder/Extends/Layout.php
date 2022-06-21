@@ -11,8 +11,6 @@ abstract class Layout
     protected string $uuid;
     protected string $type;
 
-    abstract public function render(): string;
-
     public function __construct($instance)
     {
         $this->uuid = $instance->uuid;
@@ -40,4 +38,6 @@ abstract class Layout
     {
         return $this->render();
     }
+
+    abstract public function render(): string;
 }

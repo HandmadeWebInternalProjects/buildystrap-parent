@@ -2,15 +2,13 @@
 
 namespace Buildystrap;
 
-use Buildystrap\Interfaces\Bootable;
-
-class BuilderBackend implements Bootable
+class BuilderBackend
 {
     protected static bool $booted = false;
 
     protected static array $paths = [];
 
-    public static function boot()
+    public static function boot(): void
     {
         if (!static::$booted) {
             static::$booted = true;
@@ -28,10 +26,11 @@ class BuilderBackend implements Bootable
     public static function admin_enqueue_scripts()
     {
         if (!Builder::isEnabled()) {
-            return;
+            return null;
         }
 
-        $manifest = new ViteManifest('manifest.json', get_template_directory().'/public/builder-gui', get_template_directory_uri().'/public/builder-gui');
+        $manifest = new ViteManifest('manifest.json', get_template_directory().'/public/builder-gui',
+            get_template_directory_uri().'/public/builder-gui');
 
         $jsEntryFile = 'src/main.ts';
 
@@ -49,16 +48,16 @@ class BuilderBackend implements Bootable
                 }
 
                 if ($jsFile) {
-                    wp_enqueue_script("buildy-editor:{$jsFile}", $manifest->getUrlFor($jsFile), [], false, true);
+                    wp_enqueue_script("buildy-editor:$jsFile", $manifest->getUrlFor($jsFile), [], false, true);
                 }
             }
 
             foreach (Builder::getBackendScripts() as $handle => $script) {
-                wp_enqueue_script("buildy-module:{$handle}", $script, ['buildy-editor'], false, false);
+                wp_enqueue_script("buildy-module:$handle", $script, ['buildy-editor'], false, false);
             }
 
             foreach (Builder::getBackendStyles() as $handle => $style) {
-                wp_enqueue_style("buildy-module:{$handle}", $style, ['buildy-editor']);
+                wp_enqueue_style("buildy-module:$handle", $style, ['buildy-editor']);
             }
         }
     }
@@ -66,7 +65,7 @@ class BuilderBackend implements Bootable
     public static function admin_edit_form_after_editor($post)
     {
         if (!Builder::isEnabled()) {
-            return;
+            return null;
         }
 
         // This Div Loads Vue
@@ -80,7 +79,7 @@ class BuilderBackend implements Bootable
         }
     }
 
-    public static function admin_wp_default_editor($r)
+    public static function admin_wp_default_editor($r): mixed
     {
         if (!Builder::isEnabled()) {
             return $r;

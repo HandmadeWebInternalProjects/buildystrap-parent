@@ -15,10 +15,6 @@ abstract class Module
     protected Collection $fields;
     protected Collection $values;
 
-    abstract protected function blueprint(): Collection;
-
-    abstract protected function augment();
-
     public function __construct(stdClass $module)
     {
         $this->uuid = $module->uuid;
@@ -32,10 +28,16 @@ abstract class Module
                     return new $field($item->value);
                 }
             }
+
+            return null;
         })->filter();
 
         $this->augment();
     }
+
+    abstract protected function blueprint(): Collection;
+
+    abstract protected function augment(): void;
 
     public function uuid(): string
     {
@@ -52,7 +54,7 @@ abstract class Module
         return $this->enabled;
     }
 
-    public function field(string $field)
+    public function field(string $field): mixed
     {
         return $this->fields()->get($field);
     }
@@ -62,14 +64,9 @@ abstract class Module
         return $this->fields;
     }
 
-    public function render(): string
+    public function __toString(): string
     {
-        $views = [
-            "builder-modules::{$this->type}",
-            'builder::moduleNotFound',
-        ];
-
-        return view()->first($views)->with('module', $this)->render();
+        return $this->render();
     }
 
     // public function __call($name, $arguments): mixed
@@ -81,8 +78,13 @@ abstract class Module
     //     return null;
     // }
 
-    public function __toString(): string
+    public function render(): string
     {
-        return $this->render();
+        $views = [
+            "builder-modules::$this->type",
+            'builder::moduleNotFound',
+        ];
+
+        return view()->first($views)->with('module', $this)->render();
     }
 }

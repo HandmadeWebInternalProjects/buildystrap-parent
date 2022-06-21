@@ -4,7 +4,7 @@ namespace Buildystrap\Builder\Extends;
 
 abstract class Field
 {
-    protected $value;
+    protected mixed $value;
 
     public function __construct($value)
     {
@@ -13,15 +13,15 @@ abstract class Field
         $this->augment();
     }
 
-    abstract protected function augment();
+    abstract protected function augment(): void;
 
-    public function value()
-    {
-        return $this->value;
-    }
-
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value();
+    }
+
+    public function value(): mixed
+    {
+        return $this->value;
     }
 }
