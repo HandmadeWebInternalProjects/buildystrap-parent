@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { reactive, onBeforeMount } from "vue";
-import { storeToRefs } from "pinia";
+import { reactive } from "vue";
 import { useBuilderStore } from "../../stores/builder";
 // import { useModule } from "../bundled_modules/useModule";
 
@@ -19,7 +18,7 @@ const props = defineProps({
   },
   value: {
     type: Object,
-    default: "",
+    default: () => ({}),
   },
   config: {
     type: Object,
