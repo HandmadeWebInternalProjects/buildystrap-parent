@@ -2,10 +2,13 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Traits\Config;
+
 abstract class Layout
 {
+    use Config;
+
     protected string $uuid;
-    protected bool $enabled;
     protected string $type;
 
     abstract public function render(): string;
@@ -13,8 +16,9 @@ abstract class Layout
     public function __construct($instance)
     {
         $this->uuid = $instance->uuid;
-        $this->enabled = $instance->enabled ?? false;
         $this->type = $instance->type;
+
+        $this->config = (array) $instance->config ?? [];
     }
 
     public function uuid(): string
@@ -24,7 +28,7 @@ abstract class Layout
 
     public function enabled(): bool
     {
-        return $this->enabled;
+        return $this->getFromConfig('enabled', false);
     }
 
     public function type(): string

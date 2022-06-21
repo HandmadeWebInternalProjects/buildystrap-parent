@@ -10,9 +10,9 @@ class Content
 
     public function __construct(string $content)
     {
-        $container = json_decode($content) ?? [];
+        $sections = json_decode($content) ?? [];
 
-        $this->container = new Container($container);
+        $this->container = new Container($sections);
     }
 
     public function container(): Container

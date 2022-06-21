@@ -1,6 +1,11 @@
+@foreach($container->sections() as $section)
+    @if($section->getFromConfig('container'))
+        <div class="container">
+    @endif
 
-<div class="container">
-    @foreach($container->sections() as $section)
-        {!! $section->render() !!}
-    @endforeach
-</div>
+    {!! $section->render() !!}
+
+    @if($section->getFromConfig('container'))
+        </div>
+    @endif
+@endforeach
