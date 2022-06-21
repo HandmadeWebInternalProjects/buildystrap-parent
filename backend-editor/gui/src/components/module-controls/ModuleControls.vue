@@ -3,9 +3,9 @@
     class="module-controls d-flex text-center"
     :data-testid="`${type || component.type}-controls`"
   >
-    <ul class="list-unstyled d-flex m-0 p-0 gap-3 overflow-x-auto pb-0">
+    <ul :class="`list-unstyled d-flex flex-${direction} m-0 p-0 gap-2 overflow-x-auto pb-0`">
       <li
-        class="flex-shrink-0"
+        class="flex-shrink-0 m-0"
         v-for="(setting, i) in settings"
         :key="component.uuid + type + i"
         :title="setting.title"
@@ -16,7 +16,7 @@
           :is="setting.component"
         />
         <font-awesome-icon
-          v-else
+          v-else-if="setting?.icon"
           :icon="setting.icon"
           @click="setting.action"
           width="15"
@@ -33,6 +33,7 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { recursifyID } from "../../utils/id";
+
 // import { UCFirst } from "../../functions/helpers";
 // import { createModule } from "../../factories/modules/moduleFactory";
 // import { EvaIcon } from "vue-eva-icons";
@@ -55,7 +56,7 @@ const props = defineProps({
   },
   component: {
     type: Object,
-    required: true,
+    required: false,
   },
   type: String,
 });
@@ -63,8 +64,7 @@ const props = defineProps({
 const index = computed(() => props.index);
 const parentArray = ref(props.value || []);
 const component = ref(props.component);
-
-const customSettings = ref(props.customSettings);
+const customSettings = ref(<Icon>props.customSettings);
 
 interface Icon {
   icon?: string[];
@@ -111,7 +111,7 @@ const settings = computed((): Icon[] => {
       action: removeModule,
       order: 40,
     },
-    ...customSettings.value,
+   ...customSettings.value,
   })
     .filter((el: any) => el)
     .sort((a: { order: number }, b: { order: number }) => a.order - b.order);
