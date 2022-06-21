@@ -23,21 +23,22 @@ const rowIndex = computed(() => props.rowIndex);
 </script>
 
 <template>
-  <div class="bg-100 shadow-sm border-teal-200 d-flex" style="--bs-columns: 3">
-    <div class="sortable-handle absolute top-0 left-0 h-full"></div>
-    <div class="flex-grow-1">
-      <div class="grid p-3 pb-0">
-        <template v-for="column in columns" :key="column.uuid">
-          <grid-column :component="column" />
-        </template>
-      </div>
+  <div class="bg-100 shadow-sm border-teal-200 d-flex rounded" style="--bs-columns: 3">
+    <div class="sortable-handle absolute top-0 left-0 h-full bg-orange-500 rounded-start">
       <module-controls
-        class="justify-content-end px-3 py-2 text-600"
-        direction="row"
+        class="align-self-start justify-content-end text-white"
+        direction="column"
         :component="row"
         :value="parentArray"
         :index="rowIndex"
       />
+    </div>
+    <div class="flex-grow-1">
+      <div class="grid p-3">
+        <template v-for="column in columns" :key="column.uuid">
+          <grid-column :component="column" />
+        </template>
+      </div>
     </div>
   </div>
 </template>

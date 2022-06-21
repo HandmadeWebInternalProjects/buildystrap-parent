@@ -33,13 +33,14 @@ import {
   faCopy,
   faTrash,
   faEllipsisVertical,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* add icons to the library */
-library.add(faPlusCircle, faPenToSquare, faCopy, faTrash, faEllipsisVertical);
+library.add(faPlusCircle, faPenToSquare, faPlus, faCopy, faTrash, faEllipsisVertical);
 
 /* add font awesome icon component */
 app.component("font-awesome-icon", FontAwesomeIcon);

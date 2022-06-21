@@ -7,7 +7,7 @@ const props = defineProps({
     required: true,
   },
 });
-
+const drag = ref(false);
 const component = ref(props.component);
 const modules = ref(props.component?.modules);
 const toggleModuleSelection = ref(false);
@@ -15,39 +15,44 @@ const toggleModuleSelection = ref(false);
 
 <template>
   <div
-    class="border border-dashed border-400 border-2 w-full d-flex flex-column p-3 justify-content-center gap-3"
+    class="border border-dashed border-300 border-2 rounded w-full d-flex flex-column p-3 justify-content-center gap-3"
   >
     <draggable
       :list="modules"
       group="modules"
-      handle=".sortable-handle"
       item-key="uuid"
       class="section-draggable h-100 d-flex flex-grow flex-column gap-3 group"
+      :component-data="{
+        tag: 'div',
+        type: 'transition-group',
+        name: !drag ? 'flip-list' : null
+      }"
+      @start="drag = true"
+      @end="drag = false"
     >
       <template #item="{ element, index }">
-        <module-base
-          :component="element"
-          :columns="modules"
-          :component-index="index"
-        />
-      </template>
-      <template #footer>
-        <button
-          @click="toggleModuleSelection = !toggleModuleSelection"
-          type="button"
-          class="btn btn-outline-secondary mx-auto btn-sm"
-        >
-          <font-awesome-icon
-            :icon="['fas', 'plus-circle']"
-            width="15"
-            height="15"
-            fill="currentColor"
-            class="cursor-pointer pulse"
-          ></font-awesome-icon>
-          Add Module
-        </button>
+        <div>
+          <module-base
+            :component="element"
+            :columns="modules"
+            :component-index="index"
+          />
+        </div>
       </template>
     </draggable>
+    <button
+      @click="toggleModuleSelection = !toggleModuleSelection"
+      type="button"
+      class="bg-200 text-800 border-0 rounded-1"
+    >
+      <font-awesome-icon
+        :icon="['fas', 'plus-circle']"
+        width="25"
+        height="25"
+        fill="currentColor"
+        class="cursor-pointer pulse"
+      ></font-awesome-icon>
+    </button>
     <buildy-stack
       @close="toggleModuleSelection = false"
       v-if="toggleModuleSelection"
@@ -61,4 +66,14 @@ const toggleModuleSelection = ref(false);
   </div>
 </template>
 
-<style lang=""></style>
+<style lang="scss">
+.sortable-ghost {
+  opacity: 0.3;
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+</style>

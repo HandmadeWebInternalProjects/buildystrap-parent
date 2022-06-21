@@ -23,15 +23,23 @@ const rows = ref(props.component?.rows);
 </script>
 
 <template>
-  <div class="buildy-section d-flex bg-200">
-    <div class="sortable-handle absolute top-0 left-0 h-full"></div>
+  <div class="buildy-section d-flex bg-200 rounded">
+    <div class="sortable-handle absolute top-0 left-0 h-full bg-indigo-500 rounded-start">
+      <module-controls
+        class="align-self-start justify-content-end text-white"
+        direction="column"
+        :component="section"
+        :value="parentArray"
+        :index="sectionIndex"
+      />
+    </div>
     <div class="flex-grow-1">
       <draggable
         :list="rows"
         group="rows"
         handle=".sortable-handle"
         item-key="uuid"
-        class="section-draggable d-flex flex-grow-1 p-3 pb-0 flex-grow flex-column gap-3 group"
+        class="section-draggable d-flex flex-grow-1 p-3 flex-grow flex-column gap-3 group"
       >
         <template #item="{ element, index }">
           <grid-row
@@ -41,13 +49,6 @@ const rows = ref(props.component?.rows);
           />
         </template>
       </draggable>
-      <module-controls
-        class="justify-content-end px-3 py-2 text-600"
-        direction="row"
-        :component="section"
-        :value="parentArray"
-        :index="sectionIndex"
-      />
     </div>
   </div>
 </template>
