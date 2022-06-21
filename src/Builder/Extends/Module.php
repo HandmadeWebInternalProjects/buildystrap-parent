@@ -3,11 +3,16 @@
 namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Builder;
+use Buildystrap\Traits\Attributes;
+use Buildystrap\Traits\Config;
 use Illuminate\Support\Collection;
 use stdClass;
 
 abstract class Module
 {
+    use Attributes;
+    use Config;
+
     protected string $uuid;
     protected string $type;
     protected bool $enabled;

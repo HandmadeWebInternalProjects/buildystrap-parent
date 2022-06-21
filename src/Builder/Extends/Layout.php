@@ -2,10 +2,12 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Config;
 
 abstract class Layout
 {
+    use Attributes;
     use Config;
 
     protected string $uuid;

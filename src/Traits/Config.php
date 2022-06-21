@@ -6,31 +6,47 @@ use Illuminate\Support\Arr;
 
 trait Config
 {
+    /**
+     * @var array
+     */
     protected array $config = [];
 
-    public function addToConfig(string $key, $value): array
+    /**
+     * @param  string|null  $key
+     * @param  mixed|null  $default
+     * @return mixed
+     */
+    public function getConfig(?string $key = null, mixed $default = null): mixed
     {
-        if ($item = Arr::get($this->config, $key)) {
+        if (null === $key) {
+            return $this->config;
+        }
+
+        return Arr::get($this->config, $key, $default);
+    }
+
+    /**
+     * @param  array|string  $config
+     * @param  mixed|null  $value
+     * @return array
+     */
+    public function setConfig(array|string $config, mixed $value = null): array
+    {
+        if (is_array($config)) {
+            return $this->config = $config;
+        }
+
+        if ($item = Arr::get($this->config, $config)) {
             if ($item !== $value) {
-                Arr::forget($this->config, $key);
+                Arr::forget($this->config, $config);
                 $item = null;
             }
         }
 
         if (!$item) {
-            $this->config = Arr::add($this->config, $key, $value);
+            $this->config = Arr::add($this->config, $config, $value);
         }
 
         return $this->config;
-    }
-
-    public function getConfig(): array
-    {
-        return $this->config;
-    }
-
-    public function getFromConfig(string $key, $default = null): mixed
-    {
-        return Arr::get($this->config, $key, $default);
     }
 }
