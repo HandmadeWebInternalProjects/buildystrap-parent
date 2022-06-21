@@ -2,17 +2,15 @@
 
 namespace Buildystrap\Builder\Layout;
 
-use Buildystrap\Builder\Extends\Layout;
+use function view;
 
-class Container extends Layout
+class Container
 {
     protected array $sections = [];
 
-    public function __construct($container)
+    public function __construct(array $sections)
     {
-        parent::__construct($container);
-
-        foreach ($container->sections ?? [] as $section) {
+        foreach ($sections ?? [] as $section) {
             $this->sections[] = new Section($section);
         }
     }
@@ -20,6 +18,11 @@ class Container extends Layout
     public function sections(): array
     {
         return $this->sections;
+    }
+
+    public function __toString(): string
+    {
+        return $this->render();
     }
 
     public function render(): string

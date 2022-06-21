@@ -4,15 +4,17 @@ namespace Buildystrap\Builder;
 
 use Buildystrap\Builder\Layout\Container;
 
+use function json_decode;
+
 class Content
 {
     public Container $container;
 
     public function __construct(string $content)
     {
-        $container = json_decode($content) ?? [];
+        $sections = json_decode($content) ?? [];
 
-        $this->container = new Container($container);
+        $this->container = new Container($sections);
     }
 
     public function container(): Container

@@ -9,7 +9,7 @@
       }"
       :style="{
         zIndex: (depth + 1) * 1000,
-        transform: `translateX(${leftOffset}px)`,
+        left: `${leftOffset}px`,
       }"
     >
       <transition name="stack-overlay-fade">
@@ -115,9 +115,10 @@ const hasChild = computed(() => {
 
 const isHovering: Ref<boolean | null> = ref(null);
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
   depth.value = getStacks.value.length + 1;
   portalName.value = `stack-${depth.value - 1}`;
+
   addStack(vm);
 
   window.Buildy.$bus.on(
@@ -128,6 +129,11 @@ onBeforeMount(async () => {
     `stacks.${depth.value}.hit-area-mouseout`,
     () => (isHovering.value = false)
   );
+
+  window.Buildy.$bus.on(
+    `stacks.${depth.value}.hit-area-removed`,
+    () => (isHovering.value = false)
+  );
   // this.escBinding = this.$keys.bindGlobal("esc", this.close);
 });
 
@@ -135,6 +141,8 @@ onUnmounted(() => {
   removeStack(vm);
   window.Buildy.$bus.off(`stacks.${depth.value}.hit-area-mouseenter`);
   window.Buildy.$bus.off(`stacks.${depth.value}.hit-area-mouseout`);
+  window.Buildy.$bus.off(`stacks.${depth.value}.hit-area-removed`);
+  window.Buildy.$bus.emit(`stacks.${depth.value - 1}.hit-area-removed`);
   // this.escBinding.destroy();
 });
 
@@ -164,14 +172,14 @@ const visible: Ref<boolean | null> = ref(null);
 const stackContent = ref<HTMLElement | null>(null);
 const close = () => {
   visible.value = false;
-
-  stackContent?.value?.addEventListener(
-    "transitionend",
-    () => {
-      emit("close");
-    },
-    { once: true }
-  );
+  emit("close");
+  // stackContent?.value?.addEventListener(
+  //   "transitionend",
+  //   () => {
+  //     emit("close");
+  //   },
+  //   { once: true }
+  // );
 };
 
 onMounted(() => {

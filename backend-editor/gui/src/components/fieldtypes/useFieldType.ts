@@ -24,7 +24,7 @@ export const withProps = (): FieldtypeProps => {
 
 export const useFieldType = (emit: any): FieldTypeInterface => {
   const update = (value: any): void => {
-    emit("update", value);
+    emit("update:modelValue", value);
   };
 
   const updateMeta = (value: any): void => {

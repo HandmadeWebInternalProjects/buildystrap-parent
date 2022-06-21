@@ -5,6 +5,8 @@ namespace Buildystrap\Builder\Layout;
 use Buildystrap\Builder\Extends\Layout;
 use stdClass;
 
+use function view;
+
 class Row extends Layout
 {
     public array $columns = [];

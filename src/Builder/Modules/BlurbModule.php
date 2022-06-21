@@ -5,18 +5,20 @@ namespace Buildystrap\Builder\Modules;
 use Buildystrap\Builder\Extends\Module;
 use Illuminate\Support\Collection;
 
-class Blurb extends Module
+use function collect;
+
+class BlurbModule extends Module
 {
     protected function blueprint(): Collection
     {
         return collect([
             'text' => [
-                'type' => 'text',
+                'type' => 'text-field',
             ],
         ]);
     }
 
-    protected function augment()
+    protected function augment(): void
     {
     }
 }

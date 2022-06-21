@@ -1,6 +1,7 @@
+@foreach($container->sections() as $section)
+    {!! $section->getConfig('container') ? '<div class="container">' : null !!}
 
-<div class="container">
-    @foreach($container->sections() as $section)
-        {!! $section->render() !!}
-    @endforeach
-</div>
+    {!! $section->render() !!}
+
+    {!! $section->getConfig('container') ? '</div>' : null !!}
+@endforeach

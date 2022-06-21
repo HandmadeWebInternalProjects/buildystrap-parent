@@ -27,6 +27,7 @@ const Event: EventConstructor = class Event implements EventInterface {
   }
 
   emit(eventName: string, data?: any) {
+    // console.log({ eventName, data });
     if (this.events[eventName]) {
       this.events[eventName].forEach(function (fn: any): void {
         fn(data);

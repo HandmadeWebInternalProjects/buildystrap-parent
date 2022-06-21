@@ -13,13 +13,13 @@ class Renderer
         $this->container = $container;
     }
 
-    public function render(): string
-    {
-        return $this->container->render();
-    }
-
     public function __toString(): string
     {
         return $this->render();
+    }
+
+    public function render(): string
+    {
+        return $this->container->render();
     }
 }

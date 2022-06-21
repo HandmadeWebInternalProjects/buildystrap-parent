@@ -8,7 +8,6 @@ const props = defineProps({
   },
 });
 const drag = ref(false);
-const component = ref(props.component);
 const modules = ref(props.component?.modules);
 const toggleModuleSelection = ref(false);
 </script>

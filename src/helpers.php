@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 
 if (!function_exists('extendable_layout')) {
-    function extendable_layout($post = null, string $default = 'default')
+    function extendable_layout($post = null, string $default = 'default'): string
     {
         if ($template = get_page_template_slug($post)) {
             $template = Str::replaceLast('.php', '', $template);
@@ -13,7 +13,7 @@ if (!function_exists('extendable_layout')) {
             $template = $default;
         }
 
-        return "layouts.{$template}";
+        return "layouts.$template";
     }
 }
 
@@ -23,9 +23,9 @@ if (!function_exists('add_filters')) {
      *
      * @param iterable $filters List of filters
      */
-    function add_filters(iterable $filters, callable $callback, int $priority = 10, int $args = 1): mixed
+    function add_filters(iterable $filters, callable $callback, int $priority = 10, int $args = 1): void
     {
-        return \Roots\add_filters($filters, $callback, $priority, $args);
+        \Roots\add_filters($filters, $callback, $priority, $args);
     }
 }
 
@@ -35,9 +35,9 @@ if (!function_exists('add_actions')) {
      *
      * @param iterable $actions List of actions
      */
-    function add_actions(iterable $actions, callable $callback, int $priority = 10, int $args = 1): mixed
+    function add_actions(iterable $actions, callable $callback, int $priority = 10, int $args = 1): void
     {
-        return \Roots\add_actions($actions, $callback, $priority, $args);
+        \Roots\add_actions($actions, $callback, $priority, $args);
     }
 }
 

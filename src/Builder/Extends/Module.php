@@ -3,21 +3,25 @@
 namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Builder;
+use Buildystrap\Traits\Attributes;
+use Buildystrap\Traits\Config;
 use Illuminate\Support\Collection;
 use stdClass;
 
+use function collect;
+use function view;
+
 abstract class Module
 {
+    use Attributes;
+    use Config;
+
     protected string $uuid;
     protected string $type;
     protected bool $enabled;
 
     protected Collection $fields;
     protected Collection $values;
-
-    abstract protected function blueprint(): Collection;
-
-    abstract protected function augment();
 
     public function __construct(stdClass $module)
     {
@@ -27,15 +31,21 @@ abstract class Module
         $this->type = $module->type;
 
         $this->fields = collect($module->fields)->map(function ($item, $handle) {
-            if ($blueprintField = (object) $this->blueprint()->get($handle)) {
+            if ($blueprintField = (object)$this->blueprint()->get($handle)) {
                 if ($field = Builder::getField($blueprintField->type)) {
                     return new $field($item->value);
                 }
             }
+
+            return null;
         })->filter();
 
         $this->augment();
     }
+
+    abstract protected function blueprint(): Collection;
+
+    abstract protected function augment(): void;
 
     public function uuid(): string
     {
@@ -52,7 +62,7 @@ abstract class Module
         return $this->enabled;
     }
 
-    public function field(string $field)
+    public function field(string $field): mixed
     {
         return $this->fields()->get($field);
     }
@@ -62,14 +72,9 @@ abstract class Module
         return $this->fields;
     }
 
-    public function render(): string
+    public function __toString(): string
     {
-        $views = [
-            "builder-modules::{$this->type}",
-            'builder::moduleNotFound',
-        ];
-
-        return view()->first($views)->with('module', $this)->render();
+        return $this->render();
     }
 
     // public function __call($name, $arguments): mixed
@@ -81,8 +86,13 @@ abstract class Module
     //     return null;
     // }
 
-    public function __toString(): string
+    public function render(): string
     {
-        return $this->render();
+        $views = [
+            "builder-modules::$this->type",
+            'builder::moduleNotFound',
+        ];
+
+        return view()->first($views)->with('module', $this)->render();
     }
 }
