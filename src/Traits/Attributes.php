@@ -52,7 +52,7 @@ trait Attributes
             }
         }
 
-        if (!$item) {
+        if ( ! $item) {
             $this->attributes = Arr::add($this->attributes, $key, $value);
         }
 

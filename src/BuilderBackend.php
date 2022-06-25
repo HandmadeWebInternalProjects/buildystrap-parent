@@ -18,7 +18,7 @@ class BuilderBackend
 
     public static function boot(): void
     {
-        if (!static::$booted) {
+        if ( ! static::$booted) {
             static::$booted = true;
 
             add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], PHP_INT_MAX);
@@ -33,12 +33,13 @@ class BuilderBackend
 
     public static function admin_enqueue_scripts()
     {
-        if (!Builder::isEnabled()) {
+        if ( ! Builder::isEnabled()) {
             return null;
         }
 
         $manifest = new ViteManifest(
-            'manifest.json', get_template_directory() . '/public/builder-gui',
+            'manifest.json',
+            get_template_directory() . '/public/builder-gui',
             get_template_directory_uri() . '/public/builder-gui'
         );
 
@@ -51,7 +52,7 @@ class BuilderBackend
 
             $jsFile = $manifest->getScriptFor($jsEntryFile);
 
-            if (!config('builder.dev_mode')) {
+            if ( ! config('builder.dev_mode')) {
                 foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
                     wp_enqueue_style('buildy-editor', $manifest->getUrlFor($cssFile));
                     break;
@@ -74,7 +75,7 @@ class BuilderBackend
 
     public static function admin_edit_form_after_editor($post)
     {
-        if (!Builder::isEnabled()) {
+        if ( ! Builder::isEnabled()) {
             return null;
         }
 
@@ -91,7 +92,7 @@ class BuilderBackend
 
     public static function admin_wp_default_editor($r): mixed
     {
-        if (!Builder::isEnabled()) {
+        if ( ! Builder::isEnabled()) {
             return $r;
         }
 

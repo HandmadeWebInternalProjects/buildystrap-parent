@@ -30,7 +30,7 @@ class Theme
 
     public static function boot(): void
     {
-        if (!static::$booted) {
+        if ( ! static::$booted) {
             static::$booted = true;
 
             add_action('wp_enqueue_scripts', [static::class, 'enqueue_styles']);
@@ -132,7 +132,7 @@ class Theme
         $shouldClear = false;
 
         if ($upgrader instanceof WP_Upgrader) {
-            if (!empty($options['themes']) && in_array('buildystrap-parent', $options['themes'])) {
+            if ( ! empty($options['themes']) && in_array('buildystrap-parent', $options['themes'])) {
                 $shouldClear = true;
             }
         } else {

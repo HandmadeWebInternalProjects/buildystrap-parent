@@ -6,10 +6,8 @@
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-if ( is_active_sidebar( 'herocanvas' ) ) {
-
-	dynamic_sidebar( 'herocanvas' );
-
+if (is_active_sidebar('herocanvas')) {
+    dynamic_sidebar('herocanvas');
 }

@@ -49,7 +49,7 @@ class Builder
      */
     public static function boot(): void
     {
-        if (!static::$booted) {
+        if ( ! static::$booted) {
             static::$booted = true;
 
             add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
@@ -68,7 +68,7 @@ class Builder
     protected static function bootFields(): void
     {
         foreach (static::$fields as $field) {
-            if (!class_extends($field, Field::class)) {
+            if ( ! class_extends($field, Field::class)) {
                 throw new Exception("$field does not extend " . Field::class);
             }
         }
@@ -80,7 +80,7 @@ class Builder
     protected static function bootModules(): void
     {
         foreach (static::$modules as $module) {
-            if (!class_extends($module, Module::class)) {
+            if ( ! class_extends($module, Module::class)) {
                 throw new Exception("$module does not extend " . Module::class);
             }
         }
@@ -89,16 +89,12 @@ class Builder
     protected static function bootPaths(): void
     {
         $paths = collect(config('view.paths'))
-            ->map(function ($path) {
-                return "$path/builder";
-            })->toArray();
+            ->map(fn ($path) => "$path/builder")->toArray();
 
         view()->addNamespace('builder', $paths);
 
         static::$paths = collect($paths)
-            ->map(function ($path) {
-                return "$path/modules";
-            })->toArray();
+            ->map(fn ($path) => "$path/modules")->toArray();
 
         view()->addNamespace('builder-modules', static::paths());
     }
@@ -113,7 +109,7 @@ class Builder
      */
     public static function registerField(string $handle, string $field): array
     {
-        if (!class_extends($field, Field::class)) {
+        if ( ! class_extends($field, Field::class)) {
             throw new Exception("$field does not extend " . Field::class);
         }
 
@@ -137,7 +133,7 @@ class Builder
      */
     public static function registerModule(string $handle, string $module): array
     {
-        if (!class_extends($module, Module::class)) {
+        if ( ! class_extends($module, Module::class)) {
             throw new Exception("$module does not extend " . Module::class);
         }
 
@@ -158,7 +154,7 @@ class Builder
 
     public static function registerPath(string $path): void
     {
-        if (!in_array($path, static::paths())) {
+        if ( ! in_array($path, static::paths())) {
             view()->addNamespace('builder-modules', $path);
             static::$paths[] = $path;
         }
@@ -214,7 +210,7 @@ class Builder
 
     public static function isEnabled(int $id = 0): bool
     {
-        if (!function_exists('get_field')) {
+        if ( ! function_exists('get_field')) {
             return false;
         }
 

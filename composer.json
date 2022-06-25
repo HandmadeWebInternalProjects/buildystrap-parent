@@ -1,28 +1,53 @@
 {
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "require": {
-        "php": "^8.0",
-        "roots/acorn": "^2.0"
+  "name": "handmadeweb/buildystrap-parent",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aaron Curle",
+      "email": "aaron@handmadeweb.com.au"
     },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "platform": {
-            "php": "8.0"
-        }
+    {
+      "name": "John Pieters",
+      "email": "john@handmadeweb.com.au"
     },
-    "autoload": {
-        "psr-4": {
-            "Buildystrap\\": "src"
-        }
-    },
-    "acorn": {
-        "providers": []
-    },
-    "scripts": {
-        "dev": "composer install",
-        "build": "composer install --no-dev"
+    {
+      "name": "Michael Rook",
+      "email": "michael@handmadeweb.com.au"
     }
+  ],
+  "scripts": {
+    "dev": "composer install",
+    "test": "vendor/bin/phpunit",
+    "build": "composer install --no-dev",
+    "pint": "vendor/bin/pint"
+  },
+  "require": {
+    "php": "^8.0",
+    "roots/acorn": "^2.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.8",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Buildystrap\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Buildystrap\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "platform": {
+      "php": "8.0"
+    }
+  }
 }
