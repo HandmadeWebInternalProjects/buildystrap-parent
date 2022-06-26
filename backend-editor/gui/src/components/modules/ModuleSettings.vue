@@ -30,7 +30,5 @@ const value = ref(props.component.value)
 const ModuleType = computed((): any => {
   return getFieldDefaultsForType(props.type)
 })
-
-console.log({ fields: props.type })
 </script>
 <style lang=""></style>

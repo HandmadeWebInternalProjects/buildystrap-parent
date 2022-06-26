@@ -37,6 +37,14 @@ export const useBuilderStore = defineStore({
               display: "URL",
             },
           },
+          {
+            type: "checkboxes-fieldtype",
+            handle: "role",
+            config: {
+              display: "Role",
+              options: { primary: "Primary", secondary: "Secondary" },
+            },
+          },
         ],
       },
     },

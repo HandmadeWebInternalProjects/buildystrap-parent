@@ -1,38 +1,54 @@
-interface FieldTypeInterface {
-  update(value: any): void;
-  updateMeta(value: any): void;
+type FieldTypeInterface = {
+  update(value: any): void
+  updateMeta(value: any): void
+  normaliseOptions(options: any): { value: string; label: string }[]
 }
 
-export interface FieldtypeProps {
-  type?: any;
-  uuid?: any;
-  value?: any;
-  config?: { handle?: string; [key: string]: any };
-  handle?: string;
-  meta?: { [key: string]: any };
-  [key: string]: any;
+export const commonProps = {
+  type: {
+    type: String,
+    default: "",
+  },
+  uuid: {
+    type: String,
+    default: "",
+  },
+  handle: {
+    type: String,
+    required: true,
+  },
+  modelValue: {
+    type: [String, Object, Array, Boolean],
+    default: "",
+  },
+  config: {
+    type: Object,
+    default: () => ({}),
+  },
+  meta: {
+    type: Object,
+    default: () => ({}),
+  },
 }
-
-export const withProps = (): FieldtypeProps => {
-  return {
-    value: "",
-    config: {},
-    handle: "",
-    meta: {},
-  };
-};
 
 export const useFieldType = (emit: any): FieldTypeInterface => {
-  const update = (value: any): void => {
-    emit("update:modelValue", value);
-  };
+  const update = (value: any) => {
+    emit("update:modelValue", value)
+  }
 
-  const updateMeta = (value: any): void => {
-    emit("updateMeta", value);
-  };
+  const updateMeta = (value: any) => {
+    emit("updateMeta", value)
+  }
+
+  const normaliseOptions = (options: any) => {
+    return Array.isArray(options)
+      ? options.map((el) => ({ value: el, label: el }))
+      : Object.entries(options).map(([value, label]) => ({ value, label }))
+  }
 
   return {
     update,
     updateMeta,
-  };
-};
+    normaliseOptions,
+  }
+}

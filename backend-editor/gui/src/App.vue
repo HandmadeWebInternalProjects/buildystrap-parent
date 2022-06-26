@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
 import { useStacks } from "./components/stacks/useStacks"
+import {
+  createModule,
+  type ModuleType,
+} from "./factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
-const builder = ref([])
+const builder = ref<ModuleType[]>([])
 
 const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
   builder.value = JSON.parse(contentEl.innerText)
+}
+
+const addSection = () => {
+  const newModule = createModule("Section", {})
+  builder.value.push(newModule)
 }
 
 watch(
@@ -24,8 +33,6 @@ watch(
 
 <template>
   <stacks v-if="getStacks.length"></stacks>
-  <portal-target name="destination" multiple />
-
   <div class="container d-flex flex-column rounded gap-3 mt-4 px-0">
     <div
       class="promote d-flex align-items-center bg-indigo-500 text-white rounded p-3">
@@ -119,6 +126,11 @@ watch(
           :component="element" />
       </template>
     </draggable>
+    <div class="d-flex flex-row-reverse">
+      <button type="button" class="btn btn-primary" @click="addSection()">
+        Add Section
+      </button>
+    </div>
   </div>
 </template>
 

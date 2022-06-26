@@ -12,6 +12,8 @@ interface BuildyInterface {
   bootedCallbacks: { (arg: any): void }[]
   $bus: typeof Bus
   $hooks: typeof Hooks
+  $composables: { [key: string]: void }
+  $propTypes: { [key: string]: any }
   booting(callback: (arg: any) => void): void
   booted(callback: (arg: any) => void): void
   registerComponent(name: string, component: Component): void
@@ -24,6 +26,8 @@ export const Buildy: BuildyConstructor = class Buildy {
   bootedCallbacks: any[]
   $bus: typeof Bus
   $hooks: typeof Hooks
+  $composables: { [key: string]: void }
+  $propTypes: { [key: string]: any }
 
   constructor(app: any) {
     this.app = app
@@ -31,6 +35,8 @@ export const Buildy: BuildyConstructor = class Buildy {
     this.bootedCallbacks = []
     this.$bus = Bus
     this.$hooks = Hooks
+    this.$composables = {}
+    this.$propTypes = {}
   }
 
   booting(callback: any) {

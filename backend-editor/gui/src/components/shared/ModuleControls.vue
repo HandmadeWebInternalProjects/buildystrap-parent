@@ -68,10 +68,10 @@ const props = defineProps({
 const index = computed(() => props.index)
 const parentArray = ref(props.value || [])
 const component = ref(props.component)
-const customSettings = ref(<Icon>props.customSettings)
-const settingsFields = ref(<Icon>props.settingsFields)
+const customSettings = ref(<ControlItem>props.customSettings)
+const settingsFields = ref(<ControlItem>props.settingsFields)
 
-interface Icon {
+type ControlItem = {
   icon?: string[]
   title?: string
   class?: string
@@ -80,7 +80,7 @@ interface Icon {
   action?: () => void
 }
 
-const settings = computed((): Icon[] => {
+const settings = computed((): ControlItem[] => {
   return Object.values({
     menu: {
       icon: ["fas", "pen-to-square"],
@@ -139,9 +139,5 @@ const cloneModule = (): void => {
 
 const removeModule = (): void => {
   parentArray.value.splice(index.value, 1)
-}
-
-const openModal = (): void => {
-  // this.$modals.open(name);
 }
 </script>
