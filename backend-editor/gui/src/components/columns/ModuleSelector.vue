@@ -1,34 +1,23 @@
 <template>
-  <div class="module-selector">
-    <div class="h-full bg-white overflow-auto">
-      <div class="p-3 pt-0">
-        <div class="fieldtype-selector">
-          <div class="fieldtype-list">
-            <ul class="m-0 p-0 d-flex">
-              <li
-                class="p-1"
-                v-for="(field, key) in getFieldDefaults"
-                :key="key">
-                <div
-                  class="border bg-700 text-white cursor-pointer w-fit px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
-                  @click="addField(field, key)">
-                  <font-awesome-icon
-                    :icon="field?.icon"
-                    width="15"
-                    height="15"
-                    fill="currentColor"
-                    aria-controls="offcanvasRight"
-                    class="flex cursor-pointer pulse"></font-awesome-icon>
-                  <span class="block pl-2">
-                    {{ key }}
-                  </span>
-                </div>
-              </li>
-            </ul>
-          </div>
+  <div class="h-full bg-white overflow-auto pt-0">
+    <ul class="m-0 p-0 d-flex flex-column">
+      <li class="p-1" v-for="(field, key) in getFieldDefaults" :key="key">
+        <div
+          class="border bg-700 text-white cursor-pointer w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
+          @click="addField(field, key)">
+          <font-awesome-icon
+            :icon="field?.icon"
+            width="15"
+            height="15"
+            fill="currentColor"
+            aria-controls="offcanvasRight"
+            class="flex cursor-pointer pulse"></font-awesome-icon>
+          <span class="block pl-2">
+            {{ key }}
+          </span>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
