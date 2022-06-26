@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed } from "vue"
 
 const props = defineProps({
   component: {
@@ -14,24 +14,33 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-});
+})
 
-const columns = ref(props.component?.columns || []);
-const row = ref(props.component);
-const parentArray = ref(props.parentArray);
-const rowIndex = computed(() => props.rowIndex);
+const columns = ref(props.component?.columns || [])
+const row = ref(props.component)
+const parentArray = ref(props.parentArray)
+const rowIndex = computed(() => props.rowIndex)
 </script>
 
 <template>
-  <div class="bg-100 shadow-sm border-teal-200 d-flex rounded" style="--bs-columns: 3">
-    <div class="sortable-handle absolute top-0 left-0 h-full bg-orange-500 rounded-start">
+  <div
+    class="bg-100 shadow-sm border-teal-200 d-flex rounded"
+    :style="`--bs-columns: ${row?.config?.columnCount || 12}`">
+    <div
+      class="sortable-handle absolute top-0 left-0 h-full bg-orange-500 rounded-start">
       <module-controls
         class="align-self-start justify-content-end text-white"
         direction="column"
         :component="row"
+        :custom-settings="{
+          colSelector: {
+            title: 'Change Columns',
+            order: 15,
+            component: 'column-selector',
+          },
+        }"
         :value="parentArray"
-        :index="rowIndex"
-      />
+        :index="rowIndex" />
     </div>
     <div class="flex-grow-1">
       <div class="grid p-3">

@@ -1,20 +1,18 @@
 <template>
   <div
     class="module-controls d-flex text-center"
-    :data-testid="`${type || component.type}-controls`"
-  >
-    <ul :class="`list-unstyled d-flex flex-${direction} m-0 p-0 gap-2 overflow-x-auto pb-0`">
+    :data-testid="`${type || component.type}-controls`">
+    <ul
+      :class="`list-unstyled d-flex flex-${direction} m-0 p-0 gap-2 overflow-x-auto pb-0`">
       <li
         class="flex-shrink-0 m-0"
         v-for="(setting, i) in settings"
         :key="component.uuid + type + i"
-        :title="setting.title"
-      >
+        :title="setting.title">
         <component
           v-if="setting.component"
           :component="component"
-          :is="setting.component"
-        />
+          :is="setting.component" />
         <font-awesome-icon
           v-else-if="setting?.icon"
           :icon="setting.icon"
@@ -23,26 +21,28 @@
           height="15"
           fill="currentColor"
           class="flex cursor-pointer pulse"
-          :class="[setting.class || '']"
-        ></font-awesome-icon>
+          :class="[setting.class || '']"></font-awesome-icon>
       </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import { recursifyID } from "../../utils/id";
+import { computed, ref } from "vue"
+import { recursifyID } from "../../utils/id"
 
-// import { UCFirst } from "../../functions/helpers";
-// import { createModule } from "../../factories/modules/moduleFactory";
+import { UCFirst } from "../../utils/helpers"
+import { createModule } from "../../factories/modules/moduleFactory"
 // import { EvaIcon } from "vue-eva-icons";
 // import ModuleSelector from "../ModuleSelector.vue";
 // import SettingStack from "../shared/SettingStack.vue";
 // import ClipboardFunctions from "../../mixins/ClipboardFunctions";
 
 const props = defineProps({
-  value: Array,
+  value: {
+    type: Array,
+    required: true,
+  },
   index: {
     type: Number,
     default: 0,
@@ -56,23 +56,28 @@ const props = defineProps({
   },
   component: {
     type: Object,
-    required: false,
+    required: true,
+  },
+  settingsFields: {
+    type: Array,
+    default: () => [],
   },
   type: String,
-});
+})
 
-const index = computed(() => props.index);
-const parentArray = ref(props.value || []);
-const component = ref(props.component);
-const customSettings = ref(<Icon>props.customSettings);
+const index = computed(() => props.index)
+const parentArray = ref(props.value || [])
+const component = ref(props.component)
+const customSettings = ref(<Icon>props.customSettings)
+const settingsFields = ref(<Icon>props.settingsFields)
 
 interface Icon {
-  icon?: string[];
-  title?: string;
-  class?: string;
-  order?: number;
-  component?: any;
-  action?: () => void;
+  icon?: string[]
+  title?: string
+  class?: string
+  order?: number
+  component?: any
+  action?: () => void
 }
 
 const settings = computed((): Icon[] => {
@@ -86,7 +91,7 @@ const settings = computed((): Icon[] => {
     add: {
       icon: ["fas", "plus-circle"],
       title: "Add module right after this module",
-      // action: this.addModule,
+      action: addModule,
       order: 20,
     },
     clone: {
@@ -111,31 +116,32 @@ const settings = computed((): Icon[] => {
       action: removeModule,
       order: 40,
     },
-   ...customSettings.value,
+    ...customSettings.value,
   })
     .filter((el: any) => el)
-    .sort((a: { order: number }, b: { order: number }) => a.order - b.order);
-});
+    .sort((a: { order: number }, b: { order: number }) => a.order - b.order)
+})
 
 const addModule = (): void => {
-  // const newModule = createModule(UCFirst(this.type || this.component.type));
-  // this.value.splice(this.index + 1, 0, newModule);
-};
+  const newModule = createModule(
+    UCFirst(props.type || component.value.type),
+    {}
+  )
+  parentArray.value.splice(index.value + 1, 0, newModule)
+}
 
 const cloneModule = (): void => {
-  let clone = JSON.parse(JSON.stringify(component.value));
+  let clone = JSON.parse(JSON.stringify(component.value))
   // Generate ID's for each nested module
-  recursifyID(clone);
-  console.log({ clone });
-  console.log(parentArray.value);
-  parentArray.value.splice(index.value + 1, 0, clone);
-};
+  recursifyID(clone)
+  parentArray.value.splice(index.value + 1, 0, clone)
+}
 
 const removeModule = (): void => {
-  parentArray.value.splice(index.value, 1);
-};
+  parentArray.value.splice(index.value, 1)
+}
 
 const openModal = (): void => {
   // this.$modals.open(name);
-};
+}
 </script>

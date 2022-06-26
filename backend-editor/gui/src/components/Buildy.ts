@@ -1,66 +1,61 @@
-import Bus from "./Events";
-import Components from "./Components";
-import Hooks from "./Hooks";
-import type { Component } from "vue";
+import Bus from "./Events"
+import Hooks from "./Hooks"
+import type { Component } from "vue"
 
 interface BuildyConstructor {
-  new (app: any): BuildyInterface;
+  new (app: any): BuildyInterface
 }
 
-export interface BuildyInterface {
-  app: any;
-  bootingCallbacks: { (arg: any): void }[];
-  bootedCallbacks: { (arg: any): void }[];
-  $bus: typeof Bus;
-  $hooks: typeof Hooks;
-  $components: typeof Components;
-  booting(callback: (arg: any) => void): void;
-  booted(callback: (arg: any) => void): void;
-  registerComponent(name: string, component: Component): void;
-  start(): void;
+interface BuildyInterface {
+  app: any
+  bootingCallbacks: { (arg: any): void }[]
+  bootedCallbacks: { (arg: any): void }[]
+  $bus: typeof Bus
+  $hooks: typeof Hooks
+  booting(callback: (arg: any) => void): void
+  booted(callback: (arg: any) => void): void
+  registerComponent(name: string, component: Component): void
+  start(): void
 }
 
 export const Buildy: BuildyConstructor = class Buildy {
-  app: any;
-  bootingCallbacks: any[];
-  bootedCallbacks: any[];
-  $bus: typeof Bus;
-  $hooks: typeof Hooks;
-  $components: typeof Components;
+  app: any
+  bootingCallbacks: any[]
+  bootedCallbacks: any[]
+  $bus: typeof Bus
+  $hooks: typeof Hooks
 
   constructor(app: any) {
-    this.app = app;
-    this.bootingCallbacks = [];
-    this.bootedCallbacks = [];
-    this.$bus = Bus;
-    this.$hooks = Hooks;
-    this.$components = Components;
+    this.app = app
+    this.bootingCallbacks = []
+    this.bootedCallbacks = []
+    this.$bus = Bus
+    this.$hooks = Hooks
   }
 
   booting(callback: any) {
-    this.bootingCallbacks.push(callback);
+    this.bootingCallbacks.push(callback)
   }
 
   booted(callback: any) {
-    this.bootedCallbacks.push(callback);
+    this.bootedCallbacks.push(callback)
   }
 
   registerComponent(name: string, component: any) {
-    this.$components.add({ name, component });
-    this.app.component(name, component);
+    this.app.component(name, component)
   }
 
   start() {
     this.bootingCallbacks.forEach((callback: (arg: any) => void) =>
       callback(this.app)
-    );
-    this.bootingCallbacks = [];
+    )
+    this.bootingCallbacks = []
 
-    this.app.mount("#app");
+    this.app.mount("#app")
 
     this.bootedCallbacks.forEach((callback: (arg: any) => void) =>
       callback(this.app)
-    );
-    this.bootedCallbacks = [];
+    )
+    this.bootedCallbacks = []
   }
-};
+}

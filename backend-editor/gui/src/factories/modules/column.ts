@@ -1,20 +1,31 @@
-const Column = function ({ UUID, ADMIN_LABEL }) {
-  this.uuid = `${UUID}`;
-  this.type = "column";
+const Column = function (
+  this: any,
+  {
+    ADMIN_LABEL,
+    CONFIG = {},
+    META = {},
+    HANDLE,
+    VALUE,
+    UUID,
+  }: {
+    ADMIN_LABEL: string
+    CONFIG: { [key: string]: any }
+    META: { [key: string]: any }
+    HANDLE: string
+    VALUE: any
+    UUID: string
+  }
+) {
+  this.uuid = `${UUID}`
+  this.type = "column"
   this.config = {
     enabled: true,
-    buildamic_settings: {
-      admin_label: ADMIN_LABEL || this.type,
-      columnSizes: {
-        xs: 12,
-        sm: "",
-        md: "",
-        lg: "",
-        xl: "",
-      },
+    adminLabel: ADMIN_LABEL || this.type,
+    columnSizes: {
+      lg: 12,
     },
-  };
-  this.value = [];
-};
+  }
+  this.modules = []
+}
 
-export { Column };
+export { Column }
