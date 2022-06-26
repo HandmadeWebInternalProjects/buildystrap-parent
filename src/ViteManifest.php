@@ -26,8 +26,8 @@ class ViteManifest
         $this->items = collect([]);
 
         if (file_exists("$this->path/$this->file") && $items = json_decode(
-                file_get_contents("$this->path/$this->file")
-            )) {
+            file_get_contents("$this->path/$this->file")
+        )) {
             foreach ($items as $item) {
                 $this->items->put($item->src, $item);
             }

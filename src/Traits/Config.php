@@ -45,7 +45,7 @@ trait Config
             }
         }
 
-        if (!$item) {
+        if ( ! $item) {
             $this->config = Arr::add($this->config, $config, $value);
         }
 

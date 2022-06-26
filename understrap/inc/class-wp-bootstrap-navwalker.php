@@ -31,7 +31,6 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
      */
     class Understrap_WP_Bootstrap_Navwalker extends Walker_Nav_Menu
     {
-
         /**
          * Starts the list before the elements are added.
          *

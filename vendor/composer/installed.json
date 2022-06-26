@@ -224,8 +224,8 @@
         },
         {
             "name": "illuminate/bus",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/bus.git",
@@ -280,8 +280,8 @@
         },
         {
             "name": "illuminate/cache",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
@@ -343,17 +343,17 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "fc232e89c0214dba5d2b431220a24b02d480a472"
+                "reference": "71cc806cf214a287dd4a86cac09171a84c3aa573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/fc232e89c0214dba5d2b431220a24b02d480a472",
-                "reference": "fc232e89c0214dba5d2b431220a24b02d480a472",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/71cc806cf214a287dd4a86cac09171a84c3aa573",
+                "reference": "71cc806cf214a287dd4a86cac09171a84c3aa573",
                 "shasum": ""
             },
             "require": {
@@ -364,7 +364,7 @@
             "suggest": {
                 "symfony/var-dumper": "Required to use the dump method (^5.4)."
             },
-            "time": "2022-03-25T14:53:23+00:00",
+            "time": "2022-06-17T02:35:16+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -400,8 +400,8 @@
         },
         {
             "name": "illuminate/config",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
@@ -451,8 +451,8 @@
         },
         {
             "name": "illuminate/console",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/console.git",
@@ -514,8 +514,8 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -568,8 +568,8 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -619,8 +619,8 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -677,8 +677,8 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -742,17 +742,17 @@
         },
         {
             "name": "illuminate/http",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
-                "reference": "f1a8fce0b426815733f42defaf1b32b420f8c759"
+                "reference": "38b8b0c8ca5d5231df9c515f3a3e7aac5f0da9f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/http/zipball/f1a8fce0b426815733f42defaf1b32b420f8c759",
-                "reference": "f1a8fce0b426815733f42defaf1b32b420f8c759",
+                "url": "https://api.github.com/repos/illuminate/http/zipball/38b8b0c8ca5d5231df9c515f3a3e7aac5f0da9f4",
+                "reference": "38b8b0c8ca5d5231df9c515f3a3e7aac5f0da9f4",
                 "shasum": ""
             },
             "require": {
@@ -770,7 +770,7 @@
                 "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
                 "guzzlehttp/guzzle": "Required to use the HTTP Client (^6.5.5|^7.0.1)."
             },
-            "time": "2022-05-03T18:18:29+00:00",
+            "time": "2022-06-10T18:50:29+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -803,8 +803,8 @@
         },
         {
             "name": "illuminate/log",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/log.git",
@@ -855,8 +855,8 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -904,8 +904,8 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -955,8 +955,8 @@
         },
         {
             "name": "illuminate/session",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
@@ -1014,8 +1014,8 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
@@ -1085,8 +1085,8 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v8.83.16",
-            "version_normalized": "8.83.16.0",
+            "version": "v8.83.17",
+            "version_normalized": "8.83.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
@@ -4312,6 +4312,6 @@
             "install-path": "../voku/portable-ascii"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

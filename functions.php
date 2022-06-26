@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 |
 */
 
-if (!file_exists($composer = __DIR__.'/vendor/autoload.php')) {
+if ( ! file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
     wp_die(__('Error locating autoloader. Please run <code>composer install</code>.'));
 }
 
@@ -35,10 +35,10 @@ require $composer;
 bootloader();
 
 // Load Understrap functions
-require __DIR__.'/understrap/functions.php';
+require __DIR__ . '/understrap/functions.php';
 
 // Load Buildystrap helpers
-require __DIR__.'/src/helpers.php';
+require __DIR__ . '/src/helpers.php';
 
 // Load Buildystrap functions
-require __DIR__.'/src/functions.php';
+require __DIR__ . '/src/functions.php';
