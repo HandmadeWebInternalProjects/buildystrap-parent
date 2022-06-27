@@ -13,7 +13,7 @@ const { update } = useFieldType(emit)
 <template>
   <div>
     <label class="w-100">
-      <field-type-label :label="config.display || handle" />
+      <field-label :label="config.display || handle" />
       <input
         class="w-100"
         :handle="handle"

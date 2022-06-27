@@ -9,6 +9,13 @@ use function collect;
 
 class BlurbModule extends Module
 {
+
+    protected function icon(): string
+    {
+        return 'fa-quote-left';
+    }
+
+
     protected function blueprint(): Collection
     {
         return collect([

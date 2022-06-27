@@ -9,7 +9,7 @@ export const useBuilderStore = defineStore({
         icon: "fa-solid fa-paragraph",
         fields: [
           {
-            type: "text-fieldtype",
+            type: "text-field",
             handle: "title",
             config: {
               input_type: "text",
@@ -22,7 +22,7 @@ export const useBuilderStore = defineStore({
         icon: "fa-solid fa-anchor",
         fields: [
           {
-            type: "text-fieldtype",
+            type: "text-field",
             handle: "title",
             config: {
               input_type: "text",
@@ -30,7 +30,7 @@ export const useBuilderStore = defineStore({
             },
           },
           {
-            type: "text-fieldtype",
+            type: "text-field",
             handle: "url",
             config: {
               input_type: "text",
@@ -38,7 +38,7 @@ export const useBuilderStore = defineStore({
             },
           },
           {
-            type: "checkboxes-fieldtype",
+            type: "checkboxes-field",
             handle: "role",
             config: {
               display: "Role",

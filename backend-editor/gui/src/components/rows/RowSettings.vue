@@ -1,7 +1,7 @@
 <template lang="">
   <div class="d-flex flex-column gap-3">
     <!-- <dynamic-settings :settings-fields="fields" :component="component" />-->
-    <text-fieldtype handle="title" v-model="value['title']" />
+    <text-field handle="title" v-model="value['title']" />
   </div>
 </template>
 

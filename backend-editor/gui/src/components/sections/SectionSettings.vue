@@ -1,7 +1,7 @@
 <template lang="">
   <div class="d-flex flex-column gap-3">
     <!-- <dynamic-settings :settings-fields="fields" :component="component" />-->
-    <toggle-fieldtype
+    <toggle-field
       handle="boxed_layout"
       :config="{ display: 'Boxed Layout', options: ['true', 'false'] }"
       v-model="config['boxed_layout']" />

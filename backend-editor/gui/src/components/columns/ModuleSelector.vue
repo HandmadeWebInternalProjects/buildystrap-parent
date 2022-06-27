@@ -42,7 +42,7 @@ const props = defineProps({
 const parentArray = ref(props.parentArray)
 const index = ref(props.index)
 
-const addField = (field: ModuleType, key?: string) => {
+const addField = (field: ModuleType, key?: string | number) => {
   field = JSON.parse(JSON.stringify(field))
 
   const MODULE = "Module"

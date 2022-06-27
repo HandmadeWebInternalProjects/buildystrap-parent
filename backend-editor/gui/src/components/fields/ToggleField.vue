@@ -15,7 +15,7 @@ const { update } = useFieldType(emit)
 
 <template>
   <div>
-    <field-type-label :label="config.display || handle" />
+    <field-label :label="config.display || handle" />
     <toggle-button
       :value="modelValue"
       @input="update"

@@ -74,7 +74,7 @@ import { useBuilderStore } from "./stores/builder"
 const { setRegisteredComponents } = useBuilderStore()
 setRegisteredComponents(app?._context?.components || {})
 
-import { useFieldType, commonProps } from "./components/fieldtypes/useFieldType"
+import { useFieldType, commonProps } from "./components/fields/useFieldType"
 window.Buildy.$composables = {
   useFieldType,
 }
