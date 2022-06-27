@@ -4,12 +4,13 @@ import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
 const app = createApp(App)
 
-// import "bootstrap";
+import "bootstrap"
 
 declare global {
   interface Window {
     Buildy: BuildyInterface
     builderContent?: string
+    wp?: any
   }
 }
 
@@ -31,11 +32,13 @@ import {
   faPenToSquare,
   faCopy,
   faTrash,
+  faTrashAlt,
   faEllipsisVertical,
   faPlus,
   faColumns,
   faParagraph,
   faAnchor,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -49,9 +52,11 @@ library.add(
   faColumns,
   faCopy,
   faTrash,
+  faTrashAlt,
   faEllipsisVertical,
   faParagraph,
-  faAnchor
+  faAnchor,
+  faWandMagicSparkles
 )
 
 /* add font awesome icon component */

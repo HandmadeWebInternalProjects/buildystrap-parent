@@ -43,11 +43,77 @@ const designToggle = ref(false)
     v-if="settingsToggle"
     half
     name="module-settings">
-    <div class="p-5">
-      <component
-        :is="`${componentToLoad}-settings`"
-        :type="component.type"
-        :component="component" />
+    <div class="tab-header bg-indigo-500 text-white px-4 py-3">
+      <h3 class="mb-0">Edit {{ component.type }}</h3>
+    </div>
+    <div class="p-4">
+      <ul class="nav nav-pills border-bottom" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            data-bs-toggle="tab"
+            data-bs-target="#content-tab"
+            type="button"
+            role="tab"
+            aria-controls="content"
+            aria-selected="true">
+            Content
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#design-tab"
+            type="button"
+            role="tab"
+            aria-controls="design"
+            aria-selected="false">
+            Design
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#settings-tab"
+            type="button"
+            role="tab"
+            aria-controls="settings"
+            aria-selected="false">
+            Settings
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content card mt-4 p-4 rounded">
+        <div
+          class="tab-pane active"
+          id="content-tab"
+          role="tabpanel"
+          aria-labelledby="content-tab"
+          tabindex="0">
+          <component
+            :is="`${componentToLoad}-settings`"
+            :type="component.type"
+            :component="component" />
+        </div>
+        <div
+          class="tab-pane"
+          id="design-tab"
+          role="tabpanel"
+          aria-labelledby="design-tab"
+          tabindex="0">
+          ...
+        </div>
+        <div
+          class="tab-pane"
+          id="settings-tab"
+          role="tabpanel"
+          aria-labelledby="settings-tab"
+          tabindex="0"></div>
+      </div>
     </div>
   </buildy-stack>
 </template>

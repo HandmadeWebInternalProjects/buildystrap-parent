@@ -37,6 +37,13 @@ class BuilderBackend
             return null;
         }
 
+        if (is_admin()) {
+          wp_enqueue_media();
+          wp_enqueue_editor();
+        }
+
+        
+
         $manifest = new ViteManifest(
             'manifest.json',
             get_template_directory() . '/public/builder-gui',

@@ -35,12 +35,18 @@ $utilities: map-merge(
             ),
         )
       ),
-  )
-);
-
-$utilities: map-merge(
-  $utilities,
-  (
+    "color":
+      map-merge(
+        map-get($utilities, "color"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "color"), "values"),
+              ($all-colors)
+            ),
+          state: hover,
+        )
+      ),
     "background-color":
       map-merge(
         map-get($utilities, "background-color"),
@@ -58,46 +64,16 @@ $utilities: map-merge(
 $utilities: map-merge(
   $utilities,
   (
-    "color":
-      map-merge(
-        map-get($utilities, "color"),
-        (
-          values:
-            map-merge(
-              map-get(map-get($utilities, "color"), "values"),
-              ($all-colors)
-            ),
-          state: hover,
-        )
-      ),
-  )
-);
-
-$utilities: map-merge(
-  $utilities,
-  (
+    "cursor": (
+      property: cursor,
+      values: pointer copy crosshair grab grabbing help move no-drop not-allowed,
+    ),
     "border-style": (
       css-var: true,
       css-variable-name: border-style,
       class: border,
       values: dotted dashed,
     ),
-  )
-);
-
-$utilities: map-merge(
-  $utilities,
-  (
-    "cursor": (
-      property: cursor,
-      values: pointer copy crosshair grab grabbing help move no-drop not-allowed,
-    ),
-  )
-);
-
-$utilities: map-merge(
-  $utilities,
-  (
     "width": (
       property: width,
       class: w,
@@ -110,42 +86,87 @@ $utilities: map-merge(
         fit: fit-content,
       ),
     ),
+    "transition": (
+      property: transition,
+      class: transition,
+      values: (
+        all: all var(--bs-transition-duration, 0.3s)
+          var(--bs-transition-timing-function, ease-out),
+        transform: transform var(--bs-transition-duration, 0.3s)
+          var(--bs-transition-timing-function, ease-out),
+        opacity: opacity var(--bs-transition-duration, 0.3s)
+          var(--bs-transition-timing-function, ease-out),
+        background: background var(--bs-transition-duration, 0.3s)
+          var(--bs-transition-timing-function, ease-out),
+        color: color var(--bs-transition-duration, 0.3s)
+          var(--bs-transition-timing-function, ease-out),
+      ),
+    ),
+    "scale": (
+      property: transform,
+      class: scale,
+      state: hover,
+      values: (
+        sm: scale(var(--bs-scale-sm, 0.98)),
+        md: scale(var(--bs-scale-md, 1.02)),
+        lg: scale(var(--bs-scale-lg, 1.05)),
+        xl: scale(var(--bs-scale-xl, 1.1)),
+      ),
+    ),
   )
 );
+
 // Layout & components
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
-// @import "bootstrap/scss/images";
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
-// @import "bootstrap/scss/tables";
-@import "bootstrap/scss/forms";
-@import "bootstrap/scss/buttons";
-// @import "bootstrap/scss/transitions";
-// @import "bootstrap/scss/dropdown";
-// @import "bootstrap/scss/button-group";
-// @import "bootstrap/scss/nav";
-// @import "bootstrap/scss/navbar";
-// @import "bootstrap/scss/card";
-// @import "bootstrap/scss/accordion";
-// @import "bootstrap/scss/breadcrumb";
-// @import "bootstrap/scss/pagination";
-// @import "bootstrap/scss/badge";
-// @import "bootstrap/scss/alert";
-// @import "bootstrap/scss/progress";
-// @import "bootstrap/scss/list-group";
-// @import "bootstrap/scss/close";
-// @import "bootstrap/scss/toasts";
-// @import "bootstrap/scss/modal";
-// @import "bootstrap/scss/tooltip";
-// @import "bootstrap/scss/popover";
-// @import "bootstrap/scss/carousel";
-// @import "bootstrap/scss/spinners";
-// @import "bootstrap/scss/offcanvas";
-@import "bootstrap/scss/placeholders";
 
-// Helpers
-@import "bootstrap/scss/helpers";
+#app {
+  @import "bootstrap/scss/type";
+  // @import "bootstrap/scss/images";
+  @import "bootstrap/scss/containers";
+  @import "bootstrap/scss/grid";
+  // @import "bootstrap/scss/tables";
+  @import "bootstrap/scss/forms";
+  @import "bootstrap/scss/buttons";
+  // @import "bootstrap/scss/transitions";
+  // @import "bootstrap/scss/dropdown";
+  // @import "bootstrap/scss/button-group";
+  @import "bootstrap/scss/nav";
+  // @import "bootstrap/scss/navbar";
+  @import "bootstrap/scss/card";
+  // @import "bootstrap/scss/accordion";
+  // @import "bootstrap/scss/breadcrumb";
+  // @import "bootstrap/scss/pagination";
+  // @import "bootstrap/scss/badge";
+  // @import "bootstrap/scss/alert";
+  // @import "bootstrap/scss/progress";
+  // @import "bootstrap/scss/list-group";
+  // @import "bootstrap/scss/close";
+  // @import "bootstrap/scss/toasts";
+  // @import "bootstrap/scss/modal";
+  // @import "bootstrap/scss/tooltip";
+  // @import "bootstrap/scss/popover";
+  // @import "bootstrap/scss/carousel";
+  // @import "bootstrap/scss/spinners";
+  // @import "bootstrap/scss/offcanvas";
+  @import "bootstrap/scss/placeholders";
 
-@import "bootstrap/scss/utilities/api";
+  // Helpers
+  @import "bootstrap/scss/helpers";
+
+  @import "bootstrap/scss/utilities/api";
+}
+
+.svg-inline--fa {
+  vertical-align: -0.125em;
+}
+.card {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stack-content .tab-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}

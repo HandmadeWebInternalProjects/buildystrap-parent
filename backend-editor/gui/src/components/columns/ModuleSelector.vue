@@ -3,8 +3,12 @@
     <ul class="m-0 p-0 d-flex flex-column">
       <li class="p-1" v-for="(field, key) in getFieldDefaults" :key="key">
         <div
-          class="border bg-700 text-white cursor-pointer w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
-          @click="addField(field, key)">
+          class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
+          @click="addField(field, key)"
+          style="
+            transform: perspective(1px) translateZ(0);
+            backface-visibility: hidden;
+          ">
           <font-awesome-icon
             :icon="field?.icon"
             width="15"

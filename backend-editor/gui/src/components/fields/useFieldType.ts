@@ -9,17 +9,21 @@ export const commonProps = {
     type: String,
     default: "",
   },
-  uuid: {
-    type: String,
-    default: "",
-  },
   handle: {
     type: String,
     required: true,
   },
-  modelValue: {
-    type: [String, Object, Array, Boolean],
+  moduleType: {
+    type: String,
     default: "",
+  },
+  uuid: {
+    type: String,
+    default: "",
+  },
+
+  modelValue: {
+    type: null,
   },
   config: {
     type: Object,

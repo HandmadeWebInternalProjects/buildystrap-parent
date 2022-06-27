@@ -3,35 +3,34 @@
     <portal-target
       v-for="(stack, i) in getStacks"
       :key="`stack-${stack.uid}-${i}`"
-      :name="`stack-${i}`"
-    />
+      :name="`stack-${i}`" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from "vue";
-import { useStacks } from "./useStacks";
+import { onMounted, onUnmounted } from "vue"
+import { useStacks } from "./useStacks"
 
-const { getStacks } = useStacks();
+const { getStacks } = useStacks()
 // import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 onMounted(() => {
   window.Buildy.$bus.on("stacks.hit-area-clicked", (depth) => {
     for (let count = getStacks.value.length; count > depth; count--) {
       if (!getStacks.value[count - 1]?.exposed?.runCloseCallback()) {
-        return;
+        return
       }
     }
-  });
+  })
 
   // disableBodyScroll(this.$el);
-});
+})
 
 onUnmounted(() => {
-  window.Buildy.$bus.off("stacks.hit-area-clicked");
+  window.Buildy.$bus.off("stacks.hit-area-clicked")
   // enableBodyScroll(this.$el);
   // clearAllBodyScrollLocks();
-});
+})
 </script>
 
 <style lang="scss">

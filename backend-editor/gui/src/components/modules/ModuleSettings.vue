@@ -3,6 +3,8 @@
     <component
       v-for="field in ModuleType.fields"
       :handle="field.handle"
+      :type="field.type"
+      :module-type="props.type"
       :config="field.config || {}"
       :key="field.handle"
       v-model="value[field.handle]"

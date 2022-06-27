@@ -183,25 +183,26 @@ $toggle-default-font-size: 0.75rem;
     }
   }
 }
+#app {
+  .btn-toggle {
+    @include toggle-mixin;
+    @include toggle-color;
 
-.btn-toggle {
-  @include toggle-mixin;
-  @include toggle-color;
+    &.btn-lg {
+      @include toggle-mixin($size: 2.5rem, $font-size: 1rem, $margin: 5rem);
+    }
 
-  &.btn-lg {
-    @include toggle-mixin($size: 2.5rem, $font-size: 1rem, $margin: 5rem);
-  }
+    &.btn-sm {
+      @include toggle-mixin($font-size: 0.55rem, $margin: 0);
+    }
 
-  &.btn-sm {
-    @include toggle-mixin($font-size: 0.55rem, $margin: 0.5rem);
-  }
+    &.btn-xs {
+      @include toggle-mixin($size: 1rem, $margin: 0);
+    }
 
-  &.btn-xs {
-    @include toggle-mixin($size: 1rem, $margin: 0);
-  }
-
-  &.btn-secondary {
-    @include toggle-color($active-bg: $brand-secondary);
+    &.btn-secondary {
+      @include toggle-color($active-bg: $brand-secondary);
+    }
   }
 }
 </style>

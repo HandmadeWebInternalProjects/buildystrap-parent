@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { useFieldType } from "./useFieldType"
+import { useFieldType, commonProps } from "./useFieldType"
 import { toRefs } from "vue"
-import { commonProps } from "./useFieldType"
 
 const props = defineProps(commonProps)
 
