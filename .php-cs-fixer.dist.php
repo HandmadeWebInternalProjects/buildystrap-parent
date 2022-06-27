@@ -4,12 +4,12 @@ $rules = [
     '@PSR12' => true,
     'array_syntax' => ['syntax' => 'short'],
     'cast_spaces' => ['space' => 'single'],
-    'ordered_imports' => ['imports_order' => ['class', 'function', 'const'], 'sort_algorithm' => 'alpha'],
-    'no_closing_tag' => true,
     'no_unused_imports' => true,
     'not_operator_with_space' => true,
+    'ordered_imports' => [
+        'imports_order' => ['class', 'function', 'const'],
+        'sort_algorithm' => 'alpha'
+    ],
 ];
 
-$config = new PhpCsFixer\Config();
-
-return $config->setRules($rules);//->setFinder($finder);
+return (new PhpCsFixer\Config())->setRules($rules);
