@@ -30,7 +30,7 @@ abstract class Module
 
         $this->type = $module->type;
 
-        $blueprintFields = $this->blueprint()->get('fields');
+        $blueprintFields = static::blueprint()->get('fields');
 
         $this->fields = collect($module->fields)->map(function ($item, $handle) use ($blueprintFields) {
             if ( ! empty($blueprintFields[$handle]) && $blueprintField = (object) $blueprintFields[$handle]) {
