@@ -82,6 +82,8 @@ class BuilderBackend
         // This Div Loads Vue
         echo '<div id="app"></div>';
 
+        echo "<script id='moduleBlueprints' type='application/json'>".Builder::moduleBlueprints()->toJson()."</script>";
+
         // This style hides the WordPress text editor.
         echo '<style>#postdivrich { display: none !important; }</style>';
 

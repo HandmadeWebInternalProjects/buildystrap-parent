@@ -10,6 +10,7 @@ use Buildystrap\Builder\Modules\BlurbModule;
 use Buildystrap\Builder\Renderer;
 use Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 use function add_filter;
@@ -150,6 +151,11 @@ class Builder
     public static function getModule(string $handle): mixed
     {
         return Arr::get(static::modules(), Str::slug($handle));
+    }
+
+    public static function moduleBlueprints(): Collection
+    {
+        return collect(static::modules())->map(fn ($module): Collection => $module::blueprint());
     }
 
     public static function registerPath(string $path): void

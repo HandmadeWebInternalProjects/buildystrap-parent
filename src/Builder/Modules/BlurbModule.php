@@ -9,23 +9,19 @@ use function collect;
 
 class BlurbModule extends Module
 {
-
-    protected function icon(): string
-    {
-        return 'fa-quote-left';
-    }
-
-
-    protected function blueprint(): Collection
-    {
-        return collect([
-            'text' => [
-                'type' => 'text-field',
-            ],
-        ]);
-    }
-
     protected function augment(): void
     {
+    }
+
+    public static function blueprint(): Collection
+    {
+        return collect([
+            'icon' => 'fa-solid fa-anchor',
+            'fields' => [
+                'text' => [
+                    'type' => 'text-field',
+                ],
+            ]
+        ]);
     }
 }

@@ -30,8 +30,10 @@ abstract class Module
 
         $this->type = $module->type;
 
-        $this->fields = collect($module->fields)->map(function ($item, $handle) {
-            if ($blueprintField = (object) $this->blueprint()->get($handle)) {
+        $blueprintFields = $this->blueprint()->get('fields');
+
+        $this->fields = collect($module->fields)->map(function ($item, $handle) use ($blueprintFields) {
+            if ( ! empty($blueprintFields[$handle]) && $blueprintField = (object) $blueprintFields[$handle]) {
                 if ($field = Builder::getField($blueprintField->type)) {
                     return new $field($item->value);
                 }
@@ -43,7 +45,7 @@ abstract class Module
         $this->augment();
     }
 
-    abstract protected function blueprint(): Collection;
+    abstract public static function blueprint(): Collection;
 
     abstract protected function augment(): void;
 

@@ -2,6 +2,8 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Illuminate\Support\Collection;
+
 abstract class Field
 {
     protected mixed $value;
@@ -14,6 +16,8 @@ abstract class Field
     }
 
     abstract protected function augment(): void;
+
+    abstract public static function blueprint(): Collection;
 
     public function __toString(): string
     {
