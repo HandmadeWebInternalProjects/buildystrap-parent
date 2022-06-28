@@ -27,7 +27,7 @@ const props = defineProps({
 })
 
 const { getFieldDefaultsForType } = useBuilderStore()
-const value = ref(props.component.value)
+const value = ref(props.component.values)
 
 const ModuleType = computed((): any => {
   return getFieldDefaultsForType(props.type)

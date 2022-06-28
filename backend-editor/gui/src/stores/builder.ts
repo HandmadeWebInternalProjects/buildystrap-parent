@@ -109,7 +109,7 @@ export const useBuilderStore = defineStore({
     },
   }),
   getters: {
-    getRegisteredComponents: (state) => {
+    getRegisteredComponents: (state): { [key: string]: any } => {
       return state.registeredComponents
     },
     getFieldDefaultsForType: (state) => (type: string) => {

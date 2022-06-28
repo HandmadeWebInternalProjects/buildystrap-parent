@@ -26,7 +26,7 @@ const Module = function (
     adminLabel: HANDLE,
   }
   this.meta = META
-  this.value = VALUE || {}
+  this.values = VALUE || {}
 }
 
 export { Module }

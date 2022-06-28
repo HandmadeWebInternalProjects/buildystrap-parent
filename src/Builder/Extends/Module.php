@@ -25,23 +25,25 @@ abstract class Module
 
     public function __construct(stdClass $module)
     {
-        $this->uuid = $module->uuid;
-        $this->enabled = $module->enabled ?? false;
+      $this->uuid = $module->uuid;
+      $this->enabled = $module->enabled ?? false;
+      
+      $this->type = $module->type;
+      
+      $blueprintFields = static::blueprint()->get('fields');
 
-        $this->type = $module->type;
-
-        $blueprintFields = static::blueprint()->get('fields');
-
-        $this->fields = collect($module->fields)->map(function ($item, $handle) use ($blueprintFields) {
-            if ( ! empty($blueprintFields[$handle]) && $blueprintField = (object) $blueprintFields[$handle]) {
-                if ($field = Builder::getField($blueprintField->type)) {
-                    return new $field($item->value);
-                }
-            }
-
-            return null;
-        })->filter();
-
+      dd($module);
+      
+      $this->fields = collect($module->fields)->map(function ($item, $handle) use ($blueprintFields) {
+        if ( ! empty($blueprintFields[$handle]) && $blueprintField = (object) $blueprintFields[$handle]) {
+          if ($field = Builder::getField($blueprintField->type)) {
+            return new $field($item->value);
+          }
+        }
+        
+        return null;
+      })->filter();
+      
         $this->augment();
     }
 

@@ -1,14 +1,31 @@
-const GlobalSection = function ({ UUID, ADMIN_LABEL, VALUE }) {
+const GlobalSection = function (
+  this: any,
+  {
+    ADMIN_LABEL,
+    CONFIG = {},
+    META = {},
+    HANDLE,
+    VALUE,
+    UUID,
+  }: {
+    ADMIN_LABEL: string
+    CONFIG: { [key: string]: any }
+    META: { [key: string]: any }
+    HANDLE: string
+    VALUE: any
+    UUID: string
+  }
+) {
   this.uuid = `${UUID}`
   this.type = "global-section"
-  this.useSettings = "section"
   this.config = {
     enabled: true,
-    buildamic_settings: {
-      adminLabel: ADMIN_LABEL || this.type,
-    },
+    adminLabel: ADMIN_LABEL || this.type,
+    boxed_layout: true,
   }
-  this.value = VALUE
+  this.rows = []
+  this.attributes = {}
+  this.inline = {}
 }
 
 export { GlobalSection }

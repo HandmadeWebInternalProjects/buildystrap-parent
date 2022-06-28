@@ -12,7 +12,7 @@ const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update, normaliseOptions } = useFieldType(emit)
 
 const options = normaliseOptions(config.value.options) || []
-const values = ref<any>(modelValue.value || [])
+const values = ref<any>(modelValue?.value || [])
 
 watch(values, (newValue) => {
   update(newValue)

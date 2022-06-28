@@ -40,7 +40,7 @@ const spaceToDash = (str: string): string => {
   return str
 }
 
-const stripTrailingSlash = (str) => {
+const stripTrailingSlash = (str: string) => {
   return str.endsWith("/") ? str.slice(0, -1) : str
 }
 

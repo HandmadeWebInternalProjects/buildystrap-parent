@@ -11,6 +11,7 @@ declare global {
     Buildy: BuildyInterface
     builderContent?: string
     wp?: any
+    tinymce?: any
   }
 }
 

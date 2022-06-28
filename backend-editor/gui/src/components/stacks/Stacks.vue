@@ -15,7 +15,7 @@ const { getStacks } = useStacks()
 // import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 onMounted(() => {
-  window.Buildy.$bus.on("stacks.hit-area-clicked", (depth) => {
+  window.Buildy.$bus.on("stacks.hit-area-clicked", (depth: number) => {
     for (let count = getStacks.value.length; count > depth; count--) {
       if (!getStacks.value[count - 1]?.exposed?.runCloseCallback()) {
         return
