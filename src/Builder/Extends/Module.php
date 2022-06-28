@@ -34,14 +34,12 @@ abstract class Module
 
         $values = $module->values;
 
-        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields, $values) {
+        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
             if ( ! empty($blueprintFields[$handle]) && $blueprintField = (object) $blueprintFields[$handle]) {
                 if ($field = Builder::getField($blueprintField->type)) {
                     return new $field($value);
                 }
             }
-
-            return null;
         })->filter();
 
         $this->augment();

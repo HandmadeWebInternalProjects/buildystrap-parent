@@ -18,7 +18,7 @@ class TextModule extends Module
         return collect([
             'icon' => 'fa-solid fa-anchor',
             'fields' => [
-                'text' => [
+                'title' => [
                     'type' => 'text-field',
                 ],
             ]
