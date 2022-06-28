@@ -21,7 +21,7 @@ class TextModule extends Module
         return collect([
             'icon' => 'fa-solid fa-paragraph',
             'fields' => [
-                'text' => [
+                'title' => [
                     'type' => 'text-field',
                     'handle' => 'text',
                     'config' => [
@@ -36,7 +36,7 @@ class TextModule extends Module
                       'display' => 'Another Text'
                     ]
                 ],
-            ]
+            ],
         ]);
     }
 }

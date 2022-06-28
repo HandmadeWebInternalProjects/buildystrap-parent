@@ -14,7 +14,7 @@ class TextField extends Field
     public static function blueprint(): Collection
     {
         return collect([
-            'input_type' => 'text'
+            'input_type' => 'text',
         ]);
     }
 }
