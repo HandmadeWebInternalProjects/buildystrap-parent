@@ -11,15 +11,30 @@ class TextModule extends Module
 {
     protected function augment(): void
     {
+        if ( ! false) {
+            ['icon' => 'fa-solid fa-magic-wand-sparkles'];
+        }
     }
 
     public static function blueprint(): Collection
     {
         return collect([
-            'icon' => 'fa-solid fa-anchor',
+            'icon' => 'fa-solid fa-paragraph',
             'fields' => [
                 'text' => [
                     'type' => 'text-field',
+                    'handle' => 'text',
+                    'config' => [
+                      'display' => 'First text',
+                      'input_type' => 'email'
+                    ]
+                ],
+                'another_text' => [
+                    'type' => 'text-field',
+                    'handle' => 'another_text',
+                    'config' => [
+                      'display' => 'Another Text'
+                    ]
                 ],
             ]
         ]);

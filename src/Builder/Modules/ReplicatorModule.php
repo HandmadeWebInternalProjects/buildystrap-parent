@@ -16,12 +16,45 @@ class ReplicatorModule extends Module
     public static function blueprint(): Collection
     {
         return collect([
-            'icon' => 'fa-solid fa-anchor',
+            'icon' => 'fa-solid fa-magic-wand-sparkles',
             'fields' => [
-                'text' => [
-                    'type' => 'text-field',
+              'set_handle' => [
+              'type' => 'replicator-field',
+              'handle'=> 'set_handle',
+              'fields' => [
+                'title' => [
+                  'type' => "text-field",
+                  'handle' => "title",
+                  'config' => [
+                    'input_type' => "text",
+                    'display'=> "Title",
+                  ]
                 ],
-            ]
+                'role' => [
+                  'type' => "checkboxes-field",
+                  'handle' => "role",
+                  'config' => [
+                    'display' => "Role",
+                    'options' => [ 'primary' => "Primary", 'secondary' => "Secondary" ],
+                  ],
+                ],
+                'content' => [
+                  'type' => "richtext-field",
+                  'handle' => "content",
+                  'config' => [
+                    'display' => "Content",
+                  ],
+                ],
+                'image' => [
+                  'type' => "media-field",
+                  'handle' => "image",
+                  'config' => [
+                    'display' => "Image",
+                  ],
+                ],
+              ]
+            ],
+          ],
         ]);
     }
 }

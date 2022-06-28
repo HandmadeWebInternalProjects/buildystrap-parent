@@ -29,7 +29,7 @@ const componentIndex = computed((): number => props.componentIndex)
     <div
       class="d-flex flex-row justify-content-between align-items-center flex-grow-1 px-3 py-2">
       <span
-        class="module-title flex-grow-1 py-1 me-2 text-nowrap overflow-scroll"
+        class="module-title flex-grow-1 py-1 me-2 text-nowrap overflow-hidden"
         >{{ component.type }}</span
       >
       <module-controls

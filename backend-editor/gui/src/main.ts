@@ -73,11 +73,20 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
   app.component(name, m.default)
 })
 
+const moduleBlueprints = JSON.parse(
+  document.querySelector("#moduleBlueprints")?.innerHTML
+)
+
+console.log({ moduleBlueprints })
+
 import { Buildy } from "./components/Buildy"
 window.Buildy = new Buildy(app)
 
 import { useBuilderStore } from "./stores/builder"
-const { setRegisteredComponents } = useBuilderStore()
+const { setRegisteredComponents, setFieldDefaults } = useBuilderStore()
+
+setFieldDefaults(moduleBlueprints)
+
 setRegisteredComponents(app?._context?.components || {})
 
 import { useFieldType, commonProps } from "./components/fields/useFieldType"
