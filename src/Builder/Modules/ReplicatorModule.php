@@ -21,7 +21,7 @@ class ReplicatorModule extends Module
                 'text' => [
                     'type' => 'text-field',
                 ],
-            ]
+            ],
         ]);
     }
 }

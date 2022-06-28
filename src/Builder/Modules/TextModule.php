@@ -21,7 +21,7 @@ class TextModule extends Module
                 'title' => [
                     'type' => 'text-field',
                 ],
-            ]
+            ],
         ]);
     }
 }
