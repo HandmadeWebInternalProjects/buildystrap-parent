@@ -1,12 +1,12 @@
 <template lang="">
   <div class="d-flex gap-3 flex-column p-4 bg-300">
     <component
-      v-for="field in fields"
-      :key="field.handle"
-      :handle="field.handle"
+      v-for="(field, key) in fields"
+      :key="key"
+      :handle="key"
       :type="field.type"
       :config="field.config || {}"
-      v-model="value[field.handle]"
+      v-model="value[key]"
       :uuid="value._uuid"
       :is="field.type" />
   </div>

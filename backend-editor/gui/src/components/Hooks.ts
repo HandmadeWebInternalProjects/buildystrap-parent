@@ -1,27 +1,27 @@
 interface HookConstructor {
-  new (): HookInterface;
+  new (): HookInterface
 }
 
 export interface HookInterface {
-  queue: { [key: string]: any };
+  queue: { [key: string]: any }
   add(
     name: string,
     callback: (resolve: any, reject: any, ...args: any[]) => void,
     priority?: number
-  ): void;
-  run(name: string, args: any): Promise<any>;
-  remove(name: string, callback: (arg: any) => void): void;
-  clear(name: string): void;
-  getCallbacks(name: string): any[];
-  count(name: string): number;
-  hasCallbacks(name: string): boolean;
-  hasCallback(name: string, callback: (arg: any) => void): boolean;
+  ): void
+  run(name: string, args: any): Promise<any>
+  remove(name: string, callback: (arg: any) => void): void
+  clear(name: string): void
+  getCallbacks(name: string): any[]
+  count(name: string): number
+  hasCallbacks(name: string): boolean
+  hasCallback(name: string, callback: (arg: any) => void): boolean
 }
 
 const Hooks: HookConstructor = class Hooks implements HookInterface {
-  queue: { [key: string]: any };
+  queue: { [key: string]: any }
   constructor() {
-    this.queue = {};
+    this.queue = {}
   }
 
   /**
@@ -37,9 +37,9 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
     priority = 10
   ) {
     if (this.queue[name] === undefined) {
-      this.queue[name] = [];
+      this.queue[name] = []
     }
-    this.queue[name].push({ callback, priority });
+    this.queue[name].push({ callback, priority })
   }
 
   /**
@@ -50,9 +50,9 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
 
   run(name: string, ...args: unknown[]) {
     return new Promise((resolve, reject) => {
-      const callbacks = this.getCallbacks(name);
+      const callbacks = this.getCallbacks(name)
       // If the below causes issue (spreading results) then args will need to be wrapped in an array here
-      if (!callbacks.length) resolve([...args]);
+      if (!callbacks.length) resolve([...args])
       this.getCallbacks(name)
         .sort(
           (a: { priority: number }, b: { priority: number }) =>
@@ -64,12 +64,12 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
         .reduce((promise: any, callback: any) => {
           return promise.then((result: any) =>
             callback().then(Array.prototype.concat.bind(result))
-          );
+          )
         }, Promise.resolve([]))
         // Return result, we mau need this to be non-spreaded for some reason if so.
         .then((results: PromiseSettledResult<any[]>) => resolve(results))
-        .catch((error: ErrorCallback) => reject(error));
-    });
+        .catch((error: ErrorCallback) => reject(error))
+    })
   }
 
   /**
@@ -79,9 +79,9 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
   #convertToPromiseCallback(callback: any, ...args: any) {
     return () => {
       return new Promise((resolve, reject) => {
-        callback(resolve, reject, ...args);
-      });
-    };
+        callback(resolve, reject, ...args)
+      })
+    }
   }
 
   /**
@@ -91,7 +91,7 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    */
   remove(name: string, callback: any) {
     if (this.queue[name]) {
-      this.queue[name] = this.queue[name].filter((el: any) => !el === callback);
+      this.queue[name] = this.queue[name].filter((el: any) => !el === callback)
     }
   }
 
@@ -102,7 +102,7 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    */
   clear(name: string) {
     if (this.queue[name]) {
-      this.queue[name] = [];
+      this.queue[name] = []
     }
   }
 
@@ -112,7 +112,7 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    * hooks.clearAll()
    */
   clearAll() {
-    this.queue = {};
+    this.queue = {}
   }
 
   /**
@@ -122,7 +122,7 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    * hooks.get('myHook')
    */
   getCallbacks(name: string) {
-    return this.queue[name] || [];
+    return this.queue[name] || []
   }
 
   /**
@@ -133,9 +133,9 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    */
   count(name: string) {
     if (this.queue[name]) {
-      return this.queue[name].length;
+      return this.queue[name].length
     }
-    return 0;
+    return 0
   }
 
   /**
@@ -145,7 +145,7 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
    * hooks.hasCallbacks('myHook')
    */
   hasCallbacks(name: string) {
-    return !!this.queue[name] && this.queue[name].length > 0;
+    return !!this.queue[name] && this.queue[name].length > 0
   }
 
   /**
@@ -160,8 +160,8 @@ const Hooks: HookConstructor = class Hooks implements HookInterface {
     return (
       !!this.queue[name] &&
       this.queue[name].filter((el: any) => el.includes(callback))
-    );
+    )
   }
-};
+}
 
-export default new Hooks();
+export default new Hooks()

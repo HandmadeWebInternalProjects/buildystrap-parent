@@ -7,6 +7,7 @@ use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Modules\BlurbModule;
+use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ReplicatorModule;
 use Buildystrap\Builder\Modules\TextModule;
 use Buildystrap\Builder\Renderer;
@@ -42,6 +43,7 @@ class Builder
     protected static array $modules = [
         'blurb-module' => BlurbModule::class,
         'text-module' => TextModule::class,
+        'header-module' => HeaderModule::class,
         'replicator-module' => ReplicatorModule::class,
     ];
 

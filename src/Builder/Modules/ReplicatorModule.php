@@ -19,17 +19,17 @@ class ReplicatorModule extends Module
             'icon' => 'fa-solid fa-magic-wand-sparkles',
             'fields' => [
               'set_handle' => [
-              'type' => 'replicator-field',
-              'handle'=> 'set_handle',
-              'fields' => [
-                'title' => [
-                  'type' => "text-field",
-                  'handle' => "title",
-                  'config' => [
-                    'input_type' => "text",
-                    'display'=> "Title",
-                  ]
-                ],
+                'type' => 'replicator-field',
+                'handle'=> 'set_handle',
+                'fields' => [
+                  'title' => [
+                    'type' => "title-field",
+                    'handle' => "title",
+                    'config' => [
+                      'input_type' => "text",
+                      'display'=> "Title",
+                    ]
+                  ],
                 'role' => [
                   'type' => "checkboxes-field",
                   'handle' => "role",
@@ -50,6 +50,7 @@ class ReplicatorModule extends Module
                   'handle' => "image",
                   'config' => [
                     'display' => "Image",
+                    'multiple' => false
                   ],
                 ],
               ]

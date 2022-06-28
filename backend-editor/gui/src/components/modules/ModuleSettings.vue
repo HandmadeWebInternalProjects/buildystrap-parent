@@ -1,13 +1,13 @@
 <template lang="">
   <div class="d-flex flex-column gap-3">
     <component
-      v-for="field in ModuleType.fields"
-      :handle="field.handle"
+      v-for="(field, key) in ModuleType.fields"
+      :handle="key"
       :type="field.type"
       :module-type="props.type"
       :config="field.config || {}"
-      :key="field.handle"
-      v-model="value[field.handle]"
+      :key="key"
+      v-model="value[key]"
       :is="field.type" />
   </div>
 </template>
