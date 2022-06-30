@@ -2,7 +2,15 @@ import "vite/modulepreload-polyfill"
 import { createApp, provide } from "vue"
 import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
-const app = createApp(App)
+import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
+
+const configOptions: { [key: string]: any } = JSON.parse(
+  document.querySelector("#config")?.innerHTML || ""
+)
+
+const app = configOptions.isGlobalModule
+  ? createApp(GlobalModuleBuilder)
+  : createApp(App)
 
 import "bootstrap"
 
@@ -73,21 +81,26 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
   app.component(name, m.default)
 })
 
-const moduleBlueprints: { [key: string]: any } = JSON.parse(
-  document.querySelector("#moduleBlueprints")?.innerHTML || ""
-)
-
-import { Buildy } from "./components/Buildy"
-window.Buildy = new Buildy(app)
-
 import { useBuilderStore } from "./stores/builder"
-const { setRegisteredComponents, setFieldDefaults } = useBuilderStore()
+const { setRegisteredComponents, setModuleBlueprints, setGlobals } =
+  useBuilderStore()
 
-if (moduleBlueprints) {
-  setFieldDefaults(moduleBlueprints)
+if (configOptions.moduleBlueprints) {
+  setModuleBlueprints(configOptions.moduleBlueprints)
+}
+
+if (configOptions.globalSections) {
+  setGlobals(configOptions.globalSections, "sections")
+}
+
+if (configOptions.globalModules) {
+  setGlobals(configOptions.globalModules, "modules")
 }
 
 setRegisteredComponents(app?._context?.components || {})
+
+import { Buildy } from "./components/Buildy"
+window.Buildy = new Buildy(app)
 
 import { useFieldType, commonProps } from "./components/fields/useFieldType"
 window.Buildy.$composables = {

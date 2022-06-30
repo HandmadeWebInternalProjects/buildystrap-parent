@@ -26,11 +26,11 @@ const props = defineProps({
   },
 })
 
-const { getFieldDefaultsForType } = useBuilderStore()
+const { getModuleBlueprintForType } = useBuilderStore()
 const value = ref(props.component.values)
 
 const ModuleType = computed((): any => {
-  return getFieldDefaultsForType(props.type)
+  return getModuleBlueprintForType(props.type)
 })
 </script>
 <style lang=""></style>

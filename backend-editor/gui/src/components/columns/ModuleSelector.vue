@@ -1,7 +1,7 @@
 <template>
   <div class="h-full bg-white overflow-auto pt-0">
     <ul class="m-0 p-0 d-flex flex-column">
-      <li class="p-1" v-for="(field, key) in getFieldDefaults" :key="key">
+      <li class="p-1" v-for="(field, key) in getModuleBlueprints" :key="key">
         <div
           class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
           @click="addField(field, key)"
@@ -31,9 +31,9 @@ import { createModule } from "../../factories/modules/moduleFactory"
 import type { ModuleType } from "../../factories/modules/moduleFactory"
 import { useBuilderStore } from "../../stores/builder"
 
-const { getFieldDefaults } = useBuilderStore()
+const { getModuleBlueprints } = useBuilderStore()
 
-console.log(getFieldDefaults)
+console.log({ getModuleBlueprints })
 
 const props = defineProps({
   parentArray: {

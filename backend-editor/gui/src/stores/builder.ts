@@ -5,21 +5,30 @@ export const useBuilderStore = defineStore({
   state: () => ({
     registeredComponents: {},
     fieldDefaults: <{ [key: string]: any }>{},
+    globals: <{ [key: string]: any }>{
+      sections: {},
+      modules: {},
+    },
   }),
   getters: {
     getRegisteredComponents: (state): { [key: string]: any } => {
       return state.registeredComponents
     },
-    getFieldDefaultsForType: (state) => (type: string) => {
+    getModuleBlueprintForType: (state) => (type: string) => {
       return state.fieldDefaults[type]
     },
-    getFieldDefaults: (state) => state.fieldDefaults,
+    getModuleBlueprints: (state) => state.fieldDefaults,
+    getGlobalSections: (state) => state.globals.sections,
+    getGlobalModules: (state) => state.globals.modules,
   },
   actions: {
+    setGlobals(globals: { [key: string]: any }, type: string) {
+      this.globals[type] = { ...globals }
+    },
     setRegisteredComponents(payload: { [key: string]: any }) {
       this.registeredComponents = { ...payload }
     },
-    setFieldDefaults(payload: { [key: string]: any }) {
+    setModuleBlueprints(payload: { [key: string]: any }) {
       this.fieldDefaults = { ...payload }
     },
   },

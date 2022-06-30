@@ -87,27 +87,25 @@ class BuilderBackend
             return null;
         }
 
+        $config = json_encode([
+                    'post_id' => $post->ID,
+                    'post_type' => $post->post_type,
+                    'moduleBlueprints' => Builder::moduleBlueprints(),
+                    'isGlobalModule' => $post->post_type === 'buildy-global-module',
+                    'globalSections' => Builder::getGlobals(),
+                    'globalModules' => Builder::getGlobalModules(),
+                    'is_admin' => current_user_can('administrator'),
+                    'site_url' => get_site_url(),
+                    // 'registered_image_sizes' => static::get_all_image_sizes(),
+                    'registered_post_types' => get_post_types(['_builtin' => false]),
+                ]);
+
+
         // Module Blueprints
-        echo '<script id="moduleBlueprints" type="application/json">';
-        echo Builder::moduleBlueprints()->toJson();
-        echo '</script>';
-
-        // Globals CPT
-        echo '<script id="buildyGlobals" type="application/json">';
-        echo Builder::getGlobals()->toJson();
-        echo '</script>';
-
-        // Global Modules CPT
-        echo '<script id="buildyGlobalModules" type="application/json">';
-        echo Builder::getGlobalModules()->toJson();
-        echo '</script>';
+        echo "<script id='config' type='application/json'>{$config}</script>";
 
         // This Div Loads Vue
-        if ($post->post_type === 'buildy-global-module') {
-            echo '<div id="global-module-app"></div>';
-        } else {
-            echo '<div id="app"></div>';
-        }
+        echo '<div id="app"></div>';
 
         // This style hides the WordPress text editor.
         echo '<style>#postdivrich { display: none !important; }</style>';
