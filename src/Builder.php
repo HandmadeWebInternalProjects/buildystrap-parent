@@ -317,6 +317,8 @@ class Builder
 
     public static function isEnabled(int $post_id = 0): bool
     {
+        $isEnabled = false;
+
         if ($post_id === 0) {
             $post_id = get_the_ID();
         }
