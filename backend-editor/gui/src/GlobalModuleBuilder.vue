@@ -8,7 +8,7 @@ const builder = ref<{ [key: string]: any }[]>([])
 const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
-  builder.value = JSON.parse(contentEl.innerText)
+  builder.value = [JSON.parse(contentEl.innerText)]
 }
 
 const toggleModuleSelection = ref(false)
@@ -16,7 +16,8 @@ const toggleModuleSelection = ref(false)
 watch(
   builder,
   (newValue) => {
-    contentEl && (contentEl.innerText = JSON.stringify(newValue))
+    console.log(JSON.stringify(newValue[0]))
+    contentEl && (contentEl.innerText = JSON.stringify(newValue[0]))
   },
   {
     deep: true,
