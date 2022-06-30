@@ -9,7 +9,7 @@ use function view;
 
 class Section extends Layout
 {
-    public array $rows = [];
+    protected array $rows = [];
 
     public function __construct(stdClass $section)
     {

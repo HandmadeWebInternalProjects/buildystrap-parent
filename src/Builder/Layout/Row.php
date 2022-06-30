@@ -9,7 +9,7 @@ use function view;
 
 class Row extends Layout
 {
-    public array $columns = [];
+    protected array $columns = [];
 
     public function __construct(stdClass $row)
     {

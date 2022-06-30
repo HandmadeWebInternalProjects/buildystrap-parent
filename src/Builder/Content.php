@@ -8,7 +8,7 @@ use function json_decode;
 
 class Content
 {
-    public Container $container;
+    protected Container $container;
 
     public function __construct(string $content)
     {

@@ -6,7 +6,9 @@ use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\TextField;
+use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\BlurbModule;
+use Buildystrap\Builder\Modules\GlobalModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ReplicatorModule;
 use Buildystrap\Builder\Modules\TextModule;
@@ -22,12 +24,13 @@ use function class_extends;
 use function collect;
 use function config;
 use function do_action;
-use function function_exists;
 use function get_current_screen;
-use function get_field;
+use function get_post_meta;
 use function get_queried_object;
+use function get_the_ID;
 use function in_array;
 use function is_admin;
+use function json_decode;
 use function view;
 
 use const REST_REQUEST;
@@ -45,6 +48,7 @@ class Builder
         'text-module' => TextModule::class,
         'header-module' => HeaderModule::class,
         'replicator-module' => ReplicatorModule::class,
+        'global-module' => GlobalModule::class,
     ];
 
     protected static array $paths = [];
@@ -135,6 +139,107 @@ class Builder
         return Arr::get(static::fields(), Str::slug($handle));
     }
 
+    public static function getGlobals(): Collection
+    {
+        global $wpdb;
+
+        $query = $wpdb->prepare(
+            "SELECT 
+                `ID` AS `id`, 
+                `post_title` AS `title` 
+            FROM `{$wpdb->prefix}posts` 
+            WHERE 
+                `post_type` = 'buildy-global' 
+                 AND 
+                    `post_status` = 'publish'"
+        );
+        $globals = $wpdb->get_results($query);
+
+        return collect($globals ?? []);
+    }
+
+    public static function getGlobalModules(): Collection
+    {
+        global $wpdb;
+
+        $query = $wpdb->prepare(
+            "SELECT 
+                `ID` AS `id`, 
+                `post_title` AS `title` 
+            FROM `{$wpdb->prefix}posts` 
+            WHERE 
+                `post_type` = 'buildy-global-module' 
+                AND 
+                    `post_status` = 'publish'"
+        );
+        $globals = $wpdb->get_results($query);
+
+        return collect($globals ?? []);
+    }
+
+    public static function getGlobal(int $post_id): ?Container
+    {
+        global $wpdb;
+
+        $query = $wpdb->prepare(
+            "SELECT 
+                `ID` AS `id`, 
+                `post_title` AS `title`, 
+                `post_content` AS `content` 
+            FROM `{$wpdb->prefix}posts` 
+            WHERE 
+                `ID` = %d 
+                AND 
+                    `post_type` = 'buildy-global' 
+                AND 
+                    `post_status` = 'publish' 
+            LIMIT 1",
+            $post_id
+        );
+
+        if ($global = $wpdb->get_row($query)) {
+            $content = new Content($global->content);
+            return $content->container();
+        }
+    }
+
+    public static function getGlobalModule(int $post_id): ?Module
+    {
+        global $wpdb;
+
+        $query = $wpdb->prepare(
+            "SELECT 
+                `ID` AS `id`, 
+                `post_title` AS `title`, 
+                `post_content` AS `content` 
+            FROM `{$wpdb->prefix}posts` 
+            WHERE 
+                `ID` = %d 
+                AND 
+                    `post_type` = 'buildy-global-module' 
+                AND 
+                    `post_status` = 'publish' 
+            LIMIT 1",
+            $post_id
+        );
+
+        if ($global = $wpdb->get_row($query)) {
+            $module = json_decode($global->content);
+            $_module = static::getModule($module->type);
+            return new $_module($module);
+        }
+    }
+
+    public static function getModule(string $handle): mixed
+    {
+        return Arr::get(static::modules(), Str::slug($handle));
+    }
+
+    public static function modules(): array
+    {
+        return static::$modules;
+    }
+
     /**
      * @throws Exception
      */
@@ -149,19 +254,9 @@ class Builder
         return static::modules();
     }
 
-    public static function modules(): array
-    {
-        return static::$modules;
-    }
-
-    public static function getModule(string $handle): mixed
-    {
-        return Arr::get(static::modules(), Str::slug($handle));
-    }
-
     public static function moduleBlueprints(): Collection
     {
-        return collect(static::modules())->map(fn ($module): Collection => $module::blueprint());
+        return collect(static::modules())->map(fn ($module): Collection => $module::getBlueprint());
     }
 
     public static function registerPath(string $path): void
@@ -220,23 +315,32 @@ class Builder
         return $content;
     }
 
-    public static function isEnabled(int $id = 0): bool
+    public static function isEnabled(int $post_id = 0): bool
     {
-        if ( ! function_exists('get_field')) {
-            return false;
+        $isEnabled = false;
+
+        if ($post_id === 0) {
+            $post_id = get_the_ID();
         }
 
         if (is_admin()) {
             $screen = get_current_screen();
 
-            if (in_array($screen->post_type, static::enabledTypes()) && 'post' === $screen->base) {
-                $isEnabled = get_field('buildy::enabled', $id);
+            if ($screen->base === 'post') {
+                // Buildy globals are always enabled
+                if (in_array($screen->post_type, ['buildy-global', 'buildy-global-module'])) {
+                    return true;
+                }
+
+                if (in_array($screen->post_type, static::enabledTypes())) {
+                    $isEnabled = ! empty(get_post_meta($post_id, '_buildy_enabled', true));
+                }
             }
         } else {
-            $isEnabled = get_field('buildy::enabled', $id);
+            $isEnabled = ! empty(get_post_meta($post_id, '_buildy_enabled', true));
         }
 
-        return $isEnabled ?? false;
+        return $isEnabled;
     }
 
     public static function enabledTypes(): array

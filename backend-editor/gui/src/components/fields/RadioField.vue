@@ -16,7 +16,7 @@ const options = normaliseOptions(config.value.options) || []
 
 <template>
   <div>
-    <field-label :label="config.display || handle" />
+    <field-label :label="config.label || handle" />
     <div v-for="(option, $index) in options" :key="$index" class="option">
       <label>
         <input

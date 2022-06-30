@@ -6,7 +6,7 @@ use Buildystrap\Builder\Layout\Container;
 
 class Renderer
 {
-    public Container $container;
+    protected Container $container;
 
     public function __construct(Container $container)
     {

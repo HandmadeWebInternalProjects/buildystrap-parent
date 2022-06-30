@@ -1,3 +1,3 @@
-<div class="module::blurb">
-    {!! $module->fields()->get('title') !!}
+<div class="{{ $module->type() }}">
+    {!! $module->fields()->get('text') !!}
 </div>

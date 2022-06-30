@@ -3,23 +3,19 @@
 namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
-use Illuminate\Support\Collection;
-
-use function collect;
 
 class BlurbModule extends Module
 {
-    protected function augment(): void
+    protected static function blueprint(): array
     {
-    }
-
-    public static function blueprint(): Collection
-    {
-        return collect([
+        return [
             'icon' => 'fa-solid fa-anchor',
             'fields' => [
                 'title' => [
                     'type' => 'text-field',
+                    'config' => [
+                        'label' => 'Blurb Text',
+                    ],
                 ],
                 'url' => [
                     'type' => 'text-field',
@@ -34,6 +30,10 @@ class BlurbModule extends Module
                     'type' => 'richtext-field',
                 ],
             ],
-        ]);
+        ];
+    }
+
+    protected function augment(): void
+    {
     }
 }

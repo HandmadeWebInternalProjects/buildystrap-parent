@@ -1,1 +1,1 @@
-<!-- A view file for the module could not be found -->
+<!-- A view file for {{ $module->type() }} could not be found -->

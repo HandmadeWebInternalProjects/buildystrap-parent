@@ -1,4 +1,4 @@
-<div class="module::blurb">
+<div class="{{ $module->type() }}">
     <h2>{!! $module->fields()->get('title') !!}</h2>
 
     @if($module->fields()->get('url'))

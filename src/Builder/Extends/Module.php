@@ -8,6 +8,7 @@ use Buildystrap\Traits\Config;
 use Illuminate\Support\Collection;
 use stdClass;
 
+use function array_replace_recursive;
 use function collect;
 use function view;
 
@@ -30,7 +31,7 @@ abstract class Module
 
         $this->type = $module->type;
 
-        $blueprintFields = static::blueprint()->get('fields');
+        $blueprintFields = static::getBlueprint()->get('fields');
 
         $values = $module->values;
 
@@ -45,7 +46,21 @@ abstract class Module
         $this->augment();
     }
 
-    abstract public static function blueprint(): Collection;
+    public static function getBlueprint(): Collection
+    {
+        $blueprint = static::blueprint();
+        $fields = $blueprint['fields'];
+
+        foreach ($fields as $handle => $item) {
+            if ($field = Builder::getField($item['type'])) {
+                $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+            }
+        }
+
+        return collect($blueprint);
+    }
+
+    abstract protected static function blueprint(): array;
 
     abstract protected function augment(): void;
 

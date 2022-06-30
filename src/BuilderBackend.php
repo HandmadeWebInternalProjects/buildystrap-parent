@@ -21,11 +21,13 @@ class BuilderBackend
         if ( ! static::$booted) {
             static::$booted = true;
 
+            BuilderMetaBox::boot();
+
             add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], PHP_INT_MAX);
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
 
-            include 'acf.php';
+            include __DIR__ . '/cpt.php';
 
             do_action('buildy::builder-backend::boot');
         }
@@ -41,7 +43,6 @@ class BuilderBackend
             wp_enqueue_media();
             wp_enqueue_editor();
         }
-
 
 
         $manifest = new ViteManifest(
@@ -85,11 +86,28 @@ class BuilderBackend
         if ( ! Builder::isEnabled()) {
             return null;
         }
-        
-        echo "<script id='moduleBlueprints' type='application/json'>".Builder::moduleBlueprints()->toJson()."</script>";
-        // This Div Loads Vue
-        echo '<div id="app"></div>';
 
+        // Module Blueprints
+        echo '<script id="moduleBlueprints" type="application/json">';
+        echo Builder::moduleBlueprints()->toJson();
+        echo '</script>';
+
+        // Globals CPT
+        echo '<script id="buildyGlobals" type="application/json">';
+        echo Builder::getGlobals()->toJson();
+        echo '</script>';
+
+        // Global Modules CPT
+        echo '<script id="buildyGlobalModules" type="application/json">';
+        echo Builder::getGlobalModules()->toJson();
+        echo '</script>';
+
+        // This Div Loads Vue
+        if ($post->post_type === 'buildy-global-module') {
+            echo '<div id="global-module-app"></div>';
+        } else {
+            echo '<div id="app"></div>';
+        }
 
         // This style hides the WordPress text editor.
         echo '<style>#postdivrich { display: none !important; }</style>';

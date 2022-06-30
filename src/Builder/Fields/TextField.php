@@ -3,18 +3,20 @@
 namespace Buildystrap\Builder\Fields;
 
 use Buildystrap\Builder\Extends\Field;
-use Illuminate\Support\Collection;
 
 class TextField extends Field
 {
-    protected function augment(): void
+    protected static function blueprint(): array
     {
+        return [
+            'config' => [
+                'display' => 'Text Field',
+                'input_type' => 'text',
+            ],
+        ];
     }
 
-    public static function blueprint(): Collection
+    protected function augment(): void
     {
-        return collect([
-            'input_type' => 'text',
-        ]);
     }
 }

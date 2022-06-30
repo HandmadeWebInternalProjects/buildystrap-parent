@@ -1,6 +1,6 @@
 <template>
   <div class="module module-settings">
-    <field-label :label="config.display || handle" />
+    <field-label :label="config.label || handle" />
     <textarea :id="editorID" cols="30" rows="10" v-model="content"></textarea>
   </div>
 </template>
