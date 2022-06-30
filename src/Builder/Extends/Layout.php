@@ -18,12 +18,10 @@ abstract class Layout
         $this->uuid = $instance->uuid;
         $this->type = $instance->type;
 
-        $this->config = (array) $instance->config ?? [];
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
+        $this->config = [];
+        if (isset($instance->config) && is_iterable($instance->config)) {
+            $this->config = (array) $instance->config;
+        }
     }
 
     public function enabled(): bool
@@ -34,6 +32,11 @@ abstract class Layout
     public function type(): string
     {
         return $this->type;
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid;
     }
 
     public function __toString(): string

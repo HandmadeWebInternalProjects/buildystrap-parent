@@ -21,7 +21,7 @@ watch(values, (newValue) => {
 
 <template>
   <div>
-    <field-label :label="config.display || handle" />
+    <field-label :label="config.label || handle" />
     <div
       class="checkboxes-fieldtype-wrapper"
       :class="{ 'inline-mode': config?.inline }">

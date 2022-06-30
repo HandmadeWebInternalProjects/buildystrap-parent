@@ -10,7 +10,7 @@ use function view;
 
 class Column extends Layout
 {
-    public array $modules = [];
+    protected array $modules = [];
 
     public function __construct(stdClass $column)
     {

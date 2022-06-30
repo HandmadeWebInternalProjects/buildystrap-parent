@@ -1,3 +1,3 @@
-<div class="module::header">
-    <h1>{!! $module->fields()->get('text') !!}</h1>
+<div class="{{ $module->type() }}">
+    <h1>{!! $module->fields()->get('title') !!}</h1>
 </div>

@@ -3,40 +3,22 @@
 namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
-use Illuminate\Support\Collection;
-
-use function collect;
 
 class TextModule extends Module
 {
-    protected function augment(): void
+    protected static function blueprint(): array
     {
-        if ( ! false) {
-            ['icon' => 'fa-solid fa-magic-wand-sparkles'];
-        }
-    }
-
-    public static function blueprint(): Collection
-    {
-        return collect([
+        return [
             'icon' => 'fa-solid fa-paragraph',
             'fields' => [
-                'title' => [
+                'text' => [
                     'type' => 'text-field',
-                    'handle' => 'text',
-                    'config' => [
-                      'display' => 'First text',
-                      'input_type' => 'email'
-                    ]
-                ],
-                'another_text' => [
-                    'type' => 'text-field',
-                    'handle' => 'another_text',
-                    'config' => [
-                      'display' => 'Another Text'
-                    ]
                 ],
             ],
-        ]);
+        ];
+    }
+
+    protected function augment(): void
+    {
     }
 }
