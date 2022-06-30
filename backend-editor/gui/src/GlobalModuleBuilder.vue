@@ -110,7 +110,8 @@ watch(
         v-if="builder.length"
         :component="builder[0]"
         :columns="builder"
-        :component-index="0" />
+        :component-index="0"
+        :custom-settings="{ clone: false }" />
       <button
         v-else
         @click="toggleModuleSelection = !toggleModuleSelection"

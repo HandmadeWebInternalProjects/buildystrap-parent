@@ -14,6 +14,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  customSettings: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const component = ref(props.component)
@@ -38,7 +42,7 @@ const componentIndex = computed((): number => props.componentIndex)
         :component="component"
         :value="columns"
         :index="componentIndex"
-        :custom-settings="{ add: false }" />
+        :custom-settings="{ add: false, ...customSettings }" />
     </div>
   </div>
 </template>
