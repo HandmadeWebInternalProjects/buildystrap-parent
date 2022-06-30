@@ -8,7 +8,7 @@
 
 	<div class="wrapper" id="error-404-wrapper">
 
-		<div class="{{ echo esc_attr( $container ) }}" id="content" tabindex="-1">
+		<div class="{{ esc_attr( $container ) }}" id="content" tabindex="-1">
 
 			<div class="row">
 
