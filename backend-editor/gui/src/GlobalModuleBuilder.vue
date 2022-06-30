@@ -26,7 +26,7 @@ watch(
 
 <template>
   <stacks v-if="getStacks.length"></stacks>
-  <div class="container d-flex flex-column rounded gap-3 mt-4 px-0">
+  <div class="container d-flex flex-column rounded gap-3 mt-4 px-0 pb-5">
     <div
       class="promote d-flex align-items-center bg-indigo-500 text-white rounded p-3">
       <svg
@@ -136,16 +136,3 @@ watch(
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import "./scss/app.scss";
-
-#app {
-  padding-top: 1rem;
-}
-
-.sortable-handle {
-  display: none;
-  position: relative;
-}
-</style>
