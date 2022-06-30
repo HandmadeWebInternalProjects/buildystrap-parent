@@ -14,13 +14,9 @@ class GlobalModule extends Module
             'fields' => [
                 'id' => [
                     'type' => 'text-field',
-                ]
-            ]
+                ],
+            ],
         ];
-    }
-
-    protected function augment(): void
-    {
     }
 
     public function render(): string
@@ -34,5 +30,9 @@ class GlobalModule extends Module
         }
 
         return '';
+    }
+
+    protected function augment(): void
+    {
     }
 }

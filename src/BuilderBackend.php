@@ -21,11 +21,12 @@ class BuilderBackend
         if ( ! static::$booted) {
             static::$booted = true;
 
+            BuilderMetaBox::boot();
+
             add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], PHP_INT_MAX);
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
 
-            include __DIR__ . '/acf.php';
             include __DIR__ . '/cpt.php';
 
             do_action('buildy::builder-backend::boot');

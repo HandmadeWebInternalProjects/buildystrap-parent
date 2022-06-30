@@ -24,10 +24,10 @@ use function class_extends;
 use function collect;
 use function config;
 use function do_action;
-use function function_exists;
 use function get_current_screen;
-use function get_field;
+use function get_post_meta;
 use function get_queried_object;
+use function get_the_ID;
 use function in_array;
 use function is_admin;
 use function json_decode;
@@ -230,6 +230,16 @@ class Builder
         }
     }
 
+    public static function getModule(string $handle): mixed
+    {
+        return Arr::get(static::modules(), Str::slug($handle));
+    }
+
+    public static function modules(): array
+    {
+        return static::$modules;
+    }
+
     /**
      * @throws Exception
      */
@@ -242,16 +252,6 @@ class Builder
         static::$modules[Str::slug($handle)] = $module;
 
         return static::modules();
-    }
-
-    public static function modules(): array
-    {
-        return static::$modules;
-    }
-
-    public static function getModule(string $handle): mixed
-    {
-        return Arr::get(static::modules(), Str::slug($handle));
     }
 
     public static function moduleBlueprints(): Collection
@@ -315,10 +315,10 @@ class Builder
         return $content;
     }
 
-    public static function isEnabled(int $id = 0): bool
+    public static function isEnabled(int $post_id = 0): bool
     {
-        if ( ! function_exists('get_field')) {
-            return false;
+        if ($post_id === 0) {
+            $post_id = get_the_ID();
         }
 
         if (is_admin()) {
@@ -331,14 +331,14 @@ class Builder
                 }
 
                 if (in_array($screen->post_type, static::enabledTypes())) {
-                    $isEnabled = get_field('buildy::enabled', $id);
+                    $isEnabled = ! empty(get_post_meta($post_id, '_buildy_enabled', true));
                 }
             }
         } else {
-            $isEnabled = get_field('buildy::enabled', $id);
+            $isEnabled = ! empty(get_post_meta($post_id, '_buildy_enabled', true));
         }
 
-        return $isEnabled ?? false;
+        return $isEnabled;
     }
 
     public static function enabledTypes(): array
