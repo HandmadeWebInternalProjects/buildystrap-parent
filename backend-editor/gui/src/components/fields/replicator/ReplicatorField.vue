@@ -26,14 +26,14 @@ import { useBuilderStore } from "../../../stores/builder"
 import { generateID } from "../../../utils/id"
 const props = defineProps({ ...commonProps })
 
-const { getFieldDefaultsForType } = useBuilderStore()
+const { getModuleBlueprintForType } = useBuilderStore()
 
 const { handle, moduleType } = toRefs(props)
 const values = ref(
   props.modelValue ? props.modelValue : [{ _uuid: generateID() }]
 )
 
-const set: any = computed(() => getFieldDefaultsForType(moduleType.value))
+const set: any = computed(() => getModuleBlueprintForType(moduleType.value))
 const fields = set.value.fields[handle?.value || ""]?.fields
 
 const addSet = () => {
