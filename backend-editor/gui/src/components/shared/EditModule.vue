@@ -17,6 +17,8 @@ const props = defineProps({
 
 const component = ref(props.component)
 
+console.log({ component: component.value })
+
 // Check if a vue component exists that provides custom settings, else use module settings (default)
 const componentToLoad = computed((): string => {
   return getRegisteredComponents[component.value.type] ||
@@ -28,6 +30,8 @@ const componentToLoad = computed((): string => {
 
 const settingsToggle = ref(false)
 const designToggle = ref(false)
+
+const inline = ref(component.value?.inline || {})
 </script>
 <template>
   <font-awesome-icon
@@ -105,7 +109,7 @@ const designToggle = ref(false)
           role="tabpanel"
           aria-labelledby="design-tab"
           tabindex="0">
-          ...
+          <design-tab-settings v-model="inline" />
         </div>
         <div
           class="tab-pane"

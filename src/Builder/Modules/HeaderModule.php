@@ -23,7 +23,6 @@ class HeaderModule extends Module
             'fields' => [
                 'text' => [
                     'type' => 'text-field',
-                    'handle' => 'text',
                     'config' => [
                       'display' => 'First text',
                       'input_type' => 'email'
@@ -31,7 +30,6 @@ class HeaderModule extends Module
                 ],
                 'another_text' => [
                     'type' => 'checkboxes-field',
-                    'handle' => 'another_text',
                     'config' => [
                       'options' => ['Another Text' => 'test']
                     ]

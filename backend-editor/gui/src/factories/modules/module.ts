@@ -27,6 +27,8 @@ const Module = function (
   }
   this.meta = META
   this.values = VALUE || {}
+  this.attributes = {}
+  this.inline = {}
 }
 
 export { Module }

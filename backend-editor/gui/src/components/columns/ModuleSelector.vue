@@ -49,6 +49,8 @@ const index = ref(props.index)
 const addField = (field: ModuleType, key?: string | number) => {
   field = JSON.parse(JSON.stringify(field))
 
+  console.log({ key })
+
   const MODULE = "Module"
   const VALUE = {}
   const CONFIG = field.config ?? {}

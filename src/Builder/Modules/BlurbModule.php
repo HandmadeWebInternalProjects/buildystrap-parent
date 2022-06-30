@@ -24,8 +24,14 @@ class BlurbModule extends Module
                 'url' => [
                     'type' => 'text-field',
                 ],
+                'another' => [
+                    'type' => 'media-field',
+                    'config' => [
+                      'multiple' => true
+                    ]
+                ],
                 'content' => [
-                    'type' => 'text-field',
+                    'type' => 'richtext-field',
                 ],
             ],
         ]);
