@@ -9,10 +9,12 @@ use function collect;
 abstract class Field
 {
     protected mixed $value;
+    protected mixed $raw;
 
     public function __construct($value)
     {
         $this->value = $value;
+        $this->raw = $value;
 
         $this->augment();
     }
@@ -34,5 +36,10 @@ abstract class Field
     public function value(): mixed
     {
         return $this->value;
+    }
+
+    public function raw(): mixed
+    {
+        return $this->raw;
     }
 }

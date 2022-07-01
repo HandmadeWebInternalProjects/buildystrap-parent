@@ -82,20 +82,19 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
 })
 
 import { useBuilderStore } from "./stores/builder"
-const { setRegisteredComponents, setModuleBlueprints, setGlobals } =
-  useBuilderStore()
+const { setRegisteredComponents, setConfig, setGlobals } = useBuilderStore()
 
-if (configOptions.moduleBlueprints) {
-  setModuleBlueprints(configOptions.moduleBlueprints)
+if (configOptions) {
+  setConfig(configOptions)
 }
 
-if (configOptions.globalSections) {
-  setGlobals(configOptions.globalSections, "sections")
-}
+// if (configOptions.globalSections) {
+//   setGlobals(configOptions.globalSections, "sections")
+// }
 
-if (configOptions.globalModules) {
-  setGlobals(configOptions.globalModules, "modules")
-}
+// if (configOptions.globalModules) {
+//   setGlobals(configOptions.globalModules, "modules")
+// }
 
 setRegisteredComponents(app?._context?.components || {})
 

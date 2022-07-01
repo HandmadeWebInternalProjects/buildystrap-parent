@@ -7,7 +7,4 @@ use Buildystrap\Theme;
 add_action('init', [Builder::class, 'boot']);
 add_action('acf/init', [BuilderBackend::class, 'boot']);
 add_action('init', [Theme::class, 'boot']);
-
-add_action('buildystrap::builder::boot', function () {
-    Builder::registerBackendScript('text', get_template_directory_uri() . '/buildy-addons/test/test.js');
-});
+add_action('rest_api_init', [Builder::class, 'register_rest_routes']);

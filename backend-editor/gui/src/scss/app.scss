@@ -4,6 +4,15 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+.blurb {
+  --margin-top: 20px;
+  margin-top: var(--margin-top);
+  @media all and (min-width: 768px) {
+    --margin-top-md: 40px;
+    margin-top: var(--margin-top-md, --margin-top);
+  }
+}
+
 $enable-grid-classes: false;
 $enable-cssgrid: true;
 

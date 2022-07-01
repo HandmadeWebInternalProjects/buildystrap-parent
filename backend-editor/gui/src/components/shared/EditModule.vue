@@ -23,7 +23,8 @@ console.log({ component: component.value })
 const componentToLoad = computed((): string => {
   return getRegisteredComponents[component.value.type] ||
     component.value.type === "row" ||
-    component.value.type === "section"
+    component.value.type === "section" ||
+    component.value.type === "global-module"
     ? component.value.type
     : "module"
 })

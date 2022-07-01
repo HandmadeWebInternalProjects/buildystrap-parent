@@ -28,7 +28,6 @@ abstract class Module
     {
         $this->uuid = $module->uuid;
         $this->enabled = $module->enabled ?? false;
-
         $this->type = $module->type;
 
         $blueprintFields = static::getBlueprint()->get('fields');
@@ -43,13 +42,14 @@ abstract class Module
             }
         })->filter();
 
+
         $this->augment();
     }
 
     public static function getBlueprint(): Collection
     {
         $blueprint = static::blueprint();
-        $fields = $blueprint['fields'];
+        $fields = $blueprint['fields'] ?? [];
 
         foreach ($fields as $handle => $item) {
             if ($field = Builder::getField($item['type'])) {

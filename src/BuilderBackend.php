@@ -27,6 +27,7 @@ class BuilderBackend
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
 
+
             include __DIR__ . '/cpt.php';
 
             do_action('buildy::builder-backend::boot');
@@ -96,6 +97,7 @@ class BuilderBackend
                     'globalModules' => Builder::getGlobalModules(),
                     'is_admin' => current_user_can('administrator'),
                     'site_url' => get_site_url(),
+                    "rest_endpoint" => get_rest_url(get_current_blog_id()),
                     // 'registered_image_sizes' => static::get_all_image_sizes(),
                     'registered_post_types' => get_post_types(['_builtin' => false]),
                 ]);

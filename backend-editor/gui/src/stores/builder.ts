@@ -3,11 +3,12 @@ import { defineStore } from "pinia"
 export const useBuilderStore = defineStore({
   id: "builder",
   state: () => ({
+    config: {},
     registeredComponents: {},
-    fieldDefaults: <{ [key: string]: any }>{},
+    blueprints: <{ [key: string]: any }>{},
     globals: <{ [key: string]: any }>{
-      sections: {},
-      modules: {},
+      sections: <{ [key: string]: any }>{},
+      modules: <{ [key: string]: any }>{},
     },
   }),
   getters: {
@@ -15,21 +16,25 @@ export const useBuilderStore = defineStore({
       return state.registeredComponents
     },
     getModuleBlueprintForType: (state) => (type: string) => {
-      return state.fieldDefaults[type]
+      return state.blueprints[type]
     },
-    getModuleBlueprints: (state) => state.fieldDefaults,
+    getModuleBlueprints: (state) => state.blueprints,
     getGlobalSections: (state) => state.globals.sections,
-    getGlobalModules: (state) => state.globals.modules,
+    getGlobalModules: (state): { [key: string]: any } => state.globals.modules,
+    getConfig: (state) => state.config,
   },
   actions: {
+    setConfig(config: { [key: string]: any }) {
+      const { moduleBlueprints, ...rest } = config
+      this.config = { ...rest }
+      this.blueprints = moduleBlueprints
+    },
+
     setGlobals(globals: { [key: string]: any }, type: string) {
-      this.globals[type] = { ...globals }
+      this.globals[type] = Object.assign({}, { ...globals })
     },
     setRegisteredComponents(payload: { [key: string]: any }) {
       this.registeredComponents = { ...payload }
-    },
-    setModuleBlueprints(payload: { [key: string]: any }) {
-      this.fieldDefaults = { ...payload }
     },
   },
 })

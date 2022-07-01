@@ -16,7 +16,6 @@ const toggleModuleSelection = ref(false)
 watch(
   builder,
   (newValue) => {
-    console.log(JSON.stringify(newValue[0]))
     contentEl && (contentEl.innerText = JSON.stringify(newValue[0]))
   },
   {

@@ -5,6 +5,7 @@ import { Section } from "./section"
 import { Row } from "./row"
 import { Column } from "./column"
 import { Module } from "./module"
+import { GlobalModule } from "./global-module"
 
 export type ModuleType = {
   handle: string
@@ -18,11 +19,12 @@ export type ModuleType = {
 }
 
 const el = <{ [key: string]: any }>{
-  Section: Section,
+  Section,
   // GlobalSection: GlobalSection,
-  Row: Row,
-  Column: Column,
-  Module: Module,
+  Row,
+  Column,
+  Module,
+  GlobalModule,
 }
 
 const createModule = function (

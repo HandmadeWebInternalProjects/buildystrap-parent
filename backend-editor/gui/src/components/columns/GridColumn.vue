@@ -52,7 +52,7 @@ const colSize: number = ref(props.component?.config?.columnSizes?.lg)
     <buildy-stack
       @close="toggleModuleSelection = false"
       v-if="toggleModuleSelection"
-      narrow
+      half
       name="module-selector">
       <div class="p-4 py-5">
         <module-selector :parent-array="modules" />
