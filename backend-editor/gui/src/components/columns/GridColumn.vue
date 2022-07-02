@@ -41,7 +41,7 @@ const colSize: number = ref(props.component?.config?.columnSizes?.lg)
     <button
       @click="toggleModuleSelection = !toggleModuleSelection"
       type="button"
-      class="bg-200 text-800 border-0 rounded-1">
+      class="bg-200 text-600 border-0 py-1 rounded">
       <font-awesome-icon
         :icon="['fas', 'plus-circle']"
         width="25"

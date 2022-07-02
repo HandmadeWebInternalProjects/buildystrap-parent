@@ -116,7 +116,7 @@ watch(
         v-else
         @click="toggleModuleSelection = !toggleModuleSelection"
         type="button"
-        class="bg-200 text-800 border-0 rounded-1">
+        class="bg-200 w-100 text-800 border-0 rounded-1">
         <font-awesome-icon
           :icon="['fas', 'plus-circle']"
           width="25"

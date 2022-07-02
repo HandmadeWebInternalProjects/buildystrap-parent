@@ -1,14 +1,24 @@
 <template lang="">
   <div class="d-flex flex-column gap-3">
+    <p class="text-600">
+      This is a global module, which means it's linked from the Buildy Global
+      Modules in the sidebar. This could be used in multiple places around the
+      site and any changes made to it will be applied to all places.
+    </p>
     <ul class="m-0 p-0">
-      <li>id: {{ component.global_id }}</li>
-      <li>admin label: {{ component.config.adminLabel }}</li>
+      <li><strong>Title:</strong> {{ component.config.adminLabel }}</li>
+      <li>
+        <strong>Global Module ID:</strong>
+        <span class="d-inline-block px-2 py-1 ms-2 border bg-100 rounded">{{
+          component.global_id
+        }}</span>
+      </li>
     </ul>
 
     <a
       target="_blank"
       :href="`${config.site_url}/wp-admin/post.php?post=${component.global_id}&action=edit&classic-editor`"
-      >Edit Global</a
+      >Edit {{ component.config.adminLabel }}</a
     >
   </div>
 </template>
