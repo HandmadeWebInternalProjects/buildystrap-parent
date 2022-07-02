@@ -130,7 +130,7 @@ watch(
         narrow
         name="module-selector">
         <div class="p-4 py-5">
-          <module-selector :parent-array="builder" />
+          <module-selector :disable-globals="true" :parent-array="builder" />
         </div>
       </buildy-stack>
     </div>

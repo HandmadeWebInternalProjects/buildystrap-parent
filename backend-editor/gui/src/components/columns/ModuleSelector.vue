@@ -13,7 +13,7 @@
           Regular Modules
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li v-if="!disableGlobals" class="nav-item" role="presentation">
         <button
           @click="openGlobalsTab"
           class="nav-link"
@@ -68,7 +68,7 @@
         role="tabpanel"
         aria-labelledby="global-module-tab"
         tabindex="0">
-        <span v-if="globalsVisible">
+        <span v-if="!disableGlobals && globalsVisible">
           <ul class="m-0 p-0 d-flex flex-column">
             <li class="p-1" v-for="field in getGlobalModules" :key="field.id">
               <div
@@ -104,6 +104,10 @@ const props = defineProps({
   parentArray: {
     type: Array,
     required: true,
+  },
+  disableGlobals: {
+    type: Boolean,
+    default: false,
   },
   index: Number,
 })

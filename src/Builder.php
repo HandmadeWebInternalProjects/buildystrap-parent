@@ -8,7 +8,6 @@ use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\BlurbModule;
-use Buildystrap\Builder\Modules\GlobalModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ReplicatorModule;
 use Buildystrap\Builder\Modules\TextModule;
@@ -48,7 +47,6 @@ class Builder
         'text-module' => TextModule::class,
         'header-module' => HeaderModule::class,
         'replicator-module' => ReplicatorModule::class,
-        'global-module' => GlobalModule::class,
     ];
 
     protected static array $paths = [];

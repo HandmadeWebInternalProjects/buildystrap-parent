@@ -1,25 +1,38 @@
 <template>
-  <ul>
-    <li @click="breakpoint = 'xs'">xs</li>
-    <li @click="breakpoint = 'sm'">sm</li>
-    <li @click="breakpoint = 'md'">md</li>
-    <li @click="breakpoint = 'lg'">lg</li>
-    <li @click="breakpoint = 'xl'">xl</li>
-  </ul>
-  <ul>
-    <li>top: <input type="text" v-model="values.top[breakpoint]" /></li>
-    <li>right <input type="text" v-model="values.right[breakpoint]" /></li>
-    <li>bottom <input type="text" v-model="values.bottom[breakpoint]" /></li>
-    <li>left <input type="text" v-model="values.left[breakpoint]" /></li>
-  </ul>
+  <div>
+    <field-label :label="label" />
+    <ul class="d-flex gap-4 m-0 p-0">
+      <li
+        class="flex-grow-1"
+        v-for="(dir, key) in values"
+        :key="`box-model-${key}-${breakpoint}`">
+        <select-field
+          handle="box_model_top"
+          type="text"
+          :config="{
+            label: key,
+            options: options,
+            taggable: true,
+          }"
+          v-model="dir[breakpoint]" />
+      </li>
+    </ul>
+  </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, watch } from "vue"
+import { reactive, watch } from "vue"
 import { useFieldType } from "../fields/useFieldType"
+import { useBreakpoints } from "../../composables/useBreakpoints"
+const { breakpoint } = useBreakpoints()
+
 const props = defineProps({
   modelValue: {
     type: Object,
     required: true,
+  },
+  label: {
+    type: String,
+    required: false,
   },
 })
 
@@ -39,6 +52,9 @@ const values: any = reactive(
   )
 )
 
+// array of 10 numbers
+const options = Array.from({ length: 10 }, (_, i) => i)
+
 watch(values, (val: any) => {
   //filter out any empty values
   const filtered = Object.keys(val).reduce(
@@ -51,6 +67,8 @@ watch(values, (val: any) => {
           }
         })
 
+        console.log(val[key])
+
         acc[key] = val[key]
       }
 
@@ -61,7 +79,5 @@ watch(values, (val: any) => {
   console.log({ filtered })
   update(filtered)
 })
-
-const breakpoint = ref("xs")
 </script>
 <style lang=""></style>

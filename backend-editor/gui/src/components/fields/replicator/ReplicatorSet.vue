@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="d-flex gap-3 flex-column p-4 bg-300">
+  <div class="d-flex gap-3 flex-column p-4 bg-100 rounded">
     <component
       v-for="(field, key) in fields"
       :key="key"

@@ -25,11 +25,18 @@ provide("component", component)
 
 const columns = ref(props.columns)
 const componentIndex = computed((): number => props.componentIndex)
+
+const isGlobalModule = computed((): boolean => {
+  return component.value.type.includes("global")
+})
 </script>
 <template>
-  <div class="bg-700 shadow-sm text-white rounded d-flex">
+  <div
+    class="shadow-sm text-white rounded d-flex"
+    :class="[isGlobalModule ? 'bg-teal-700' : 'bg-700']">
     <div
-      class="sortable-handle handle-single align-items-center absolute top-0 left-0 h-full rounded-start bg-800"></div>
+      class="sortable-handle handle-single align-items-center absolute top-0 left-0 h-full rounded-start"
+      :class="[isGlobalModule ? 'bg-teal-800' : 'bg-800']"></div>
     <div
       class="d-flex flex-row justify-content-between align-items-center flex-grow-1 px-3 py-2">
       <span

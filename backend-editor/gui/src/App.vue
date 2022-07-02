@@ -23,6 +23,7 @@ const addSection = () => {
 watch(
   builder,
   (newValue) => {
+    console.log({ newValue })
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
   },
   {

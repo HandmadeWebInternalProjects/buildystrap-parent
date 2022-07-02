@@ -1,11 +1,20 @@
 import { defineStore } from "pinia"
 
+type BuildyConfig = {
+  site_url: string
+  rest_endpoint: string
+  moduleBlueprints: { [key: string]: any }
+  post_type: string
+  post_id: number
+  is_admin: boolean
+  isGlobalModule: boolean
+}
+
 export const useBuilderStore = defineStore({
   id: "builder",
   state: () => ({
-    config: {},
+    config: <BuildyConfig>{},
     registeredComponents: {},
-    blueprints: <{ [key: string]: any }>{},
     globals: <{ [key: string]: any }>{
       sections: <{ [key: string]: any }>{},
       modules: <{ [key: string]: any }>{},
@@ -16,20 +25,17 @@ export const useBuilderStore = defineStore({
       return state.registeredComponents
     },
     getModuleBlueprintForType: (state) => (type: string) => {
-      return state.blueprints[type]
+      return state.config.moduleBlueprints[type]
     },
-    getModuleBlueprints: (state) => state.blueprints,
+    getModuleBlueprints: (state) => state.config.moduleBlueprints,
     getGlobalSections: (state) => state.globals.sections,
     getGlobalModules: (state): { [key: string]: any } => state.globals.modules,
     getConfig: (state) => state.config,
   },
   actions: {
-    setConfig(config: { [key: string]: any }) {
-      const { moduleBlueprints, ...rest } = config
-      this.config = { ...rest }
-      this.blueprints = moduleBlueprints
+    setConfig(config: BuildyConfig) {
+      this.config = { ...config }
     },
-
     setGlobals(globals: { [key: string]: any }, type: string) {
       this.globals[type] = Object.assign({}, { ...globals })
     },

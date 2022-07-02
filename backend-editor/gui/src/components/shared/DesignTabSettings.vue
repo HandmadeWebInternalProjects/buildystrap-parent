@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <box-model-field v-model="margin" />
-    <box-model-field v-model="padding" />
+  <div class="d-flex flex-column gap-4">
+    <breakpoint-switcher-field />
+    <div class="border p-4 rounded d-flex flex-column gap-3">
+      <box-model-field label="Margin" v-model="margin" />
+      <box-model-field label="Padding" v-model="padding" />
+    </div>
   </div>
 </template>
 <script setup lang="ts">

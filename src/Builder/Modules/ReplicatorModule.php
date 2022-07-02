@@ -15,17 +15,19 @@ class ReplicatorModule extends Module
                     'type' => 'replicator-field',
                     'fields' => [
                         'title' => [
-                            'type' => "title-field",
+                            'type' => "text-field",
                             'config' => [
                                 'input_type' => "text",
                                 'label' => "Title",
                             ],
                         ],
                         'role' => [
-                            'type' => "checkboxes-field",
+                            'type' => "select-field",
                             'config' => [
                                 'label' => "Role",
                                 'options' => ['primary' => "Primary", 'secondary' => "Secondary"],
+                                'taggable' => true,
+                                'multiple' => true
                             ],
                         ],
                         'content' => [

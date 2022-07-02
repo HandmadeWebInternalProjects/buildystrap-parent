@@ -19,7 +19,7 @@ const { update } = useFieldType(emit)
         :type="config.input_type || 'text'"
         :value="modelValue"
         @input="update(($event?.target as HTMLInputElement)?.value)"
-        placeholder="text fieldtype" />
+        :placeholder="config.placeholder || handle" />
     </label>
   </div>
 </template>
