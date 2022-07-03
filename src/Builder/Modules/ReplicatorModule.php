@@ -27,7 +27,7 @@ class ReplicatorModule extends Module
                                 'label' => "Role",
                                 'options' => ['primary' => "Primary", 'secondary' => "Secondary"],
                                 'taggable' => true,
-                                'multiple' => true
+                                'multiple' => true,
                             ],
                         ],
                         'content' => [
@@ -52,7 +52,7 @@ class ReplicatorModule extends Module
                     ],
                 ],
             ],
-            'preview' => 'title'
+            'preview' => 'title',
         ];
     }
 

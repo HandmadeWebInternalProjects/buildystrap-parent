@@ -201,6 +201,8 @@ class Builder
             $content = new Content($global->content);
             return $content->container();
         }
+
+        return null;
     }
 
     public static function getGlobalModule(int $post_id): ?Module
@@ -228,58 +230,8 @@ class Builder
             $_module = static::getModule($module->type);
             return new $_module($module);
         }
-    }
 
-    public static function get_buildy_globals_rest($request)
-    {
-        $type = Arr::get($request, 'type');
-
-        if ( ! $type) {
-            return new \WP_Error('Type missing!', __('You must speficy a type of global you wish to retrieve entries for'), [ 'status' => 400 ]);
-        }
-
-        $results = $type === 'module' ? static::getGlobalModules() : static::getGlobals();
-
-        return new \WP_REST_Response(
-            [
-            'status' => 200,
-            'data' => $results,
-          ]
-        );
-    }
-
-    public static function get_buildy_global_module_rest($request)
-    {
-        $global_id = Arr::get($request, 'global_id');
-
-        if ( ! $global_id) {
-            return new \WP_Error('ID Missing!', __('You must speficy the ID for the global module you are looking for.'), [ 'status' => 400 ]);
-        }
-
-        $result = static::getGlobalModule($global_id)->fields()->map->raw();
-
-        return new \WP_REST_Response(
-            [
-            'status' => 200,
-            'data' => $result,
-          ]
-        );
-    }
-
-    public static function register_rest_routes()
-    {
-        register_rest_route('buildy/v1', '/globals', [
-          'methods' => 'GET',
-          'callback' => [Builder::class, 'get_buildy_globals_rest'],
-          'permission_callback' => '__return_true',
-        ]);
-
-
-        register_rest_route('buildy/v1', '/get_global', [
-          'methods' => 'GET',
-          'callback' => [Builder::class, 'get_buildy_global_module_rest'],
-          'permission_callback' => '__return_true',
-        ]);
+        return null;
     }
 
     public static function getModule(string $handle): mixed
