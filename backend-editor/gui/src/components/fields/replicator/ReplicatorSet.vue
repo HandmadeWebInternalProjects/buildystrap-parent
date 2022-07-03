@@ -1,18 +1,34 @@
 <template lang="">
-  <div class="d-flex gap-3 flex-column p-4 bg-100 rounded">
-    <component
-      v-for="(field, key) in fields"
-      :key="key"
-      :handle="key"
-      :type="field.type"
-      :config="field.config || {}"
-      v-model="value[key]"
-      :uuid="value._uuid"
-      :is="field.type" />
+  <div class="p-3 bg-100 rounded position-relative">
+    <field-label
+      @click="collapsed = !collapsed"
+      v-if="collapsed"
+      :label="value[preview] || 'Preview not set'" />
+    <font-awesome-icon
+      class="position-absolute cursor-pointer collapse-toggle"
+      :icon="collapsed ? 'chevron-down' : 'chevron-up'"
+      @click="collapsed = !collapsed" />
+    <font-awesome-icon
+      class="position-absolute cursor-pointer remove-set"
+      icon="trash"
+      @click="removeSet" />
+    <div v-show="!collapsed">
+      <field-group>
+        <component
+          v-for="(field, key) in fields"
+          :key="key"
+          :handle="key"
+          :type="field.type"
+          :config="field.config || {}"
+          v-model="value[key]"
+          :uuid="value._uuid"
+          :is="field.type" />
+      </field-group>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, watch } from "vue"
+import { ref, computed } from "vue"
 const props = defineProps({
   value: {
     type: Object,
@@ -22,16 +38,54 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  preview: {
+    type: String,
+    required: false,
+  },
+  meta: { type: Object, required: false },
 })
 const fields = ref(props.fields)
-const value = ref(props.value)
+const meta = computed(() => props.meta)
 
-const emit = defineEmits(["input"])
+const emit = defineEmits(["input", "updateMeta", "removeSet"])
 
-watch(value, (newValue) => {
-  emit("input", newValue)
+const removeSet = () => {
+  if (
+    window.confirm(
+      `Are you sure you want to remove this set? (${
+        props.preview ? value.value[props.preview] : ""
+      })`
+    )
+  ) {
+    emit("removeSet")
+  }
+}
+
+const value = computed({
+  get() {
+    return props.value || {}
+  },
+  set(newValue) {
+    emit("input", newValue)
+  },
 })
 
-console.log({ fields })
+const collapsed = computed({
+  get() {
+    return meta?.value?.collapsed || false
+  },
+  set(newValue) {
+    emit("updateMeta", { collapsed: newValue })
+  },
+})
 </script>
-<style lang=""></style>
+<style lang="scss">
+.collapse-toggle {
+  top: 1rem;
+  right: 3rem;
+}
+.remove-set {
+  top: 1rem;
+  right: 1rem;
+}
+</style>

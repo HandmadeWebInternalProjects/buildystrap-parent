@@ -26,6 +26,12 @@ class BlurbModule extends Module
                       'multiple' => true
                     ]
                 ],
+                'profile-pic' => [
+                    'type' => 'media-field',
+                    'config' => [
+                      'multiple' => true
+                    ]
+                ],
                 'content' => [
                     'type' => 'richtext-field',
                 ],

@@ -43,9 +43,16 @@ class ReplicatorModule extends Module
                                 'multiple' => false,
                             ],
                         ],
+                        'cta' => [
+                            'type' => "button-field",
+                            'config' => [
+                                'label' => "Call to action",
+                            ],
+                        ],
                     ],
                 ],
             ],
+            'preview' => 'title'
         ];
     }
 

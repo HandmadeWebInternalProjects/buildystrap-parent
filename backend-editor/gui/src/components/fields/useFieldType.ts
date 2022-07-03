@@ -21,7 +21,6 @@ export const commonProps = {
     type: String,
     default: "",
   },
-
   modelValue: {
     type: null,
   },
@@ -30,8 +29,7 @@ export const commonProps = {
     default: () => ({}),
   },
   meta: {
-    type: Object,
-    default: () => ({}),
+    type: [Object, Array],
   },
 }
 

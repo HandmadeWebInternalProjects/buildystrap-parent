@@ -48,6 +48,8 @@ import {
   faParagraph,
   faAnchor,
   faWandMagicSparkles,
+  faChevronUp,
+  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -65,7 +67,9 @@ library.add(
   faEllipsisVertical,
   faParagraph,
   faAnchor,
-  faWandMagicSparkles
+  faWandMagicSparkles,
+  faChevronUp,
+  faChevronDown
 )
 
 /* add font awesome icon component */

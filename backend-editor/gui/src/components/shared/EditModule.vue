@@ -17,8 +17,6 @@ const props = defineProps({
 
 const component = ref(props.component)
 
-console.log({ component: component.value })
-
 // Check if a vue component exists that provides custom settings, else use module settings (default)
 const componentToLoad = computed((): string => {
   return getRegisteredComponents[component.value.type] ||
