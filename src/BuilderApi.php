@@ -2,20 +2,17 @@
 
 namespace Buildystrap;
 
-use Exception;
 use Illuminate\Support\Arr;
 use WP_Error;
 use WP_REST_Response;
 
+use function __;
 use function register_rest_route;
 
 class BuilderApi
 {
     protected static bool $booted = false;
 
-    /**
-     * @throws Exception
-     */
     public static function boot(): void
     {
         if ( ! static::$booted) {
@@ -25,7 +22,7 @@ class BuilderApi
         }
     }
 
-    public static function register_rest_routes()
+    public static function register_rest_routes(): void
     {
         register_rest_route('buildy/v1', '/globals', [
             'methods' => 'GET',
@@ -54,12 +51,10 @@ class BuilderApi
 
         $results = $type === 'module' ? Builder::getGlobalModules() : Builder::getGlobals();
 
-        return new WP_REST_Response(
-            [
-                'status' => 200,
-                'data' => $results,
-            ]
-        );
+        return new WP_REST_Response([
+            'status' => 200,
+            'data' => $results,
+        ]);
     }
 
     public static function get_global_modules($request): WP_Error|WP_REST_Response
@@ -76,11 +71,9 @@ class BuilderApi
 
         $result = Builder::getGlobalModule($global_id)->fields()->map->raw();
 
-        return new WP_REST_Response(
-            [
-                'status' => 200,
-                'data' => $result,
-            ]
-        );
+        return new WP_REST_Response([
+            'status' => 200,
+            'data' => $result,
+        ]);
     }
 }
