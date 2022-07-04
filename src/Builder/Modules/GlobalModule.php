@@ -6,9 +6,12 @@ use Buildystrap\Builder;
 use Buildystrap\Builder\Extends\Module;
 use stdClass;
 
+use function call_user_func;
+
 class GlobalModule extends Module
 {
-    protected $global_id;
+    protected int $global_id;
+    protected ?Module $global_module;
 
     public function __construct(stdClass $module)
     {
@@ -16,9 +19,14 @@ class GlobalModule extends Module
         $this->enabled = $module->enabled ?? false;
         $this->type = $module->type;
 
-        $this->augment();
+        $this->global_id = (int) $module->global_id;
+        $this->global_module = Builder::getGlobalModule($this->global_id);
 
-        $this->global_id = $module->global_id;
+        $this->augment();
+    }
+
+    protected function augment(): void
+    {
     }
 
     protected static function blueprint(): array
@@ -28,12 +36,16 @@ class GlobalModule extends Module
         ];
     }
 
-    public function render(): string
+    public function __call(string $name, $arguments): mixed
     {
-        return optional(Builder::getGlobalModule($this->global_id))->render() ?? '';
+        return method_exists($this->global_module, $name) ? call_user_func(
+            [$this->global_module, $name],
+            $arguments
+        ) : null;
     }
 
-    protected function augment(): void
+    public function render(): string
     {
+        return optional($this->global_module)->render() ?? '';
     }
 }
