@@ -4,16 +4,6 @@ import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
 import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
 import { useBuilderStore, type BuildyConfig } from "./stores/builder"
-
-const { setRegisteredComponents, setConfig } = useBuilderStore()
-const configOptions: BuildyConfig = JSON.parse(
-  document.querySelector("#config")?.innerHTML || ""
-)
-
-const app = configOptions.isGlobalModule
-  ? createApp(GlobalModuleBuilder)
-  : createApp(App)
-
 import "bootstrap"
 
 declare global {
@@ -25,6 +15,15 @@ declare global {
   }
 }
 
+const configOptions: BuildyConfig = JSON.parse(
+  document.querySelector("#config")?.innerHTML || ""
+)
+
+const app = configOptions.isGlobalModule
+  ? createApp(GlobalModuleBuilder)
+  : createApp(App)
+
+// Setup main store system
 import { createPinia } from "pinia"
 app.use(createPinia())
 
@@ -73,7 +72,6 @@ library.add(
   faChevronUp,
   faChevronDown
 )
-
 /* add font awesome icon component */
 app.component("font-awesome-icon", FontAwesomeIcon)
 
@@ -87,9 +85,13 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
   app.component(name, m.default)
 })
 
+const { setRegisteredComponents, setConfig } = useBuilderStore()
+
 if (configOptions) {
   setConfig(configOptions)
 }
+
+setRegisteredComponents(app?._context?.components || {})
 
 // if (configOptions.globalSections) {
 //   setGlobals(configOptions.globalSections, "sections")
@@ -98,8 +100,6 @@ if (configOptions) {
 // if (configOptions.globalModules) {
 //   setGlobals(configOptions.globalModules, "modules")
 // }
-
-setRegisteredComponents(app?._context?.components || {})
 
 import { Buildy } from "./components/Buildy"
 window.Buildy = new Buildy(app)
