@@ -6,6 +6,7 @@ use function add_action;
 use function add_filter;
 use function config;
 use function do_action;
+use function get_admin_url;
 use function get_template_directory_uri;
 use function wp_enqueue_script;
 use function wp_enqueue_style;
@@ -94,7 +95,9 @@ class BuilderBackend
             'globalModules' => Builder::getGlobalModules(),
             'is_admin' => current_user_can('administrator'),
             'site_url' => get_site_url(),
-            "rest_endpoint" => get_rest_url(get_current_blog_id()),
+            'admin_url' => get_admin_url(),
+            'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
+            "rest_endpoint" => get_rest_url(),
             // 'registered_image_sizes' => static::get_all_image_sizes(),
             'registered_post_types' => get_post_types(['_builtin' => false]),
         ]);
