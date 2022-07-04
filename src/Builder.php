@@ -46,7 +46,7 @@ class Builder
     ];
 
     protected static array $modules = [
-        'global-module' => GlobalModule::class,
+//        'global-module' => GlobalModule::class, // Doesn't need to be registered
         'card-module' => CardModule::class,
         'text-module' => TextModule::class,
         'gallery-module' => GalleryModule::class,
