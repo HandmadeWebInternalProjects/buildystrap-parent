@@ -20,16 +20,17 @@ class BlurbModule extends Module
                 'url' => [
                     'type' => 'text-field',
                 ],
-                'another' => [
-                    'type' => 'media-field',
+                'relational' => [
+                    'type' => 'relational-field',
                     'config' => [
+                      'post_type' => 'testimonials',
                       'multiple' => true
                     ]
                 ],
                 'profile-pic' => [
                     'type' => 'media-field',
                     'config' => [
-                      'multiple' => true
+
                     ]
                 ],
                 'content' => [

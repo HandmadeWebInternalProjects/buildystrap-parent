@@ -158,7 +158,7 @@ const addField = (field: ModuleType, key?: string | number) => {
   )
 }
 
-const addGlobalModule = (field: ModuleType) => {
+const addGlobalModule = (field: { [key: string]: any }) => {
   field = JSON.parse(JSON.stringify(field))
 
   const GLOBAL_ID = field.id

@@ -15,6 +15,7 @@
           v-if="fields"
           :fields="fields"
           :value="element"
+          :module-type="moduleType"
           :preview="preview"
           :meta="meta[index]"
           @remove-set="removeSet(index)"
@@ -29,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, toRefs, computed, onMounted } from "vue"
+import { ref, reactive, watch, toRefs, computed, onMounted } from "vue"
 import { useFieldType, commonProps } from "../useFieldType"
 import { useBuilderStore } from "../../../stores/builder"
 import { generateID } from "../../../utils/id"
+import { findNestedObject } from "../../../utils/objects"
 const props = defineProps({ ...commonProps })
 
 const { getModuleBlueprintForType } = useBuilderStore()
@@ -44,12 +46,14 @@ const values = ref(
 )
 
 const set: any = computed(() => getModuleBlueprintForType(moduleType.value))
-const fields = set.value.fields[handle?.value || ""]?.fields
+const fields = reactive({})
+console.log({ set: fields, handle: handle?.value })
 const preview = set.value.preview || ""
 
 const meta = ref(values.value.map(() => ({ collapsed: false })))
 
 onMounted(() => {
+  Object.assign(fields, findNestedObject(set.value, handle?.value).fields)
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
@@ -79,9 +83,10 @@ const onMetaUpdated = ($event: any, index: number) => {
   updateMeta(meta.value)
 }
 
-const handleDragChange = (e) => {
+const handleDragChange = (e: { [key: string]: any }) => {
   if (e.moved) {
-    const { newIndex, oldIndex } = e.moved
+    const { newIndex, oldIndex }: { newIndex: number; oldIndex: number } =
+      e.moved
     const plucked = meta.value.splice(oldIndex, 1)[0]
 
     meta.value.splice(newIndex, 0, plucked)

@@ -19,6 +19,7 @@
           :key="key"
           :handle="key"
           :type="field.type"
+          :module-type="moduleType"
           :config="field.config || {}"
           v-model="value[key]"
           :uuid="value._uuid"
@@ -39,6 +40,10 @@ const props = defineProps({
     required: true,
   },
   preview: {
+    type: String,
+    required: false,
+  },
+  moduleType: {
     type: String,
     required: false,
   },

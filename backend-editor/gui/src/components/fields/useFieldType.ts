@@ -44,7 +44,10 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
 
   const normaliseOptions = (options: any) => {
     return Array.isArray(options)
-      ? options.map((el) => ({ value: el, label: el }))
+      ? options.map((el) => ({
+          value: el?.value || el,
+          label: el?.label || el,
+        }))
       : Object.entries(options).map(([value, label]) => ({ value, label }))
   }
 

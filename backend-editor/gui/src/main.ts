@@ -3,8 +3,10 @@ import { createApp, provide } from "vue"
 import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
 import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
+import { useBuilderStore, type BuildyConfig } from "./stores/builder"
 
-const configOptions: { [key: string]: any } = JSON.parse(
+const { setRegisteredComponents, setConfig } = useBuilderStore()
+const configOptions: BuildyConfig = JSON.parse(
   document.querySelector("#config")?.innerHTML || ""
 )
 
@@ -84,9 +86,6 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
       ?.replace(/\.\w+$/, "") || ""
   app.component(name, m.default)
 })
-
-import { useBuilderStore } from "./stores/builder"
-const { setRegisteredComponents, setConfig, setGlobals } = useBuilderStore()
 
 if (configOptions) {
   setConfig(configOptions)

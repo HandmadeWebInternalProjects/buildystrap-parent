@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 
-type BuildyConfig = {
+export type BuildyConfig = {
   site_url: string
   rest_endpoint: string
   moduleBlueprints: { [key: string]: any }
