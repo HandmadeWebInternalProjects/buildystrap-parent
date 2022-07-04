@@ -13,6 +13,8 @@ const props = defineProps({ ...commonProps })
 const { handle, config, uuid } = toRefs(props)
 const content = ref(props.modelValue ? props.modelValue : "")
 
+const { wpOptions, ...tinyMCEConfig } = config.value.tinymce || {}
+
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
@@ -26,6 +28,7 @@ const editorInit = (): void => {
       wpautop: true,
       theme: "modern",
       skin: "lightgray",
+      height: "200",
       language: "en",
       formats: {
         alignleft: [
@@ -86,9 +89,11 @@ const editorInit = (): void => {
       body_class: "id post-type-post post-status-publish post-format-standard",
       wpeditimage_disable_captions: false,
       wpeditimage_html5_captions: true,
+      ...tinyMCEConfig,
     },
     mediaButtons: true,
     quicktags: true,
+    ...wpOptions,
   })
 
   window.tinymce.activeEditor.on("change", (e: any) => {

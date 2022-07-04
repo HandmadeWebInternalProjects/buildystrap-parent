@@ -4,7 +4,7 @@ namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
 
-class BlurbModule extends Module
+class CardModule extends Module
 {
     protected static function blueprint(): array
     {
@@ -14,18 +14,14 @@ class BlurbModule extends Module
                 'title' => [
                     'type' => 'text-field',
                     'config' => [
-                        'label' => 'Blurb Text',
+                        'label' => 'Title',
                     ],
                 ],
-                'url' => [
-                    'type' => 'text-field',
+                'image' => [
+                    'type' => 'media-field',
                 ],
-                'testimonials' => [
-                    'type' => 'relational-field',
-                    'config' => [
-                      'post_type' => 'testimonials',
-                      'multiple' => true
-                    ]
+                'link' => [
+                    'type' => 'text-field',
                 ],
                 'accordion' => [
                     'type' => 'accordion-field',
@@ -40,8 +36,20 @@ class BlurbModule extends Module
                       'multiple' => true
                     ]
                 ],
-                'content' => [
+                'body' => [
                     'type' => 'richtext-field',
+                    'config' => [
+                        'label' => 'Body',
+                        'tinymce' => [
+                          'toolbar1' => 'bold,italic,underline',
+                          'toolbar2' => false,
+                          'height' => '50',
+                          'resize' => false,
+                          'wpOptions' => [
+                            'mediaButtons' => false
+                          ]
+                        ]
+                    ],
                 ],
             ],
         ];
