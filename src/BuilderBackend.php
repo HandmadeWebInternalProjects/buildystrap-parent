@@ -6,6 +6,7 @@ use function add_action;
 use function add_filter;
 use function config;
 use function do_action;
+use function get_admin_url;
 use function get_template_directory_uri;
 use function wp_enqueue_script;
 use function wp_enqueue_style;
@@ -27,9 +28,6 @@ class BuilderBackend
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
 
-
-            include __DIR__ . '/cpt.php';
-
             do_action('buildy::builder-backend::boot');
         }
     }
@@ -44,7 +42,6 @@ class BuilderBackend
             wp_enqueue_media();
             wp_enqueue_editor();
         }
-
 
         $manifest = new ViteManifest(
             'manifest.json',
@@ -89,19 +86,20 @@ class BuilderBackend
         }
 
         $config = json_encode([
-                    'post_id' => $post->ID,
-                    'post_type' => $post->post_type,
-                    'moduleBlueprints' => Builder::moduleBlueprints(),
-                    'isGlobalModule' => $post->post_type === 'buildy-global-module',
-                    'globalSections' => Builder::getGlobals(),
-                    'globalModules' => Builder::getGlobalModules(),
-                    'is_admin' => current_user_can('administrator'),
-                    'site_url' => get_site_url(),
-                    "rest_endpoint" => get_rest_url(get_current_blog_id()),
-                    // 'registered_image_sizes' => static::get_all_image_sizes(),
-                    'registered_post_types' => get_post_types(['_builtin' => false]),
-                ]);
-
+            'post_id' => $post->ID,
+            'post_type' => $post->post_type,
+            'moduleBlueprints' => Builder::moduleBlueprints(),
+            'isGlobalModule' => $post->post_type === 'buildy-global-module',
+            'globalSections' => Builder::getGlobals(),
+            'globalModules' => Builder::getGlobalModules(),
+            'is_admin' => current_user_can('administrator'),
+            'site_url' => get_site_url(),
+            'admin_url' => get_admin_url(),
+            'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
+            "rest_endpoint" => get_rest_url(),
+            // 'registered_image_sizes' => static::get_all_image_sizes(),
+            'registered_post_types' => get_post_types(['_builtin' => false]),
+        ]);
 
         // Module Blueprints
         echo "<script id='config' type='application/json'>{$config}</script>";
