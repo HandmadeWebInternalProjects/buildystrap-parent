@@ -45,12 +45,10 @@ const values = computed({
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button
-                class="accordion-button"
+                class="accordion-button collapsed"
                 type="button"
                 data-bs-toggle="collapse"
-                :data-bs-target="`#item-${element._uuid}`"
-                aria-expanded="true"
-                aria-controls="collapseOne">
+                :data-bs-target="`#item-${element._uuid}`">
                 <span class="flex-grow-1">{{
                   element.title || element._uuid
                 }}</span>
