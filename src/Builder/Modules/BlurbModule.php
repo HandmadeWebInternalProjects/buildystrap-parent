@@ -20,17 +20,24 @@ class BlurbModule extends Module
                 'url' => [
                     'type' => 'text-field',
                 ],
-                'relational' => [
+                'testimonials' => [
                     'type' => 'relational-field',
                     'config' => [
                       'post_type' => 'testimonials',
                       'multiple' => true
                     ]
                 ],
+                'accordion' => [
+                    'type' => 'accordion-field',
+                    'config' => [
+                        'label' => 'Accordion',
+                        'multiple' => true,
+                    ],
+                ],
                 'profile-pic' => [
                     'type' => 'media-field',
                     'config' => [
-
+                      'multiple' => true
                     ]
                 ],
                 'content' => [

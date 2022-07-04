@@ -5,28 +5,32 @@
       @click.prevent="openMediaLibrary"
       class="flex w-full position-relative cursor-pointer items-center justify-center image-selector mb-4"
       :class="[images ? 'hasImage' : 'empty']">
-      <div
+      <draggable
         class="d-flex gap-3"
         :class="[
-          { 'border border-dashed border-2 bg-100 p-3': config.multiple },
+          {
+            'border border-dashed border-2 bg-100 p-3':
+              config.multiple && images.length,
+          },
         ]"
-        v-if="images.length">
-        <div
-          class="position-relative"
-          :class="[config.multiple ? 'w-25' : 'w-100']"
-          v-for="image in images"
-          :key="image.id">
-          <img
-            :id="`img-${image.id}` + handle"
-            class="image-preview w-100 h-100"
-            :src="image.url" />
-          <font-awesome-icon
-            v-if="images.length"
-            :icon="['fas', 'trash-alt']"
-            @click.stop="removeImage(image)"
-            class="remove-image-icon"></font-awesome-icon>
-        </div>
-      </div>
+        :list="images"
+        item-key="id">
+        <template #item="{ element }">
+          <div
+            class="position-relative"
+            :class="[config.multiple ? 'w-25' : 'w-100']">
+            <img
+              :id="`img-${element.id}` + handle"
+              class="image-preview w-100 h-100"
+              :src="element.url" />
+            <font-awesome-icon
+              v-if="images.length"
+              :icon="['fas', 'trash-alt']"
+              @click.stop="removeImage(element)"
+              class="remove-image-icon"></font-awesome-icon>
+          </div>
+        </template>
+      </draggable>
       <input
         v-if="!images.length"
         class="form-control pointer-events-none"

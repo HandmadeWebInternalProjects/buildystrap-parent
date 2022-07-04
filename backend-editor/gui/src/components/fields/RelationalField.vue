@@ -16,18 +16,18 @@ const selected = computed({
     return modelValue?.value || []
   },
   set(newVal: Array<number>) {
-    console.log({ newVal })
-
     update(newVal)
   },
 })
 
+const loading = ref(true)
+
+const postType = config.value.post_type || "posts"
+
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
   try {
-    const res = await fetch(
-      `${getConfig.rest_endpoint}wp/v2/${config.value.post_type}`
-    )
+    const res = await fetch(`${getConfig.rest_endpoint}wp/v2/${postType}`)
     data = await res.json()
     return data
   } catch (error: any) {
@@ -36,16 +36,18 @@ const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
 }
 
 onMounted(async () => {
-  if (config.value?.post_type) {
-    let mappedEntries = await fetchEntries()
+  let mappedEntries = await fetchEntries()
 
-    entries.value = mappedEntries.map((entry: any) => {
-      return {
-        value: entry.id,
-        label: entry.title.rendered,
-      }
-    })
-  }
+  if (!mappedEntries) return
+
+  entries.value = mappedEntries.map((entry: any) => {
+    return {
+      value: entry.id,
+      label: entry.title.rendered,
+    }
+  })
+
+  loading.value = false
 })
 </script>
 
@@ -54,14 +56,14 @@ onMounted(async () => {
     <label class="w-100">
       <field-label :label="config.label || handle" />
       <select-field
-        v-if="entries.length"
-        class="w-100"
+        class="w-100 loading"
         handle="relational-selector"
         v-model="selected"
         :key="entries"
+        :loading="loading"
         :config="{
           options: entries,
-          label: `Choose from ${config?.post_type}`,
+          label: false,
           multiple: config?.multiple,
         }"
         @input="update(($event?.target as HTMLInputElement)?.value)"

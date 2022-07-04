@@ -4,15 +4,6 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
-.blurb {
-  --margin-top: 20px;
-  margin-top: var(--margin-top);
-  @media all and (min-width: 768px) {
-    --margin-top-md: 40px;
-    margin-top: var(--margin-top-md, --margin-top);
-  }
-}
-
 $enable-grid-classes: false;
 $enable-cssgrid: true;
 
@@ -137,13 +128,13 @@ $utilities: map-merge(
   // @import "bootstrap/scss/tables";
   @import "bootstrap/scss/forms";
   @import "bootstrap/scss/buttons";
-  // @import "bootstrap/scss/transitions";
+  @import "bootstrap/scss/transitions";
   // @import "bootstrap/scss/dropdown";
   // @import "bootstrap/scss/button-group";
   @import "bootstrap/scss/nav";
   // @import "bootstrap/scss/navbar";
   @import "bootstrap/scss/card";
-  // @import "bootstrap/scss/accordion";
+  @import "bootstrap/scss/accordion";
   // @import "bootstrap/scss/breadcrumb";
   // @import "bootstrap/scss/pagination";
   // @import "bootstrap/scss/badge";
