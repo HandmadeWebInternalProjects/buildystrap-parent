@@ -43,7 +43,6 @@ class BuilderBackend
             wp_enqueue_editor();
         }
 
-
         $manifest = new ViteManifest(
             'manifest.json',
             get_template_directory() . '/public/builder-gui',
@@ -101,7 +100,6 @@ class BuilderBackend
             // 'registered_image_sizes' => static::get_all_image_sizes(),
             'registered_post_types' => get_post_types(['_builtin' => false]),
         ]);
-
 
         // Module Blueprints
         echo "<script id='config' type='application/json'>{$config}</script>";
