@@ -28,6 +28,13 @@ class CardModule extends Module
                     'config' => [
                         'label' => 'Accordion',
                         'multiple' => true,
+                        'tinymce' => [
+                          'toolbar1' => 'bold,italic,underline',
+                          'toolbar2' => false,
+                          'height' => '100',
+                          'resize' => false,
+                          'menubar' => false,
+                        ]
                     ],
                 ],
                 'profile-pic' => [
@@ -40,15 +47,6 @@ class CardModule extends Module
                     'type' => 'richtext-field',
                     'config' => [
                         'label' => 'Body',
-                        'tinymce' => [
-                          'toolbar1' => 'bold,italic,underline',
-                          'toolbar2' => false,
-                          'height' => '50',
-                          'resize' => false,
-                          'wpOptions' => [
-                            'mediaButtons' => false
-                          ]
-                        ]
                     ],
                 ],
             ],

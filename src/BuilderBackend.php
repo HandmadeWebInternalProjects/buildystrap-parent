@@ -51,6 +51,12 @@ class BuilderBackend
 
         $jsEntryFile = 'src/main.ts';
 
+        // Disable TINYMCE
+        // add_filter('user_can_richedit', function () {
+        //     return false;
+        // }, 50);
+
+
         if ($manifest->has($jsEntryFile)) {
             // Load jQuery in the header rather than footer.
             // wp_dequeue_script('jquery');

@@ -66,9 +66,11 @@ const values = computed({
                 <field-group>
                   <text-field
                     handle="accordion-title"
+                    :config="{ label: 'Title' }"
                     v-model="element['title']" />
                   <richtext-field
                     handle="accordion-content"
+                    :config="{ ...config, label: 'Content' }"
                     v-model="element['content']"
                     :uuid="element._uuid" />
                 </field-group>
