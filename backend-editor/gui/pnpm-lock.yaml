@@ -26,7 +26,6 @@ specifiers:
   portal-vue: 3.0.0-beta.0
   prettier: ^2.5.1
   sass: ^1.52.3
-  tinymce: ^6
   typescript: ~4.7.2
   uuid: ^8.3.2
   vite: ^2.9.9
@@ -46,7 +45,6 @@ dependencies:
   bootstrap: 5.2.0-beta1_@popperjs+core@2.11.5
   pinia: 2.0.14_vcmyupim4cga7k7f5hngmth5py
   portal-vue: 3.0.0-beta.0_vue@3.2.37
-  tinymce: 6.1.0
   uuid: 8.3.2
   vue: 3.2.37
   vue-select: 4.0.0-beta.3_vue@3.2.37
@@ -2419,10 +2417,6 @@ packages:
 
   /tinymce/5.10.5:
     resolution: {integrity: sha512-nFKtLhmoRtExBxUfv06JlkbQWux5D+d115vxSRAqUmccZdrtpFvOIYwZmikvulLdM9pfEpvO0B+RQ2qFV/+R7w==}
-    dev: false
-
-  /tinymce/6.1.0:
-    resolution: {integrity: sha512-IdSdMlmuyhpEpUuabhBUaRC2NzZZxP2/CO/F+/54kTaAifB1Et5mKEty03pJYZxl6GBdFgclKRA2UU5JKJtJbA==}
     dev: false
 
   /tinypool/0.1.3:

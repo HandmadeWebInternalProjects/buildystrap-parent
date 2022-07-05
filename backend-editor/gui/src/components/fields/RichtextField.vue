@@ -5,12 +5,24 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, reactive } from "vue"
+import { computed, reactive, onBeforeMount } from "vue"
 import { toRefs } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
+
+import "../../lib/tinymce/tinymce.min.js"
 import Editor from "@tinymce/tinymce-vue"
 import "../../lib/tinymce/plugins/advlist/plugin.min.js"
+import "../../lib/tinymce/plugins/anchor/plugin.min.js"
+import "../../lib/tinymce/plugins/autolink/plugin.min.js"
+import "../../lib/tinymce/plugins/autoresize/plugin.min.js"
+import "../../lib/tinymce/plugins/contextmenu/plugin.min.js"
+import "../../lib/tinymce/plugins/spellchecker/plugin.min.js"
+import "../../lib/tinymce/plugins/searchreplace/plugin.min.js"
 import "../../lib/tinymce/plugins/table/plugin.min.js"
+import "../../lib/tinymce/plugins/wordcount/plugin.min.js"
+import "../../lib/tinymce/plugins/powerpaste/plugin.js"
+import "../../lib/tinymce/plugins/powerpaste/js/wordimport.js"
+import "../../lib/tinymce/plugins/print/plugin.min.js"
 
 const props = defineProps({ ...commonProps })
 
@@ -22,6 +34,13 @@ const content = computed({
   set(val) {
     update(val)
   },
+})
+
+onBeforeMount(() => {
+  window.tinymce.baseURL =
+    "/wp-content/themes/buildystrap-parent/backend-editor/gui/src/lib/tinymce"
+  window.tinymce.baseURI.source =
+    "/wp-content/themes/buildystrap-parent/backend-editor/gui/src/lib/tinymce"
 })
 
 const { tinymce: tinyMCEConfig } = config.value || {}
@@ -36,8 +55,11 @@ const initObj = reactive({
   wpautop: true,
   theme: "modern",
   skin: "lightgray",
+  content_css:
+    "/wp-content/themes/buildystrap-parent/backend-editor/gui/src/lib/tinymce/skins/wordpress/wp-content.css",
   height: "240",
   language: "en",
+  autoresize_min_height: "240",
   formats: {
     alignleft: [
       {
@@ -84,19 +106,65 @@ const initObj = reactive({
     "font-family font-size font-weight font-style text-decoration text-transform",
   tabfocus_elements: ":prev,:next",
   plugins:
-    "charmap,hr,media,paste,tabfocus,lists,textcolor,fullscreen,wordpress,wpeditimage,wpgallery,wplink,wpdialogs,wpview, table, advlist",
+    "advlist anchor autolink autoresize charmap code contextmenu fullscreen hr lists media powerpaste print tabfocus spellchecker searchreplace table textcolor wordcount wordpress wpeditimage wpgallery wplink wpdialogs wpview",
   resize: "vertical",
   menubar: true,
   indent: false,
   toolbar1:
-    "undo redo | wp_add_media | table | format bold italic strikethrough | bullist | numlist | blockquote | fontawesome | hr | alignleft | aligncenter | alignright | link | unlink ",
+    "wp_add_media | undo redo | formatselect | link unlink | bold italic underline strikethrough | removeformat | bullist numlist | blockquote | alignleft aligncenter alignright | code | wp_adv",
   toolbar2:
-    "formatselect,underline,alignjustify,forecolor,pastetext,removeformat,charmap,,undo,redo,wp_help",
+    "shortcodes | forecolor backcolor | pastetext | charmap | hr fullscreen",
   toolbar3: "",
   toolbar4: "",
+  contextmenu: "copy paste pastetext | link image",
+  powerpaste_allow_local_images: true,
+  powerpaste_word_import: "clean",
+  powerpaste_html_import: "clean",
+  paste_retain_style_properties: "",
   body_class: "id post-type-post post-status-publish post-format-standard",
   wpeditimage_disable_captions: false,
   wpeditimage_html5_captions: true,
+  setup: function (editor) {
+    editor.addButton("shortcodes", {
+      type: "menubutton",
+      text: "Shortcodes",
+      icon: false,
+      menu: [
+        {
+          text: "Phone",
+          onclick: function () {
+            editor.insertContent("[company-phone]")
+          },
+        },
+        {
+          text: "Email",
+          onclick: function () {
+            editor.insertContent("[company-email]")
+          },
+        },
+        {
+          text: "Address",
+          onclick: function () {
+            editor.insertContent("[company-address]")
+          },
+        },
+        {
+          text: "Social Icons",
+          onclick: function () {
+            editor.insertContent("[social-icons]")
+          },
+        },
+        {
+          text: "Gravity Forms",
+          onclick: function () {
+            editor.insertContent(
+              '[gravityforms id="" title="" description="" ajax=""]'
+            )
+          },
+        },
+      ],
+    })
+  },
   ...tinyMCEConfig,
 })
 </script>

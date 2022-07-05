@@ -55,7 +55,7 @@ class BuilderBackend
         // add_filter('user_can_richedit', function () {
         //     return false;
         // }, 50);
-
+        // wp_deregister_style( 'editor-buttons' ); 
 
         if ($manifest->has($jsEntryFile)) {
             // Load jQuery in the header rather than footer.
