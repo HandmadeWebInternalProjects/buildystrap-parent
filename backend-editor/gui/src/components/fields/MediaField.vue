@@ -1,9 +1,9 @@
 <template lang="">
   <div>
-    <field-label :label="config.label || handle" />
+    <field-label :label="config?.label !== undefined ? config.label : handle" />
     <div
       @click.prevent="openMediaLibrary"
-      class="flex w-full position-relative cursor-pointer items-center justify-center image-selector mb-4"
+      class="flex w-full position-relative cursor-pointer items-center justify-center image-selector"
       :class="[images ? 'hasImage' : 'empty']">
       <draggable
         class="d-flex gap-3"
@@ -77,7 +77,7 @@ const initMediaLibrary = () => {
         // [ 'name', 'author', 'date', 'title', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ]
         orderby: "date",
         // mime type. e.g. 'image', 'image/jpeg'
-        type: "image",
+        // type: "image",
         // Searches the attachment title.
         // search: false,
         // Includes media only uploaded to the specified post (ID)

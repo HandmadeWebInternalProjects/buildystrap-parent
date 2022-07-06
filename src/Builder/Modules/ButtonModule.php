@@ -9,7 +9,7 @@ class ButtonModule extends Module
     protected static function blueprint(): array
     {
         return [
-            'icon' => 'fa-solid fa-paragraph',
+            'icon' => 'fa-solid fa-stop',
             'fields' => [
                 'button' => [
                     'type' => 'button-field',

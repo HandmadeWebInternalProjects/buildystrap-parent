@@ -32,7 +32,7 @@ class GlobalModule extends Module
     protected static function blueprint(): array
     {
         return [
-            'icon' => 'fa-solid fa-anchor',
+            'icon' => 'fa-solid fa-earth-oceania',
         ];
     }
 

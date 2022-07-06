@@ -27,7 +27,7 @@ const options = normaliseOptions(config.value.options) || []
   <div class="select-field">
     <field-label
       v-if="config.label !== false"
-      :label="config.label || handle" />
+      :label="config?.label !== undefined ? config.label : handle" />
     <v-select
       :loading="props.loading"
       :multiple="config?.multiple"

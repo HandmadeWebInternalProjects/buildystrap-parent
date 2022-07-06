@@ -9,7 +9,7 @@ class GalleryModule extends Module
     protected static function blueprint(): array
     {
         return [
-            'icon' => 'fa-solid fa-paragraph',
+            'icon' => 'fa-solid fa-images',
             'fields' => [
                 'images' => [
                     'type' => 'media-field',

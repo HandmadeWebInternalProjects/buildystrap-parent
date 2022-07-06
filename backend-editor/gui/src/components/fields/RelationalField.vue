@@ -5,7 +5,7 @@ import { useBuilderStore } from "../../stores/builder"
 const props = defineProps({ ...commonProps })
 
 const { handle, config, modelValue } = toRefs(props)
-const { getConfig } = useBuilderStore()
+const { getBuilderConfig } = useBuilderStore()
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
@@ -27,7 +27,9 @@ const postType = config.value.post_type || "posts"
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
   try {
-    const res = await fetch(`${getConfig.rest_endpoint}wp/v2/${postType}`)
+    const res = await fetch(
+      `${getBuilderConfig.rest_endpoint}wp/v2/${postType}`
+    )
     data = await res.json()
     return data
   } catch (error: any) {
@@ -54,7 +56,8 @@ onMounted(async () => {
 <template>
   <div>
     <label class="w-100">
-      <field-label :label="config.label || handle" />
+      <field-label
+        :label="config?.label !== undefined ? config.label : handle" />
       <select-field
         class="w-100 loading"
         handle="relational-selector"

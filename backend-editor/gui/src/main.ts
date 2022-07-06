@@ -1,5 +1,5 @@
 import "vite/modulepreload-polyfill"
-import { createApp, provide } from "vue"
+import { createApp } from "vue"
 import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
 import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
@@ -19,7 +19,7 @@ const configOptions: BuildyConfig = JSON.parse(
   document.querySelector("#config")?.innerHTML || ""
 )
 
-const app = configOptions.isGlobalModule
+const app = configOptions.is_global_module
   ? createApp(GlobalModuleBuilder)
   : createApp(App)
 
@@ -42,6 +42,8 @@ import {
   faPenToSquare,
   faCopy,
   faTrash,
+  faImages,
+  faEarthOceania,
   faTrashAlt,
   faEllipsisVertical,
   faPlus,
@@ -51,6 +53,9 @@ import {
   faWandMagicSparkles,
   faChevronUp,
   faChevronDown,
+  faStop,
+  faHeading,
+  faEquals,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -64,13 +69,18 @@ library.add(
   faColumns,
   faCopy,
   faTrash,
+  faImages,
+  faEarthOceania,
   faTrashAlt,
   faEllipsisVertical,
   faParagraph,
   faAnchor,
   faWandMagicSparkles,
   faChevronUp,
-  faChevronDown
+  faChevronDown,
+  faStop,
+  faHeading,
+  faEquals
 )
 /* add font awesome icon component */
 app.component("font-awesome-icon", FontAwesomeIcon)
@@ -111,5 +121,8 @@ window.Buildy.$composables = {
 window.Buildy.$propTypes.moduleProps = {
   commonProps,
 }
+
+window.tinymce.baseURL = `${configOptions?.theme_url}/backend-editor/gui/src/lib/tinymce`
+window.tinymce.baseURI.source = `${configOptions?.theme_url}/backend-editor/gui/src/lib/tinymce`
 
 window.Buildy.start()

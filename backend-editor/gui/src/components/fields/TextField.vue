@@ -12,7 +12,8 @@ const { update } = useFieldType(emit)
 <template>
   <div>
     <label class="w-100">
-      <field-label :label="config.label || handle" />
+      <field-label
+        :label="config?.label !== undefined ? config.label : handle" />
       <input
         class="w-100"
         :handle="handle"

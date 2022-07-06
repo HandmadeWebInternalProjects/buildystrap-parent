@@ -2,12 +2,13 @@ import { defineStore } from "pinia"
 
 export type BuildyConfig = {
   site_url: string
+  theme_url: string
   rest_endpoint: string
   moduleBlueprints: { [key: string]: any }
   post_type: string
   post_id: number
   is_admin: boolean
-  isGlobalModule: boolean
+  is_global_module: boolean
 }
 
 export const useBuilderStore = defineStore({
@@ -30,7 +31,7 @@ export const useBuilderStore = defineStore({
     getModuleBlueprints: (state) => state.config.moduleBlueprints,
     getGlobalSections: (state) => state.globals.sections,
     getGlobalModules: (state): { [key: string]: any } => state.globals.modules,
-    getConfig: (state) => state.config,
+    getBuilderConfig: (state) => state.config,
   },
   actions: {
     setConfig(config: BuildyConfig) {

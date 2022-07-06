@@ -33,7 +33,8 @@ const values = computed({
 <template>
   <div>
     <label class="w-100">
-      <field-label :label="config.label || handle" />
+      <field-label
+        :label="config?.label !== undefined ? config.label : handle" />
       <draggable
         v-if="values.length"
         :list="values"
@@ -66,9 +67,11 @@ const values = computed({
                 <field-group>
                   <text-field
                     handle="accordion-title"
+                    :config="{ label: 'Title' }"
                     v-model="element['title']" />
                   <richtext-field
                     handle="accordion-content"
+                    :config="{ ...config, label: 'Content' }"
                     v-model="element['content']"
                     :uuid="element._uuid" />
                 </field-group>

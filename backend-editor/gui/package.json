@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@popperjs/core": "^2.11.5",
+    "@tinymce/tinymce-vue": "^4",
     "bootstrap": "^5.2.0-beta1",
     "pinia": "^2.0.14",
     "portal-vue": "3.0.0-beta.0",
