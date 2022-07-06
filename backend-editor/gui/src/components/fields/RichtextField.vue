@@ -172,4 +172,65 @@ const initObj = reactive({
 #buildy-root .ql-editor p {
   margin-bottom: 15px;
 }
+
+.mce-top-part::before {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+  background: transparent;
+  border: none;
+}
+.mce-toolbar .mce-btn-group .mce-btn {
+  margin: 0 1px;
+}
+.mce-toolbar .mce-btn button {
+  padding: 4px 3px;
+}
+.mce-panel .mce-menubar .mce-btn button i.mce-caret {
+  margin-top: 6px;
+}
+.mce-panel .mce-btn button i.mce-caret {
+  border-top: 4px solid #b5bcc2;
+  border-bottom: 0;
+}
+.mce-toolbar .mce-btn-group .mce-btn.mce-active:not(.mce-btn-has-text),
+.mce-toolbar .mce-btn-group .mce-btn:active:not(.mce-btn-has-text),
+.qt-dfw.active:not(.mce-btn-has-text) {
+  background: #666;
+}
+.mce-panel .mce-btn.mce-btn-has-text button,
+.mce-panel .mce-btn.mce-btn-has-text button:hover {
+  color: #595959;
+}
+.mce-panel .mce-btn.mce-active:not(.mce-btn-has-text) button {
+  color: #fff;
+}
+.mce-panel .mce-btn.mce-active i,
+.mce-panel .mce-btn.mce-active:hover i {
+  color: #fff;
+}
+.mce-panel .mce-btn.mce-active button i.mce-caret {
+  border-top: 0;
+  border-bottom: 4px solid #b5bcc2;
+}
+.mce-i-code:before {
+  vertical-align: middle;
+}
+.mce-toolbar.mce-last {
+  border-top: 1px solid #b5bcc2;
+}
+div.mce-toolbar-grp > div.mce-container-body {
+  padding: 0;
+}
+.mce-toolbar-grp .mce-listbox button,
+.mce-toolbar-grp .mce-btn-has-text button {
+  line-height: 20px;
+}
+.mce-toolbar .mce-btn-has-text button {
+  font-size: 13px;
+}
+.mce-menubtn.mce-fixed-width span {
+  width: 80px;
+}
 </style>

@@ -23,7 +23,7 @@ class CardModule extends Module
                 'link' => [
                     'type' => 'relational-field',
                     'config' => [
-                      'post_type' => 'testimonials',
+                      'post_type' => 'posts',
                       'multiple' => true
                     ]
                 ],
