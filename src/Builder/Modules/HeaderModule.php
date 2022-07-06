@@ -9,7 +9,7 @@ class HeaderModule extends Module
     protected static function blueprint(): array
     {
         return [
-            'icon' => 'fa-solid fa-paragraph',
+            'icon' => 'fa-solid fa-heading',
             'fields' => [
                 'title' => [
                     'type' => 'text-field',

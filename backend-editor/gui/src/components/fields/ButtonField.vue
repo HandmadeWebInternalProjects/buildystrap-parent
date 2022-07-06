@@ -59,7 +59,9 @@ const styles = computed(() => {
 <template>
   <div>
     <div class="d-flex gap-4 align-items-center justify-content-between">
-      <field-label class="mb-1" :label="config.label || handle" />
+      <field-label
+        class="mb-1"
+        :label="config?.label !== undefined ? config.label : handle" />
       <button
         type="button"
         class="btn"

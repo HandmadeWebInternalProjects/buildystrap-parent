@@ -21,7 +21,11 @@ class CardModule extends Module
                     'type' => 'media-field',
                 ],
                 'link' => [
-                    'type' => 'text-field',
+                    'type' => 'relational-field',
+                    'config' => [
+                      'post_type' => 'testimonials',
+                      'multiple' => true
+                    ]
                 ],
                 'accordion' => [
                     'type' => 'accordion-field',

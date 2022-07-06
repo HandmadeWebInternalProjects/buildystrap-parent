@@ -4,18 +4,17 @@ namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
 
-class GalleryModule extends Module
+class AccordionModule extends Module
 {
     protected static function blueprint(): array
     {
         return [
-            'icon' => 'fa-solid fa-images',
+            'icon' => 'fa-solid fa-equals',
             'fields' => [
-                'images' => [
-                    'type' => 'media-field',
+                'accordion' => [
+                    'type' => 'accordion-field',
                     'config' => [
-                        'label' => 'Images',
-                        'multiple' => true,
+                        'label' => '',
                     ],
                 ],
             ],

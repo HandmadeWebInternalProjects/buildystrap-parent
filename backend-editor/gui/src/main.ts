@@ -42,6 +42,8 @@ import {
   faPenToSquare,
   faCopy,
   faTrash,
+  faImages,
+  faEarthOceania,
   faTrashAlt,
   faEllipsisVertical,
   faPlus,
@@ -51,6 +53,9 @@ import {
   faWandMagicSparkles,
   faChevronUp,
   faChevronDown,
+  faStop,
+  faHeading,
+  faEquals,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -64,13 +69,18 @@ library.add(
   faColumns,
   faCopy,
   faTrash,
+  faImages,
+  faEarthOceania,
   faTrashAlt,
   faEllipsisVertical,
   faParagraph,
   faAnchor,
   faWandMagicSparkles,
   faChevronUp,
-  faChevronDown
+  faChevronDown,
+  faStop,
+  faHeading,
+  faEquals
 )
 /* add font awesome icon component */
 app.component("font-awesome-icon", FontAwesomeIcon)

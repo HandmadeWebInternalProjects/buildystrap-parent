@@ -7,10 +7,10 @@ use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Layout\Container;
+use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
 use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\GalleryModule;
-use Buildystrap\Builder\Modules\GlobalModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ReplicatorModule;
 use Buildystrap\Builder\Modules\TextModule;
@@ -46,12 +46,12 @@ class Builder
     ];
 
     protected static array $modules = [
-        'global-module' => GlobalModule::class,
         'card-module' => CardModule::class,
         'text-module' => TextModule::class,
         'gallery-module' => GalleryModule::class,
         'button-module' => ButtonModule::class,
         'header-module' => HeaderModule::class,
+        'accordion-module' => AccordionModule::class,
         'replicator-module' => ReplicatorModule::class,
     ];
 

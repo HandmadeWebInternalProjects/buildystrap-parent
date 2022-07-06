@@ -56,7 +56,8 @@ onMounted(async () => {
 <template>
   <div>
     <label class="w-100">
-      <field-label :label="config.label || handle" />
+      <field-label
+        :label="config?.label !== undefined ? config.label : handle" />
       <select-field
         class="w-100 loading"
         handle="relational-selector"
