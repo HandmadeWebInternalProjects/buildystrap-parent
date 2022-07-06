@@ -1,5 +1,5 @@
 import "vite/modulepreload-polyfill"
-import { createApp, provide } from "vue"
+import { createApp } from "vue"
 import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
 import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
@@ -19,7 +19,7 @@ const configOptions: BuildyConfig = JSON.parse(
   document.querySelector("#config")?.innerHTML || ""
 )
 
-const app = configOptions.isGlobalModule
+const app = configOptions.is_global_module
   ? createApp(GlobalModuleBuilder)
   : createApp(App)
 
@@ -111,5 +111,8 @@ window.Buildy.$composables = {
 window.Buildy.$propTypes.moduleProps = {
   commonProps,
 }
+
+window.tinymce.baseURL = `${configOptions?.theme_url}/backend-editor/gui/src/lib/tinymce`
+window.tinymce.baseURI.source = `${configOptions?.theme_url}/backend-editor/gui/src/lib/tinymce`
 
 window.Buildy.start()

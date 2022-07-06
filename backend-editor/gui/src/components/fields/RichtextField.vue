@@ -8,6 +8,7 @@
 import { computed, reactive, onBeforeMount } from "vue"
 import { toRefs } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
+import { useBuilderStore } from "@/stores/builder"
 
 import "../../lib/tinymce/tinymce.min.js"
 import Editor from "@tinymce/tinymce-vue"
@@ -36,16 +37,9 @@ const content = computed({
   },
 })
 
-onBeforeMount(() => {
-  window.tinymce.baseURL =
-    "/wp-content/themes/buildystrap-parent/backend-editor/gui/src/lib/tinymce"
-  window.tinymce.baseURI.source =
-    "/wp-content/themes/buildystrap-parent/backend-editor/gui/src/lib/tinymce"
-})
-
+const { getBuilderConfig } = useBuilderStore()
+const { theme_url } = getBuilderConfig
 const { tinymce: tinyMCEConfig } = config.value || {}
-
-console.log({ tinyMCEConfig })
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
@@ -55,8 +49,7 @@ const initObj = reactive({
   wpautop: true,
   theme: "modern",
   skin: "lightgray",
-  content_css:
-    "/wp-content/themes/buildystrap-parent/backend-editor/gui/src/lib/tinymce/skins/wordpress/wp-content.css",
+  content_css: `${theme_url}/backend-editor/gui/src/lib/tinymce/skins/wordpress/wp-content.css`,
   height: "240",
   language: "en",
   autoresize_min_height: "240",

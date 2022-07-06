@@ -55,7 +55,7 @@ class BuilderBackend
         // add_filter('user_can_richedit', function () {
         //     return false;
         // }, 50);
-        // wp_deregister_style( 'editor-buttons' ); 
+        // wp_deregister_style( 'editor-buttons' );
 
         if ($manifest->has($jsEntryFile)) {
             // Load jQuery in the header rather than footer.
@@ -92,17 +92,18 @@ class BuilderBackend
         }
 
         $config = json_encode([
+            'is_admin' => current_user_can('administrator'),
+            'is_global_module' => $post->post_type === 'buildy-global-module',
             'post_id' => $post->ID,
             'post_type' => $post->post_type,
-            'moduleBlueprints' => Builder::moduleBlueprints(),
-            'isGlobalModule' => $post->post_type === 'buildy-global-module',
-            'globalSections' => Builder::getGlobals(),
-            'globalModules' => Builder::getGlobalModules(),
-            'is_admin' => current_user_can('administrator'),
             'site_url' => get_site_url(),
             'admin_url' => get_admin_url(),
-            'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
+            'theme_url' => get_template_directory_uri(),
             "rest_endpoint" => get_rest_url(),
+            'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
+            'moduleBlueprints' => Builder::moduleBlueprints(),
+            'globalSections' => Builder::getGlobals(),
+            'globalModules' => Builder::getGlobalModules(),
             // 'registered_image_sizes' => static::get_all_image_sizes(),
             'registered_post_types' => get_post_types(['_builtin' => false]),
         ]);
