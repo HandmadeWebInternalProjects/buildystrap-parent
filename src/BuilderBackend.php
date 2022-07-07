@@ -27,6 +27,7 @@ class BuilderBackend
             add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], PHP_INT_MAX);
             add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
             add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
+            add_filter('script_loader_tag', [static::class, 'admin_add_type_attribute'], 10, 3);
 
             do_action('buildy::builder-backend::boot');
         }
@@ -71,7 +72,7 @@ class BuilderBackend
                 }
 
                 if ($jsFile) {
-                    wp_enqueue_script("buildy-editor:$jsFile", $manifest->getUrlFor($jsFile), [], false, true);
+                    wp_enqueue_script('buildy-editor', $manifest->getUrlFor($jsFile), [], false, true);
                 }
             }
 
@@ -82,7 +83,24 @@ class BuilderBackend
             foreach (Builder::getBackendStyles() as $handle => $style) {
                 wp_enqueue_style("buildy-module:$handle", $style, ['buildy-editor']);
             }
+
+            wp_enqueue_script(
+                'buildy-boot',
+                get_template_directory_uri() . '/resources/js/buildy-boot.js',
+                ['buildy-editor'],
+                false,
+                true
+            );
         }
+    }
+
+    public static function admin_add_type_attribute($tag, $handle, $src)
+    {
+        if (str_contains($handle, 'buildy')) {
+            return '<script type="module" defer src="' . esc_url($src) . '"></script>';
+        }
+
+        return $tag;
     }
 
     public static function admin_edit_form_after_editor($post)
@@ -99,7 +117,7 @@ class BuilderBackend
             'site_url' => get_site_url(),
             'admin_url' => get_admin_url(),
             'theme_url' => get_template_directory_uri(),
-            "rest_endpoint" => get_rest_url(),
+            'rest_endpoint' => get_rest_url(),
             'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
             'moduleBlueprints' => Builder::moduleBlueprints(),
             'globalSections' => Builder::getGlobals(),
@@ -119,6 +137,7 @@ class BuilderBackend
 
         if (config('builder.dev_mode')) {
             echo '<script type="module" src="http://localhost:3000/src/main.ts"></script>';
+            echo '<script defer>window.addEventListener("buildy:ready", () => window.Buildy.start())</script>';
         }
     }
 

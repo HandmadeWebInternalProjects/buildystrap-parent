@@ -1,28 +1,28 @@
 interface EventConstructor {
-  new (): EventInterface;
+  new (): EventInterface
 }
 
 export interface EventInterface {
-  events: { [key: string]: any };
-  on(eventName: string, callback: (arg: any) => void): void;
-  off(eventName: string): void;
-  emit(eventName: string, data?: any): void;
+  events: { [key: string]: any }
+  on(eventName: string, callback: (arg: any) => void): void
+  off(eventName: string): void
+  emit(eventName: string, data?: any): void
 }
 
 const Event: EventConstructor = class Event implements EventInterface {
-  events: { [key: string]: any };
+  events: { [key: string]: any }
   constructor() {
-    this.events = {};
+    this.events = {}
   }
 
   on(eventName: string, fn: any) {
-    this.events[eventName] = this.events[eventName] || [];
-    this.events[eventName].push(fn);
+    this.events[eventName] = this.events[eventName] || []
+    this.events[eventName].push(fn)
   }
 
   off(eventName: string) {
     if (this.events[eventName]) {
-      this.events[eventName] = [];
+      this.events[eventName] = []
     }
   }
 
@@ -30,10 +30,10 @@ const Event: EventConstructor = class Event implements EventInterface {
     // console.log({ eventName, data });
     if (this.events[eventName]) {
       this.events[eventName].forEach(function (fn: any): void {
-        fn(data);
-      });
+        fn(data)
+      })
     }
   }
-};
+}
 
-export default new Event();
+export default new Event()

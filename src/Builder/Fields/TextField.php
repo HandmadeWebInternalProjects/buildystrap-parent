@@ -11,7 +11,7 @@ class TextField extends Field
         return [
             'config' => [
                 'display' => 'Text Field',
-                'input_type' => 'text',
+                'input_type' => 'email',
             ],
         ];
     }

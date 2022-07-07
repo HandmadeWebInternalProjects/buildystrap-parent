@@ -13,6 +13,7 @@ export interface BuildyInterface {
   $bus: typeof Bus
   $hooks: typeof Hooks
   $composables: { [key: string]: any }
+  $components: { [key: string]: any }
   $propTypes: { [key: string]: any }
   booting(callback: (arg: any) => void): void
   booted(callback: (arg: any) => void): void
@@ -27,6 +28,7 @@ export const Buildy: BuildyConstructor = class Buildy {
   $bus: typeof Bus
   $hooks: typeof Hooks
   $composables: { [key: string]: void }
+  $components: { [key: string]: void }
   $propTypes: { [key: string]: any }
 
   constructor(app: any) {
@@ -36,6 +38,7 @@ export const Buildy: BuildyConstructor = class Buildy {
     this.$bus = Bus
     this.$hooks = Hooks
     this.$composables = {}
+    this.$components = {}
     this.$propTypes = {}
   }
 
@@ -48,6 +51,7 @@ export const Buildy: BuildyConstructor = class Buildy {
   }
 
   registerComponent(name: string, component: any) {
+    this.$components[name] = component
     this.app.component(name, component)
   }
 
@@ -58,6 +62,7 @@ export const Buildy: BuildyConstructor = class Buildy {
     this.bootingCallbacks = []
 
     this.app.mount("#app")
+    console.log(this.app)
 
     this.bootedCallbacks.forEach((callback: (arg: any) => void) =>
       callback(this.app)

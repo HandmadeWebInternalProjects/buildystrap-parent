@@ -27,8 +27,8 @@ use function collect;
 use function config;
 use function do_action;
 use function get_current_screen;
+use function get_post;
 use function get_post_meta;
-use function get_queried_object;
 use function get_the_ID;
 use function in_array;
 use function is_admin;
@@ -296,7 +296,7 @@ class Builder
         static::$styles[Str::slug($handle)] = $style;
     }
 
-    public static function the_content($content): mixed
+    public static function the_content(string $content): string
     {
         /*
          * Possibly crude way of intercepting the output of the_content()
@@ -305,22 +305,18 @@ class Builder
          *
          * However in this case, we want the raw unformatted content.
          */
-        if (static::isEnabled()) {
+        if (static::isEnabled() && $post = get_post()) {
             if (is_admin() || defined('REST_REQUEST') && REST_REQUEST) {
-                return null; // Stop shortcode render on backend Or via REST.
+                return ''; // Stop render on backend Or via REST.
             }
 
-            // Get the current post.
-            $post = get_queried_object();
-
-            return static::renderFromContent($post->post_content)->render();
+            return ! empty($post->post_content) ? static::renderFromContent($post->post_content)->render() : $content;
         }
 
         /*
          * If the Page Builder was not enabled on this post.
          * Return the content, as is.
          */
-
         return $content;
     }
 
