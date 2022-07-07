@@ -14,7 +14,9 @@ const { update } = useFieldType(emit)
 
 <template>
   <div>
-    <field-label :label="config?.label !== undefined ? config.label : handle" />
+    <field-label
+      v-if="config.label !== false"
+      :label="config?.label !== undefined ? config.label : handle" />
     <toggle-button
       :value="modelValue"
       @input="update"

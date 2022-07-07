@@ -13,6 +13,7 @@ const { update } = useFieldType(emit)
   <div>
     <label class="w-100">
       <field-label
+        v-if="config.label !== false"
         :label="config?.label !== undefined ? config.label : handle" />
       <input
         class="w-100"

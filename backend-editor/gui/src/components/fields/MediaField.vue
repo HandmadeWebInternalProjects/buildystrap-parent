@@ -1,6 +1,8 @@
 <template lang="">
   <div>
-    <field-label :label="config?.label !== undefined ? config.label : handle" />
+    <field-label
+      v-if="config.label !== false"
+      :label="config?.label !== undefined ? config.label : handle" />
     <div
       @click.prevent="openMediaLibrary"
       class="flex w-full position-relative cursor-pointer items-center justify-center image-selector"

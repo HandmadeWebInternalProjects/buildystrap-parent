@@ -1,6 +1,8 @@
 <template>
   <div class="module module-settings">
-    <field-label :label="config?.label !== undefined ? config.label : handle" />
+    <field-label
+      v-if="config.label !== false"
+      :label="config?.label !== undefined ? config.label : handle" />
     <editor :init="initObj" v-model="content" api-key="no-api-key"></editor>
   </div>
 </template>
