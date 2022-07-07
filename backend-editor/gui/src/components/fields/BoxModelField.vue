@@ -65,7 +65,7 @@ const hasPlaceholder = (key: string | number) => {
 
   let currentBPIndex = breakpoints.indexOf(breakpoint.value)
   breakpoints.forEach((bp, i) => {
-    if (i < 0 || i > currentBPIndex) return
+    if (i > currentBPIndex) return
     if (values[key][bp] !== undefined) {
       placeholder = values[key][bp]
     }
