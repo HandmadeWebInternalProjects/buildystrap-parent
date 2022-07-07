@@ -35,54 +35,57 @@ const values = computed({
     <label class="w-100">
       <field-label
         :label="config?.label !== undefined ? config.label : handle" />
-      <draggable
-        v-if="values.length"
-        :list="values"
-        group="accordion-items"
-        item-key="_uuid"
-        class="accordion"
-        id="accordionExample">
-        <template #item="{ element }">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                :data-bs-target="`#item-${element._uuid}`">
-                <span class="flex-grow-1">{{
-                  element.title || element._uuid
-                }}</span>
-                <font-awesome-icon
-                  class="delete-icon d-block px-3"
-                  icon="trash"
-                  @click.prevent="removeItem(element._uuid)" />
-              </button>
-            </h2>
-            <div
-              :id="`item-${element._uuid}`"
-              class="accordion-collapse collapse"
-              data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <field-group>
-                  <text-field
-                    handle="accordion-title"
-                    :config="{ label: 'Title' }"
-                    v-model="element['title']" />
-                  <richtext-field
-                    handle="accordion-content"
-                    :config="{ ...config, label: 'Content' }"
-                    v-model="element['content']"
-                    :uuid="element._uuid" />
-                </field-group>
-              </div>
+    </label>
+    <draggable
+      v-if="values.length"
+      :list="values"
+      group="accordion-items"
+      item-key="_uuid"
+      class="accordion mb-3"
+      id="accordionExample">
+      <template #item="{ element }">
+        <div class="accordion-item">
+          <h2 class="accordion-header p-0">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              :data-bs-target="`#item-${element._uuid}`">
+              <span class="flex-grow-1">{{
+                element.title || element._uuid
+              }}</span>
+              <font-awesome-icon
+                class="delete-icon d-block px-3"
+                icon="trash"
+                @click.prevent="removeItem(element._uuid)" />
+            </button>
+          </h2>
+          <div
+            :id="`item-${element._uuid}`"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <field-group>
+                <text-field
+                  handle="accordion-title"
+                  :config="{ label: 'Title' }"
+                  v-model="element['title']" />
+                <richtext-field
+                  handle="accordion-content"
+                  :config="{ ...config, label: 'Content' }"
+                  v-model="element['content']"
+                  :uuid="element._uuid" />
+              </field-group>
             </div>
           </div>
-        </template>
-      </draggable>
-      <button @click="addItem" type="button" class="btn btn-primary mt-3">
-        Add item
-      </button>
-    </label>
+        </div>
+      </template>
+    </draggable>
+    <button
+      @click="addItem"
+      type="button"
+      class="btn btn-primary bg-indigo-500">
+      Add item
+    </button>
   </div>
 </template>

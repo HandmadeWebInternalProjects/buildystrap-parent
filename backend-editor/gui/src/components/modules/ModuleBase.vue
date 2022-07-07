@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed, provide } from "vue"
+import { slugToStr } from "../../utils/helpers"
 
 const props = defineProps({
   component: {
@@ -47,7 +48,7 @@ const isGlobalModule = computed((): boolean => {
         contenteditable="true"
         @blur="updateAdminLabel($el.innerText)"
         class="module-title flex-grow-1 py-1 me-2 text-nowrap overflow-hidden"
-        >{{ component?.config?.adminLabel || component.type }}</span
+        >{{ component?.config?.adminLabel || slugToStr(component.type) }}</span
       >
       <module-controls
         class="justify-content-center text-white"

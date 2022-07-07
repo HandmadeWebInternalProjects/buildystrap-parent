@@ -56,7 +56,7 @@
                 aria-controls="offcanvasRight"
                 class="flex cursor-pointer pulse"></font-awesome-icon>
               <span class="block pl-2">
-                {{ key }}
+                {{ slugToStr(key) }}
               </span>
             </div>
           </li>
@@ -96,6 +96,7 @@ import { storeToRefs } from "pinia"
 import { createModule } from "../../factories/modules/moduleFactory"
 import type { ModuleType } from "../../factories/modules/moduleFactory"
 import { useBuilderStore } from "../../stores/builder"
+import { slugToStr } from "../../utils/helpers"
 
 const { setGlobals } = useBuilderStore()
 const { getModuleBlueprints, getGlobalModules } = storeToRefs(useBuilderStore())

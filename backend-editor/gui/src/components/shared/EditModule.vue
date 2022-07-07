@@ -2,6 +2,7 @@
 import { ref, computed } from "vue"
 
 import { useBuilderStore } from "../../stores/builder"
+import { slugToStr } from "../../utils/helpers"
 const { getRegisteredComponents } = useBuilderStore()
 
 const props = defineProps({
@@ -48,7 +49,7 @@ const attributes = ref(component.value?.attributes || {})
     half
     name="module-settings">
     <div class="tab-header bg-indigo-500 text-white px-4 py-3">
-      <h3 class="mb-0">Edit {{ component.type }}</h3>
+      <h3 class="mb-0">Edit {{ slugToStr(component.type) }}</h3>
     </div>
     <div class="p-4 h-100">
       <ul class="nav nav-pills border-bottom" id="myTab" role="tablist">

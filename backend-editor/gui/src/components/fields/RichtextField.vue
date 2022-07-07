@@ -217,7 +217,7 @@ const initObj = reactive({
 .mce-i-code:before {
   vertical-align: middle;
 }
-.mce-toolbar.mce-last {
+.mce-toolbar.mce-last:not(.mce-first) {
   border-top: 1px solid #b5bcc2;
 }
 div.mce-toolbar-grp > div.mce-container-body {

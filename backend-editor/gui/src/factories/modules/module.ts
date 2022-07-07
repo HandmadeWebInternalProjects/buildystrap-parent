@@ -23,7 +23,6 @@ const Module = function (
   this.config = {
     handle: HANDLE,
     enabled: true,
-    adminLabel: HANDLE,
   }
   this.meta = META
   this.values = VALUE || {}

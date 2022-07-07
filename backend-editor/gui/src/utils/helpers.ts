@@ -44,4 +44,21 @@ const stripTrailingSlash = (str: string) => {
   return str.endsWith("/") ? str.slice(0, -1) : str
 }
 
-export { debounce, UCFirst, spaceToDash, tryParseJSON, stripTrailingSlash }
+const slugToStr = (str) => {
+  var i,
+    frags = str.split("-")
+  for (i = 0; i < frags.length; i++) {
+    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)
+  }
+  str = frags.join(" ")
+  return str.substring(0, str.lastIndexOf(" "))
+}
+
+export {
+  debounce,
+  UCFirst,
+  spaceToDash,
+  tryParseJSON,
+  stripTrailingSlash,
+  slugToStr,
+}

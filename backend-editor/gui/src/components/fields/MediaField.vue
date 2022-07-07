@@ -9,7 +9,7 @@
         class="d-flex gap-3"
         :class="[
           {
-            'border border-dashed border-2 bg-100 p-3':
+            'border border-dashed border-2 bg-100 rounded p-3':
               config.multiple && images.length,
           },
         ]"
@@ -145,10 +145,10 @@ onMounted(() => {
 }
 .remove-image-icon {
   position: absolute;
-  top: 0.4em;
-  right: 0.4em;
+  top: 0.4rem;
+  right: 0.4rem;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #000;
   z-index: 100;
 }

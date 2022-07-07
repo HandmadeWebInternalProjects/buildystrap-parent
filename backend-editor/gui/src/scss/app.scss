@@ -21,6 +21,14 @@ $all-colors: map-merge-multiple(
   $grays
 );
 
+$nav-pills-link-active-bg: $indigo-500;
+$nav-link-color: $indigo-500;
+$nav-link-hover-color: $indigo-700;
+
+$accordion-button-active-bg: $gray-100;
+$accordion-button-active-color: $gray-800;
+$accordion-color: $indigo-700;
+
 $utilities: map-merge(
   $utilities,
   (

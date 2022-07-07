@@ -12,9 +12,18 @@ class HeaderModule extends Module
             'icon' => 'fa-solid fa-heading',
             'fields' => [
                 'title' => [
-                    'type' => 'text-field',
+                    'type' => 'title-field',
                     'config' => [
-                        'label' => 'Title text',
+                        'label' => 'Heading',
+                        'tinymce' => [
+                          'toolbar1' => 'bold,italic,underline',
+                          'toolbar2' => false,
+                          'height' => '20',
+                          'autoresize_min_height' => '20',
+                          'resize' => false,
+                          'menubar' => false,
+                          'statusbar' => false
+                        ],
                     ],
                 ],
             ],
