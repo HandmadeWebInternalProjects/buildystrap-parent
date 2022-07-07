@@ -53,6 +53,7 @@ const initObj = reactive({
   height: "240",
   language: "en",
   autoresize_min_height: "240",
+  autoresize_bottom_margin: 1,
   formats: {
     alignleft: [
       {
@@ -173,7 +174,14 @@ const initObj = reactive({
   margin-bottom: 15px;
 }
 
-.mce-top-part::before {
+.mce-tinymce.mce-panel {
+  box-shadow: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.mce-tinymce .mce-top-part::before {
+  box-shadow: none;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
@@ -232,5 +240,11 @@ div.mce-toolbar-grp > div.mce-container-body {
 }
 .mce-menubtn.mce-fixed-width span {
   width: 80px;
+}
+div.mce-statusbar .mce-container-body {
+  padding-left: 5px;
+}
+div.mce-statusbar .mce-container-body .mce-path-item {
+  line-height: 24px;
 }
 </style>
