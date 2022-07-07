@@ -17,59 +17,59 @@ watch(value.value, (newValue) => {
   <div class="card border-0 bg-100">
     <div class="card-header pb-1 border-0">
       <field-label
-        class="fs-5"
         v-if="config.label !== false"
         :label="config?.label !== undefined ? config.label : handle" />
     </div>
-    <field-group class="card-body">
-      <richtext-field
-        class="w-100"
-        handle="text"
-        :config="{
-          ...config,
-          label: false,
-        }"
-        v-model="value['text']" />
-      <div class="d-flex gap-4">
-        <radio-buttons-field
-          class=""
-          handle="level"
-          :uuid="uuid"
+    <field-group>
+      <div class="d-flex flex-column gap-3 card-body">
+        <richtext-field
+          class="w-100"
+          handle="text"
           :config="{
             ...config,
-            label: 'Level',
-            options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+            label: false,
           }"
-          v-model="value['level']" />
-        <select-field
-          class="flex-grow-1 flex-basis-0"
-          handle="size"
-          :config="{
-            label: 'Size',
-            options: ['h1', 'h2'],
-            placeholder: 'Default',
-            taggable: true,
-          }"
-          v-model="value['size']" />
-        <select-field
-          class="flex-grow-1 flex-basis-0"
-          handle="colour"
-          :config="{
-            label: 'Colour',
-            options: ['Primary', 'Secondary'],
-            placeholder: 'Default',
-            taggable: true,
-          }"
-          v-model="value['colour']" />
+          v-model="value['text']" />
+        <div class="d-flex gap-4">
+          <radio-buttons-field
+            class=""
+            handle="level"
+            :uuid="uuid"
+            :config="{
+              ...config,
+              label: 'Level',
+              options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+            }"
+            v-model="value['level']" />
+          <select-field
+            class="flex-grow-1 flex-basis-0"
+            handle="size"
+            :config="{
+              label: 'Size',
+              options: ['h1', 'h2'],
+              placeholder: 'Default',
+              taggable: true,
+            }"
+            v-model="value['size']" />
+          <select-field
+            class="flex-grow-1 flex-basis-0"
+            handle="colour"
+            :config="{
+              label: 'Colour',
+              options: ['Primary', 'Secondary'],
+              placeholder: 'Default',
+              taggable: true,
+            }"
+            v-model="value['colour']" />
+        </div>
+        <text-field
+          class=""
+          handle="class"
+          type="text"
+          :value="value['class']"
+          placeholder=""
+          :config="{ label: 'Class' }" />
       </div>
-      <text-field
-        class=""
-        handle="class"
-        type="text"
-        :value="value['class']"
-        :config="{
-          label: 'Class',
-        }" />
     </field-group>
   </div>
 </template>
