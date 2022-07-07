@@ -15,51 +15,51 @@ class ReplicatorModule extends Module
                     'type' => 'replicator-field',
                     'fields' => [
                         'title' => [
-                            'type' => "text-field",
+                            'type' => 'text-field',
                             'config' => [
-                                'input_type' => "text",
-                                'label' => "Title",
+                                'input_type' => 'text',
+                                'label' => 'Title',
                             ],
                         ],
                         'role' => [
-                            'type' => "select-field",
+                            'type' => 'select-field',
                             'config' => [
-                                'label' => "Role",
-                                'options' => ['primary' => "Primary", 'secondary' => "Secondary"],
+                                'label' => 'Role',
+                                'options' => ['primary' => 'Primary', 'secondary' => 'Secondary'],
                                 'taggable' => true,
                                 'multiple' => true,
                             ],
                         ],
                         'magic' => [
-                            'type' => "replicator-field",
+                            'type' => 'replicator-field',
                             'config' => [
-                                'label' => "Content",
+                                'label' => 'Content',
                             ],
                             'fields' => [
                                 'name' => [
-                                  'type' => "text-field",
-                                  'config' => [
-                                      'input_type' => "text",
-                                      'label' => "Name",
-                                  ],
+                                    'type' => 'text-field',
+                                    'config' => [
+                                        'input_type' => 'text',
+                                        'label' => 'Name',
+                                    ],
                                 ],
                                 'bio' => [
-                                    'type' => "richtext-field",
+                                    'type' => 'richtext-field',
                                 ],
                             ],
-                            'preview' => 'name'
+                            'preview' => 'name',
                         ],
                         'image' => [
-                            'type' => "media-field",
+                            'type' => 'media-field',
                             'config' => [
-                                'label' => "Image",
+                                'label' => 'Image',
                                 'multiple' => false,
                             ],
                         ],
                         'cta' => [
-                            'type' => "button-field",
+                            'type' => 'button-field',
                             'config' => [
-                                'label' => "Call to action",
+                                'label' => 'Call to action',
                             ],
                         ],
                     ],

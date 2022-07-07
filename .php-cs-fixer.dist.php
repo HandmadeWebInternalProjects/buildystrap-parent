@@ -8,8 +8,9 @@ $rules = [
     'not_operator_with_space' => true,
     'ordered_imports' => [
         'imports_order' => ['class', 'function', 'const'],
-        'sort_algorithm' => 'alpha'
+        'sort_algorithm' => 'alpha',
     ],
+    'single_quote' => ['strings_containing_single_quote_chars' => true],
 ];
 
 return (new PhpCsFixer\Config())->setRules($rules);

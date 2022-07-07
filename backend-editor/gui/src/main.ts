@@ -23,6 +23,9 @@ const app = configOptions.is_global_module
   ? createApp(GlobalModuleBuilder)
   : createApp(App)
 
+import { Buildy } from "./components/Buildy"
+window.Buildy = new Buildy(app)
+
 // Setup main store system
 import { createPinia } from "pinia"
 app.use(createPinia())
@@ -31,7 +34,7 @@ import PortalVue from "portal-vue"
 app.use(PortalVue)
 
 import draggable from "vuedraggable"
-app.component("draggable", draggable)
+window.Buildy.registerComponent("draggable", draggable)
 
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core"
@@ -83,7 +86,7 @@ library.add(
   faEquals
 )
 /* add font awesome icon component */
-app.component("font-awesome-icon", FontAwesomeIcon)
+window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)
 
 const bundledComponents = import.meta.globEager("./components/**/*.vue")
 Object.entries(bundledComponents).forEach(([path, m]) => {
@@ -92,7 +95,7 @@ Object.entries(bundledComponents).forEach(([path, m]) => {
       ?.split("/")
       ?.pop()
       ?.replace(/\.\w+$/, "") || ""
-  app.component(name, m.default)
+  window.Buildy.registerComponent(name, m.default)
 })
 
 const { setRegisteredComponents, setConfig } = useBuilderStore()
@@ -111,9 +114,6 @@ setRegisteredComponents(app?._context?.components || {})
 //   setGlobals(configOptions.globalModules, "modules")
 // }
 
-import { Buildy } from "./components/Buildy"
-window.Buildy = new Buildy(app)
-
 import { useFieldType, commonProps } from "./components/fields/useFieldType"
 window.Buildy.$composables = {
   useFieldType,
@@ -125,4 +125,4 @@ window.Buildy.$propTypes.moduleProps = {
 window.tinymce.baseURL = `${configOptions?.theme_url}/backend-editor/gui/src/lib/tinymce`
 window.tinymce.baseURI.source = `${configOptions?.theme_url}/backend-editor/gui/src/lib/tinymce`
 
-window.Buildy.start()
+window.dispatchEvent(new Event("buildy:ready"))
