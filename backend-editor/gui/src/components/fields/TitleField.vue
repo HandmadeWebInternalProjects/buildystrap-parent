@@ -17,7 +17,6 @@ watch(value.value, (newValue) => {
   <div class="card border-0 bg-100">
     <div class="card-header pb-1 border-0">
       <field-label
-        class="fs-5"
         v-if="config.label !== false"
         :label="config?.label !== undefined ? config.label : handle" />
     </div>
@@ -67,9 +66,8 @@ watch(value.value, (newValue) => {
         handle="class"
         type="text"
         :value="value['class']"
-        :config="{
-          label: 'Class',
-        }" />
+        placeholder=""
+        :config="{ label: 'Class' }" />
     </field-group>
   </div>
 </template>
