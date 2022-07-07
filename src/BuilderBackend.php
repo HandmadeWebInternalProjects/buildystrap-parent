@@ -72,19 +72,25 @@ class BuilderBackend
                 }
 
                 if ($jsFile) {
-                    wp_enqueue_script("buildy-editor", $manifest->getUrlFor($jsFile), [], false, true);
+                    wp_enqueue_script('buildy-editor', $manifest->getUrlFor($jsFile), [], false, true);
                 }
             }
 
             foreach (Builder::getBackendScripts() as $handle => $script) {
-                wp_enqueue_script("buildy-module:$handle", $script, ["buildy-editor"], false, false);
+                wp_enqueue_script("buildy-module:$handle", $script, ['buildy-editor'], false, false);
             }
 
             foreach (Builder::getBackendStyles() as $handle => $style) {
-                wp_enqueue_style("buildy-module:$handle", $style, ["buildy-editor"]);
+                wp_enqueue_style("buildy-module:$handle", $style, ['buildy-editor']);
             }
 
-            wp_enqueue_script('buildy-boot', get_template_directory_uri() . '/resources/js/buildy-boot.js', ["buildy-editor"], false, true);
+            wp_enqueue_script(
+                'buildy-boot',
+                get_template_directory_uri() . '/resources/js/buildy-boot.js',
+                ['buildy-editor'],
+                false,
+                true
+            );
         }
     }
 
@@ -111,7 +117,7 @@ class BuilderBackend
             'site_url' => get_site_url(),
             'admin_url' => get_admin_url(),
             'theme_url' => get_template_directory_uri(),
-            "rest_endpoint" => get_rest_url(),
+            'rest_endpoint' => get_rest_url(),
             'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
             'moduleBlueprints' => Builder::moduleBlueprints(),
             'globalSections' => Builder::getGlobals(),

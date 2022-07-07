@@ -23,9 +23,9 @@ class CardModule extends Module
                 'link' => [
                     'type' => 'relational-field',
                     'config' => [
-                      'post_type' => 'testimonials',
-                      'multiple' => true
-                    ]
+                        'post_type' => 'testimonials',
+                        'multiple' => true,
+                    ],
                 ],
                 'accordion' => [
                     'type' => 'accordion-field',
@@ -33,19 +33,19 @@ class CardModule extends Module
                         'label' => 'Accordion',
                         'multiple' => true,
                         'tinymce' => [
-                          'toolbar1' => 'bold,italic,underline',
-                          'toolbar2' => false,
-                          'height' => '100',
-                          'resize' => false,
-                          'menubar' => false,
-                        ]
+                            'toolbar1' => 'bold,italic,underline',
+                            'toolbar2' => false,
+                            'height' => '100',
+                            'resize' => false,
+                            'menubar' => false,
+                        ],
                     ],
                 ],
                 'profile-pic' => [
                     'type' => 'media-field',
                     'config' => [
-                      'multiple' => true
-                    ]
+                        'multiple' => true,
+                    ],
                 ],
                 'body' => [
                     'type' => 'richtext-field',
