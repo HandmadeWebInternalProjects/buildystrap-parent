@@ -117,7 +117,7 @@ const initObj = reactive({
   body_class: "id post-type-post post-status-publish post-format-standard",
   wpeditimage_disable_captions: false,
   wpeditimage_html5_captions: true,
-  setup: function (editor) {
+  setup: function (editor: any) {
     editor.addButton("shortcodes", {
       type: "menubutton",
       text: "Shortcodes",

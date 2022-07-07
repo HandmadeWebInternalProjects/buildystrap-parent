@@ -1,9 +1,7 @@
-const path = require('path')
+import { fileURLToPath, URL } from "url"
 
-import { fileURLToPath, URL } from "url";
-
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,11 +12,11 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../../public/builder-gui',
+    outDir: "../../public/builder-gui",
     emptyOutDir: true,
     manifest: true,
     rollupOptions: {
-      input: 'src/main.ts'
-    }
-  }
-});
+      input: "src/main.ts",
+    },
+  },
+})
