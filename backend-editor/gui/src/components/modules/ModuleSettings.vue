@@ -8,6 +8,7 @@
       :config="field.config || {}"
       :key="key"
       :meta="meta"
+      :uuid="component.uuid"
       v-model="value[key]"
       :is="field.type"
       @update-meta="updateMeta" />
@@ -41,7 +42,6 @@ const { getPageCache, updatePageCache } = useLocalStorage(config.post_id)
 
 onBeforeMount(() => {
   const pageCache = getPageCache()
-  console.log({ pageCache })
   meta.value = pageCache[props.component.uuid] || []
 })
 

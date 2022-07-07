@@ -4,7 +4,7 @@ import { toRefs } from "vue"
 
 const props = defineProps(commonProps)
 
-const { handle, config, modelValue } = toRefs(props)
+const { handle, config, modelValue, uuid } = toRefs(props)
 
 const isReadOnly = config.value.readOnly || false
 
@@ -16,24 +16,25 @@ const options = normaliseOptions(config.value.options) || []
 
 <template>
   <div>
-    <field-label :label="config?.label !== undefined ? config.label : handle" />
+    <field-label
+      v-if="config.label !== false"
+      :label="config?.label !== undefined ? config.label : handle" />
     <div class="d-flex gap-1">
       <template
-        v-for="(option, $index) in options"
-        :key="$index"
-        class="option">
+        v-for="option in options"
+        :key="`${option.value}-${handle}-${uuid}`">
         <input
           type="radio"
           :class="config?.input_class || 'btn-check'"
           :name="handle"
-          :id="handle + '-' + $index"
+          :id="`${option.value}-${handle}-${uuid}`"
           @input="update(($event?.target as HTMLInputElement)?.value)"
           :value="option.value"
           :disabled="isReadOnly"
           :checked="modelValue == option.value" />
         <label
           :class="config?.label_class || 'btn'"
-          :for="handle + '-' + $index"
+          :for="`${option.value}-${handle}-${uuid}`"
           >{{ option.label || option.value }}</label
         >
       </template>
