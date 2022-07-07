@@ -35,15 +35,20 @@ const options = normaliseOptions(config.value.options) || []
       :reduce="(option: any) => option?.value || option?.label"
       v-model="selected"
       :name="handle"
+      :placeholder="config.placeholder"
       :options="options" />
   </div>
 </template>
 <style lang="scss">
 .select-field {
+  .vs__dropdown-toggle {
+    background: white;
+  }
   .vs__search {
     border: 0;
   }
   .v-select:not(.vs--open) .vs__selected {
+    background: var(--bs-gray-100);
     border: 1px solid #ccc;
     padding: 0 0.6em;
   }
