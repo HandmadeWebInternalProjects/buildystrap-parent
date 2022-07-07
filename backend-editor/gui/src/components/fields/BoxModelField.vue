@@ -9,6 +9,7 @@
         <select-field
           handle="box_model_top"
           type="text"
+          :placeholder="hasPlaceholder(key)"
           :config="{
             label: key,
             options: options,
@@ -23,7 +24,7 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../fields/useFieldType"
 import { useBreakpoints } from "../../composables/useBreakpoints"
-const { breakpoint } = useBreakpoints()
+const { breakpoint, breakpoints } = useBreakpoints()
 
 const props = defineProps({
   modelValue: {
@@ -51,6 +52,27 @@ const values: any = reactive(
     props.modelValue
   )
 )
+
+const hasPlaceholder = (key: string | number) => {
+  // check if value has the key on this breakpoint
+  if (
+    values[key][breakpoint.value] !== undefined &&
+    values[key][breakpoint.value]
+  )
+    return ""
+
+  let placeholder = ""
+
+  let currentBPIndex = breakpoints.indexOf(breakpoint.value)
+  breakpoints.forEach((bp, i) => {
+    if (i < 0 || i > currentBPIndex) return
+    if (values[key][bp] !== undefined) {
+      placeholder = values[key][bp]
+    }
+  })
+
+  return placeholder
+}
 
 // array of 10 numbers
 const options = Array.from({ length: 10 }, (_, i) => i)

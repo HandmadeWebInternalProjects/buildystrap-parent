@@ -6,10 +6,11 @@ import "vue-select/dist/vue-select.css"
 
 const props = defineProps({
   ...commonProps,
+  placeholder: { type: [String, Number], default: "" },
   loading: { type: Boolean, default: false },
 })
 
-const { handle, config, modelValue } = toRefs(props)
+const { handle, config, modelValue, placeholder } = toRefs(props)
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update, normaliseOptions } = useFieldType(emit)
 
@@ -35,7 +36,7 @@ const options = normaliseOptions(config.value.options) || []
       :reduce="(option: any) => option?.value || option?.label"
       v-model="selected"
       :name="handle"
-      :placeholder="config.placeholder"
+      :placeholder="placeholder || config.placeholder"
       :options="options" />
   </div>
 </template>
