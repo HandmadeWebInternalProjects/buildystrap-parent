@@ -178,7 +178,7 @@ const initObj = reactive({
 
 .mce-tinymce.mce-panel {
   box-shadow: none;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-radius: 5px;
   overflow: hidden;
 }
