@@ -1,23 +1,25 @@
 <template lang="">
   <div class="text-center">
-    <field-label class="d-block pb-3" label="Screen Sizes" />
-    <ul class="d-flex gap-4">
+    <ul class="d-flex gap-1 m-0 p-0">
       <li
-        v-for="key in breakpoints"
-        :key="key"
-        class="border cursor-pointer py-1 px-3 rounded"
+        v-for="val in breakpoints"
+        :key="val"
+        class="border cursor-pointer py-1 px-2 rounded"
         :class="{
-          'bg-200': key === breakpoint,
+          'bg-200': val === bp,
         }"
-        @click="updateBreakpoint(key)">
-        {{ key }}
+        @click="bp = val">
+        {{ val }}
       </li>
     </ul>
   </div>
 </template>
 <script setup lang="ts">
 import { useBreakpoints } from "../../composables/useBreakpoints"
+const props = defineProps({
+  handle: String,
+})
 
-const { breakpoints, breakpoint, updateBreakpoint } = useBreakpoints()
+const { breakpoints, bp } = useBreakpoints(props.handle)
 </script>
 <style lang=""></style>
