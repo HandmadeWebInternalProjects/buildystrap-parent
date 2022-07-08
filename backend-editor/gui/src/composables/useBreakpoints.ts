@@ -1,16 +1,22 @@
-import { ref } from "vue"
+import { reactive, computed } from "vue"
 
 const breakpoints = ["xs", "sm", "md", "lg", "xl"]
-const breakpoint = ref(breakpoints[0])
+const breakpoint = reactive<{ [key: string]: any }>({
+  global: "xs",
+})
 
-export const useBreakpoints = () => {
-  const updateBreakpoint = (val: string) => {
-    breakpoint.value = val
-  }
+export const useBreakpoints = (handle = "global") => {
+  const bp = computed({
+    get() {
+      return breakpoint[handle] || "xs"
+    },
+    set(val) {
+      breakpoint[handle] = val
+    },
+  })
 
   return {
     breakpoints,
-    breakpoint,
-    updateBreakpoint,
+    bp,
   }
 }

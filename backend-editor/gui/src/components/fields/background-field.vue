@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { computed, reactive, watch } from "vue"
+import { reactive, watch } from "vue"
 import { useFieldType } from "./useFieldType"
 import { useBreakpoints } from "../../composables/useBreakpoints"
-const { breakpoint } = useBreakpoints()
+const { bp } = useBreakpoints("background")
 
 const props = defineProps({
   config: {
@@ -38,8 +38,9 @@ watch(background, (val: any) => {
 
 <template>
   <div class="card border-0 bg-100">
-    <div class="card-header pb-1 border-0">
+    <div class="card-header pb-1 border-0 d-flex align-items-center">
       <field-label :label="config?.label || ''" />
+      <breakpoint-switcher-field handle="background" class="ms-auto" />
     </div>
 
     <div class="card-body">
@@ -52,7 +53,7 @@ watch(background, (val: any) => {
             options: ['Primary', 'Secondary', 'Tertiary'],
             taggable: true,
           }"
-          v-model="background.color[breakpoint]" />
+          v-model="background.color[bp]" />
         <media-field
           class="w-100"
           handle="backgroundImage"
@@ -71,7 +72,7 @@ watch(background, (val: any) => {
               placeholder: 'Background Size',
               taggable: true,
             }"
-            v-model="background.image['size'][breakpoint]" />
+            v-model="background.image['size'][bp]" />
           <select-field
             class="flex-grow-1 flex-basis-0"
             handle="position"
@@ -91,7 +92,7 @@ watch(background, (val: any) => {
               placeholder: 'Background Position',
               taggable: true,
             }"
-            v-model="background.image['position'][breakpoint]" />
+            v-model="background.image['position'][bp]" />
         </div>
       </field-group>
     </div>

@@ -5,7 +5,7 @@
       <li
         class="flex-grow-1"
         v-for="(dir, key) in values"
-        :key="`box-model-${key}-${breakpoint}`">
+        :key="`box-model-${key}-${bp}`">
         <select-field
           handle="box_model_top"
           type="text"
@@ -15,7 +15,7 @@
             options: options,
             taggable: true,
           }"
-          v-model="dir[breakpoint]" />
+          v-model="dir[bp]" />
       </li>
     </ul>
   </div>
@@ -24,7 +24,7 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../fields/useFieldType"
 import { useBreakpoints } from "../../composables/useBreakpoints"
-const { breakpoint, breakpoints } = useBreakpoints()
+const { bp, breakpoints } = useBreakpoints("margin-padding")
 
 const props = defineProps({
   modelValue: {
@@ -55,14 +55,10 @@ const values: any = reactive(
 
 const hasPlaceholder = (key: string | number) => {
   // check if value has the key on this breakpoint
-  if (
-    values[key][breakpoint.value] !== undefined &&
-    values[key][breakpoint.value]
-  )
-    return ""
+  if (values[key][bp.value] !== undefined && values[key][bp.value]) return ""
 
   let placeholder = ""
-  let currentBPIndex = breakpoints.indexOf(breakpoint.value)
+  let currentBPIndex = breakpoints.indexOf(bp.value)
 
   breakpoints.forEach((bp, i) => {
     if (i > currentBPIndex) return
