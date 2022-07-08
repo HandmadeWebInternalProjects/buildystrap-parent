@@ -131,11 +131,13 @@ watch(background, (val: any) => {
           tabindex="0">
           <field-group>
             <div class="d-flex flex-column gap-3 card-body">
-              <color-field
+              <select-field
                 class="w-100"
                 handle="backgroundColor"
                 :config="{
                   label: 'Background Color',
+                  options: ['Primary', 'Secondary', 'Tertiary'],
+                  taggable: true,
                 }"
                 v-model="background.color[breakpoint]" />
             </div>
