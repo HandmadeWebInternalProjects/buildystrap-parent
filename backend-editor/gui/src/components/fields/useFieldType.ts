@@ -2,6 +2,9 @@ type FieldTypeInterface = {
   update(value: any): void
   updateMeta(value: any): void
   normaliseOptions(options: any): { value: string; label: string }[]
+  filterOutEmptyValues(val: { [key: string]: any }): {
+    [key: string]: any
+  }
 }
 
 export const commonProps = {
@@ -42,6 +45,33 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
     emit("updateMeta", value)
   }
 
+  const filterOutEmptyValues = (val: { [key: string]: any }) => {
+    const newVal: { [key: string]: any } = {}
+    for (const key in val) {
+      if (val[key] !== null && val[key] !== undefined) {
+        if (typeof val[key] === "object") {
+          if (!Object.keys(val[key]).length) {
+            delete newVal[key]
+          } else {
+            newVal[key] = filterOutEmptyValues(val[key])
+            if (!Object.keys(newVal[key]).length) {
+              delete newVal[key]
+            }
+          }
+        } else {
+          if (val[key] !== "") {
+            newVal[key] = val[key]
+          } else {
+            delete newVal[key]
+          }
+        }
+      } else {
+        delete newVal[key]
+      }
+    }
+    return newVal
+  }
+
   const normaliseOptions = (options: any) => {
     return Array.isArray(options)
       ? options.map((el) => ({
@@ -55,5 +85,6 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
     update,
     updateMeta,
     normaliseOptions,
+    filterOutEmptyValues,
   }
 }

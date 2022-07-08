@@ -29,6 +29,12 @@ $accordion-button-active-bg: $gray-100;
 $accordion-button-active-color: $gray-800;
 $accordion-color: $indigo-700;
 
+$input-placeholder-color: $gray-500;
+
+input::placeholder {
+  color: $input-placeholder-color !important;
+}
+
 $utilities: map-merge(
   $utilities,
   (
@@ -176,5 +182,4 @@ $utilities: map-merge(
 
 .stack-content .tab-content {
   max-height: 80vh;
-  overflow-y: auto;
 }

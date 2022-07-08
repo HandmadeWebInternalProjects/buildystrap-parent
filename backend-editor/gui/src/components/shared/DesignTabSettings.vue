@@ -1,14 +1,22 @@
 <template>
-  <div class="d-flex flex-column gap-4">
+  <div class="d-flex flex-column gap-4 pb-5">
     <breakpoint-switcher-field class="align-self-center" />
-    <div class="border p-4 rounded d-flex flex-column gap-3">
-      <box-model-field label="Margin" v-model="margin" />
-      <box-model-field label="Padding" v-model="padding" />
+
+    <div class="card border-0 bg-100">
+      <div class="card-header pb-1 border-0">
+        <field-label label="Margin / Padding" />
+      </div>
+      <div class="card-body border rounded d-flex flex-column gap-3">
+        <box-model-field :config="{ label: 'Margin' }" v-model="margin" />
+        <box-model-field :config="{ label: 'Padding' }" v-model="padding" />
+      </div>
     </div>
+
+    <background-field :config="{ label: 'Background' }" v-model="background" />
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from "vue"
+import { computed } from "vue"
 import { useFieldType } from "../fields/useFieldType"
 const props = defineProps({
   modelValue: {
@@ -43,6 +51,15 @@ const padding = computed({
   },
   set(val: any) {
     inline.value.padding = val
+  },
+})
+
+const background = computed({
+  get() {
+    return inline.value.background || {}
+  },
+  set(val: any) {
+    inline.value.background = val
   },
 })
 </script>
