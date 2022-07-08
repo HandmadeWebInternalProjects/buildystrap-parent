@@ -52,11 +52,11 @@ const values = computed({
               type="button"
               data-bs-toggle="collapse"
               :data-bs-target="`#item-${element._uuid}`">
-              <span class="flex-grow-1">{{
+              <span class="flex-grow-1 pe-3">{{
                 element.title || element._uuid
               }}</span>
               <font-awesome-icon
-                class="delete-icon d-block px-3"
+                class="delete-icon d-block ps-3 order-2"
                 icon="trash"
                 @click.prevent="removeItem(element._uuid)" />
             </button>
