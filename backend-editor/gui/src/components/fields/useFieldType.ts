@@ -103,7 +103,7 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
       }
     })
 
-    return placeholder.toString()
+    return placeholder?.toString() || ""
   }
 
   return {
