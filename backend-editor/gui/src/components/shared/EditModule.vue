@@ -83,7 +83,7 @@ const attributes = ref(component.value?.attributes || {})
           fill="currentColor" />
       </h3>
     </div>
-    <div class="p-4 h-100">
+    <div class="p-4">
       <ul class="nav nav-pills pb-2 border-bottom" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
@@ -124,7 +124,7 @@ const attributes = ref(component.value?.attributes || {})
       </ul>
 
       <!-- Tab panes -->
-      <div class="tab-content h-100 card mt-3 p-4 rounded">
+      <div class="tab-content card mt-3 p-4 rounded">
         <div
           class="tab-pane active"
           id="content-tab"
@@ -156,4 +156,8 @@ const attributes = ref(component.value?.attributes || {})
     </div>
   </buildy-stack>
 </template>
-<style lang=""></style>
+<style lang="scss">
+.stack-content .tab-content {
+  padding-bottom: 32px;
+}
+</style>

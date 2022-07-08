@@ -179,7 +179,6 @@ $utilities: map-merge(
   margin: 0;
   padding: 0;
 }
-
-.stack-content .tab-content {
-  max-height: 80vh;
+.stack-content {
+  overflow: auto;
 }
