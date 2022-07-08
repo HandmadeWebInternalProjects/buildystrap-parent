@@ -1,6 +1,6 @@
 <template>
   <div>
-    <field-label :label="label" />
+    <field-label :label="config?.label" />
     <ul class="d-flex gap-4 m-0 p-0">
       <li
         class="flex-grow-1"
@@ -31,15 +31,15 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  label: {
-    type: String,
+  config: {
+    type: Object,
     required: false,
   },
 })
 
 const emit = defineEmits(["update:modelValue"])
 
-const { update } = useFieldType(emit)
+const { update, filterOutEmptyValues } = useFieldType(emit)
 
 const values: any = reactive(
   Object.assign(
@@ -62,8 +62,8 @@ const hasPlaceholder = (key: string | number) => {
     return ""
 
   let placeholder = ""
-
   let currentBPIndex = breakpoints.indexOf(breakpoint.value)
+
   breakpoints.forEach((bp, i) => {
     if (i > currentBPIndex) return
     if (values[key][bp] !== undefined) {
@@ -78,28 +78,7 @@ const hasPlaceholder = (key: string | number) => {
 const options = Array.from({ length: 10 }, (_, i) => i)
 
 watch(values, (val: any) => {
-  //filter out any empty values
-  const filtered = Object.keys(val).reduce(
-    (acc: { [key: string]: any }, key: string) => {
-      // remove empty values from object
-      if (Object.keys(val[key]).length) {
-        Object.entries(val[key]).forEach(([size, value]) => {
-          if (value === "") {
-            delete val[key][size]
-          }
-        })
-
-        console.log(val[key])
-
-        acc[key] = val[key]
-      }
-
-      return acc
-    },
-    {}
-  )
-  console.log({ filtered })
-  update(filtered)
+  update(filterOutEmptyValues(val))
 })
 </script>
 <style lang=""></style>
