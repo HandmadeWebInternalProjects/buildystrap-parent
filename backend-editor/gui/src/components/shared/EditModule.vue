@@ -52,7 +52,7 @@ const attributes = ref(component.value?.attributes || {})
       <h3 class="mb-0">Edit {{ slugToStr(component.type) }}</h3>
     </div>
     <div class="p-4 h-100">
-      <ul class="nav nav-pills border-bottom" id="myTab" role="tablist">
+      <ul class="nav nav-pills pb-2 border-bottom" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
             class="nav-link active"
@@ -92,7 +92,7 @@ const attributes = ref(component.value?.attributes || {})
       </ul>
 
       <!-- Tab panes -->
-      <div class="tab-content h-100 card mt-4 p-4 rounded">
+      <div class="tab-content h-100 card mt-3 p-4 rounded">
         <div
           class="tab-pane active"
           id="content-tab"
