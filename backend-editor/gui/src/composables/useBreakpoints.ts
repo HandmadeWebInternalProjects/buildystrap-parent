@@ -1,6 +1,6 @@
 import { reactive, computed } from "vue"
 
-const breakpoints = ["xs", "sm", "md", "lg", "xl"]
+export const breakpoints = ["xs", "sm", "md", "lg", "xl"]
 const breakpoint = reactive<{ [key: string]: any }>({
   global: "xs",
 })

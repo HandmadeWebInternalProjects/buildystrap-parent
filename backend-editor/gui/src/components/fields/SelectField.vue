@@ -6,7 +6,7 @@ import "vue-select/dist/vue-select.css"
 
 const props = defineProps({
   ...commonProps,
-  placeholder: { type: [String, Number], default: "" },
+  placeholder: { type: null },
   loading: { type: Boolean, default: false },
 })
 

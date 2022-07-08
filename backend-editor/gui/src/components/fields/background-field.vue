@@ -13,7 +13,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(["update:modelValue"])
-const { update, filterOutEmptyValues } = useFieldType(emit)
+const { update, filterOutEmptyValues, responsivePlaceholder } =
+  useFieldType(emit)
 
 const background: any = reactive({
   image: {
@@ -48,6 +49,7 @@ watch(background, (val: any) => {
         <select-field
           class="w-100"
           handle="backgroundColor"
+          :placeholder="responsivePlaceholder(background, 'color', bp)"
           :config="{
             label: 'Background Color',
             options: ['Primary', 'Secondary', 'Tertiary'],
@@ -66,16 +68,20 @@ watch(background, (val: any) => {
           <select-field
             class="flex-grow-1 flex-basis-0"
             handle="size"
+            :placeholder="responsivePlaceholder(background.image, 'size', bp)"
             :config="{
               label: 'Size',
               options: ['cover', 'contain', 'fit', 'fill'],
-              placeholder: 'Background Size',
+              placeholder: 'Background.image Size',
               taggable: true,
             }"
             v-model="background.image['size'][bp]" />
           <select-field
             class="flex-grow-1 flex-basis-0"
             handle="position"
+            :placeholder="
+              responsivePlaceholder(background.image, 'position', bp)
+            "
             :config="{
               label: 'Position',
               options: [

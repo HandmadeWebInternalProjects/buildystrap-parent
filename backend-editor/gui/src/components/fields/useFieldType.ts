@@ -1,3 +1,5 @@
+import { breakpoints } from "../../composables/useBreakpoints"
+
 type FieldTypeInterface = {
   update(value: any): void
   updateMeta(value: any): void
@@ -5,6 +7,7 @@ type FieldTypeInterface = {
   filterOutEmptyValues(val: { [key: string]: any }): {
     [key: string]: any
   }
+  responsivePlaceholder(values: any, key: string | number, bp: string): string
 }
 
 export const commonProps = {
@@ -81,10 +84,33 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
       : Object.entries(options).map(([value, label]) => ({ value, label }))
   }
 
+  const responsivePlaceholder = (
+    values: any,
+    key: string | number,
+    bp: string
+  ) => {
+    // check if value has the key on this breakpoint
+    if (!values[key] || (values[key][bp] !== undefined && values[key][bp]))
+      return ""
+
+    let placeholder = ""
+    const currentBPIndex = breakpoints.indexOf(bp)
+
+    breakpoints.forEach((bp, i) => {
+      if (i > currentBPIndex) return
+      if (values[key][bp] !== undefined) {
+        return (placeholder = values[key][bp])
+      }
+    })
+
+    return placeholder.toString()
+  }
+
   return {
     update,
     updateMeta,
     normaliseOptions,
     filterOutEmptyValues,
+    responsivePlaceholder,
   }
 }
