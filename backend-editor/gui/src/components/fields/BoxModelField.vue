@@ -1,9 +1,9 @@
 <template>
   <div>
     <field-label :label="config?.label" />
-    <ul class="d-flex gap-4 m-0 p-0">
+    <ul class="grid gap-4 m-0 p-0">
       <li
-        class="flex-grow-1"
+        class="g-col-3"
         v-for="(dir, key) in values"
         :key="`box-model-${key}-${bp}`">
         <select-field
