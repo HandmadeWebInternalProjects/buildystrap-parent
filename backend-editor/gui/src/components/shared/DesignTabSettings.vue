@@ -3,7 +3,9 @@
     <breakpoint-switcher-field class="align-self-center" />
 
     <div class="card border-0 bg-100">
-      <div class="card-header pb-1 border-0">Margin / Padding</div>
+      <div class="card-header pb-1 border-0">
+        <field-label label="Margin / Padding" />
+      </div>
       <div class="card-body border rounded d-flex flex-column gap-3">
         <box-model-field :config="{ label: 'Margin' }" v-model="margin" />
         <box-model-field :config="{ label: 'Padding' }" v-model="padding" />
