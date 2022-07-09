@@ -31,7 +31,7 @@ const componentToLoad = computed((): string => {
 })
 
 const updateAdminLabel = ($el: HTMLElement) => {
-  if ($el?.innerText) {
+  if ($el?.innerText !== null || $el?.innerText !== undefined) {
     component.value.config.adminLabel = $el?.innerText
   }
 }
@@ -39,7 +39,12 @@ const updateAdminLabel = ($el: HTMLElement) => {
 const focusOnAdminLabel = () => {
   if (adminLabelEl.value) {
     adminLabelEl?.value?.focus()
-    document?.getSelection()?.collapse(adminLabelEl.value, 1)
+    document
+      ?.getSelection()
+      ?.collapse(
+        adminLabelEl.value,
+        adminLabelEl.value.childNodes.length ? 1 : 0
+      )
   }
 }
 

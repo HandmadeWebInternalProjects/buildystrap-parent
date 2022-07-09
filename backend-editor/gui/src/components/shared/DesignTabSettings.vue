@@ -1,17 +1,20 @@
 <template>
   <div class="d-flex flex-column gap-4 pb-5">
-    <div class="card border-0 bg-100">
-      <div class="card-header pb-1 border-0 d-flex align-items-center">
-        <field-label label="Margin / Padding" />
-        <breakpoint-switcher-field handle="margin-padding" class="ms-auto" />
-      </div>
-      <div class="card-body border rounded d-flex flex-column gap-3">
+    <bs-card label="Margin / Padding" breakpoint-handle="margin-padding">
+      <template v-slot:body>
         <box-model-field :config="{ label: 'Margin' }" v-model="margin" />
         <box-model-field :config="{ label: 'Padding' }" v-model="padding" />
-      </div>
-    </div>
+      </template>
+    </bs-card>
 
-    <background-field :config="{ label: 'Background' }" v-model="background" />
+    <bs-card label="Background" breakpoint-handle="background">
+      <template v-slot:body>
+        <background-field
+          breakpoint-handle="background"
+          :config="{ label: 'Background' }"
+          v-model="background" />
+      </template>
+    </bs-card>
   </div>
 </template>
 <script setup lang="ts">

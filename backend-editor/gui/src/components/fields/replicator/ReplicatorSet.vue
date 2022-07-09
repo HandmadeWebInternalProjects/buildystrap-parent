@@ -3,7 +3,7 @@
     <field-label
       @click="collapsed = !collapsed"
       v-if="collapsed"
-      :label="value[preview] || 'Preview not set'" />
+      :label="value[field?.config?.preview] || 'Preview not set'" />
     <font-awesome-icon
       class="position-absolute cursor-pointer collapse-toggle"
       :icon="collapsed ? 'chevron-down' : 'chevron-up'"
@@ -31,11 +31,14 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue"
 const props = defineProps({
+  config: {
+    type: Object,
+  },
   value: {
     type: Object,
     required: true,
   },
-  fields: {
+  field: {
     type: Object,
     required: true,
   },
@@ -49,7 +52,7 @@ const props = defineProps({
   },
   meta: { type: Object, required: false },
 })
-const fields = ref(props.fields)
+const fields = ref(props.field.fields)
 const meta = computed(() => props.meta)
 
 const emit = defineEmits(["input", "updateMeta", "removeSet"])

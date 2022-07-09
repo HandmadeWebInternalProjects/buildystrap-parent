@@ -47,7 +47,9 @@ class ReplicatorModule extends Module
                                     'type' => 'richtext-field',
                                 ],
                             ],
-                            'preview' => 'name',
+                            'config' => [
+                              'preview' => 'name',
+                            ]
                         ],
                         'image' => [
                             'type' => 'media-field',
@@ -63,9 +65,11 @@ class ReplicatorModule extends Module
                             ],
                         ],
                     ],
+                    'config' => [
+                      'preview' => 'title',
+                    ]
                 ],
             ],
-            'preview' => 'title',
         ];
     }
 

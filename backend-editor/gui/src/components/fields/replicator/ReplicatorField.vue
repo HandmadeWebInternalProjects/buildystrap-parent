@@ -12,11 +12,10 @@
       class="replicator-draggable h-100 d-flex flex-grow flex-column gap-3 group">
       <template #item="{ element, index }">
         <replicator-set
-          v-if="fields"
-          :fields="fields"
+          v-if="Object.keys(field.fields).length"
+          :field="field"
           :value="element"
           :module-type="moduleType"
-          :preview="preview"
           :meta="meta[index]"
           @remove-set="removeSet(index)"
           @update-meta="onMetaUpdated($event, index)"
@@ -46,14 +45,12 @@ const values = ref(
 )
 
 const set: any = computed(() => getModuleBlueprintForType(moduleType.value))
-const fields = reactive({})
-console.log({ set: fields, handle: handle?.value })
-const preview = set.value.preview || ""
+const field = reactive({ fields: {} })
 
 const meta = ref(values.value.map(() => ({ collapsed: false })))
 
 onMounted(() => {
-  Object.assign(fields, findNestedObject(set.value, handle?.value).fields)
+  Object.assign(field, findNestedObject(set.value, handle?.value))
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
