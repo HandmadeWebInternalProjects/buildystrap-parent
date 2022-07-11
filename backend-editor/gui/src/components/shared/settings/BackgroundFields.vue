@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, watch } from "vue"
-import { useFieldType } from "./useFieldType"
-import { useBreakpoints } from "../../composables/useBreakpoints"
+import { useFieldType } from "../../fields/useFieldType"
+import { useBreakpoints } from "../../../composables/useBreakpoints"
 
 const props = defineProps({
   config: {
@@ -23,6 +23,9 @@ const { update, filterOutEmptyValues, responsivePlaceholder } =
 
 const background: any = reactive({
   image: {
+    id: {
+      ...(props.modelValue?.image?.id || {}),
+    },
     size: {
       ...(props.modelValue?.image?.size || {}),
     },
@@ -37,7 +40,6 @@ const background: any = reactive({
 
 watch(background, (val: any) => {
   const filtered = filterOutEmptyValues(val)
-  console.log({ filtered })
   update(filtered)
 })
 </script>
@@ -57,11 +59,12 @@ watch(background, (val: any) => {
     <media-field
       class="w-100"
       handle="backgroundImage"
+      :placeholder="responsivePlaceholder(background.image, 'id', bp)"
       :config="{
         multiple: false,
         label: 'Background Image',
       }"
-      v-model="background.image['image']" />
+      v-model="background.image['id'][bp]" />
     <div class="d-flex gap-4">
       <select-field
         class="flex-grow-1 flex-basis-0"

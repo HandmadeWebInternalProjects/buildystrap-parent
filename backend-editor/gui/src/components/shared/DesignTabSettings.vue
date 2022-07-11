@@ -1,15 +1,21 @@
 <template>
   <div class="d-flex flex-column gap-4 pb-5">
+    <bs-card label="Sizing" breakpoint-handle="sizing">
+      <template v-slot:body>
+        <sizing-fields v-model="sizing" />
+      </template>
+    </bs-card>
+
     <bs-card label="Margin / Padding" breakpoint-handle="margin-padding">
       <template v-slot:body>
-        <box-model-field :config="{ label: 'Margin' }" v-model="margin" />
-        <box-model-field :config="{ label: 'Padding' }" v-model="padding" />
+        <box-model-fields :config="{ label: 'Margin' }" v-model="margin" />
+        <box-model-fields :config="{ label: 'Padding' }" v-model="padding" />
       </template>
     </bs-card>
 
     <bs-card label="Background" breakpoint-handle="background">
       <template v-slot:body>
-        <background-field
+        <background-fields
           breakpoint-handle="background"
           :config="{ label: 'Background' }"
           v-model="background" />
@@ -62,6 +68,15 @@ const background = computed({
   },
   set(val: any) {
     inline.value.background = val
+  },
+})
+
+const sizing = computed({
+  get() {
+    return inline.value || {}
+  },
+  set(val: any) {
+    inline.value = { ...inline.value, ...val }
   },
 })
 </script>

@@ -22,8 +22,8 @@
 </template>
 <script lang="ts" setup>
 import { reactive, watch } from "vue"
-import { useFieldType } from "../fields/useFieldType"
-import { useBreakpoints } from "../../composables/useBreakpoints"
+import { useFieldType } from "../../fields/useFieldType"
+import { useBreakpoints } from "../../../composables/useBreakpoints"
 const { bp } = useBreakpoints("margin-padding")
 
 const props = defineProps({

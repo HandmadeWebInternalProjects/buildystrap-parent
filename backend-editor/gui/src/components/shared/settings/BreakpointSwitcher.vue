@@ -6,7 +6,7 @@
         :key="val"
         class="border cursor-pointer py-1 px-2 rounded"
         :class="{
-          'bg-200': val === bp,
+          'bg-indigo-500 text-white': val === bp,
         }"
         @click="bp = val">
         {{ val }}
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useBreakpoints } from "../../composables/useBreakpoints"
+import { useBreakpoints } from "../../../composables/useBreakpoints"
 const props = defineProps({
   handle: String,
 })

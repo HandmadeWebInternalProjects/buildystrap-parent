@@ -19,6 +19,9 @@ export const commonProps = {
     type: String,
     required: true,
   },
+  value: {
+    type: [String, Number, Array, Object],
+  },
   moduleType: {
     type: String,
     default: "",
@@ -28,6 +31,9 @@ export const commonProps = {
     default: "",
   },
   modelValue: {
+    type: null,
+  },
+  placeholder: {
     type: null,
   },
   config: {
@@ -52,7 +58,7 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
     const newVal: { [key: string]: any } = {}
     for (const key in val) {
       if (val[key] !== null && val[key] !== undefined) {
-        if (typeof val[key] === "object") {
+        if (typeof val[key] === "object" && !Array.isArray(val[key])) {
           if (!Object.keys(val[key]).length) {
             delete newVal[key]
           } else {
@@ -103,7 +109,9 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
       }
     })
 
-    return placeholder?.toString() || ""
+    return Array.isArray(placeholder)
+      ? placeholder
+      : placeholder?.toString() || ""
   }
 
   return {

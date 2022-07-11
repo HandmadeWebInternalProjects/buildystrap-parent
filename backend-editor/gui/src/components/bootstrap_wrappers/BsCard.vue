@@ -2,7 +2,7 @@
   <div class="card border-0 bg-100">
     <div class="card-header pb-1 border-0 d-flex align-items-center">
       <field-label :label="label" />
-      <breakpoint-switcher-field
+      <breakpoint-switcher
         v-if="breakpointHandle"
         :handle="breakpointHandle"
         class="ms-auto" />

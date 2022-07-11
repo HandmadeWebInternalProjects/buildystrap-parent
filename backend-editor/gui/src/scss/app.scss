@@ -127,6 +127,15 @@ $utilities: map-merge(
         xl: scale(var(--bs-scale-xl, 1.1)),
       ),
     ),
+    "aspect-ratio": (
+      property: aspect-ratio,
+      class: aspect,
+      values: (
+        square: 1 / 1,
+        wide: 16 / 9,
+        ultrawide: 21 / 9,
+      ),
+    ),
   )
 );
 
@@ -161,7 +170,7 @@ $utilities: map-merge(
   // @import "bootstrap/scss/tooltip";
   // @import "bootstrap/scss/popover";
   // @import "bootstrap/scss/carousel";
-  // @import "bootstrap/scss/spinners";
+  @import "bootstrap/scss/spinners";
   // @import "bootstrap/scss/offcanvas";
   @import "bootstrap/scss/placeholders";
 

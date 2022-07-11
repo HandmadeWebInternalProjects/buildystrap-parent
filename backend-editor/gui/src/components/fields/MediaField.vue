@@ -18,23 +18,36 @@
         :list="images"
         item-key="id">
         <template #item="{ element }">
-          <div
-            class="position-relative"
-            :class="[config.multiple ? 'w-25' : 'w-100']">
-            <img
-              :id="`img-${element.id}` + handle"
-              class="image-preview w-100 h-100"
-              :src="element.url" />
+          <div class="position-relative w-25">
+            <async-img
+              :id="element.id"
+              class="image-preview w-100 aspect-square" />
+
             <font-awesome-icon
               v-if="images.length"
               :icon="['fas', 'trash-alt']"
-              @click.stop="removeImage(element)"
+              @click.stop="removeImage(element.id)"
               class="remove-image-icon"></font-awesome-icon>
           </div>
         </template>
       </draggable>
+      <div
+        class="d-flex gap-3"
+        :class="[
+          {
+            'border border-dashed border-2 bg-100 rounded p-3':
+              config.multiple && placeholder?.length,
+          },
+        ]"
+        v-if="placeholder?.length">
+        <async-img
+          v-for="phId in placeholder"
+          :key="phId.id"
+          :id="phId.id"
+          class="image-preview opacity-50 aspect-square w-25" />
+      </div>
       <input
-        v-if="!images.length"
+        v-if="!images.length && !placeholder?.length"
         class="form-control pointer-events-none"
         type="file" />
     </div>
@@ -45,13 +58,15 @@ import { ref, toRefs, onMounted, computed } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 const props = defineProps({ ...commonProps })
 
-type MediaType = { id: string; url: string }
+const { handle, config, placeholder } = toRefs(props)
 
-const { handle, config } = toRefs(props)
+type MediaType = {
+  id: number
+}
 
 const images = computed({
   get() {
-    return props.modelValue || []
+    return props?.modelValue || props?.value || []
   },
   set(value) {
     update(value)
@@ -95,13 +110,11 @@ const initMediaLibrary = () => {
       var selectedImages = libraryRef.value.state().get("selection")
       let selection = selectedImages.map((attachment: any) => {
         attachment = attachment.toJSON()
-        let imageData = {
-          url: attachment.url,
+        return {
           id: attachment.id,
         }
-
-        return imageData
       })
+      console.log({ selection })
       images.value = selection
     })
 
@@ -110,8 +123,7 @@ const initMediaLibrary = () => {
       if (images.value.length) {
         images.value.forEach((image: MediaType) => {
           if (image.id) {
-            let id = image.id
-            let attachment = id && window.wp.media.attachment(id)
+            let attachment = image.id && window.wp.media.attachment(image.id)
             if (attachment) {
               attachment.fetch()
               selection.add([attachment])
@@ -141,10 +153,6 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
-.image-preview {
-  max-height: 200px;
-  object-fit: cover;
-}
 .remove-image-icon {
   position: absolute;
   top: 0.4rem;
