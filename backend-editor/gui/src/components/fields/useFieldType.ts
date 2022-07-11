@@ -92,9 +92,9 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
 
   const responsivePlaceholder = (
     values: any,
-    key: string | number,
+    key: string,
     bp: string
-  ) => {
+  ): string => {
     // check if value has the key on this breakpoint
     if (!values[key] || (values[key][bp] !== undefined && values[key][bp]))
       return ""

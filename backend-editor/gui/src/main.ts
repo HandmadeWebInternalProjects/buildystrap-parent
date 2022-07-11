@@ -4,7 +4,15 @@ import type { BuildyInterface } from "./components/Buildy"
 import App from "./App.vue"
 import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
 import { useBuilderStore, type BuildyConfig } from "./stores/builder"
-import "bootstrap"
+
+import * as bootstrap from "bootstrap"
+
+// const popoverTriggerList = document.querySelectorAll(
+//   '[data-bs-toggle="popover"]'
+// )
+// const popoverList = [...popoverTriggerList].map((popoverTriggerEl) =>
+//   createPopper(popoverTriggerEl, { placement: "right", trigger: "focus" })
+// )
 
 declare global {
   interface Window {
@@ -59,6 +67,7 @@ import {
   faStop,
   faHeading,
   faEquals,
+  faCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -83,7 +92,8 @@ library.add(
   faChevronDown,
   faStop,
   faHeading,
-  faEquals
+  faEquals,
+  faCircleQuestion
 )
 /* add font awesome icon component */
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)

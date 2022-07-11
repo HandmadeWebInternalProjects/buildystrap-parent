@@ -27,7 +27,8 @@ const options = normaliseOptions(config.value.options) || []
   <div class="select-field">
     <field-label
       v-if="config.label !== false"
-      :label="config?.label !== undefined ? config.label : handle" />
+      :label="config?.label !== undefined ? config.label : handle"
+      :popover="config?.popover" />
     <v-select
       :loading="props.loading"
       :multiple="config?.multiple"
@@ -35,8 +36,10 @@ const options = normaliseOptions(config.value.options) || []
       :reduce="(option: any) => option?.value || option?.label"
       v-model="selected"
       :name="handle"
+      :disabled="config.disabled || false"
       :placeholder="placeholder || config.placeholder"
-      :options="options" />
+      :options="options">
+    </v-select>
   </div>
 </template>
 <style lang="scss">

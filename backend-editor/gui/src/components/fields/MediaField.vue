@@ -2,7 +2,8 @@
   <div>
     <field-label
       v-if="config.label !== false"
-      :label="config?.label !== undefined ? config.label : handle" />
+      :label="config?.label !== undefined ? config.label : handle"
+      :popover="config?.popover" />
     <div
       @click.prevent="openMediaLibrary"
       class="flex w-full position-relative cursor-pointer items-center justify-center image-selector"
@@ -144,8 +145,8 @@ const openMediaLibrary = () => {
   }
 }
 
-const removeImage = (image: MediaType) => {
-  update(images.value.filter((el: MediaType) => el.id !== image.id))
+const removeImage = (image: number) => {
+  update(images.value.filter((el: MediaType) => el.id !== image))
 }
 
 onMounted(() => {

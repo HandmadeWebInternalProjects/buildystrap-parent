@@ -62,7 +62,8 @@ const styles = computed(() => {
       <field-label
         class="mb-1"
         v-if="config.label !== false"
-        :label="config?.label !== undefined ? config.label : handle" />
+        :label="config?.label !== undefined ? config.label : handle"
+        :popover="config?.popover" />
       <button
         type="button"
         class="btn"

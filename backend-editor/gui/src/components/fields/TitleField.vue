@@ -34,6 +34,7 @@ watch(value.value, (newValue) => {
               :config="{
                 ...config,
                 label: 'Level',
+                popover: 'Choose which heading tag this module will use',
                 options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
               }"
               v-model="value['level']" />
@@ -44,6 +45,8 @@ watch(value.value, (newValue) => {
                 label: 'Size',
                 options: ['h1', 'h2'],
                 placeholder: 'Default',
+                popover:
+                  'Choose which class to apply to the heading if the size needs to be different than the tag (for SEO purposes)',
                 taggable: true,
               }"
               v-model="value['size']" />
@@ -53,10 +56,12 @@ watch(value.value, (newValue) => {
               :config="{
                 label: 'Colour',
                 options: ['Primary', 'Secondary'],
+                popover: 'Change the colour of the heading tag',
                 placeholder: 'Default',
+                popover: 'Add a custom class to the heading tag.',
                 taggable: true,
               }"
-              v-model="value['colour']" />
+              v-model="value['color']" />
           </div>
           <text-field
             class=""

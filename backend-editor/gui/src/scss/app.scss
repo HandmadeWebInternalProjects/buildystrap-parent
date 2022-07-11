@@ -142,7 +142,7 @@ $utilities: map-merge(
 // Layout & components
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
-
+@import "bootstrap/scss/popover";
 #app {
   @import "bootstrap/scss/type";
   // @import "bootstrap/scss/images";
@@ -168,7 +168,7 @@ $utilities: map-merge(
   // @import "bootstrap/scss/toasts";
   // @import "bootstrap/scss/modal";
   // @import "bootstrap/scss/tooltip";
-  // @import "bootstrap/scss/popover";
+
   // @import "bootstrap/scss/carousel";
   @import "bootstrap/scss/spinners";
   // @import "bootstrap/scss/offcanvas";

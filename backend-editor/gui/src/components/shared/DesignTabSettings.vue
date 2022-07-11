@@ -6,7 +6,7 @@
       </template>
     </bs-card>
 
-    <bs-card label="Margin / Padding" breakpoint-handle="margin-padding">
+    <bs-card label="Spacing" breakpoint-handle="margin-padding">
       <template v-slot:body>
         <box-model-fields :config="{ label: 'Margin' }" v-model="margin" />
         <box-model-fields :config="{ label: 'Padding' }" v-model="padding" />
@@ -19,6 +19,14 @@
           breakpoint-handle="background"
           :config="{ label: 'Background' }"
           v-model="background" />
+      </template>
+    </bs-card>
+
+    <bs-card label="Typography" breakpoint-handle="typography">
+      <template v-slot:body>
+        <typography-fields
+          breakpoint-handle="typography"
+          v-model="typography" />
       </template>
     </bs-card>
   </div>
@@ -77,6 +85,15 @@ const sizing = computed({
   },
   set(val: any) {
     inline.value = { ...inline.value, ...val }
+  },
+})
+
+const typography = computed({
+  get() {
+    return inline.value.typography || {}
+  },
+  set(val: any) {
+    inline.value.typography = val
   },
 })
 </script>

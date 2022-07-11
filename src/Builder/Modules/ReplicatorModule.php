@@ -30,27 +30,6 @@ class ReplicatorModule extends Module
                                 'multiple' => true,
                             ],
                         ],
-                        'magic' => [
-                            'type' => 'replicator-field',
-                            'config' => [
-                                'label' => 'Content',
-                            ],
-                            'fields' => [
-                                'name' => [
-                                    'type' => 'text-field',
-                                    'config' => [
-                                        'input_type' => 'text',
-                                        'label' => 'Name',
-                                    ],
-                                ],
-                                'bio' => [
-                                    'type' => 'richtext-field',
-                                ],
-                            ],
-                            'config' => [
-                              'preview' => 'name',
-                            ]
-                        ],
                         'image' => [
                             'type' => 'media-field',
                             'config' => [

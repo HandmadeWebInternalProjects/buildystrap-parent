@@ -35,7 +35,8 @@ const values = computed({
     <label class="w-100">
       <field-label
         v-if="config.label !== false"
-        :label="config?.label !== undefined ? config.label : handle" />
+        :label="config?.label !== undefined ? config.label : handle"
+        :popover="config?.popover" />
     </label>
     <draggable
       v-if="values.length"

@@ -73,7 +73,6 @@ watch(background, (val: any) => {
         :config="{
           label: 'Size',
           options: ['cover', 'contain', 'fit', 'fill'],
-          placeholder: 'Background.image Size',
           taggable: true,
         }"
         v-model="background.image['size'][bp]" />
@@ -94,7 +93,6 @@ watch(background, (val: any) => {
             'center top',
             'center bottom',
           ],
-          placeholder: 'Background Position',
           taggable: true,
         }"
         v-model="background.image['position'][bp]" />

@@ -3,7 +3,8 @@
     <field-label
       @click="collapsed = !collapsed"
       v-if="collapsed"
-      :label="value[field?.config?.preview] || 'Preview not set'" />
+      :label="value[field?.config?.preview] || 'Preview not set'"
+      :popover="config?.popover" />
     <font-awesome-icon
       class="position-absolute cursor-pointer collapse-toggle"
       :icon="collapsed ? 'chevron-down' : 'chevron-up'"

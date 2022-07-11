@@ -23,7 +23,8 @@ watch(values, (newValue) => {
   <div>
     <field-label
       v-if="config.label !== false"
-      :label="config?.label !== undefined ? config.label : handle" />
+      :label="config?.label !== undefined ? config.label : handle"
+      :popover="config?.popover" />
     <div
       class="checkboxes-fieldtype-wrapper"
       :class="{ 'inline-mode': config?.inline }">

@@ -18,7 +18,8 @@ const options = normaliseOptions(config.value.options) || []
   <div>
     <field-label
       v-if="config.label !== false"
-      :label="config?.label !== undefined ? config.label : handle" />
+      :label="config?.label !== undefined ? config.label : handle"
+      :popover="config?.popover" />
     <div v-for="(option, $index) in options" :key="$index" class="option">
       <label>
         <input
