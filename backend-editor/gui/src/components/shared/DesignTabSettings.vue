@@ -1,5 +1,11 @@
 <template>
   <div class="d-flex flex-column gap-4 pb-5">
+    <bs-card label="Display" breakpoint-handle="display">
+      <template v-slot:body>
+        <display-fields v-model="display" />
+      </template>
+    </bs-card>
+
     <bs-card label="Sizing" breakpoint-handle="sizing">
       <template v-slot:body>
         <sizing-fields v-model="sizing" />
@@ -52,6 +58,24 @@ const inline = computed({
   },
 })
 
+const display = computed({
+  get() {
+    return inline.value.display || {}
+  },
+  set(val: any) {
+    inline.value.display = val
+  },
+})
+
+const sizing = computed({
+  get() {
+    return inline.value || {}
+  },
+  set(val: any) {
+    inline.value = { ...inline.value, ...val }
+  },
+})
+
 const margin = computed({
   get() {
     return inline.value.margin || {}
@@ -76,15 +100,6 @@ const background = computed({
   },
   set(val: any) {
     inline.value.background = val
-  },
-})
-
-const sizing = computed({
-  get() {
-    return inline.value || {}
-  },
-  set(val: any) {
-    inline.value = { ...inline.value, ...val }
   },
 })
 
