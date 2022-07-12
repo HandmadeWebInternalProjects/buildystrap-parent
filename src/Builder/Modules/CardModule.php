@@ -24,7 +24,10 @@ class CardModule extends Module
                     'type' => 'relational-field',
                     'config' => [
                       'post_type' => 'posts',
-                      'multiple' => true
+                      'multiple' => true,
+                      'if' => [
+                        'title' => 'not empty'
+                      ]
                     ]
                 ],
                 'accordion' => [

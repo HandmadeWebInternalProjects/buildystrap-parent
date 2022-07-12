@@ -54,6 +54,7 @@ onMounted(() => {
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
+  console.log(moduleType.value)
 })
 
 const addSet = () => {

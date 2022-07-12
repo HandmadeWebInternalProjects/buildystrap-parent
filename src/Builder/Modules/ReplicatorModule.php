@@ -21,13 +21,14 @@ class ReplicatorModule extends Module
                                 'label' => 'Title',
                             ],
                         ],
-                        'role' => [
-                            'type' => 'select-field',
+                        'show' => [
+                            'type' => 'radio-buttons-field',
                             'config' => [
-                                'label' => 'Role',
-                                'options' => ['primary' => 'Primary', 'secondary' => 'Secondary'],
+                                'label' => 'Show',
+                                'options' => ['image', 'cta'],
                                 'taggable' => true,
                                 'multiple' => true,
+
                             ],
                         ],
                         'image' => [
@@ -35,12 +36,18 @@ class ReplicatorModule extends Module
                             'config' => [
                                 'label' => 'Image',
                                 'multiple' => false,
+                                'if' => [
+                                  'show' => 'equals image'
+                                ]
                             ],
                         ],
                         'cta' => [
                             'type' => 'button-field',
                             'config' => [
                                 'label' => 'Call to action',
+                                'if' => [
+                                  'show' => 'equals cta'
+                                ]
                             ],
                         ],
                     ],

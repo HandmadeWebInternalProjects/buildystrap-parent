@@ -2,17 +2,16 @@
   <bs-tabs>
     <bs-tab :active="true" name="content">
       <field-group>
-        <component
+        <field-base
           v-for="(field, key) in ModuleType.fields"
           :handle="key"
-          :type="field.type"
+          :field="field"
           :module-type="props.type"
           :config="field.config || {}"
           :key="key"
           :meta="meta"
           :uuid="component.uuid"
-          v-model="value[key]"
-          :is="field.type"
+          v-model="value"
           @update-meta="updateMeta" />
       </field-group>
     </bs-tab>
@@ -59,7 +58,8 @@ const updateMeta = (meta: any) => {
   updatePageCache(props.component.uuid, meta)
 }
 
-const inline = ref(props.component.value?.inline || {})
-const attributes = ref(props.component.value?.attributes || {})
+const component = ref(props.component)
+const inline = ref(component.value?.inline || {})
+const attributes = ref(component.value?.attributes || {})
 </script>
 <style lang=""></style>

@@ -15,16 +15,16 @@
       @click="removeSet" />
     <div v-show="!collapsed">
       <field-group>
-        <component
+        <field-base
           v-for="(field, key) in fields"
+          :field="field"
           :key="key"
           :handle="key"
           :type="field.type"
           :module-type="moduleType"
           :config="field.config || {}"
-          v-model="value[key]"
-          :uuid="value._uuid"
-          :is="field.type" />
+          v-model="value"
+          :uuid="value._uuid" />
       </field-group>
     </div>
   </div>
