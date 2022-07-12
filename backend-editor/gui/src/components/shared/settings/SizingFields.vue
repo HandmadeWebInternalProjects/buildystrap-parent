@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="grid gap-4 m-0 p-0">
+    <ul class="grid gap-3 m-0 p-0">
       <li
         class="g-col-4"
         v-for="(opt, key) in values"

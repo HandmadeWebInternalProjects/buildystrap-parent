@@ -68,7 +68,7 @@ watch(background, (val: any) => {
         label: 'Background Image',
       }"
       v-model="background.image['id'][bp]" />
-    <div class="d-flex gap-4">
+    <div class="d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="size"

@@ -24,7 +24,7 @@ const selected = computed({
 const options = normaliseOptions(config.value.options) || []
 </script>
 <template>
-  <div class="select-field">
+  <div class="select-field position-relative">
     <field-label
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
@@ -44,6 +44,11 @@ const options = normaliseOptions(config.value.options) || []
 </template>
 <style lang="scss">
 .select-field {
+  &.sub-label {
+    label {
+      font-size: 0.7em;
+    }
+  }
   .vs__dropdown-toggle {
     background: white;
   }

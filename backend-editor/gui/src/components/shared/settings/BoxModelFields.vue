@@ -1,12 +1,13 @@
 <template>
   <div>
-    <field-label :label="config?.label" />
-    <ul class="grid gap-4 m-0 p-0">
+    <field-label class="fw-bold" :label="config?.label" v-if="config?.label" />
+    <ul class="grid gap-3 m-0 p-0">
       <li
-        class="g-col-3"
+        class="g-col-3 mb-0"
         v-for="(dir, key) in values"
         :key="`box-model-${key}-${bp}`">
         <select-field
+          class="d-flex flex-column-reverse sub-label"
           handle="box_model_top"
           type="text"
           :placeholder="responsivePlaceholder(values, key, bp)"
@@ -46,16 +47,16 @@ const values: any = reactive(
   Object.assign(
     {
       top: {},
-      right: {},
       bottom: {},
       left: {},
+      right: {},
     },
     props.modelValue
   )
 )
 
 // array of 10 numbers
-const options = Array.from({ length: 10 }, (_, i) => i)
+const options = Array.from({ length: 11 }, (_, i) => i)
 
 watch(values, (val: any) => {
   update(filterOutEmptyValues(val))

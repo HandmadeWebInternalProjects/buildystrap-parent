@@ -46,7 +46,7 @@ watch(typography, (val: any) => {
         taggable: true,
       }"
       v-model="typography.color[bp]" />
-    <div class="d-flex gap-4">
+    <div class="d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="font-family"
@@ -70,7 +70,7 @@ watch(typography, (val: any) => {
         }"
         v-model="typography['font-weight'][bp]" />
     </div>
-    <div class="d-flex gap-4">
+    <div class="d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="size"

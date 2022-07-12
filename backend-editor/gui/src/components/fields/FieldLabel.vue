@@ -39,10 +39,14 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
+.card-body label {
+  font-size: 0.85em;
+  text-transform: capitalize;
+}
+
 .popover {
   z-index: 99999999 !important;
 }
-
 .popover-trigger {
   font-size: 0.9em;
 }
