@@ -2,7 +2,7 @@
   <div class="d-flex flex-column gap-4 pb-5">
     <bs-card label="Display" breakpoint-handle="display">
       <template v-slot:body>
-        <display-fields v-model="display" />
+        <display-fields v-model="display" breakpoint-handle="display" />
       </template>
     </bs-card>
 

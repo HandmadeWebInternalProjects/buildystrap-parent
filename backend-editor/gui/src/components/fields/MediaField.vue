@@ -154,6 +154,9 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
+.image-selector input {
+  font-size: 0.9em !important;
+}
 .remove-image-icon {
   position: absolute;
   top: 0.4rem;

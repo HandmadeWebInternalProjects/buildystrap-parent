@@ -22,4 +22,10 @@ const _uuid = computed(() => {
   return props.uuid || props.name
 })
 </script>
-<style lang=""></style>
+<style lang="scss">
+.nav {
+  .nav-link {
+    text-transform: capitalize;
+  }
+}
+</style>

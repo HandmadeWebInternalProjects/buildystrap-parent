@@ -1,6 +1,6 @@
 <template>
   <div>
-    <field-label class="fw-bold" :label="config?.label" v-if="config?.label" />
+    <field-label :label="config?.label" v-if="config?.label" />
     <ul class="grid gap-3 m-0 p-0">
       <li
         class="g-col-3 mb-0"
@@ -25,9 +25,12 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
-const { bp } = useBreakpoints("margin-padding")
 
 const props = defineProps({
+  breakpointHandle: {
+    type: String,
+    required: false,
+  },
   modelValue: {
     type: Object,
     required: true,
@@ -37,6 +40,8 @@ const props = defineProps({
     required: false,
   },
 })
+
+const { bp } = useBreakpoints(props?.breakpointHandle || "global")
 
 const emit = defineEmits(["update:modelValue"])
 

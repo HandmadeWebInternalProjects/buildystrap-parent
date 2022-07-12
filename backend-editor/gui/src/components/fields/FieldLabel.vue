@@ -42,6 +42,7 @@ onMounted(() => {
 .card-body label {
   font-size: 0.85em;
   text-transform: capitalize;
+  line-height: 2;
 }
 
 .popover {

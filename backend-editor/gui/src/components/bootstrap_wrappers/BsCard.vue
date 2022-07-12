@@ -7,7 +7,7 @@
         :handle="breakpointHandle"
         class="ms-auto" />
     </div>
-    <div class="card-body rounded d-flex flex-column gap-3">
+    <div class="card-body rounded-bottom d-flex flex-column gap-3">
       <slot name="body"></slot>
     </div>
   </div>
