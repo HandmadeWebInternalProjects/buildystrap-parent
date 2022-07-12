@@ -32,6 +32,9 @@ const background: any = reactive({
     position: {
       ...(props.modelValue?.image?.position || {}),
     },
+    repeat: {
+      ...(props.modelValue?.image?.repeat || {}),
+    },
   },
   color: {
     ...(props.modelValue?.color || {}),
@@ -96,6 +99,16 @@ watch(background, (val: any) => {
           taggable: true,
         }"
         v-model="background.image['position'][bp]" />
+      <select-field
+        class="flex-grow-1 flex-basis-0"
+        handle="repeat"
+        :placeholder="responsivePlaceholder(background.image, 'repeat', bp)"
+        :config="{
+          label: 'Repeat',
+          options: ['repeat', 'no-repeat'],
+          taggable: true,
+        }"
+        v-model="background.image['repeat'][bp]" />
     </div>
   </field-group>
 </template>

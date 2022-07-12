@@ -24,6 +24,7 @@ const { update, filterOutEmptyValues, responsivePlaceholder } =
 const typography: any = reactive({
   color: props.modelValue.color || {},
   "font-family": props.modelValue["font-family"] || {},
+  "font-weight": props.modelValue["font-weight"] || {},
   "font-size": props.modelValue["font-size"] || {},
   "text-align": props.modelValue["text-align"] || {},
 })
@@ -37,17 +38,6 @@ watch(typography, (val: any) => {
   <field-group>
     <select-field
       class="w-100"
-      handle="font-family"
-      :placeholder="responsivePlaceholder(typography, 'font-family', bp)"
-      :config="{
-        label: 'Font Family',
-        options: ['serif', 'sans-serif'],
-        disabled: bp !== 'xs',
-        taggable: true,
-      }"
-      v-model="typography['font-family'][bp]" />
-    <select-field
-      class="w-100"
       handle="text-colour"
       :placeholder="responsivePlaceholder(typography, 'color', bp)"
       :config="{
@@ -56,6 +46,30 @@ watch(typography, (val: any) => {
         taggable: true,
       }"
       v-model="typography.color[bp]" />
+    <div class="d-flex gap-4">
+      <select-field
+        class="flex-grow-1 flex-basis-0"
+        handle="font-family"
+        :placeholder="responsivePlaceholder(typography, 'font-family', bp)"
+        :config="{
+          label: 'Font Family',
+          options: ['serif', 'sans-serif'],
+          disabled: bp !== 'xs',
+          taggable: true,
+        }"
+        v-model="typography['font-family'][bp]" />
+      <select-field
+        class="flex-grow-1 flex-basis-0"
+        handle="font-weight"
+        :placeholder="responsivePlaceholder(typography, 'font-weight', bp)"
+        :config="{
+          label: 'Font Weight',
+          options: ['normal', 'bold'],
+          disabled: bp !== 'xs',
+          taggable: true,
+        }"
+        v-model="typography['font-weight'][bp]" />
+    </div>
     <div class="d-flex gap-4">
       <select-field
         class="flex-grow-1 flex-basis-0"
