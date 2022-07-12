@@ -87,7 +87,11 @@ watch(typography, (val: any) => {
         :placeholder="responsivePlaceholder(typography, 'text-align', bp)"
         :config="{
           label: 'Text Align',
-          options: ['left', 'center', 'right'],
+          options: [
+            { value: 'left', label: 'Left' },
+            { value: 'center', label: 'Center' },
+            { value: 'right', label: 'Right' },
+          ],
         }"
         v-model="typography['text-align'][bp]" />
     </div>

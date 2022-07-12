@@ -53,28 +53,37 @@ watch(display, (val: any) => {
       :placeholder="responsivePlaceholder(display, 'position', bp)"
       :config="{
         label: 'Position',
-        options: ['relative', 'absolute', 'fixed', 'sticky', 'static'],
+        options: [
+          { value: 'position-relative', label: 'Relative' },
+          { value: 'position-absolute', label: 'Absolute' },
+          { value: 'position-fixed', label: 'Fixed' },
+          { value: 'position-sticky', label: 'Sticky' },
+          { value: 'position-static', label: 'Static' },
+        ],
         popover: 'Attributes have no effect on non-positioned elements.',
       }"
       v-model="display.position[bp]" />
     <box-model-fields
       breakpoint-handle="display"
       :placeholder="responsivePlaceholder(display, 'attributes', bp)"
-      v-model="display.attributes[bp]" />
+      v-model="display.attributes" />
     <select-field
       class="w-100"
       handle="property"
       :placeholder="responsivePlaceholder(display, 'property', bp)"
       :config="{
         label: 'Property',
-        options: ['flex', 'grid'],
+        options: [
+          { value: 'd-flex', label: 'Flex' },
+          { value: 'd-grid', label: 'Grid' },
+        ],
         taggable: true,
       }"
       v-model="display.property[bp]" />
 
     <div
       class="d-flex flex-column gap-3"
-      v-if="display.property[bp] === 'flex'">
+      v-if="display.property[bp] === 'd-flex'">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
@@ -82,7 +91,12 @@ watch(display, (val: any) => {
           :placeholder="responsivePlaceholder(display, 'flex-direction', bp)"
           :config="{
             label: 'Flex Direction',
-            options: ['row', 'row-reverse', 'column', 'column-reverse'],
+            options: [
+              { value: 'flex-row', label: 'Row' },
+              { value: 'flex-row-reverse', label: 'Row Reverse' },
+              { value: 'flex-column', label: 'Column' },
+              { value: 'flex-column-reverse', label: 'Column Reverse' },
+            ],
           }"
           v-model="display['flex-direction'][bp]" />
         <select-field
@@ -91,7 +105,11 @@ watch(display, (val: any) => {
           :placeholder="responsivePlaceholder(display, 'flex-wrap', bp)"
           :config="{
             label: 'Wrap',
-            options: ['nowrap', 'wrap', 'wrap-reverse'],
+            options: [
+              { value: 'flex-nowrap', label: 'No Wrap' },
+              { value: 'flex-wrap', label: 'Wrap' },
+              { value: 'flex-wrap-reverse', label: 'Wrap Reverse' },
+            ],
           }"
           v-model="display['align-self'][bp]" />
       </div>
@@ -102,7 +120,13 @@ watch(display, (val: any) => {
           :placeholder="responsivePlaceholder(display, 'justify-content', bp)"
           :config="{
             label: 'Justify Content',
-            options: ['start', 'end', 'center', 'between', 'around'],
+            options: [
+              { value: 'justify-content-start', label: 'Start' },
+              { value: 'justify-content-end', label: 'End' },
+              { value: 'justify-content-center', label: 'Center' },
+              { value: 'justify-content-between', label: 'Between' },
+              { value: 'justify-content-around', label: 'Around' },
+            ],
           }"
           v-model="display['justify-content'][bp]" />
         <select-field
@@ -111,7 +135,13 @@ watch(display, (val: any) => {
           :placeholder="responsivePlaceholder(display, 'align-items', bp)"
           :config="{
             label: 'Align Items',
-            options: ['start', 'end', 'center', 'baseline', 'stretch'],
+            options: [
+              { value: 'align-items-start', label: 'Start' },
+              { value: 'align-items-end', label: 'End' },
+              { value: 'align-items-center', label: 'Center' },
+              { value: 'align-items-baseline', label: 'Baseline' },
+              { value: 'align-items-stretch', label: 'Stretch' },
+            ],
           }"
           v-model="display['align-items'][bp]" />
       </div>
@@ -122,7 +152,13 @@ watch(display, (val: any) => {
           :placeholder="responsivePlaceholder(display, 'align-self', bp)"
           :config="{
             label: 'Align Self',
-            options: ['start', 'end', 'center', 'baseline', 'stretch'],
+            options: [
+              { value: 'align-self-start', label: 'Start' },
+              { value: 'align-self-end', label: 'End' },
+              { value: 'align-self-center', label: 'Center' },
+              { value: 'align-self-baseline', label: 'Baseline' },
+              { value: 'align-self-stretch', label: 'Stretch' },
+            ],
           }"
           v-model="display['align-self'][bp]" />
         <select-field
@@ -131,13 +167,19 @@ watch(display, (val: any) => {
           :placeholder="responsivePlaceholder(display, 'align-content', bp)"
           :config="{
             label: 'Align Content',
-            options: ['start', 'end', 'center', 'around', 'stretch'],
+            options: [
+              { value: 'align-content-start', label: 'Start' },
+              { value: 'align-content-end', label: 'End' },
+              { value: 'align-content-center', label: 'Center' },
+              { value: 'align-content-around', label: 'Around' },
+              { value: 'align-content-stretch', label: 'Stretch' },
+            ],
           }"
-          v-model="display['align-self'][bp]" />
+          v-model="display['align-content'][bp]" />
       </div>
     </div>
 
-    <div v-if="display.property[bp] === 'grid'">
+    <div v-if="display.property[bp] === 'd-grid'">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"

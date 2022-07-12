@@ -75,7 +75,12 @@ watch(background, (val: any) => {
         :placeholder="responsivePlaceholder(background.image, 'size', bp)"
         :config="{
           label: 'Size',
-          options: ['cover', 'contain', 'fit', 'fill'],
+          options: [
+            { value: 'cover', label: 'Cover' },
+            { value: 'contain', label: 'Contain' },
+            { value: 'fit', label: 'Fit' },
+            { value: 'fill', label: 'Fill' },
+          ],
           taggable: true,
         }"
         v-model="background.image['size'][bp]" />
@@ -86,15 +91,15 @@ watch(background, (val: any) => {
         :config="{
           label: 'Position',
           options: [
-            'left',
-            'left top',
-            'left bottom',
-            'right',
-            'right top',
-            'right bottom',
-            'center',
-            'center top',
-            'center bottom',
+            { value: 'left', label: 'Left' },
+            { value: 'left top', label: 'Left Top' },
+            { value: 'left bottom', label: 'Left Bottom' },
+            { value: 'right', label: 'Right' },
+            { value: 'right top', label: 'Right Top' },
+            { value: 'right bottom', label: 'Right Bottom' },
+            { value: 'center', label: 'Center' },
+            { value: 'center top', label: 'Center Top' },
+            { value: 'center bottom', label: 'Center Bottom' },
           ],
           taggable: true,
         }"
@@ -105,7 +110,10 @@ watch(background, (val: any) => {
         :placeholder="responsivePlaceholder(background.image, 'repeat', bp)"
         :config="{
           label: 'Repeat',
-          options: ['repeat', 'no-repeat'],
+          options: [
+            { value: 'repeat', label: 'Repeat' },
+            { value: 'no-repeat', label: 'No Repeat' },
+          ],
           taggable: true,
         }"
         v-model="background.image['repeat'][bp]" />
