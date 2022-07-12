@@ -50,9 +50,6 @@ const focusOnAdminLabel = () => {
 
 const settingsToggle = ref(false)
 const designToggle = ref(false)
-
-const inline = ref(component.value?.inline || {})
-const attributes = ref(component.value?.attributes || {})
 </script>
 <template>
   <font-awesome-icon
@@ -89,75 +86,10 @@ const attributes = ref(component.value?.attributes || {})
       </h3>
     </div>
     <div class="p-4">
-      <ul class="nav nav-pills pb-2 border-bottom" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            data-bs-toggle="tab"
-            data-bs-target="#content-tab"
-            type="button"
-            role="tab"
-            aria-controls="content"
-            aria-selected="true">
-            Content
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            data-bs-toggle="tab"
-            data-bs-target="#design-tab"
-            type="button"
-            role="tab"
-            aria-controls="design"
-            aria-selected="false">
-            Design
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            data-bs-toggle="tab"
-            data-bs-target="#settings-tab"
-            type="button"
-            role="tab"
-            aria-controls="settings"
-            aria-selected="false">
-            Settings
-          </button>
-        </li>
-      </ul>
-
-      <!-- Tab panes -->
-      <div class="tab-content card mt-3 p-4 rounded">
-        <div
-          class="tab-pane active"
-          id="content-tab"
-          role="tabpanel"
-          aria-labelledby="content-tab"
-          tabindex="0">
-          <component
-            :is="`${componentToLoad}-settings`"
-            :type="component.type"
-            :component="component" />
-        </div>
-        <div
-          class="tab-pane"
-          id="design-tab"
-          role="tabpanel"
-          aria-labelledby="design-tab"
-          tabindex="0">
-          <design-tab-settings v-model="inline" />
-        </div>
-        <div
-          class="tab-pane"
-          id="settings-tab"
-          role="tabpanel"
-          aria-labelledby="settings-tab"
-          tabindex="0">
-          <settings-tab-settings v-model="attributes" />
-        </div>
-      </div>
+      <component
+        :is="`${componentToLoad}-settings`"
+        :type="component.type"
+        :component="component" />
     </div>
   </buildy-stack>
 </template>

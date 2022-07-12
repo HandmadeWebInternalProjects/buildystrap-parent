@@ -13,7 +13,7 @@ const { update } = useFieldType(emit)
 </script>
 
 <template>
-  <div>
+  <div class="d-flex gap-3">
     <field-label
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"

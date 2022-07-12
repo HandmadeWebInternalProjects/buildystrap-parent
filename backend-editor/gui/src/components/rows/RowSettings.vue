@@ -1,11 +1,16 @@
 <template lang="">
-  <div class="d-flex flex-column gap-3">
-    <!-- <dynamic-settings :settings-fields="fields" :component="component" />-->
-  </div>
+  <bs-tabs>
+    <bs-tab :active="true" name="design">
+      <design-tab-settings v-model="inline" />
+    </bs-tab>
+    <bs-tab name="attributes">
+      <settings-tab-settings v-model="attributes" />
+    </bs-tab>
+  </bs-tabs>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue"
+import { ref } from "vue"
 const props = defineProps({
   type: {
     type: String,
@@ -17,8 +22,7 @@ const props = defineProps({
   },
 })
 
-const component = ref(props.component)
-const value = reactive(component?.value.value || {})
-const attributes = reactive(component?.value.attributes || {})
+const inline = ref(props.component.value?.inline || {})
+const attributes = ref(props.component.value?.attributes || {})
 </script>
 <style lang=""></style>

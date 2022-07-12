@@ -13,6 +13,7 @@ use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\GalleryModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ReplicatorModule;
+use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
 use Buildystrap\Builder\Renderer;
 use Exception;
@@ -52,6 +53,7 @@ class Builder
         'gallery-module' => GalleryModule::class,
         'button-module' => ButtonModule::class,
         'header-module' => HeaderModule::class,
+        'tab-module' => TabModule::class,
         'accordion-module' => AccordionModule::class,
         'replicator-module' => ReplicatorModule::class,
     ];
