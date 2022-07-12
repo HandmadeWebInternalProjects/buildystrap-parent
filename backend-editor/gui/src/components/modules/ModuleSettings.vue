@@ -58,7 +58,8 @@ const updateMeta = (meta: any) => {
   updatePageCache(props.component.uuid, meta)
 }
 
-const inline = ref(props.component.value?.inline || {})
-const attributes = ref(props.component.value?.attributes || {})
+const component = ref(props.component)
+const inline = ref(component.value?.inline || {})
+const attributes = ref(component.value?.attributes || {})
 </script>
 <style lang=""></style>

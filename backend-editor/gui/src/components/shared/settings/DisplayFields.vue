@@ -53,14 +53,20 @@ watch(display, (val: any) => {
       :placeholder="responsivePlaceholder(display, 'position', bp)"
       :config="{
         label: 'Position',
-        options: ['relative', 'absolute', 'fixed', 'sticky', 'static'],
+        options: [
+          { value: 'position-relative', label: 'relative' },
+          'absolute',
+          'fixed',
+          'sticky',
+          'static',
+        ],
         popover: 'Attributes have no effect on non-positioned elements.',
       }"
       v-model="display.position[bp]" />
     <box-model-fields
       breakpoint-handle="display"
       :placeholder="responsivePlaceholder(display, 'attributes', bp)"
-      v-model="display.attributes[bp]" />
+      v-model="display.attributes" />
     <select-field
       class="w-100"
       handle="property"

@@ -32,7 +32,8 @@ const props = defineProps({
 })
 
 const config = reactive(props?.component?.config || {})
-const inline = ref(props.component.value?.inline || {})
-const attributes = ref(props.component.value?.attributes || {})
+const component = ref(props.component)
+const inline = ref(component.value?.inline || {})
+const attributes = ref(component.value?.attributes || {})
 </script>
 <style lang=""></style>
