@@ -2,17 +2,16 @@
   <bs-tabs>
     <bs-tab :active="true" name="content">
       <field-group>
-        <component
+        <field-base
           v-for="(field, key) in ModuleType.fields"
           :handle="key"
-          :type="field.type"
+          :field="field"
           :module-type="props.type"
           :config="field.config || {}"
           :key="key"
           :meta="meta"
           :uuid="component.uuid"
-          v-model="value[key]"
-          :is="field.type"
+          v-model="value"
           @update-meta="updateMeta" />
       </field-group>
     </bs-tab>

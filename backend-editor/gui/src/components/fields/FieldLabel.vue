@@ -1,17 +1,19 @@
 <template>
-  <label class="text-600">{{ props.label }}</label>
-  <a
-    v-if="popover"
-    tabindex="0"
-    role="button"
-    data-bs-toggle="popover"
-    data-bs-trigger="focus"
-    title="Dismissible popover"
-    :data-bs-content="popover"
-    ><font-awesome-icon
-      class="ms-1 text-500 popover-trigger"
-      icon="question-circle" />
-  </a>
+  <div>
+    <label class="text-600">{{ props.label }}</label>
+    <a
+      v-if="popover"
+      tabindex="0"
+      role="button"
+      data-bs-toggle="popover"
+      data-bs-trigger="focus"
+      title="Dismissible popover"
+      :data-bs-content="popover"
+      ><font-awesome-icon
+        class="ms-1 text-500 popover-trigger"
+        icon="question-circle" />
+    </a>
+  </div>
 </template>
 <script setup lang="ts">
 import { onMounted } from "vue"
@@ -26,10 +28,10 @@ const props = defineProps({
 })
 
 onMounted(() => {
-  const popoverTriggerList = document.querySelectorAll(
+  const popoverTriggerList: any = document.querySelectorAll(
     '[data-bs-toggle="popover"]'
   )
-  const popoverList = [...popoverTriggerList].map(
+  const popoverList: any = [...popoverTriggerList].map(
     (popoverTriggerEl) =>
       new bootstrap.Popover(popoverTriggerEl, {
         placement: "right",

@@ -60,7 +60,6 @@ const styles = computed(() => {
   <div>
     <div class="d-flex gap-4 align-items-center justify-content-between">
       <field-label
-        class="mb-1"
         v-if="config.label !== false"
         :label="config?.label !== undefined ? config.label : handle"
         :popover="config?.popover" />
