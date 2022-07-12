@@ -1,15 +1,25 @@
 <template lang="">
+  <bs-tabs>
+    <bs-tab :active="true" name="Options">
+      <toggle-field
+        handle="boxed_layout"
+        :config="{ label: 'Boxed Layout', options: ['true', 'false'] }"
+        v-model="config['boxed_layout']" />
+    </bs-tab>
+    <bs-tab name="design">
+      <design-tab-settings v-model="inline" />
+    </bs-tab>
+    <bs-tab name="attributes">
+      <settings-tab-settings v-model="attributes" />
+    </bs-tab>
+  </bs-tabs>
   <div class="d-flex flex-column gap-3">
     <!-- <dynamic-settings :settings-fields="fields" :component="component" />-->
-    <toggle-field
-      handle="boxed_layout"
-      :config="{ display: 'Boxed Layout', options: ['true', 'false'] }"
-      v-model="config['boxed_layout']" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from "vue"
+import { ref, reactive } from "vue"
 const props = defineProps({
   type: {
     type: String,
@@ -21,12 +31,8 @@ const props = defineProps({
   },
 })
 
-const component = ref(props.component)
-const config = reactive(component?.value.config || {})
-const attributes = reactive(component?.value.attributes || {})
-
-watch(config, (newValue) => {
-  console.log(newValue)
-})
+const config = reactive(props?.component?.config || {})
+const inline = ref(props.component.value?.inline || {})
+const attributes = ref(props.component.value?.attributes || {})
 </script>
 <style lang=""></style>

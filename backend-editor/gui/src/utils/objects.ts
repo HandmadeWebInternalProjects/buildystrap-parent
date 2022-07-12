@@ -39,3 +39,11 @@ export const findNestedObject = (
 
   return null
 }
+
+export const deepFind =
+  (pred: any) =>
+  ([x, ...xs] = []): any =>
+    x && (pred(x) ? x : deepFind(pred)(x.child) || deepFind(pred)(xs))
+
+export const findBy = (prop: string, id: string) => (obj: any) =>
+  deepFind((o: any) => o[prop] == id)([obj])

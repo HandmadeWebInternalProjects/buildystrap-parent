@@ -1,18 +1,28 @@
 <template lang="">
-  <field-group>
-    <component
-      v-for="(field, key) in ModuleType.fields"
-      :handle="key"
-      :type="field.type"
-      :module-type="props.type"
-      :config="field.config || {}"
-      :key="key"
-      :meta="meta"
-      :uuid="component.uuid"
-      v-model="value[key]"
-      :is="field.type"
-      @update-meta="updateMeta" />
-  </field-group>
+  <bs-tabs>
+    <bs-tab :active="true" name="content">
+      <field-group>
+        <component
+          v-for="(field, key) in ModuleType.fields"
+          :handle="key"
+          :type="field.type"
+          :module-type="props.type"
+          :config="field.config || {}"
+          :key="key"
+          :meta="meta"
+          :uuid="component.uuid"
+          v-model="value[key]"
+          :is="field.type"
+          @update-meta="updateMeta" />
+      </field-group>
+    </bs-tab>
+    <bs-tab name="design">
+      <design-tab-settings v-model="inline" />
+    </bs-tab>
+    <bs-tab name="attributes">
+      <settings-tab-settings v-model="attributes" />
+    </bs-tab>
+  </bs-tabs>
 </template>
 
 <script setup lang="ts">
@@ -48,5 +58,8 @@ onBeforeMount(() => {
 const updateMeta = (meta: any) => {
   updatePageCache(props.component.uuid, meta)
 }
+
+const inline = ref(props.component.value?.inline || {})
+const attributes = ref(props.component.value?.attributes || {})
 </script>
 <style lang=""></style>

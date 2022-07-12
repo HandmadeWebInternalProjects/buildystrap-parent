@@ -38,32 +38,28 @@ const values = computed({
         :label="config?.label !== undefined ? config.label : handle"
         :popover="config?.popover" />
     </label>
-    <draggable
-      v-if="values.length"
-      :list="values"
-      group="accordion-items"
-      item-key="_uuid"
-      class="accordion mb-3"
-      id="accordionExample">
-      <template #item="{ element }">
-        <bs-accordion-item
-          :title="element?.title || ''"
-          :uuid="element._uuid"
-          @remove="removeItem">
+    <div class="mb-3" v-if="values.length">
+      <bs-tabs v-if="values.length">
+        <bs-tab
+          v-for="(tab, i) in values"
+          :key="tab._uuid"
+          :uuid="tab._uuid"
+          :active="i === 0"
+          :name="tab?.title || `New Tab`">
           <field-group>
             <text-field
               handle="accordion-title"
               :config="{ label: 'Title' }"
-              v-model="element['title']" />
+              v-model="tab['title']" />
             <richtext-field
               handle="accordion-content"
               :config="{ ...config, label: 'Content' }"
-              v-model="element['content']"
-              :uuid="element._uuid" />
+              v-model="tab['content']"
+              :uuid="tab._uuid" />
           </field-group>
-        </bs-accordion-item>
-      </template>
-    </draggable>
+        </bs-tab>
+      </bs-tabs>
+    </div>
     <button
       @click="addItem"
       type="button"
