@@ -6,6 +6,7 @@ use Buildystrap\BuilderBackend;
 use Buildystrap\Theme;
 
 include __DIR__ . '/cpt.php';
+include __DIR__ . '/acf.php';
 
 add_action('init', [Builder::class, 'boot']);
 add_action('init', [BuilderApi::class, 'boot']);

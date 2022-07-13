@@ -31,11 +31,11 @@ const display: any = reactive({
   "align-items": props.modelValue["align-items"] || {},
   "align-self": props.modelValue["align-self"] || {},
   "align-content": props.modelValue["align-content"] || {},
-  "grid-template-rows": props.modelValue["row-gap"] || {},
-  "grid-template-columns": props.modelValue["row-gap"] || {},
+  "grid-template-rows": props.modelValue["grid-template-rows"] || {},
+  "grid-template-columns": props.modelValue["grid-template-columns"] || {},
   "column-gap": props.modelValue["column-gap"] || {},
   "row-gap": props.modelValue["row-gap"] || {},
-  order: props.modelValue["row-gap"] || {},
+  order: props.modelValue["order"] || {},
 })
 
 const options = Array.from({ length: 13 }, (_, i) => i)
@@ -111,7 +111,7 @@ watch(display, (val: any) => {
               { value: 'flex-wrap-reverse', label: 'Wrap Reverse' },
             ],
           }"
-          v-model="display['align-self'][bp]" />
+          v-model="display['flex-wrap'][bp]" />
       </div>
       <div class="d-flex gap-3">
         <select-field
@@ -218,7 +218,7 @@ watch(display, (val: any) => {
           options,
           taggable: true,
         }"
-        v-model="display['align-self'][bp]" />
+        v-model="display['column-gap'][bp]" />
       <select-field
         class="flex flex-grow-1 flex-basis-0"
         handle="row-gap"
@@ -233,15 +233,15 @@ watch(display, (val: any) => {
 
     <select-field
       class="flex-grow-1 flex-basis-0"
-      handle="align-items"
-      :placeholder="responsivePlaceholder(display, 'align-items', bp)"
+      handle="order"
+      :placeholder="responsivePlaceholder(display, 'order', bp)"
       :config="{
         label: 'Order',
         options,
         taggable: true,
         popover: 'Only works if the parent has flex or grid properties.',
       }"
-      v-model="display['align-items'][bp]" />
+      v-model="display['order'][bp]" />
   </field-group>
 </template>
 

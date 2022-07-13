@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useFieldType } from "../fields/useFieldType"
+
 const props = defineProps({
   modelValue: {
     type: Object,

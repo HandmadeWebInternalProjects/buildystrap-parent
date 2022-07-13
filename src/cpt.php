@@ -4,7 +4,7 @@ if ( ! function_exists('register_buildy_custom_post_types')) {
     function register_buildy_custom_post_types(): void
     {
         /**
-         * Post Type: Buildystrap.
+         * Admin Page: Buildystrap.
          */
 
         function buildy_admin_page() {
@@ -24,10 +24,9 @@ if ( ! function_exists('register_buildy_custom_post_types')) {
         add_action( 'admin_menu', 'buildy_admin_page' );
 
         function buildystrap_callback() {
-            echo '<h1>Welcome to BuildyStrap!</h1>';
+            echo '<h1>Welcome to Buildystrap!</h1>';
             echo 'Get started below';
         }
-
 
         /**
          * Post Type: Buildystrap Globals.
