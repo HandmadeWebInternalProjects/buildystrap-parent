@@ -5,6 +5,7 @@ namespace Buildystrap;
 use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
+use Buildystrap\Builder\Fields\RichTextField;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\AccordionModule;
@@ -44,10 +45,10 @@ class Builder
 
     protected static array $fields = [
         'text-field' => TextField::class,
+        'richtext-field' => RichTextField::class
     ];
 
     protected static array $modules = [
-//        'global-module' => GlobalModule::class, // Doesn't need to be registered
         'card-module' => CardModule::class,
         'text-module' => TextModule::class,
         'gallery-module' => GalleryModule::class,
