@@ -7,6 +7,7 @@ use Buildystrap\BuildyCPT;
 use Buildystrap\Theme;
 
 BuildyCPT::boot();
+include __DIR__ . '/acf.php';
 
 add_action('init', [Builder::class, 'boot']);
 add_action('init', [BuilderApi::class, 'boot']);

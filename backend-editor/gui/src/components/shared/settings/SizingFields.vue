@@ -23,7 +23,10 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
+import { useACFOptions } from "@/composables/useACFOptions"
+
 const { bp } = useBreakpoints("sizing")
+const { getSizing } = useACFOptions()
 
 const props = defineProps({
   modelValue: {
@@ -77,28 +80,9 @@ const valuesMap: any = {
   },
 }
 
-// Options will eventually come from site options
-const options: { [key: string]: string[] } = {
-  width: [
-    "100%",
-    "100vw",
-    "1 / 2 (50%)",
-    "1 / 3 (33.33%)",
-    "2 / 3 (66.66%)",
-    "1 / 4 (25%)",
-    "2 / 4 (50%)",
-    "3 / 4 (75%)",
-    "1 / 5 (20%)",
-    "2 / 5 (40%)",
-    "3 / 5 (60%)",
-    "4 / 5 (80%)",
-    "1 / 6 (16.66%)",
-    "2 / 6 (33.33%)",
-    "3 / 6 (50%)",
-    "4 / 6 (66.66%)",
-    "5 / 6 (83.33%)",
-  ],
-  height: ["50vh", "100vh"],
+let options: { [key: string]: string[] } = {
+  width: getSizing("width"),
+  height: getSizing("height"),
 }
 
 watch(values, (val: { [key: string]: string }) => {

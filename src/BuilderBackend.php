@@ -124,6 +124,7 @@ class BuilderBackend
             'globalModules' => Builder::getGlobalModules(),
             // 'registered_image_sizes' => static::get_all_image_sizes(),
             'registered_post_types' => get_post_types(['_builtin' => false]),
+            'acf_options' => static::get_acf_options(),
         ]);
 
         // Module Blueprints
@@ -148,5 +149,18 @@ class BuilderBackend
         }
 
         return 'html'; // HTML / Text tab in TinyMCE
+    }
+
+    public static function get_acf_options()
+    {
+        if ( ! Builder::isEnabled() && ! class_exists('ACF') ) {
+            return null;
+        }
+        $acf_options = array();
+        $acf_options['theme_colours'] = get_field('theme_colours', 'option');
+        $acf_options['additional_colours'] = get_field('additional_colours', 'option');
+        $acf_options['structure'] = get_field('structure', 'option');
+        $acf_options['module_styles'] = get_field('module_styles', 'option');
+        return $acf_options;
     }
 }

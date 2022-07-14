@@ -13,7 +13,7 @@
           :placeholder="responsivePlaceholder(values, key, bp)"
           :config="{
             label: key,
-            options: options,
+            options: getBoxModelSizing(),
             taggable: true,
           }"
           v-model="dir[bp]" />
@@ -25,6 +25,9 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
+import { useACFOptions } from "@/composables/useACFOptions"
+
+const { getBoxModelSizing } = useACFOptions()
 
 const props = defineProps({
   breakpointHandle: {
@@ -59,9 +62,6 @@ const values: any = reactive(
     props.modelValue
   )
 )
-
-// array of 10 numbers
-const options = Array.from({ length: 11 }, (_, i) => i)
 
 watch(values, (val: any) => {
   update(filterOutEmptyValues(val))
