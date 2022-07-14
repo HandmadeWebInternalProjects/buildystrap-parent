@@ -27,7 +27,7 @@ class BuilderMetaBox
 
     public static function display_metabox(WP_Post $post): void
     {
-        echo view('metabox.template', [
+        echo view('wp-admin.metabox', [
             'enabled' => (bool) get_post_meta($post->ID, '_buildy_enabled', true),
         ])->render();
     }

@@ -6,7 +6,7 @@ use function add_action;
 use function add_menu_page;
 use function add_submenu_page;
 
-class BuildyCPT
+class BuilderCPT
 {
     public static function boot(): void
     {
@@ -95,6 +95,10 @@ class BuildyCPT
 
     public static function register_menu(): void
     {
+        /**
+         * Admin Page: Buildystrap.
+         */
+
         add_menu_page(
             __('Buildystrap', 'buildystrap'),
             __('Buildystrap', 'buildystrap'),
@@ -123,6 +127,6 @@ class BuildyCPT
 
     public static function render_menu(): void
     {
-        echo view('cptmenu.template', [])->render();
+        echo view('wp-admin.cpt-menu', [])->render();
     }
 }

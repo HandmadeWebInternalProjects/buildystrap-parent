@@ -3,10 +3,10 @@
 use Buildystrap\Builder;
 use Buildystrap\BuilderApi;
 use Buildystrap\BuilderBackend;
-use Buildystrap\BuildyCPT;
+use Buildystrap\BuilderCPT;
 use Buildystrap\Theme;
 
-BuildyCPT::boot();
+BuilderCPT::boot();
 include __DIR__ . '/acf.php';
 
 add_action('init', [Builder::class, 'boot']);
