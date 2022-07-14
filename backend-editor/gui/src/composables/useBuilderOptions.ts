@@ -1,6 +1,6 @@
 import { useBuilderStore } from "@/stores/builder"
 
-export const useACFOptions = () => {
+export const useBuilderOptions = () => {
   const { getBuilderOptions } = useBuilderStore()
 
   const getBoxModelSizing = () => {
