@@ -2,11 +2,12 @@
 
 namespace Buildystrap\Builder\Modules;
 
-use Buildystrap\Builder;
 use Buildystrap\Builder\Extends\Module;
+use Buildystrap\GlobalModuleCache;
 use stdClass;
 
 use function call_user_func;
+use function optional;
 
 class GlobalModule extends Module
 {
@@ -20,7 +21,7 @@ class GlobalModule extends Module
         $this->type = $module->type;
 
         $this->global_id = (int) $module->global_id;
-        $this->global_module = Builder::getGlobalModule($this->global_id);
+        $this->global_module = GlobalModuleCache::get($this->global_id);
 
         $this->augment();
     }
