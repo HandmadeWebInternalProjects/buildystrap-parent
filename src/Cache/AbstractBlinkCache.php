@@ -6,11 +6,9 @@ use Spatie\Blink\Blink;
 
 abstract class AbstractBlinkCache
 {
-    protected static Blink $blink;
-
     public static function blink(): Blink
     {
-        if ( ! static::$blink instanceof Blink) {
+        if ( ! isset(static::$blink)) {
             static::$blink = new Blink();
         }
 

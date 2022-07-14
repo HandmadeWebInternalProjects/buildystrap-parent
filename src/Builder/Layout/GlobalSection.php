@@ -2,19 +2,20 @@
 
 namespace Buildystrap\Builder\Layout;
 
-use Buildystrap\Builder;
+use Buildystrap\Cache\GlobalSectionCache;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Config;
 use stdClass;
 
 use function is_iterable;
+use function optional;
 
 class GlobalSection
 {
     use Attributes;
     use Config;
 
-    protected Container $container;
+    protected ?Container $container;
     protected string $uuid;
     protected string $type;
 
@@ -28,9 +29,7 @@ class GlobalSection
             $this->config = (array) $global_section->config;
         }
 
-        if ($container = Builder::getGlobal($global_section->id)) {
-            $this->container = $container;
-        }
+        $this->container = GlobalSectionCache::get($global_section->id);
     }
 
     public function enabled(): bool
@@ -55,10 +54,10 @@ class GlobalSection
 
     public function render(): string
     {
-        return $this->container()->render();
+        return optional($this->container())->render() ?? '';
     }
 
-    public function container(): Container
+    public function container(): ?Container
     {
         return $this->container;
     }
