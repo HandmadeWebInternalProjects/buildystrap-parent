@@ -3,11 +3,12 @@ import { toRefs, ref, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 const props = defineProps({ ...commonProps })
 
-const { handle, config, modelValue, uuid } = toRefs(props)
+const { config, modelValue, uuid } = toRefs(props)
 const value = ref(modelValue?.value || {})
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
+
 watch(value.value, (newValue) => {
   update(newValue)
 })

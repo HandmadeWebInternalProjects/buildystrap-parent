@@ -4,14 +4,14 @@ export const useACFOptions = () => {
   const { getAcfOptions } = useBuilderStore()
 
   const getBoxModelSizing = () => {
-    const boxModelSizing = getAcfOptions?.structure.box_model_sizing
+    const boxModelSizing = getAcfOptions?.structure?.box_model_sizing
     return boxModelSizing
       ? Object.values(boxModelSizing).map((el: any) => el.value)
       : Array.from({ length: 11 }, (_, i) => i)
   }
 
   const getSizing = (type: string) => {
-    const hasOptions = getAcfOptions?.structure[type]
+    const hasOptions = getAcfOptions?.structure?.[type]
     let defaults: { [key: string]: any } = {
       width: [
         "none",
@@ -33,7 +33,7 @@ export const useACFOptions = () => {
   }
 
   const getThemeColours = (str: string) => {
-    const userOptions = getAcfOptions?.structure.theme_colours
+    const userOptions = getAcfOptions?.structure?.theme_colours
     let options: number[] = []
     if (userOptions) {
       userOptions.forEach(function (item: { [x: string]: number }) {

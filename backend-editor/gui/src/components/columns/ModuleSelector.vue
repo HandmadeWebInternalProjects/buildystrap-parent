@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { ref } from "vue"
 import { storeToRefs } from "pinia"
 import { createModule } from "../../factories/modules/moduleFactory"
 import type { ModuleType } from "../../factories/modules/moduleFactory"
@@ -140,14 +140,12 @@ const addField = (field: ModuleType, key?: string | number) => {
   const VALUE = {}
   const CONFIG = field.config ?? {}
   const META = field.meta ?? {}
-  const HANDLE = field.handle || key
   const TYPE = field.type || key
   const NEW_FIELD = createModule(MODULE, {
     CONFIG,
     TYPE,
     META,
     VALUE,
-    HANDLE,
   })
 
   parentArray.value.splice(

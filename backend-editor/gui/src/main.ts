@@ -5,7 +5,7 @@ import App from "./App.vue"
 import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
 import { useBuilderStore, type BuildyConfig } from "./stores/builder"
 
-import * as bootstrap from "bootstrap"
+import "bootstrap"
 
 // const popoverTriggerList = document.querySelectorAll(
 //   '[data-bs-toggle="popover"]'

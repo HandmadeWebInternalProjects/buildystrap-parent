@@ -51,19 +51,17 @@ const emit = defineEmits(["update:modelValue"])
 const { update, filterOutEmptyValues, responsivePlaceholder } =
   useFieldType(emit)
 
-const values: any = reactive(
-  Object.assign(
-    {
-      top: {},
-      bottom: {},
-      left: {},
-      right: {},
-    },
-    props.modelValue
-  )
-)
+const values = reactive({
+  top: {},
+  bottom: {},
+  left: {},
+  right: {},
+  ...props.modelValue,
+})
 
 watch(values, (val: any) => {
+  console.log({ val })
+
   update(filterOutEmptyValues(val))
 })
 </script>

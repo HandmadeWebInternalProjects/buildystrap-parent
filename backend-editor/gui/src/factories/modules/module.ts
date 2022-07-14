@@ -5,7 +5,6 @@ const Module = function (
     CONFIG = {},
     TYPE = "",
     META = {},
-    HANDLE,
     VALUE,
     UUID,
   }: {
@@ -13,7 +12,6 @@ const Module = function (
     CONFIG: { [key: string]: any }
     TYPE: string
     META: { [key: string]: any }
-    HANDLE: string
     VALUE: any
     UUID: string
   }
@@ -21,7 +19,6 @@ const Module = function (
   this.uuid = `${UUID}`
   this.type = TYPE
   this.config = {
-    handle: HANDLE,
     enabled: true,
   }
   this.meta = META

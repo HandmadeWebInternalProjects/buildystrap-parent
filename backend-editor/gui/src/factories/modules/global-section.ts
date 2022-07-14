@@ -4,14 +4,12 @@ const GlobalSection = function (
     ADMIN_LABEL,
     CONFIG = {},
     META = {},
-    HANDLE,
     VALUE,
     UUID,
   }: {
     ADMIN_LABEL: string
     CONFIG: { [key: string]: any }
     META: { [key: string]: any }
-    HANDLE: string
     VALUE: any
     UUID: string
   }

@@ -41,6 +41,8 @@ const display: any = reactive({
 const options = Array.from({ length: 13 }, (_, i) => i)
 
 watch(display, (val: any) => {
+  console.log({ val })
+
   update(filterOutEmptyValues(val))
 })
 </script>

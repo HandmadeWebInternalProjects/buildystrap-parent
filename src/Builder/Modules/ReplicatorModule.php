@@ -56,6 +56,9 @@ class ReplicatorModule extends Module
                     ]
                 ],
             ],
+            'config' => [
+              'handle' => 'test'
+            ]
         ];
     }
 
