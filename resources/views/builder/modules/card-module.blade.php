@@ -5,5 +5,5 @@
         <a href="{{ $module->fields()->get('url') }}">{{ $module->fields()->get('url') }}</a>
     @endif
 
-    {!! $module->fields()->get('content') !!}
+    {!! $module->fields()->get('body') !!}
 </div>
