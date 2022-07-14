@@ -28,7 +28,6 @@ import { useBreakpoints } from "../../../composables/useBreakpoints"
 import { useACFOptions } from "@/composables/useACFOptions"
 
 const { getBoxModelSizing } = useACFOptions()
-
 const props = defineProps({
   breakpointHandle: {
     type: String,

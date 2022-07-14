@@ -1,53 +1,67 @@
 import { useBuilderStore } from "@/stores/builder"
 
 export const useACFOptions = () => {
-  const { getAcfOptions } = useBuilderStore()
+  const { getBuilderOptions } = useBuilderStore()
 
   const getBoxModelSizing = () => {
-    const boxModelSizing = getAcfOptions?.structure.box_model_sizing
-    return boxModelSizing
-      ? Object.values(boxModelSizing).map((el: any) => el.value)
-      : Array.from({ length: 11 }, (_, i) => i)
+    const boxModelSizing = getBuilderOptions?.structure.box_model_sizing
+
+    return boxModelSizing.map((obj: { label: string; value: string }) => {
+      return {
+        ...obj,
+        label: obj.label ? obj.label + " - " + obj.value : obj.value,
+        value: obj.label.toLowerCase() || obj.value,
+      }
+    })
   }
 
   const getSizing = (type: string) => {
-    const hasOptions = getAcfOptions?.structure[type]
-    let defaults: { [key: string]: any } = {
-      width: [
-        "none",
-        "auto",
-        "0%",
-        "25%",
-        "33.33%",
-        "50%",
-        "66.66%",
-        "75%",
-        "100%",
-        "100vw",
-      ],
-      height: ["50vh", "100vh"],
-    }
-    return hasOptions
-      ? Object.values(hasOptions).map((el: any) => el.value)
-      : defaults[type]
+    const sizing = getBuilderOptions?.structure[type]
+    return sizing.map((obj: { label: string; value: string }) => {
+      return {
+        ...obj,
+        label: obj.label ? obj.label + " - " + obj.value : obj.value,
+        value: obj.label.toLowerCase() || obj.value,
+      }
+    })
   }
 
-  const getThemeColours = (str: string) => {
-    const userOptions = getAcfOptions?.structure.theme_colours
-    let options: number[] = []
-    if (userOptions) {
-      userOptions.forEach(function (item: { [x: string]: number }) {
-        Object.keys(item).forEach(function (key) {
-          options.push(item[key])
-        })
-      })
-    }
-    return options
+  const getThemeColours = () => {
+    const themeColours = getBuilderOptions?.theme_colours
+    const additionalColours = getBuilderOptions?.additional_colours
+    return [
+      ...Object.keys(themeColours),
+      ...additionalColours.map(
+        (el: { label: string; value: any }) =>
+          el?.label.toLowerCase() || el?.value
+      ),
+    ]
+  }
+
+  const getTypography = () => {
+    const bodyFont = getBuilderOptions?.structure?.typography?.body_font
+    const headingFont = getBuilderOptions?.structure?.typography?.heading_font
+    const additionalFonts =
+      getBuilderOptions?.structure?.typography?.additional_fonts
+    return [bodyFont, headingFont, ...additionalFonts]
+  }
+
+  const getFontSize = () => {
+    const fontSize = getBuilderOptions?.structure?.font_size
+    return fontSize.map((obj: { label: string; value: string }) => {
+      return {
+        ...obj,
+        label: obj.label ? obj.label + " - " + obj.value : obj.value,
+        value: obj.label.toLowerCase() || obj.value,
+      }
+    })
   }
 
   return {
     getBoxModelSizing,
     getSizing,
     getThemeColours,
+    getTypography,
+    getFontSize,
   }
 }
