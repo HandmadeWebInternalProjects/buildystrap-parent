@@ -33,7 +33,7 @@ const options = normaliseOptions(config.value.options) || []
       :loading="props.loading"
       :multiple="config?.multiple"
       :taggable="config?.taggable"
-      :reduce="(option: any) => option?.value || option?.label"
+      :reduce="(option: any) => option?.label || option?.label"
       v-model="selected"
       :name="handle"
       :disabled="config.disabled || false"
@@ -44,6 +44,8 @@ const options = normaliseOptions(config.value.options) || []
 </template>
 <style lang="scss">
 .select-field {
+  text-transform: capitalize;
+
   &.sub-label {
     label {
       font-size: 0.7em;

@@ -2,6 +2,9 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
+
+const { getThemeColours } = useBuilderOptions()
 
 const props = defineProps({
   config: {
@@ -55,7 +58,7 @@ watch(background, (val: any) => {
       :placeholder="responsivePlaceholder(background, 'color', bp)"
       :config="{
         label: 'Background Color',
-        options: ['Primary', 'Secondary', 'Tertiary'],
+        options: getThemeColours(),
         taggable: true,
       }"
       v-model="background.color[bp]" />

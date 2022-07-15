@@ -25,10 +25,9 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
-import { useACFOptions } from "@/composables/useACFOptions"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
 
-const { getBoxModelSizing } = useACFOptions()
-
+const { getBoxModelSizing } = useBuilderOptions()
 const props = defineProps({
   breakpointHandle: {
     type: String,

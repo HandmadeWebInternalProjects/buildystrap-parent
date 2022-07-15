@@ -9,7 +9,7 @@ export type BuildyConfig = {
   post_id: number
   is_admin: boolean
   is_global_module: boolean
-  acf_options: { [key: string]: any }
+  builder_options: { [key: string]: any }
 }
 
 export const useBuilderStore = defineStore({
@@ -33,7 +33,7 @@ export const useBuilderStore = defineStore({
     getGlobalSections: (state) => state.globals.sections,
     getGlobalModules: (state): { [key: string]: any } => state.globals.modules,
     getBuilderConfig: (state) => state.config,
-    getAcfOptions: (state) => state.config.acf_options,
+    getBuilderOptions: (state) => state.config.builder_options,
   },
   actions: {
     setConfig(config: BuildyConfig) {

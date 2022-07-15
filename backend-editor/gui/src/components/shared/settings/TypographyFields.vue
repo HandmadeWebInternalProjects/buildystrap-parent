@@ -2,6 +2,9 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
+
+const { getThemeColours, getTypography, getFontSize } = useBuilderOptions()
 
 const props = defineProps({
   config: {
@@ -42,7 +45,7 @@ watch(typography, (val: any) => {
       :placeholder="responsivePlaceholder(typography, 'color', bp)"
       :config="{
         label: 'Text Colour',
-        options: ['Primary', 'Secondary', 'Tertiary'],
+        options: getThemeColours(),
         taggable: true,
       }"
       v-model="typography.color[bp]" />
@@ -53,7 +56,7 @@ watch(typography, (val: any) => {
         :placeholder="responsivePlaceholder(typography, 'font-family', bp)"
         :config="{
           label: 'Font Family',
-          options: ['serif', 'sans-serif'],
+          options: getTypography(),
           disabled: bp !== 'xs',
           taggable: true,
         }"
@@ -77,7 +80,7 @@ watch(typography, (val: any) => {
         :placeholder="responsivePlaceholder(typography, 'font-size', bp)"
         :config="{
           label: 'Font Size',
-          options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+          options: getFontSize(),
           taggable: true,
         }"
         v-model="typography['font-size'][bp]" />
