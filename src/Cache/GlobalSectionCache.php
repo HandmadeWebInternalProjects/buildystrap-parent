@@ -4,16 +4,15 @@ namespace Buildystrap\Cache;
 
 use Buildystrap\Builder;
 use Buildystrap\Builder\Layout\Container;
-use Spatie\Blink\Blink;
 
 class GlobalSectionCache extends AbstractBlinkCache
 {
-    protected static Blink $blink;
+    protected static array $blink = [];
 
     public static function get(int $global_id): ?Container
     {
-        if (static::blink()->has($global_id)) {
-            return static::blink()->get($global_id);
+        if ($global = static::blink()->get($global_id)) {
+            return $global;
         }
 
         $global = Builder::getGlobal($global_id);
