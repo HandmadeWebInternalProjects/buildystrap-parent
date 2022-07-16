@@ -8,16 +8,16 @@ use Buildystrap\Traits\Config;
 use stdClass;
 
 use function is_iterable;
-use function optional;
 
 class GlobalSection
 {
     use Attributes;
     use Config;
 
-    protected ?Container $container;
+//    protected ?Container $container;
     protected string $uuid;
     protected string $type;
+    protected int $global_id;
 
     public function __construct(stdClass $global_section)
     {
@@ -29,7 +29,9 @@ class GlobalSection
             $this->config = (array) $global_section->config;
         }
 
-        $this->container = GlobalSectionCache::get($global_section->id);
+        $this->global_id = $global_section->id;
+
+//        $this->container = GlobalSectionCache::get($global_section->id);
     }
 
     public function enabled(): bool
@@ -54,11 +56,11 @@ class GlobalSection
 
     public function render(): string
     {
-        return optional($this->container())->render() ?? '';
+        return GlobalSectionCache::render($this->global_id);
     }
 
-    public function container(): ?Container
-    {
-        return $this->container;
-    }
+//    public function container(): ?Container
+//    {
+//        return $this->container;
+//    }
 }
