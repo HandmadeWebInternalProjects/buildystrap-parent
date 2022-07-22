@@ -6,12 +6,12 @@ use Spatie\Blink\Blink;
 
 abstract class AbstractBlinkCache
 {
-    public static function blink(): Blink
+    public static function blink(string $store = 'default'): Blink
     {
-        if ( ! isset(static::$blink)) {
-            static::$blink = new Blink();
+        if (empty(static::$blink[$store])) {
+            static::$blink[$store] = new Blink();
         }
 
-        return static::$blink;
+        return static::$blink[$store];
     }
 }
