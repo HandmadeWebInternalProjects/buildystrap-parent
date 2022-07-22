@@ -12,6 +12,9 @@
     <bs-tab name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
+    <bs-tab name="visibility">
+      <visibility-tab-settings v-model="config" />
+    </bs-tab>
   </bs-tabs>
   <div class="d-flex flex-column gap-3">
     <!-- <dynamic-settings :settings-fields="fields" :component="component" />-->

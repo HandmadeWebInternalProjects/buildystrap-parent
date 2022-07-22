@@ -6,6 +6,9 @@
     <bs-tab name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
+    <bs-tab name="visibility">
+      <visibility-tab-settings v-model="config" />
+    </bs-tab>
   </bs-tabs>
 </template>
 
@@ -25,5 +28,6 @@ const props = defineProps({
 const component = ref(props.component)
 const inline = ref(component.value?.inline || {})
 const attributes = ref(component.value?.attributes || {})
+const config = ref(component.value?.config || {})
 </script>
 <style lang=""></style>

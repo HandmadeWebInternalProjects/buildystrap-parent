@@ -21,11 +21,14 @@
     <bs-tab name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
+    <bs-tab name="visibility">
+      <visibility-tab-settings v-model="config" />
+    </bs-tab>
   </bs-tabs>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onBeforeMount } from "vue"
+import { computed, ref, onBeforeMount, watch } from "vue"
 import { useBuilderStore } from "../../stores/builder"
 import { useLocalStorage } from "../../composables/useLocalStorage"
 
@@ -39,7 +42,7 @@ const props = defineProps({
     required: true,
   },
 })
-const { getModuleBlueprintForType, config } = useBuilderStore()
+const { getModuleBlueprintForType, getBuilderConfig } = useBuilderStore()
 const value = ref(props.component.values)
 
 const ModuleType = computed((): any => {
@@ -47,7 +50,9 @@ const ModuleType = computed((): any => {
 })
 
 const meta = ref(null)
-const { getPageCache, updatePageCache } = useLocalStorage(config.post_id)
+const { getPageCache, updatePageCache } = useLocalStorage(
+  getBuilderConfig.post_id
+)
 
 onBeforeMount(() => {
   const pageCache = getPageCache()
@@ -61,5 +66,6 @@ const updateMeta = (meta: any) => {
 const component = ref(props.component)
 const inline = ref(component.value?.inline || {})
 const attributes = ref(component.value?.attributes || {})
+const config = ref(component.value?.config || {})
 </script>
 <style lang=""></style>
