@@ -2,12 +2,15 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Traits\Augment;
 use Illuminate\Support\Collection;
 
 use function collect;
 
 abstract class Field
 {
+    use Augment;
+
     protected mixed $value;
     protected mixed $raw;
 
@@ -15,11 +18,7 @@ abstract class Field
     {
         $this->value = $value;
         $this->raw = $value;
-
-        $this->augment();
     }
-
-    abstract protected function augment(): void;
 
     public static function getBlueprint(): Collection
     {
@@ -35,6 +34,8 @@ abstract class Field
 
     public function value(): mixed
     {
+        $this->augmentOnce();
+
         return $this->value;
     }
 

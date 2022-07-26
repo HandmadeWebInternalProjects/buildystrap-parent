@@ -16,7 +16,8 @@ class TextField extends Field
         ];
     }
 
-    protected function augment(): void
+    public function augment(): void
     {
+        $this->value = 'Bloop';
     }
 }

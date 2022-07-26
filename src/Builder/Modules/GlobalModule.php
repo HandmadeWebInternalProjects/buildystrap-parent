@@ -6,8 +6,6 @@ use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Cache\GlobalModuleCache;
 use stdClass;
 
-use function call_user_func;
-
 class GlobalModule extends Module
 {
     protected int $global_id;
@@ -19,11 +17,9 @@ class GlobalModule extends Module
         $this->type = $module->type;
 
         $this->global_id = (int) $module->global_id;
-
-        $this->augment();
     }
 
-    protected function augment(): void
+    public function augment(): void
     {
     }
 
@@ -36,6 +32,8 @@ class GlobalModule extends Module
 
     public function render(): string
     {
+        $this->augmentOnce();
+
         return GlobalModuleCache::render($this->global_id);
     }
 }

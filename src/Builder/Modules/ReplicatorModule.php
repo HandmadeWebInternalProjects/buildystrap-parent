@@ -62,7 +62,7 @@ class ReplicatorModule extends Module
         ];
     }
 
-    protected function augment(): void
+    public function augment(): void
     {
     }
 }

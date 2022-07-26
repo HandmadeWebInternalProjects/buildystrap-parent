@@ -4,6 +4,7 @@ namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Builder;
 use Buildystrap\Traits\Attributes;
+use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
 use Illuminate\Support\Collection;
 use stdClass;
@@ -16,6 +17,7 @@ abstract class Module
 {
     use Attributes;
     use Config;
+    use Augment;
 
     protected string $uuid;
     protected string $type;
@@ -41,9 +43,6 @@ abstract class Module
                 }
             }
         })->filter();
-
-
-        $this->augment();
     }
 
     public static function getBlueprint(): Collection
@@ -61,8 +60,6 @@ abstract class Module
     }
 
     abstract protected static function blueprint(): array;
-
-    abstract protected function augment(): void;
 
     public function uuid(): string
     {
@@ -94,17 +91,10 @@ abstract class Module
         return $this->render();
     }
 
-    // public function __call($name, $arguments): mixed
-    // {
-    //     if (property_exists($this, $name)) {
-    //         return $this->$name;
-    //     }
-
-    //     return null;
-    // }
-
     public function render(): string
     {
+        $this->augmentOnce();
+
         $views = [
             "builder-modules::$this->type",
             'builder::moduleNotFound',
