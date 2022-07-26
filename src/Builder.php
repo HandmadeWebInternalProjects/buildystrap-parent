@@ -45,7 +45,7 @@ class Builder
 
     protected static array $fields = [
         'text-field' => TextField::class,
-        'richtext-field' => RichTextField::class
+        'richtext-field' => RichTextField::class,
     ];
 
     protected static array $modules = [

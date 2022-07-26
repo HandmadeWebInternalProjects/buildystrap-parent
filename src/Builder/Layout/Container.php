@@ -2,10 +2,14 @@
 
 namespace Buildystrap\Builder\Layout;
 
+use Buildystrap\Traits\Augment;
+
 use function view;
 
 class Container
 {
+    use Augment;
+
     protected array $sections = [];
 
     public function __construct(array $sections)
@@ -31,6 +35,8 @@ class Container
 
     public function render(): string
     {
+        $this->augmentOnce();
+
         return view('builder::container')->with('container', $this)->render();
     }
 }

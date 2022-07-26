@@ -19,10 +19,6 @@ class GlobalModule extends Module
         $this->global_id = (int) $module->global_id;
     }
 
-    public function augment(): void
-    {
-    }
-
     protected static function blueprint(): array
     {
         return [

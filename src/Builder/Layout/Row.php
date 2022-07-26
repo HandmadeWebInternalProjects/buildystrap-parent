@@ -27,6 +27,8 @@ class Row extends Layout
 
     public function render(): string
     {
+        $this->augmentOnce();
+
         return view('builder::row')->with('row', $this)->render();
     }
 }

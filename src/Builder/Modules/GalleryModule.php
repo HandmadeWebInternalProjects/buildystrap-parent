@@ -21,8 +21,4 @@ class GalleryModule extends Module
             ],
         ];
     }
-
-    public function augment(): void
-    {
-    }
 }

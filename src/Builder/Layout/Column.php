@@ -42,6 +42,8 @@ class Column extends Layout
 
     public function render(): string
     {
+        $this->augmentOnce();
+
         return view('builder::column')->with('column', $this)->render();
     }
 }

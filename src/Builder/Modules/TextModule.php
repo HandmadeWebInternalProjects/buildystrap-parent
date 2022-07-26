@@ -17,8 +17,4 @@ class TextModule extends Module
             ],
         ];
     }
-
-    public function augment(): void
-    {
-    }
 }

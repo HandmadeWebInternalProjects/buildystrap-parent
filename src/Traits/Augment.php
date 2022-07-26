@@ -52,5 +52,7 @@ trait Augment
      * Augment $this.
      * @return void
      */
-    abstract public function augment(): void;
+    public function augment(): void
+    {
+    }
 }

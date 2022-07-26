@@ -20,8 +20,4 @@ class AccordionModule extends Module
             ],
         ];
     }
-
-    public function augment(): void
-    {
-    }
 }

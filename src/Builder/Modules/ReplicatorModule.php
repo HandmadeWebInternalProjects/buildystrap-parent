@@ -37,8 +37,8 @@ class ReplicatorModule extends Module
                                 'label' => 'Image',
                                 'multiple' => false,
                                 'if' => [
-                                  'show' => 'equals image'
-                                ]
+                                    'show' => 'equals image',
+                                ],
                             ],
                         ],
                         'cta' => [
@@ -46,23 +46,19 @@ class ReplicatorModule extends Module
                             'config' => [
                                 'label' => 'Call to action',
                                 'if' => [
-                                  'show' => 'equals cta'
-                                ]
+                                    'show' => 'equals cta',
+                                ],
                             ],
                         ],
                     ],
                     'config' => [
-                      'preview' => 'title',
-                    ]
+                        'preview' => 'title',
+                    ],
                 ],
             ],
             'config' => [
-              'handle' => 'test'
-            ]
+                'handle' => 'test',
+            ],
         ];
-    }
-
-    public function augment(): void
-    {
     }
 }

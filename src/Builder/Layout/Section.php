@@ -27,6 +27,8 @@ class Section extends Layout
 
     public function render(): string
     {
+        $this->augmentOnce();
+
         return view('builder::section')->with('section', $this)->render();
     }
 }

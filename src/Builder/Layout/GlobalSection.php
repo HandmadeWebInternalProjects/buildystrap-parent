@@ -30,7 +30,6 @@ class GlobalSection
         }
 
         $this->global_id = $global_section->id;
-
 //        $this->container = GlobalSectionCache::get($global_section->id);
     }
 
@@ -56,6 +55,8 @@ class GlobalSection
 
     public function render(): string
     {
+        $this->augmentOnce();
+
         return GlobalSectionCache::render($this->global_id);
     }
 

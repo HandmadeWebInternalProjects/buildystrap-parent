@@ -20,8 +20,4 @@ class TabModule extends Module
             ],
         ];
     }
-
-    public function augment(): void
-    {
-    }
 }

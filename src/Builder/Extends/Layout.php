@@ -3,12 +3,14 @@
 namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Traits\Attributes;
+use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
 
 abstract class Layout
 {
     use Attributes;
     use Config;
+    use Augment;
 
     protected string $uuid;
     protected string $type;

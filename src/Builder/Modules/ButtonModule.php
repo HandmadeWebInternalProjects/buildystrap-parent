@@ -17,8 +17,4 @@ class ButtonModule extends Module
             ],
         ];
     }
-
-    public function augment(): void
-    {
-    }
 }

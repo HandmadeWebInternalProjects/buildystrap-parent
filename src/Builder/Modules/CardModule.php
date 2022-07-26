@@ -23,12 +23,12 @@ class CardModule extends Module
                 'link' => [
                     'type' => 'relational-field',
                     'config' => [
-                      'post_type' => 'posts',
-                      'multiple' => true,
-                      'if' => [
-                        'title' => 'not empty'
-                      ]
-                    ]
+                        'post_type' => 'posts',
+                        'multiple' => true,
+                        'if' => [
+                            'title' => 'not empty',
+                        ],
+                    ],
                 ],
                 'accordion' => [
                     'type' => 'accordion-field',
@@ -58,9 +58,5 @@ class CardModule extends Module
                 ],
             ],
         ];
-    }
-
-    public function augment(): void
-    {
     }
 }

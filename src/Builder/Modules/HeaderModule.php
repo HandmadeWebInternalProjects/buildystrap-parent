@@ -16,21 +16,17 @@ class HeaderModule extends Module
                     'config' => [
                         'label' => 'Heading',
                         'tinymce' => [
-                          'toolbar1' => 'bold,italic,underline',
-                          'toolbar2' => false,
-                          'height' => '20',
-                          'autoresize_min_height' => '20',
-                          'resize' => false,
-                          'menubar' => false,
-                          'statusbar' => false
+                            'toolbar1' => 'bold,italic,underline',
+                            'toolbar2' => false,
+                            'height' => '20',
+                            'autoresize_min_height' => '20',
+                            'resize' => false,
+                            'menubar' => false,
+                            'statusbar' => false,
                         ],
                     ],
                 ],
             ],
         ];
-    }
-
-    public function augment(): void
-    {
     }
 }
