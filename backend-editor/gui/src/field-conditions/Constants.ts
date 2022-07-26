@@ -23,7 +23,7 @@ export const OPERATORS = [
   "custom",
 ]
 
-export const ALIASES = {
+export const ALIASES: { [key: string]: any } = {
   is: "equals",
   "==": "equals",
   isnt: "not",

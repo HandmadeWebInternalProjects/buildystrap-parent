@@ -31,14 +31,16 @@ const slots = useSlots()
 
 const tabs = computed(() => {
   if (slots?.default) {
-    return slots.default().reduce((acc, slot) => {
-      if (slot?.type.__name !== "BsTab") {
-        acc.push(...slot.children)
-      } else {
-        acc.push(slot)
-      }
-      return acc
-    }, [])
+    return slots
+      .default()
+      .reduce((acc: { [key: string]: any }[], slot: { [key: string]: any }) => {
+        if (slot?.type.__name !== "BsTab") {
+          acc.push(...(slot?.children || []))
+        } else {
+          acc.push(slot)
+        }
+        return acc
+      }, [])
   }
   return []
 })

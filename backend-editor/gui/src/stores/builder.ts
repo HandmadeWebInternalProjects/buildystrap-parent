@@ -29,7 +29,8 @@ export const useBuilderStore = defineStore({
     getModuleBlueprintForType: (state) => (type: string) => {
       return state.config.moduleBlueprints[type]
     },
-    getModuleBlueprints: (state) => state.config.moduleBlueprints,
+    getModuleBlueprints: (state): { [key: string]: any } =>
+      state.config.moduleBlueprints,
     getGlobalSections: (state) => state.globals.sections,
     getGlobalModules: (state): { [key: string]: any } => state.globals.modules,
     getBuilderConfig: (state) => state.config,

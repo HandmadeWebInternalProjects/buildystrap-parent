@@ -44,8 +44,9 @@ const stripTrailingSlash = (str: string) => {
   return str.endsWith("/") ? str.slice(0, -1) : str
 }
 
-const slugToStr = (str: string) => {
+const slugToStr = (str: string | number) => {
   let i: number
+  str = str.toString()
   const frags = str.split("-")
   for (i = 0; i < frags.length; i++) {
     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)
