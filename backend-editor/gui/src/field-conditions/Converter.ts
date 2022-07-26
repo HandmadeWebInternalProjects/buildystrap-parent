@@ -1,14 +1,14 @@
 import { OPERATORS, ALIASES } from "./Constants.js"
 
 export default class {
-  fromBlueprint(conditions, prefix = null) {
+  fromBlueprint(conditions: { [key: string]: any }, prefix = "") {
     return Object.entries(conditions).map(([field, condition]) =>
       this.splitRhs(field, condition, prefix)
     )
   }
 
-  toBlueprint(conditions) {
-    let converted = {}
+  toBlueprint(conditions: { [key: string]: any }[]) {
+    const converted: { [key: string]: any } = {}
 
     conditions.forEach((condition) => {
       converted[condition.field] = this.combineRhs(condition)
@@ -17,7 +17,7 @@ export default class {
     return converted
   }
 
-  splitRhs(field, condition, prefix = null) {
+  splitRhs(field: string, condition: { [key: string]: any }, prefix = "") {
     return {
       field: this.getScopedFieldHandle(field, prefix),
       operator: this.getOperatorFromRhs(condition),
@@ -25,7 +25,7 @@ export default class {
     }
   }
 
-  getScopedFieldHandle(field, prefix) {
+  getScopedFieldHandle(field: string, prefix: string) {
     if (field.startsWith("root.") || !prefix) {
       return field
     }
@@ -33,7 +33,7 @@ export default class {
     return prefix + field
   }
 
-  getOperatorFromRhs(condition) {
+  getOperatorFromRhs(condition: { [key: string]: any }) {
     let operator = "=="
 
     this.getOperatorsAndAliases()
@@ -47,11 +47,11 @@ export default class {
     return this.normalizeOperator(operator)
   }
 
-  normalizeOperator(operator) {
+  normalizeOperator(operator: string) {
     return ALIASES[operator] ? ALIASES[operator] : operator
   }
 
-  getValueFromRhs(condition) {
+  getValueFromRhs(condition: { [key: string]: any }) {
     let rhs = condition.toString()
 
     this.getOperatorsAndAliases()
@@ -61,9 +61,9 @@ export default class {
     return rhs
   }
 
-  combineRhs(condition) {
-    let operator = condition.operator ? condition.operator.trim() : ""
-    let value = condition.value.trim()
+  combineRhs(condition: { [key: string]: any }) {
+    const operator = condition.operator ? condition.operator.trim() : ""
+    const value = condition.value.trim()
 
     return `${operator} ${value}`.trim()
   }
