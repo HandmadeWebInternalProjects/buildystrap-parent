@@ -147,7 +147,7 @@ class BuilderBackend
         $default_options = [];
         if (Builder::isEnabled() && class_exists('ACF')) {
             $json_data = json_decode(
-                file_get_contents(get_template_directory() . '/public/builder-gui/default-options.json'),
+                file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json'),
                 true
             );
             $default_options = $json_data;
