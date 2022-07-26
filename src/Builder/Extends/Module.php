@@ -76,14 +76,23 @@ abstract class Module
 
     abstract protected static function blueprint(): array;
 
-    public function uuid(): string
+    public function classes(string $classes = ''): string
     {
-        return $this->uuid;
+        return collect([
+            'buildystrap-' . $this->type(),
+            $this->getAttribute('class', ''),
+            $classes,
+        ])->filter()->implode(' ');
     }
 
     public function type(): string
     {
         return $this->type;
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid;
     }
 
     public function enabled(): bool

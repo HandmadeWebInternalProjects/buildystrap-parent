@@ -9,7 +9,6 @@ use Buildystrap\Traits\Config;
 use Buildystrap\Traits\InlineAttributes;
 use stdClass;
 
-
 abstract class Layout
 {
     use Attributes;
@@ -38,14 +37,23 @@ abstract class Layout
         }
     }
 
-    public function enabled(): bool
+    public function classes(string $classes = ''): string
     {
-        return $this->getFromConfig('enabled', false);
+        return collect([
+            'buildystrap-' . $this->type(),
+            $this->getAttribute('class', ''),
+            $classes,
+        ])->filter()->implode(' ');
     }
 
     public function type(): string
     {
         return $this->type;
+    }
+
+    public function enabled(): bool
+    {
+        return $this->getFromConfig('enabled', false);
     }
 
     public function uuid(): string
