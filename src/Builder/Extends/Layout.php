@@ -2,15 +2,20 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Arr;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
+use Buildystrap\Traits\InlineAttributes;
+use stdClass;
+
 
 abstract class Layout
 {
     use Attributes;
-    use Config;
     use Augment;
+    use Config;
+    use InlineAttributes;
 
     protected string $uuid;
     protected string $type;
@@ -20,9 +25,16 @@ abstract class Layout
         $this->uuid = $instance->uuid;
         $this->type = $instance->type;
 
-        $this->config = [];
-        if (isset($instance->config) && is_iterable($instance->config)) {
-            $this->config = (array) $instance->config;
+        if (isset($instance->config) && $instance->config instanceof stdClass) {
+            $this->config = Arr::from_stdclass($instance->config);
+        }
+
+        if (isset($instance->attributes) && $instance->attributes instanceof stdClass) {
+            $this->attributes = Arr::from_stdclass($instance->attributes);
+        }
+
+        if (isset($instance->inline) && $instance->inline instanceof stdClass) {
+            $this->inline_attributes = Arr::from_stdclass($instance->inline);
         }
     }
 

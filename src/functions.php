@@ -13,3 +13,6 @@ add_action('init', [Builder::class, 'boot']);
 add_action('init', [BuilderApi::class, 'boot']);
 add_action('acf/init', [BuilderBackend::class, 'boot']);
 add_action('init', [Theme::class, 'boot']);
+
+add_filter('buildystrap::builder::container', function ($container) {
+});

@@ -18,9 +18,7 @@ use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
 use Buildystrap\Builder\Renderer;
 use Exception;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 use function add_filter;
 use function array_merge;

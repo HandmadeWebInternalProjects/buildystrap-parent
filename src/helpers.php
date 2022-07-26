@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Str;
+use Buildystrap\Str;
 
 if ( ! function_exists('extendable_layout')) {
     function extendable_layout($post = null, string $default = 'default'): string

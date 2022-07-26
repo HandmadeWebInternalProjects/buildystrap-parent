@@ -2,7 +2,6 @@
 
 namespace Buildystrap;
 
-use Illuminate\Support\Str;
 use WP_Upgrader;
 
 use function add_action;

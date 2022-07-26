@@ -2,7 +2,7 @@
 
 namespace Buildystrap\Traits;
 
-use Illuminate\Support\Arr;
+use Buildystrap\Arr;
 
 use function is_array;
 

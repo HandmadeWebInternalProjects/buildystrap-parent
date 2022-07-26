@@ -2,10 +2,12 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Arr;
 use Buildystrap\Builder;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
+use Buildystrap\Traits\InlineAttributes;
 use Illuminate\Support\Collection;
 use stdClass;
 
@@ -18,6 +20,7 @@ abstract class Module
     use Attributes;
     use Config;
     use Augment;
+    use InlineAttributes;
 
     protected string $uuid;
     protected string $type;
@@ -43,6 +46,18 @@ abstract class Module
                 }
             }
         })->filter();
+
+        if (isset($module->config) && $module->config instanceof stdClass) {
+            $this->config = Arr::from_stdclass($module->config);
+        }
+
+        if (isset($module->attributes) && $module->attributes instanceof stdClass) {
+            $this->attributes = Arr::from_stdclass($module->attributes);
+        }
+
+        if (isset($module->inline) && $module->inline instanceof stdClass) {
+            $this->inline_attributes = Arr::from_stdclass($module->inline);
+        }
     }
 
     public static function getBlueprint(): Collection

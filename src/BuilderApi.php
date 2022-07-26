@@ -2,7 +2,6 @@
 
 namespace Buildystrap;
 
-use Illuminate\Support\Arr;
 use WP_Error;
 use WP_REST_Response;
 
