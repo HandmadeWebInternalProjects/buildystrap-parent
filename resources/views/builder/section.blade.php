@@ -1,7 +1,7 @@
 @php
     $attrs = collect([
         'id' => $section->getAttribute('id'),
-        'class' => $section->classes($section->getConfig('full_width') ? 'full' : 'not-full')
+        'class' => $section->classes($section->getConfig('boxed_layout') ? 'full' : 'not-full')
     ])->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');
