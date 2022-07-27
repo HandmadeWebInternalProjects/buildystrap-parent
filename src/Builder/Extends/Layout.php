@@ -77,10 +77,13 @@ abstract class Layout
                     'top' => 'mt',
                     'bottom' => 'mb',
                     'left' => 'ms',
-                    'right' => 'me'
+                    'right' => 'me',
+                    default => ''
                 };
 
-                $generatedClasses[] = Str::format('%s-%s-%s', $pos, $breakpoint, $value);
+                if ( ! empty($pos)) {
+                    $generatedClasses[] = Str::format('%s-%s-%s', $pos, $breakpoint, $value);
+                }
             }
         }
 
@@ -90,10 +93,13 @@ abstract class Layout
                     'top' => 'pt',
                     'bottom' => 'pb',
                     'left' => 'ps',
-                    'right' => 'pe'
+                    'right' => 'pe',
+                    default => ''
                 };
 
-                $generatedClasses[] = Str::format('%s-%s-%s', $pos, $breakpoint, $value);
+                if ( ! empty($pos)) {
+                    $generatedClasses[] = Str::format('%s-%s-%s', $pos, $breakpoint, $value);
+                }
             }
         }
 
