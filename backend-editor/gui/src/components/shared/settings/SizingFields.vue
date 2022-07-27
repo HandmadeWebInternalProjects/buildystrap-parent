@@ -53,6 +53,8 @@ const values: any = reactive({
   maxHeight: props.modelValue?.maxHeight || {},
 })
 
+console.log({ value: props.modelValue })
+
 const valuesMap: any = {
   minWidth: {
     option: "width",
@@ -86,6 +88,8 @@ let options: { [key: string]: string[] } = {
 }
 
 watch(values, (val: { [key: string]: string }) => {
+  console.log({ val })
+
   update(filterOutEmptyValues(val))
 })
 </script>

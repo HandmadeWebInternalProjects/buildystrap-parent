@@ -61,6 +61,7 @@ const inline = computed({
     return props.modelValue || {}
   },
   set(val: any) {
+    console.log({ val })
     update(val)
   },
 })
@@ -79,7 +80,7 @@ const sizing = computed({
     return inline.value || {}
   },
   set(val: any) {
-    inline.value = { ...inline.value, ...val }
+    inline.value = Object.assign(inline.value, val)
   },
 })
 
