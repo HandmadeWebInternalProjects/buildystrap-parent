@@ -71,12 +71,30 @@ abstract class Layout
             $generatedClasses[] = Str::format('order-%s-%s', $breakpoint, $value);
         }
 
-        foreach ($this->getInlineAttribute('margin', []) as $breakpoint => $value) {
-            $generatedClasses[] = Str::format('margin-%s-%s', $breakpoint, $value);
+        foreach ($this->getInlineAttribute('margin', []) as $position => $items) {
+            foreach ($items as $breakpoint => $value) {
+                $pos = match ($position) {
+                    'top' => 'mt',
+                    'bottom' => 'mb',
+                    'left' => 'ms',
+                    'right' => 'me'
+                };
+
+                $generatedClasses[] = Str::format('%s-%s-%s', $pos, $breakpoint, $value);
+            }
         }
 
-        foreach ($this->getInlineAttribute('padding', []) as $breakpoint => $value) {
-            $generatedClasses[] = Str::format('padding-%s-%s', $breakpoint, $value);
+        foreach ($this->getInlineAttribute('padding', []) as $position => $items) {
+            foreach ($items as $breakpoint => $value) {
+                $pos = match ($position) {
+                    'top' => 'pt',
+                    'bottom' => 'pb',
+                    'left' => 'ps',
+                    'right' => 'pe'
+                };
+
+                $generatedClasses[] = Str::format('%s-%s-%s', $pos, $breakpoint, $value);
+            }
         }
 
         $classes = collect([
