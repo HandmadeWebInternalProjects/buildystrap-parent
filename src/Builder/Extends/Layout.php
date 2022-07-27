@@ -46,7 +46,6 @@ abstract class Layout
         $generatedClasses = [];
 
         foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {
-            $generatedClasses[] = Str::format('position-%s-%s', $breakpoint, $value);
             $generatedClasses[] = match ($breakpoint) {
                 'xs' => "position-{$value}",
                 default => "position-{$breakpoint}-{$value}"
