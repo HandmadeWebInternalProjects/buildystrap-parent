@@ -55,10 +55,20 @@ abstract class Layout
 
         foreach ($this->getInlineAttribute('display.attributes', []) as $position => $items) {
             foreach ($items as $breakpoint => $value) {
-                $generatedClasses[] = match ($breakpoint) {
-                    'xs' => "{$position}-{$value}",
-                    default => "{$position}-{$breakpoint}-{$value}"
+                $pos = match ($position) {
+                    'top' => 'top',
+                    'bottom' => 'bottom',
+                    'left' => 'start',
+                    'right' => 'end',
+                    default => ''
                 };
+
+                if ( ! empty($pos)) {
+                    $generatedClasses[] = match ($breakpoint) {
+                        'xs' => "{$pos}-{$value}",
+                        default => "{$pos}-{$breakpoint}-{$value}"
+                    };
+                }
             }
         }
 
