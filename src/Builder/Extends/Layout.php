@@ -3,11 +3,15 @@
 namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Arr;
+use Buildystrap\Str;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\InlineAttributes;
 use stdClass;
+
+use function collect;
+use function implode;
 
 abstract class Layout
 {
@@ -39,11 +43,50 @@ abstract class Layout
 
     public function classes(string $classes = ''): string
     {
-        return collect([
+        $generatedClasses = [];
+
+        foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('position-%s-%s', $breakpoint, $value);
+        }
+
+        foreach ($this->getInlineAttribute('display.attributes', []) as $position => $items) {
+            foreach ($items as $breakpoint => $value) {
+                $generatedClasses[] = Str::format('%s-%s-%s', $position, $breakpoint, $value);
+            }
+        }
+
+        foreach ($this->getInlineAttribute('display.property', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('property-%s-%s', $breakpoint, $value);
+        }
+
+        foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('colgap-%s-%s', $breakpoint, $value);
+        }
+
+        foreach ($this->getInlineAttribute('display.row-gap', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('rowgap-%s-%s', $breakpoint, $value);
+        }
+
+        foreach ($this->getInlineAttribute('display.order', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('order-%s-%s', $breakpoint, $value);
+        }
+
+        foreach ($this->getInlineAttribute('margin', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('margin-%s-%s', $breakpoint, $value);
+        }
+
+        foreach ($this->getInlineAttribute('padding', []) as $breakpoint => $value) {
+            $generatedClasses[] = Str::format('padding-%s-%s', $breakpoint, $value);
+        }
+
+        $classes = collect([
             'buildystrap-' . $this->type(),
+            implode(' ', $generatedClasses),
             $this->getAttribute('class', ''),
             $classes,
         ])->filter()->implode(' ');
+
+        return Str::lower($classes);
     }
 
     public function type(): string
