@@ -58,6 +58,8 @@ abstract class Module
         if (isset($module->inline) && $module->inline instanceof stdClass) {
             $this->inline_attributes = Arr::from_stdclass($module->inline);
         }
+
+        // dd($module);
     }
 
     public static function getBlueprint(): Collection

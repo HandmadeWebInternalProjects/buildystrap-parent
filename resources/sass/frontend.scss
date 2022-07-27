@@ -1,7 +1,34 @@
 @use "sass:math";
 
 @import "theme/theme_variables"; // <-------- Add your variables into this file. Also add variables to overwrite Bootstrap or Understrap variables here
-@import "bootstrap/scss/bootstrap"; // <-------- Loads Bootstrap
+// @import "bootstrap/scss/bootstrap"; // <-------- Loads Bootstrap
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Layout & components
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/alert";
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "position":
+      map-merge(
+        map-get($utilities, "position"),
+        (
+          responsive: true,
+        )
+      ),
+  )
+);
+
+@import "bootstrap/scss/utilities/api";
+
 @import "theme/understrap"; // <-------- Loads the Understrap defaults. Just a few classes to incorporate BS in WP
-@import "theme/colors"; // <-------- This creates the necessary bootstrap color classes.
-@import "theme/blocks"; // <-------- This adds Bootstrap styles to blocks.
+// @import "theme/colors"; // <-------- This creates the necessary bootstrap color classes.
+// @import "theme/blocks"; // <-------- This adds Bootstrap styles to blocks.

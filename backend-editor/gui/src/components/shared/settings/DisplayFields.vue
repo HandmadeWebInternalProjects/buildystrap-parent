@@ -56,11 +56,11 @@ watch(display, (val: any) => {
       :config="{
         label: 'Position',
         options: [
-          { value: 'position-relative', label: 'Relative' },
-          { value: 'position-absolute', label: 'Absolute' },
-          { value: 'position-fixed', label: 'Fixed' },
-          { value: 'position-sticky', label: 'Sticky' },
-          { value: 'position-static', label: 'Static' },
+          { value: 'relative', label: 'Relative' },
+          { value: 'absolute', label: 'Absolute' },
+          { value: 'fixed', label: 'Fixed' },
+          { value: 'sticky', label: 'Sticky' },
+          { value: 'static', label: 'Static' },
         ],
         popover: 'Attributes have no effect on non-positioned elements.',
       }"

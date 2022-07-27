@@ -59,7 +59,7 @@ const values = reactive({
 })
 
 watch(values, (val: any) => {
-  console.log({ val })
+  console.log({ val, bp: bp.value })
 
   update(filterOutEmptyValues(val))
 })

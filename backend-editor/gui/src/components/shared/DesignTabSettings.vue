@@ -14,8 +14,14 @@
 
     <bs-card label="Spacing" breakpoint-handle="margin-padding">
       <template v-slot:body>
-        <box-model-fields :config="{ label: 'Margin' }" v-model="margin" />
-        <box-model-fields :config="{ label: 'Padding' }" v-model="padding" />
+        <box-model-fields
+          breakpoint-handle="margin-padding"
+          :config="{ label: 'Margin' }"
+          v-model="margin" />
+        <box-model-fields
+          breakpoint-handle="margin-padding"
+          :config="{ label: 'Padding' }"
+          v-model="padding" />
       </template>
     </bs-card>
 
