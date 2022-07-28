@@ -9,13 +9,13 @@
 defined('ABSPATH') || exit;
 
 // Set the content width based on the theme's design and stylesheet.
-if (! isset($content_width)) {
+if ( ! isset($content_width)) {
     $content_width = 640; /* pixels */
 }
 
 add_action('after_setup_theme', 'understrap_setup');
 
-if (! function_exists('understrap_setup')) {
+if ( ! function_exists('understrap_setup')) {
     /**
      * Sets up theme defaults and registers support for various WordPress features.
      *
@@ -46,9 +46,9 @@ if (! function_exists('understrap_setup')) {
 
         // This theme uses wp_nav_menu() in one location.
         register_nav_menus(
-            array(
+            [
                 'primary' => __('Primary Menu', 'buildystrap'),
-            )
+            ]
         );
 
         /*
@@ -57,7 +57,7 @@ if (! function_exists('understrap_setup')) {
          */
         add_theme_support(
             'html5',
-            array(
+            [
                 'search-form',
                 'comment-form',
                 'comment-list',
@@ -65,7 +65,7 @@ if (! function_exists('understrap_setup')) {
                 'caption',
                 'script',
                 'style',
-            )
+            ]
         );
 
         /*
@@ -84,13 +84,13 @@ if (! function_exists('understrap_setup')) {
          */
         add_theme_support(
             'post-formats',
-            array(
+            [
                 'aside',
                 'image',
                 'video',
                 'quote',
                 'link',
-            )
+            ]
         );
 
         // Set up the WordPress core custom background feature.
@@ -98,10 +98,10 @@ if (! function_exists('understrap_setup')) {
             'custom-background',
             apply_filters(
                 'understrap_custom_background_args',
-                array(
+                [
                     'default-color' => 'ffffff',
                     'default-image' => '',
-                )
+                ]
             )
         );
 

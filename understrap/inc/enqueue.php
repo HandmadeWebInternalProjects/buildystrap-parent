@@ -8,7 +8,7 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-if (! function_exists('understrap_scripts')) {
+if ( ! function_exists('understrap_scripts')) {
     /**
      * Load theme's JavaScript and CSS sources.
      */

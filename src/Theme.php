@@ -76,11 +76,18 @@ class Theme
         $stylesheet = is_plugin_active(
             'woocommerce/woocommerce.php'
         ) ? 'parent-style-woocommerce.css' : 'parent-style.css';
+
+//        wp_enqueue_style(
+//            'parent-style',
+//            get_template_directory_uri() . "/public/{$stylesheet}",
+//            [],
+//            wp_get_theme('buildystrap-parent')->get('Version')
+//        );
+
         wp_enqueue_style(
             'parent-style',
-            get_template_directory_uri() . "/public/{$stylesheet}",
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css',
             [],
-            wp_get_theme('buildystrap-parent')->get('Version')
         );
 
         // Font Awesome

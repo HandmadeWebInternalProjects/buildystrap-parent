@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
 $understrap_inc_dir = '/understrap/inc';
 
 // Array of files to include.
-$understrap_includes = array(
+$understrap_includes = [
     '/theme-settings.php',                  // Initialize theme default settings.
     '/setup.php',                           // Theme setup and custom theme supports.
     '/widgets.php',                         // Register widget area.
@@ -27,7 +27,7 @@ $understrap_includes = array(
     '/editor.php',                          // Load Editor functions.
     '/block-editor.php',                    // Load Block Editor functions.
     '/deprecated.php',                      // Load deprecated functions.
-);
+];
 
 // Load WooCommerce functions if WooCommerce is activated.
 if (class_exists('WooCommerce')) {

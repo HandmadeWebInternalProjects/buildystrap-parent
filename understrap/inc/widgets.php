@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
  */
 add_filter('dynamic_sidebar_params', 'understrap_widget_classes');
 
-if (! function_exists('understrap_widget_classes')) {
+if ( ! function_exists('understrap_widget_classes')) {
 
     /**
      * Count number of visible widgets in a sidebar and add classes to widgets accordingly,
@@ -92,14 +92,14 @@ if (! function_exists('understrap_widget_classes')) {
 
 add_action('widgets_init', 'understrap_widgets_init');
 
-if (! function_exists('understrap_widgets_init')) {
+if ( ! function_exists('understrap_widgets_init')) {
     /**
      * Initializes themes widgets.
      */
     function understrap_widgets_init()
     {
         register_sidebar(
-            array(
+            [
                 'name'          => __('Right Sidebar', 'buildystrap'),
                 'id'            => 'right-sidebar',
                 'description'   => __('Right sidebar widget area', 'buildystrap'),
@@ -107,11 +107,11 @@ if (! function_exists('understrap_widgets_init')) {
                 'after_widget'  => '</aside>',
                 'before_title'  => '<h3 class="widget-title">',
                 'after_title'   => '</h3>',
-            )
+            ]
         );
 
         register_sidebar(
-            array(
+            [
                 'name'          => __('Left Sidebar', 'buildystrap'),
                 'id'            => 'left-sidebar',
                 'description'   => __('Left sidebar widget area', 'buildystrap'),
@@ -119,11 +119,11 @@ if (! function_exists('understrap_widgets_init')) {
                 'after_widget'  => '</aside>',
                 'before_title'  => '<h3 class="widget-title">',
                 'after_title'   => '</h3>',
-            )
+            ]
         );
 
         register_sidebar(
-            array(
+            [
                 'name'          => __('Hero Slider', 'buildystrap'),
                 'id'            => 'hero',
                 'description'   => __('Hero slider area. Place two or more widgets here and they will slide!', 'buildystrap'),
@@ -131,11 +131,11 @@ if (! function_exists('understrap_widgets_init')) {
                 'after_widget'  => '</div>',
                 'before_title'  => '',
                 'after_title'   => '',
-            )
+            ]
         );
 
         register_sidebar(
-            array(
+            [
                 'name'          => __('Hero Canvas', 'buildystrap'),
                 'id'            => 'herocanvas',
                 'description'   => __('Full size canvas hero area for Bootstrap and other custom HTML markup', 'buildystrap'),
@@ -143,11 +143,11 @@ if (! function_exists('understrap_widgets_init')) {
                 'after_widget'  => '',
                 'before_title'  => '',
                 'after_title'   => '',
-            )
+            ]
         );
 
         register_sidebar(
-            array(
+            [
                 'name'          => __('Top Full', 'buildystrap'),
                 'id'            => 'statichero',
                 'description'   => __('Full top widget with dynamic grid', 'buildystrap'),
@@ -155,11 +155,11 @@ if (! function_exists('understrap_widgets_init')) {
                 'after_widget'  => '</div><!-- .static-hero-widget -->',
                 'before_title'  => '<h3 class="widget-title">',
                 'after_title'   => '</h3>',
-            )
+            ]
         );
 
         register_sidebar(
-            array(
+            [
                 'name'          => __('Footer Full', 'buildystrap'),
                 'id'            => 'footerfull',
                 'description'   => __('Full sized footer widget with dynamic grid', 'buildystrap'),
@@ -167,7 +167,7 @@ if (! function_exists('understrap_widgets_init')) {
                 'after_widget'  => '</div><!-- .footer-widget -->',
                 'before_title'  => '<h3 class="widget-title">',
                 'after_title'   => '</h3>',
-            )
+            ]
         );
     }
 } // End of function_exists( 'understrap_widgets_init' ).

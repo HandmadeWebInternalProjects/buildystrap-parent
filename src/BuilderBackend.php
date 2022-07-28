@@ -145,6 +145,7 @@ class BuilderBackend
     public static function get_default_options()
     {
         $default_options = [];
+
         if (Builder::isEnabled() && class_exists('ACF')) {
             $json_data = json_decode(
                 file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json'),
@@ -152,6 +153,7 @@ class BuilderBackend
             );
             $default_options = $json_data;
         }
+
         return $default_options;
     }
 
@@ -165,6 +167,7 @@ class BuilderBackend
             $acf_options['structure'] = get_field('structure', 'option') ?? [];
             $acf_options['module_styles'] = get_field('module_styles', 'option') ?? [];
         }
+
         return $acf_options;
     }
 

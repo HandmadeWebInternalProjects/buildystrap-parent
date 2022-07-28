@@ -8,7 +8,7 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-if (! is_active_sidebar('left-sidebar')) {
+if ( ! is_active_sidebar('left-sidebar')) {
     return;
 }
 

@@ -7,15 +7,18 @@ use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Builder\Modules\GlobalModule;
 use stdClass;
 
+use function function_exists;
+use function get_field;
 use function view;
 
 class Column extends Layout
 {
     protected array $modules = [];
+    protected array $html_classes = [];
 
-    public function __construct(stdClass $column)
+    public function __construct(stdClass $column, ?Layout $parent = null)
     {
-        parent::__construct($column);
+        parent::__construct($column, $parent);
 
 
 
@@ -37,6 +40,11 @@ class Column extends Layout
         }
     }
 
+    public function augment(): void
+    {
+        $this->generateClasses();
+    }
+
     public function modules(): array
     {
         return $this->modules;
@@ -47,5 +55,38 @@ class Column extends Layout
         $this->augmentOnce();
 
         return view('builder::column')->with('column', $this)->render();
+    }
+
+    protected function generateClasses(): void
+    {
+        parent::generateClasses();
+
+        /** Flex/Grid Column Sizes */
+        foreach ($this->getConfig('columnSizes', []) as $breakpoint => $value) {
+            /** Figure out default Flex/Grid style */
+            $prefix = ''; // Default to Flex
+            if (function_exists('get_field') && $grid_defaults = get_field('structure_default_grid_system', 'option')) {
+                $prefix = match ($grid_defaults) {
+                    'grid' => 'g-', // Grid
+                    default => '', // Flex
+                };
+            }
+
+            if ($this->hasParent()) {
+                /** Use Flex/Grid style for this breakpoint from the parent row (if set) */
+                $prefix = match (true) {
+                    $this->parent()->getClasses()->contains("d-{$breakpoint}-flex") => '', // Flex
+                    $this->parent()->getClasses()->contains("d-{$breakpoint}-grid") => 'g-', // Grid
+                    $this->parent()->getClasses()->contains('d-flex') => '', // Flex
+                    $this->parent()->getClasses()->contains('d-grid') => 'g-', // Grid
+                    default => $prefix // Default style from before parent check
+                };
+            }
+
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "{$prefix}col-{$value}",
+                default => "{$prefix}col-{$breakpoint}-{$value}"
+            };
+        }
     }
 }

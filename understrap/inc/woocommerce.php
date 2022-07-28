@@ -9,7 +9,7 @@
 defined('ABSPATH') || exit;
 
 add_action('after_setup_theme', 'understrap_woocommerce_support');
-if (! function_exists('understrap_woocommerce_support')) {
+if ( ! function_exists('understrap_woocommerce_support')) {
     /**
      * Declares WooCommerce theme support.
      */
@@ -36,7 +36,7 @@ remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrap
 add_action('woocommerce_before_main_content', 'understrap_woocommerce_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'understrap_woocommerce_wrapper_end', 10);
 
-if (! function_exists('understrap_woocommerce_wrapper_start')) {
+if ( ! function_exists('understrap_woocommerce_wrapper_start')) {
     /**
      * Display the theme specific start of the page wrapper.
      */
@@ -51,7 +51,7 @@ if (! function_exists('understrap_woocommerce_wrapper_start')) {
     }
 }
 
-if (! function_exists('understrap_woocommerce_wrapper_end')) {
+if ( ! function_exists('understrap_woocommerce_wrapper_end')) {
     /**
      * Display the theme specific end of the page wrapper.
      */
@@ -65,7 +65,7 @@ if (! function_exists('understrap_woocommerce_wrapper_end')) {
     }
 }
 
-if (! function_exists('understrap_wc_form_field_args')) {
+if ( ! function_exists('understrap_wc_form_field_args')) {
     /**
      * Filter hook function monkey patching form classes
      * Author: Adriano Monecchi http://stackoverflow.com/a/36724593/307826
@@ -90,11 +90,11 @@ if (! function_exists('understrap_wc_form_field_args')) {
                 // Add a class to the form input itself.
                 $args['input_class'][] = 'form-control';
                 // Add custom data attributes to the form input itself.
-                $args['custom_attributes'] = array(
+                $args['custom_attributes'] = [
                     'data-plugin'      => 'select2',
                     'data-allow-clear' => 'true',
                     'aria-hidden'      => 'true',
-                );
+                ];
                 break;
 
             /*
@@ -111,11 +111,11 @@ if (! function_exists('understrap_wc_form_field_args')) {
              */
             case 'state':
                 $args['class'][]           = 'form-group mb-3';
-                $args['custom_attributes'] = array(
+                $args['custom_attributes'] = [
                     'data-plugin'      => 'select2',
                     'data-allow-clear' => 'true',
                     'aria-hidden'      => 'true',
-                );
+                ];
                 break;
             case 'textarea':
                 $args['input_class'][] = 'form-control';
@@ -141,7 +141,7 @@ if (! function_exists('understrap_wc_form_field_args')) {
     }
 }
 
-if (! is_admin() && ! function_exists('wc_review_ratings_enabled')) {
+if ( ! is_admin() && ! function_exists('wc_review_ratings_enabled')) {
     /**
      * Check if reviews are enabled.
      *
@@ -167,7 +167,7 @@ if (! is_admin() && ! function_exists('wc_review_ratings_enabled')) {
     }
 }
 
-if (! function_exists('understrap_quantity_input_classes')) {
+if ( ! function_exists('understrap_quantity_input_classes')) {
     /**
      * Add Bootstrap class to quantity input field.
      *
