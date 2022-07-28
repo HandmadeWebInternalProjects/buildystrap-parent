@@ -10,25 +10,25 @@ defined('ABSPATH') || exit;
 
 $my_orders_columns = apply_filters(
     'woocommerce_my_account_my_orders_columns',
-    array(
+    [
         'order-number'  => esc_html__('Order', 'woocommerce'),
         'order-date'    => esc_html__('Date', 'woocommerce'),
         'order-status'  => esc_html__('Status', 'woocommerce'),
         'order-total'   => esc_html__('Total', 'woocommerce'),
         'order-actions' => '&nbsp;',
-    )
+    ]
 );
 
 $customer_orders = get_posts(
     apply_filters(
         'woocommerce_my_account_my_orders_query',
-        array(
+        [
             'numberposts' => $order_count,
             'meta_key'    => '_customer_user', // phpcs:ignore WordPress.DB.SlowDBQuery
             'meta_value'  => get_current_user_id(), // phpcs:ignore WordPress.DB.SlowDBQuery
             'post_type'   => wc_get_order_types('view-orders'),
             'post_status' => array_keys(wc_get_order_statuses()),
-        )
+        ]
     )
 );
 
@@ -79,7 +79,7 @@ if ($customer_orders) : ?>
 								<?php
                                 $orders_actions = wc_get_account_orders_actions($order);
 
-                                if (! empty($orders_actions)) {
+                                if ( ! empty($orders_actions)) {
                                     foreach ($orders_actions as $key => $orders_action) {
                                         echo '<a href="' . esc_url($orders_action['url']) . '" class="btn btn-outline-primary ' . sanitize_html_class($key) . '">' . esc_html($orders_action['name']) . '</a>';
                                     }

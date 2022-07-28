@@ -33,7 +33,7 @@ $item_totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.Glo
 			<?php if (count($order->get_items()) > 0) : ?>
 				<?php foreach ($order->get_items() as $item_id => $item) : ?>
 					<?php
-                    if (! apply_filters('woocommerce_order_item_visible', true, $item)) {
+                    if ( ! apply_filters('woocommerce_order_item_visible', true, $item)) {
                         continue;
                     }
                     ?>
@@ -71,9 +71,9 @@ $item_totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.Glo
 		<?php if ($order->needs_payment()) : ?>
 			<ul class="wc_payment_methods payment_methods methods">
 				<?php
-                if (! empty($available_gateways)) {
+                if ( ! empty($available_gateways)) {
                     foreach ($available_gateways as $gateway) {
-                        wc_get_template('checkout/payment-method.php', array( 'gateway' => $gateway ));
+                        wc_get_template('checkout/payment-method.php', [ 'gateway' => $gateway ]);
                     }
                 } else {
                     echo '<li class="woocommerce-notice woocommerce-notice--info woocommerce-info">' . apply_filters('woocommerce_no_available_payment_methods_message', esc_html__('Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce')) . '</li>'; // @codingStandardsIgnoreLine

@@ -23,7 +23,7 @@ defined('ABSPATH') || exit;
  */
 
 /* Check if Class Exists. */
-if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
+if ( ! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
     /**
      * WP_Bootstrap_Navwalker class.
      *
@@ -42,7 +42,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
          * @param int      $depth  Depth of menu item. Used for padding.
          * @param stdClass $args   An object of wp_nav_menu() arguments.
          */
-        public function start_lvl(&$output, $depth = 0, $args = array())
+        public function start_lvl(&$output, $depth = 0, $args = [])
         {
             if (isset($args->item_spacing) && 'discard' === $args->item_spacing) {
                 $t = '';
@@ -53,7 +53,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
             }
             $indent = str_repeat($t, $depth);
             // Default class to add to the file.
-            $classes = array( 'dropdown-menu' );
+            $classes = [ 'dropdown-menu' ];
             /**
              * Filters the CSS class(es) applied to a menu list element.
              *
@@ -97,7 +97,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
          * @param stdClass $args   An object of wp_nav_menu() arguments.
          * @param int      $id     Current item ID.
          */
-        public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
+        public function start_el(&$output, $item, $depth = 0, $args = [], $id = 0)
         {
             if (isset($args->item_spacing) && 'discard' === $args->item_spacing) {
                 $t = '';
@@ -108,12 +108,12 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
             }
             $indent = ($depth) ? str_repeat($t, $depth) : '';
 
-            $classes = empty($item->classes) ? array() : (array) $item->classes;
+            $classes = empty($item->classes) ? [] : (array) $item->classes;
 
             // Initialize some holder variables to store specially handled item
             // wrappers and icons.
-            $linkmod_classes = array();
-            $icon_classes    = array();
+            $linkmod_classes = [];
+            $icon_classes    = [];
 
             /**
              * Get an updated $classes array without linkmod or icon classes.
@@ -173,7 +173,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
             $output .= $indent . '<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement"' . $id . $class_names . '>';
 
             // initialize array for holding the $atts for the link item.
-            $atts = array();
+            $atts = [];
 
             // Set title from item to the $atts array - if title is empty then
             // default to item title.
@@ -219,7 +219,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
             // Build a string of html containing all the atts for the item.
             $attributes = '';
             foreach ($atts as $attr => $value) {
-                if (! empty($value)) {
+                if ( ! empty($value)) {
                     $value       = ('href' === $attr) ? esc_url($value) : esc_attr($value);
                     $attributes .= ' ' . $attr . '="' . $value . '"';
                 }
@@ -252,7 +252,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
              * output inside of the item before the $title (the link text).
              */
             $icon_html = '';
-            if (! empty($icon_class_string)) {
+            if ( ! empty($icon_class_string)) {
                 // append an <i> with the icon classes to what is output before links.
                 $icon_html = '<i class="' . esc_attr($icon_class_string) . '" aria-hidden="true"></i> ';
             }
@@ -328,7 +328,7 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
          */
         public function display_element($element, &$children_elements, $max_depth, $depth, $args, &$output)
         {
-            if (! $element) {
+            if ( ! $element) {
                 return;
             }
             $id_field = $this->db_fields['id'];
@@ -453,13 +453,13 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
          *
          * @return string                empty for default, a linkmod type string otherwise.
          */
-        private function get_linkmod_type($linkmod_classes = array())
+        private function get_linkmod_type($linkmod_classes = [])
         {
             $linkmod_type = '';
             // Loop through array of linkmod classes to handle their $atts.
-            if (! empty($linkmod_classes)) {
+            if ( ! empty($linkmod_classes)) {
                 foreach ($linkmod_classes as $link_class) {
-                    if (! empty($link_class)) {
+                    if ( ! empty($link_class)) {
 
                         // check for special class types and set a flag for them.
                         if ('dropdown-header' === $link_class) {
@@ -485,11 +485,11 @@ if (! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
          *
          * @return array                 maybe updated array of attributes for item.
          */
-        private function update_atts_for_linkmod_type($atts = array(), $linkmod_classes = array())
+        private function update_atts_for_linkmod_type($atts = [], $linkmod_classes = [])
         {
-            if (! empty($linkmod_classes)) {
+            if ( ! empty($linkmod_classes)) {
                 foreach ($linkmod_classes as $link_class) {
-                    if (! empty($link_class)) {
+                    if ( ! empty($link_class)) {
                         // update $atts with a space and the extra classname...
                         // so long as it's not a sr-only class.
                         if ('sr-only' !== $link_class) {

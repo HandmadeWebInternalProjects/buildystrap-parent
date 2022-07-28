@@ -159,6 +159,7 @@ class Builder
                  AND 
                     `post_status` = 'publish'"
         );
+
         $globals = $wpdb->get_results($query);
 
         return collect($globals ?? []);
@@ -178,6 +179,7 @@ class Builder
                 AND 
                     `post_status` = 'publish'"
         );
+
         $globals = $wpdb->get_results($query);
 
         return collect($globals ?? []);
@@ -205,6 +207,7 @@ class Builder
 
         if ($global = $wpdb->get_row($query)) {
             $content = new Content($global->content);
+
             return $content->container();
         }
 
@@ -234,6 +237,7 @@ class Builder
         if ($global = $wpdb->get_row($query)) {
             $module = json_decode($global->content);
             $_module = static::getModule($module->type);
+
             return new $_module($module);
         }
 

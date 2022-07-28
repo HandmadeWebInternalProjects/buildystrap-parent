@@ -16,7 +16,7 @@
  * @version 2.6.0
  */
 
-if (! defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
     exit;
 }
 

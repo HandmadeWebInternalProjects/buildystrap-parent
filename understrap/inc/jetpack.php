@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
 
 add_action('after_setup_theme', 'understrap_components_jetpack_setup');
 
-if (! function_exists('understrap_components_jetpack_setup')) {
+if ( ! function_exists('understrap_components_jetpack_setup')) {
     /**
      * Jetpack setup function.
      *
@@ -25,11 +25,11 @@ if (! function_exists('understrap_components_jetpack_setup')) {
         // Add theme support for Infinite Scroll.
         add_theme_support(
             'infinite-scroll',
-            array(
+            [
                 'container' => 'main',
                 'render'    => 'understrap_components_infinite_scroll_render',
                 'footer'    => 'page',
-            )
+            ]
         );
 
         // Add theme support for Responsive Videos.
@@ -40,7 +40,7 @@ if (! function_exists('understrap_components_jetpack_setup')) {
     }
 }
 
-if (! function_exists('understrap_components_infinite_scroll_render')) {
+if ( ! function_exists('understrap_components_infinite_scroll_render')) {
     /**
      * Custom render function for Infinite Scroll.
      */
@@ -56,14 +56,14 @@ if (! function_exists('understrap_components_infinite_scroll_render')) {
     }
 }
 
-if (! function_exists('understrap_components_social_menu')) {
+if ( ! function_exists('understrap_components_social_menu')) {
     /**
      * Display Jetpack's social menu if available.
      * Avoids fatal errors if Jetpack isn’t activated.
      */
     function understrap_components_social_menu()
     {
-        if (! function_exists('jetpack_social_menu')) {
+        if ( ! function_exists('jetpack_social_menu')) {
             // Return early if social menu is not available.
             return;
         }

@@ -19,7 +19,7 @@
     "scripts": {
         "dev": "composer install",
         "test": "vendor/bin/phpunit",
-        "build": "composer install --no-dev",
+        "build": "composer install && vendor/bin/php-cs-fixer fix . && composer install --no-dev",
         "post-autoload-dump": [
           "Roots\\Acorn\\ComposerScripts::postAutoloadDump"
         ]

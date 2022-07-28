@@ -10,7 +10,7 @@
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
 
-if (! function_exists('understrap_posted_on')) {
+if ( ! function_exists('understrap_posted_on')) {
     /**
      * Prints HTML with meta information for the current post-date/time and author.
      */
@@ -49,7 +49,7 @@ if (! function_exists('understrap_posted_on')) {
     }
 }
 
-if (! function_exists('understrap_entry_footer')) {
+if ( ! function_exists('understrap_entry_footer')) {
     /**
      * Prints HTML with meta information for the categories, tags and comments.
      */
@@ -70,7 +70,7 @@ if (! function_exists('understrap_entry_footer')) {
                 printf('<span class="tags-links">' . esc_html__('Tagged %s', 'buildystrap') . '</span>', $tags_list); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             }
         }
-        if (! is_single() && ! post_password_required() && (comments_open() || get_comments_number())) {
+        if ( ! is_single() && ! post_password_required() && (comments_open() || get_comments_number())) {
             echo '<span class="comments-link">';
             comments_popup_link(esc_html__('Leave a comment', 'buildystrap'), esc_html__('1 Comment', 'buildystrap'), esc_html__('% Comments', 'buildystrap'));
             echo '</span>';
@@ -79,7 +79,7 @@ if (! function_exists('understrap_entry_footer')) {
     }
 }
 
-if (! function_exists('understrap_categorized_blog')) {
+if ( ! function_exists('understrap_categorized_blog')) {
     /**
      * Returns true if a blog has more than 1 category.
      *
@@ -91,12 +91,12 @@ if (! function_exists('understrap_categorized_blog')) {
         if (false === $all_the_cool_cats) {
             // Create an array of all the categories that are attached to posts.
             $all_the_cool_cats = get_categories(
-                array(
+                [
                     'fields'     => 'ids',
                     'hide_empty' => 1,
                     // We only need to know if there is more than one category.
                     'number'     => 2,
-                )
+                ]
             );
             // Count the number of categories that are attached to the posts.
             $all_the_cool_cats = count($all_the_cool_cats);
@@ -114,7 +114,7 @@ if (! function_exists('understrap_categorized_blog')) {
 add_action('edit_category', 'understrap_category_transient_flusher');
 add_action('save_post', 'understrap_category_transient_flusher');
 
-if (! function_exists('understrap_category_transient_flusher')) {
+if ( ! function_exists('understrap_category_transient_flusher')) {
     /**
      * Flush out the transients used in understrap_categorized_blog.
      */
@@ -128,7 +128,7 @@ if (! function_exists('understrap_category_transient_flusher')) {
     }
 }
 
-if (! function_exists('understrap_body_attributes')) {
+if ( ! function_exists('understrap_body_attributes')) {
     /**
      * Displays the attributes for the body element.
      */
@@ -139,8 +139,8 @@ if (! function_exists('understrap_body_attributes')) {
          *
          * @param array $atts An associative array of attributes.
          */
-        $atts = array_unique(apply_filters('understrap_body_attributes', $atts = array()));
-        if (! is_array($atts) || empty($atts)) {
+        $atts = array_unique(apply_filters('understrap_body_attributes', $atts = []));
+        if ( ! is_array($atts) || empty($atts)) {
             return;
         }
         $attributes = '';
@@ -155,7 +155,7 @@ if (! function_exists('understrap_body_attributes')) {
     }
 }
 
-if (! function_exists('understrap_comment_navigation')) {
+if ( ! function_exists('understrap_comment_navigation')) {
     /**
      * Displays the comment navigation.
      *
@@ -188,7 +188,7 @@ if (! function_exists('understrap_comment_navigation')) {
     }
 }
 
-if (! function_exists('understrap_edit_post_link')) {
+if ( ! function_exists('understrap_edit_post_link')) {
     /**
      * Displays the edit post link for post.
      */
@@ -206,7 +206,7 @@ if (! function_exists('understrap_edit_post_link')) {
     }
 }
 
-if (! function_exists('understrap_post_nav')) {
+if ( ! function_exists('understrap_post_nav')) {
     /**
      * Display navigation to next/previous post when applicable.
      */
@@ -215,7 +215,7 @@ if (! function_exists('understrap_post_nav')) {
         // Don't print empty markup if there's nowhere to navigate.
         $previous = (is_attachment()) ? get_post(get_post()->post_parent) : get_adjacent_post(false, '', true);
         $next     = get_adjacent_post(false, '', false);
-        if (! $next && ! $previous) {
+        if ( ! $next && ! $previous) {
             return;
         } ?>
 		<nav class="container navigation post-navigation">
@@ -234,7 +234,7 @@ if (! function_exists('understrap_post_nav')) {
     }
 }
 
-if (! function_exists('understrap_link_pages')) {
+if ( ! function_exists('understrap_link_pages')) {
     /**
      * Displays/retrieves page links for paginated posts (i.e. including the
      * `<!--nextpage-->` Quicktag one or more times). This tag must be
@@ -246,10 +246,10 @@ if (! function_exists('understrap_link_pages')) {
     {
         $args = apply_filters(
             'understrap_link_pages_args',
-            array(
+            [
                 'before' => '<div class="page-links">' . esc_html__('Pages:', 'buildystrap'),
                 'after'  => '</div>',
-            )
+            ]
         );
         wp_link_pages($args);
     }

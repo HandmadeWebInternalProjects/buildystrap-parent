@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
 
 add_filter('mce_buttons_2', 'understrap_tiny_mce_style_formats');
 
-if (! function_exists('understrap_tiny_mce_style_formats')) {
+if ( ! function_exists('understrap_tiny_mce_style_formats')) {
     /**
      * Reveals TinyMCE's hidden Style dropdown.
      *
@@ -26,7 +26,7 @@ if (! function_exists('understrap_tiny_mce_style_formats')) {
 
 add_filter('tiny_mce_before_init', 'understrap_tiny_mce_before_init');
 
-if (! function_exists('understrap_tiny_mce_before_init')) {
+if ( ! function_exists('understrap_tiny_mce_before_init')) {
     /**
      * Adds style options to TinyMCE's Style dropdown.
      *
@@ -35,34 +35,34 @@ if (! function_exists('understrap_tiny_mce_before_init')) {
      */
     function understrap_tiny_mce_before_init($settings)
     {
-        $style_formats = array(
-            array(
+        $style_formats = [
+            [
                 'title'    => __('Lead Paragraph', 'buildystrap'),
                 'selector' => 'p',
                 'classes'  => 'lead',
                 'wrapper'  => true,
-            ),
-            array(
+            ],
+            [
                 'title'  => _x('Small', 'Font size name', 'buildystrap'),
                 'inline' => 'small',
-            ),
-            array(
+            ],
+            [
                 'title'   => __('Blockquote', 'buildystrap'),
                 'block'   => 'blockquote',
                 'classes' => 'blockquote',
                 'wrapper' => true,
-            ),
-            array(
+            ],
+            [
                 'title'   => __('Blockquote Footer', 'buildystrap'),
                 'block'   => 'footer',
                 'classes' => 'blockquote-footer',
                 'wrapper' => true,
-            ),
-            array(
+            ],
+            [
                 'title'  => __('Cite', 'buildystrap'),
                 'inline' => 'cite',
-            ),
-        );
+            ],
+        ];
 
         if (isset($settings['style_formats'])) {
             $orig_style_formats = json_decode($settings['style_formats'], true);
@@ -76,7 +76,7 @@ if (! function_exists('understrap_tiny_mce_before_init')) {
 
 add_filter('mce_buttons', 'understrap_tiny_mce_blockquote_button');
 
-if (! function_exists('understrap_tiny_mce_blockquote_button')) {
+if ( ! function_exists('understrap_tiny_mce_blockquote_button')) {
     /**
      * Removes the blockquote button from the TinyMCE toolbar.
      *

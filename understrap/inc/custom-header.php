@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
 
 add_action('after_setup_theme', 'understrap_custom_header_setup');
 
-if (! function_exists('understrap_custom_header_setup')) {
+if ( ! function_exists('understrap_custom_header_setup')) {
     /**
      * Set up custom header feature.
      */
@@ -38,23 +38,23 @@ if (! function_exists('understrap_custom_header_setup')) {
             'custom-header',
             apply_filters(
                 'understrap_custom_header_args',
-                array(
+                [
                     'default-image' => get_parent_theme_file_uri('/img/header.jpg'),
                     'width'         => 2000,
                     'height'        => 1200,
                     'flex-height'   => true,
-                )
+                ]
             )
         );
 
         register_default_headers(
-            array(
-                'default-image' => array(
+            [
+                'default-image' => [
                     'url'           => '%s/img/header.jpg',
                     'thumbnail_url' => '%s/img/header.jpg',
                     'description'   => __('Default Header Image', 'buildystrap'),
-                ),
-            )
+                ],
+            ]
         );
     }
 }

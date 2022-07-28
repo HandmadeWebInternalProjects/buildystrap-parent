@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
 // Add Bootstrap classes to comment form fields.
 add_filter('comment_form_default_fields', 'understrap_bootstrap_comment_form_fields');
 
-if (! function_exists('understrap_bootstrap_comment_form_fields')) {
+if ( ! function_exists('understrap_bootstrap_comment_form_fields')) {
     /**
      * Add Bootstrap classes to WP's comment form default fields.
      *
@@ -28,11 +28,11 @@ if (! function_exists('understrap_bootstrap_comment_form_fields')) {
      */
     function understrap_bootstrap_comment_form_fields($fields)
     {
-        $replace = array(
+        $replace = [
             '<p class="' => '<div class="form-group mb-3',
             '<input'     => '<input class="form-control" ',
             '</p>'       => '</div>',
-        );
+        ];
 
         if (isset($fields['author'])) {
             $fields['author'] = strtr($fields['author'], $replace);
@@ -44,12 +44,12 @@ if (! function_exists('understrap_bootstrap_comment_form_fields')) {
             $fields['url'] = strtr($fields['url'], $replace);
         }
 
-        $replace = array(
+        $replace = [
             '<p class="' => '<div class="form-group mb-3 form-check ',
             '<input'     => '<input class="form-check-input" ',
             '<label'     => '<label class="form-check-label" ',
             '</p>'       => '</div>',
-        );
+        ];
         if (isset($fields['cookies'])) {
             $fields['cookies'] = strtr($fields['cookies'], $replace);
         }
@@ -61,7 +61,7 @@ if (! function_exists('understrap_bootstrap_comment_form_fields')) {
 // Add Bootstrap classes to comment form submit button and comment field.
 add_filter('comment_form_defaults', 'understrap_bootstrap_comment_form');
 
-if (! function_exists('understrap_bootstrap_comment_form')) {
+if ( ! function_exists('understrap_bootstrap_comment_form')) {
     /**
      * Adds Bootstrap classes to comment form submit button and comment field.
      *
@@ -71,11 +71,11 @@ if (! function_exists('understrap_bootstrap_comment_form')) {
      */
     function understrap_bootstrap_comment_form($args)
     {
-        $replace = array(
+        $replace = [
             '<p class="' => '<div class="form-group mb-3 ',
             '<textarea'  => '<textarea class="form-control" ',
             '</p>'       => '</div>',
-        );
+        ];
 
         if (isset($args['comment_field'])) {
             $args['comment_field'] = strtr($args['comment_field'], $replace);
@@ -93,7 +93,7 @@ if (! function_exists('understrap_bootstrap_comment_form')) {
 // Add note if comments are closed.
 add_action('comment_form_comments_closed', 'understrap_comment_form_comments_closed');
 
-if (! function_exists('understrap_comment_form_comments_closed')) {
+if ( ! function_exists('understrap_comment_form_comments_closed')) {
     /**
      * Displays a note that comments are closed if comments are closed and there are comments.
      */
