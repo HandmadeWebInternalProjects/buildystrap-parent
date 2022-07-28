@@ -12,13 +12,13 @@ class CardModule extends Module
             'icon' => 'fa-solid fa-anchor',
             'fields' => [
                 'title' => [
-                    'type' => 'text-field',
-                    'config' => [
-                        'label' => 'Title',
-                    ],
+                    'type' => 'title-field',
                 ],
                 'image' => [
                     'type' => 'media-field',
+                    'config' => [
+                      'size' => 'full'
+                    ]
                 ],
                 'link' => [
                     'type' => 'relational-field',
@@ -48,6 +48,7 @@ class CardModule extends Module
                     'type' => 'media-field',
                     'config' => [
                         'multiple' => true,
+                        'size' => 'full'
                     ],
                 ],
                 'body' => [
@@ -56,6 +57,7 @@ class CardModule extends Module
                         'label' => 'Body',
                     ],
                 ],
+
             ],
         ];
     }

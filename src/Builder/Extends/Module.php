@@ -102,11 +102,6 @@ abstract class Module
         return $this->enabled;
     }
 
-    public function field(string $field): mixed
-    {
-        return $this->fields()->get($field);
-    }
-
     public function fields(): Collection
     {
         return $this->fields;
@@ -115,6 +110,16 @@ abstract class Module
     public function __toString(): string
     {
         return $this->render();
+    }
+
+    public function has(string $value): bool
+    {
+        return $this->fields()->has($value);
+    }
+
+    public function get(string $value, mixed $default = null): mixed
+    {
+        return optional($this->fields()->get($value, $default))->augmented();
     }
 
     public function render(): string

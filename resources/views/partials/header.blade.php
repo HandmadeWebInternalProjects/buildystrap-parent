@@ -1,5 +1,5 @@
 @php
-    $navbar_type = get_theme_mod( 'understrap_navbar_type', 'collapse' );
+    $navbar_type = get_theme_mod( 'understrap_navbar_type', 'offcanvas' );
 @endphp
 
 @include('partials.head')
@@ -9,7 +9,7 @@
 <div class="site" id="page">
 
 	<!-- ******************* The Navbar Area ******************* -->
-	<header id="wrapper-navbar">
+	<header id="wrapper-navbar" class="sticky-top">
 
 		<a class="skip-link sr-only sr-only-focusable" href="#content">{!! esc_html_e( 'Skip to content', 'buildystrap' ) !!}</a>
 

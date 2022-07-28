@@ -17,9 +17,7 @@ export const useBuilderOptions = () => {
     return sizing.map((obj: { label: string; value: string }) => {
       return {
         ...obj,
-        label: obj?.label
-          ? obj.label + " - " + obj?.value || type
-          : obj?.value || type,
+        label: obj?.label ? obj.label || type : obj?.value || type,
         value: obj?.label ? obj.label.toLowerCase() : obj?.value || type,
       }
     })

@@ -87,7 +87,10 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
           value: el?.value || el,
           label: el?.label || el,
         }))
-      : Object.entries(options).map(([label, value]) => ({ label, value }))
+      : Object.entries(options).map(([label, value]) => {
+          console.log({ label, value })
+          return { value, label }
+        })
   }
 
   const responsivePlaceholder = (

@@ -2,6 +2,7 @@
 
 namespace Buildystrap\Builder\Extends;
 
+use Buildystrap\Arr;
 use Buildystrap\Traits\Augment;
 use Illuminate\Support\Collection;
 
@@ -29,7 +30,20 @@ abstract class Field
 
     public function __toString(): string
     {
+        $this->augmentOnce();
+
         return $this->value();
+    }
+
+    public function get(string $value, mixed $default = null): mixed
+    {
+        return Arr::get((array) $this->value(), $value, $default);
+    }
+
+    public function augmented(): static
+    {
+        $this->augmentOnce();
+        return $this;
     }
 
     public function value(): mixed

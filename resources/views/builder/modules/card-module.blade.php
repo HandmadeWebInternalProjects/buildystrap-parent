@@ -8,11 +8,13 @@
 @endphp
 
 <div {!! $attrs !!}>
-    <h2>{!! $module->fields()->get('title') !!}</h2>
+    {!! $module->get('title') !!}
 
-    @if($module->fields()->get('url'))
-        <a href="{{ $module->fields()->get('url') }}">{{ $module->fields()->get('url') }}</a>
+    {!! $module->get('image') !!}
+
+    @if($module->has('link'))
+        <a href="{{ $module->get('link') }}">{{ $module->get('link') }}</a>
     @endif
 
-    {!! $module->fields()->get('body') !!}
+    {!! $module->get('body') !!}
 </div>

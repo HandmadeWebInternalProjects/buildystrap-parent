@@ -21,7 +21,7 @@ $container = get_theme_mod('understrap_container_type');
 	<div class="<?php echo esc_attr($container); ?>">
 
 		<!-- Your site title as branding in the menu -->
-		<?php if (! has_custom_logo()) { ?>
+		<?php if ( ! has_custom_logo()) { ?>
 
 			<?php if (is_front_page() && is_home()) : ?>
 
@@ -34,10 +34,10 @@ $container = get_theme_mod('understrap_container_type');
 			<?php endif; ?>
 
 			<?php
-        } else {
-            the_custom_logo();
-        }
-        ?>
+		} else {
+		    the_custom_logo();
+		}
+?>
 		<!-- end custom logo -->
 
 		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNavOffcanvas" aria-controls="navbarNavOffcanvas" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation', 'understrap'); ?>">
@@ -52,8 +52,8 @@ $container = get_theme_mod('understrap_container_type');
 
 			<!-- The WordPress Menu goes here -->
 			<?php
-            wp_nav_menu(
-            array(
+    wp_nav_menu(
+    [
                     'theme_location'  => 'primary',
                     'container_class' => 'offcanvas-body',
                     'container_id'    => '',
@@ -62,9 +62,9 @@ $container = get_theme_mod('understrap_container_type');
                     'menu_id'         => 'main-menu',
                     'depth'           => 2,
                     'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
-                )
-        );
-            ?>
+                ]
+);
+?>
 		</div><!-- .offcanvas -->
 
 	</div><!-- .container(-fluid) -->

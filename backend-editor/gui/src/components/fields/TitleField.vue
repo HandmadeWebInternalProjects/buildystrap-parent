@@ -56,7 +56,10 @@ watch(value.value, (newValue) => {
               handle="colour"
               :config="{
                 label: 'Colour',
-                options: ['Primary', 'Secondary'],
+                options: {
+                  Primary: 'text-primary',
+                  Secondary: 'text-secondary',
+                },
                 popover: 'Change the colour of this heading tag',
                 placeholder: 'Default',
                 popover: 'Change the colour of this heading tag.',
@@ -68,7 +71,7 @@ watch(value.value, (newValue) => {
             class=""
             handle="class"
             type="text"
-            :value="value['class']"
+            v-model="value['class']"
             placeholder=""
             :config="{
               label: 'Class',

@@ -33,7 +33,7 @@ const options = normaliseOptions(config.value.options) || []
       :loading="props.loading"
       :multiple="config?.multiple"
       :taggable="config?.taggable"
-      :reduce="(option: any) => option?.label || option?.label"
+      :reduce="(option: any) => option?.value || option?.label"
       v-model="selected"
       :name="handle"
       :disabled="config.disabled || false"

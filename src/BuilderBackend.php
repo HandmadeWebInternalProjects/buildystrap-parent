@@ -158,6 +158,7 @@ class BuilderBackend
     public static function get_acf_options()
     {
         $acf_options = [];
+
         if (Builder::isEnabled() && class_exists('ACF')) {
             $acf_options['theme_colours'] = get_field('theme_colours', 'option') ?? [];
             $acf_options['additional_colours'] = get_field('additional_colours', 'option') ?? [];
