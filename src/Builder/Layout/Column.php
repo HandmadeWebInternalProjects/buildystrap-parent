@@ -7,15 +7,17 @@ use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Builder\Modules\GlobalModule;
 use stdClass;
 
+use function dd;
 use function view;
 
 class Column extends Layout
 {
     protected array $modules = [];
+    protected array $html_classes = [];
 
-    public function __construct(stdClass $column)
+    public function __construct(stdClass $column, ?Layout $parent = null)
     {
-        parent::__construct($column);
+        parent::__construct($column, $parent);
 
         foreach ($column->modules ?? [] as $module) {
             // Global module
@@ -35,6 +37,11 @@ class Column extends Layout
         }
     }
 
+    public function augment(): void
+    {
+        $this->generateClasses();
+    }
+
     public function modules(): array
     {
         return $this->modules;
@@ -45,5 +52,28 @@ class Column extends Layout
         $this->augmentOnce();
 
         return view('builder::column')->with('column', $this)->render();
+    }
+
+    protected function generateClasses(): void
+    {
+        parent::generateClasses();
+
+        /** Flex/Grid Column Sizes */
+        foreach ($this->getConfig('columnSizes', []) as $breakpoint => $value) {
+            $prefix = '';
+
+            if ($this->hasParent()) {
+                $prefix = match (true) {
+                    $this->parent()->getClasses()->contains("d-{$breakpoint}-grid") => 'g-',
+                    $this->parent()->getClasses()->contains('d-grid') => 'g-',
+                    default => ''
+                };
+            }
+
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "{$prefix}col-{$value}",
+                default => "{$prefix}col-{$breakpoint}-{$value}"
+            };
+        }
     }
 }

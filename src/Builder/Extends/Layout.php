@@ -8,10 +8,10 @@ use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\InlineAttributes;
+use Illuminate\Support\Collection;
 use stdClass;
 
 use function collect;
-use function implode;
 
 abstract class Layout
 {
@@ -22,9 +22,11 @@ abstract class Layout
 
     protected string $uuid;
     protected string $type;
+    protected ?Layout $parent;
 
-    public function __construct($instance)
+    public function __construct($instance, ?Layout $parent = null)
     {
+        $this->parent = $parent;
         $this->uuid = $instance->uuid;
         $this->type = $instance->type;
 
@@ -41,13 +43,61 @@ abstract class Layout
         }
     }
 
+    public function getClasses(string $classes = ''): Collection
+    {
+        $classes = collect([
+            'buildystrap-' . $this->type(),
+            $classes,
+        ]);
+
+        return $classes
+            ->merge($this->html_classes)
+            ->push($this->getAttribute('class', ''))
+            ->filter();
+        //->map(fn ($class) => Str::lower($class));
+    }
+
     public function classes(string $classes = ''): string
     {
-        $generatedClasses = [];
+        return $this->getClasses($classes)->implode(' ');
+    }
 
+    public function enabled(): bool
+    {
+        return $this->getFromConfig('enabled', false);
+    }
+
+    public function hasParent(): bool
+    {
+        return $this->parent instanceof Layout;
+    }
+    public function parent(): ?Layout
+    {
+        return $this->parent;
+    }
+
+    public function type(): string
+    {
+        return $this->type;
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function __toString(): string
+    {
+        return $this->render();
+    }
+
+    abstract public function render(): string;
+
+    protected function generateClasses(): void
+    {
         /** Position */
         foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "position-{$value}",
                 default => "position-{$breakpoint}-{$value}"
             };
@@ -65,7 +115,7 @@ abstract class Layout
                 };
 
                 if ( ! empty($pos)) {
-                    $generatedClasses[] = match ($breakpoint) {
+                    $this->html_classes[] = match ($breakpoint) {
                         'xs' => "{$pos}-{$value}",
                         default => "{$pos}-{$breakpoint}-{$value}"
                     };
@@ -75,7 +125,7 @@ abstract class Layout
 
         /** Flex/Grid */
         foreach ($this->getInlineAttribute('display.property', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "d-{$value}",
                 default => "d-{$breakpoint}-{$value}"
             };
@@ -83,7 +133,7 @@ abstract class Layout
 
         /** Col Gap */
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "colgap-{$value}",
                 default => "colgap-{$breakpoint}-{$value}"
             };
@@ -91,7 +141,7 @@ abstract class Layout
 
         /** Row Gap */
         foreach ($this->getInlineAttribute('display.row-gap', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "rowgap-{$value}",
                 default => "rowgap-{$breakpoint}-{$value}"
             };
@@ -99,7 +149,7 @@ abstract class Layout
 
         /** Order */
         foreach ($this->getInlineAttribute('display.order', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "order-{$value}",
                 default => "order-{$breakpoint}-{$value}"
             };
@@ -107,7 +157,7 @@ abstract class Layout
 
         /** Min Width */
         foreach ($this->getInlineAttribute('minWidth', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "min-w-{$value}",
                 default => "min-w-{$breakpoint}-{$value}"
             };
@@ -115,7 +165,7 @@ abstract class Layout
 
         /** Width */
         foreach ($this->getInlineAttribute('width', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "w-{$value}",
                 default => "w-{$breakpoint}-{$value}"
             };
@@ -123,7 +173,7 @@ abstract class Layout
 
         /** Max Width */
         foreach ($this->getInlineAttribute('maxWidth', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "max-w-{$value}",
                 default => "max-w-{$breakpoint}-{$value}"
             };
@@ -131,7 +181,7 @@ abstract class Layout
 
         /** Min Height */
         foreach ($this->getInlineAttribute('minHeight', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "min-h-{$value}",
                 default => "min-h-{$breakpoint}-{$value}"
             };
@@ -139,7 +189,7 @@ abstract class Layout
 
         /** Height */
         foreach ($this->getInlineAttribute('height', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "h-{$value}",
                 default => "h-{$breakpoint}-{$value}"
             };
@@ -147,7 +197,7 @@ abstract class Layout
 
         /** Max Height */
         foreach ($this->getInlineAttribute('maxHeight', []) as $breakpoint => $value) {
-            $generatedClasses[] = match ($breakpoint) {
+            $this->html_classes[] = match ($breakpoint) {
                 'xs' => "max-h-{$value}",
                 default => "max-h-{$breakpoint}-{$value}"
             };
@@ -165,7 +215,7 @@ abstract class Layout
                 };
 
                 if ( ! empty($pos)) {
-                    $generatedClasses[] = match ($breakpoint) {
+                    $this->html_classes[] = match ($breakpoint) {
                         'xs' => "{$pos}-{$value}",
                         default => "{$pos}-{$breakpoint}-{$value}"
                     };
@@ -185,43 +235,12 @@ abstract class Layout
                 };
 
                 if ( ! empty($pos)) {
-                    $generatedClasses[] = match ($breakpoint) {
+                    $this->html_classes[] = match ($breakpoint) {
                         'xs' => "{$pos}-{$value}",
                         default => "{$pos}-{$breakpoint}-{$value}"
                     };
                 }
             }
         }
-
-        $classes = collect([
-            'buildystrap-' . $this->type(),
-            $classes,
-            implode(' ', $generatedClasses),
-            $this->getAttribute('class', ''),
-        ])->filter()->implode(' ');
-
-        return Str::lower($classes);
     }
-
-    public function type(): string
-    {
-        return $this->type;
-    }
-
-    public function enabled(): bool
-    {
-        return $this->getFromConfig('enabled', false);
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function __toString(): string
-    {
-        return $this->render();
-    }
-
-    abstract public function render(): string;
 }
