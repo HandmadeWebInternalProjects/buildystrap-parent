@@ -6,14 +6,21 @@ use Buildystrap\Builder\Extends\Module;
 use Illuminate\Support\Collection;
 
 use function collect;
+use function wp_get_attachment_url;
 
 trait HtmlStyleBuilder
 {
     protected array $html_classes = [];
+    protected array $inline_styles = [];
 
     public function classes(string $classes = ''): string
     {
         return $this->getClasses($classes)->implode(' ');
+    }
+
+    public function inlineStyles(string $styles = ''): string
+    {
+        return collect($this->inline_styles)->filter()->implode(' ');
     }
 
     public function getClasses(string $classes = ''): Collection
@@ -176,6 +183,48 @@ trait HtmlStyleBuilder
                     $this->html_classes[] = match ($breakpoint) {
                         'xs' => "{$pos}-{$value}",
                         default => "{$pos}-{$breakpoint}-{$value}"
+                    };
+                }
+            }
+        }
+
+        /** Background */
+        foreach ($this->getInlineAttribute('background', []) as $attr => $items) {
+            /** Image */
+            if ($attr === 'image') {
+                foreach ($items as $item => $values) {
+                    /** Image Url */
+                    if ($item === 'id') {
+                        $images = collect($values)
+                            ->map(
+                                fn ($images) => collect($images)
+                                    ->take(1)
+                                    ->map(fn ($image) => wp_get_attachment_url($image->id))
+                                    ->first()
+                            )->filter();
+
+                        foreach ($images as $breakpoint => $imageUrl) {
+                            $this->inline_styles[] = match ($breakpoint) {
+                                'xs' => "--bg-image-url: '{$imageUrl}';",
+                                default => "--bg-image-url-{$breakpoint}: '{$imageUrl}';"
+                            };
+                        }
+                    } else {
+                        /** Image BG Position/Size etc */
+                        foreach ($values as $breakpoint => $value) {
+                            $this->html_classes[] = match ($breakpoint) {
+                                'xs' => "bg-{$value}",
+                                default => "bg-{$breakpoint}-{$value}"
+                            };
+                        }
+                    }
+                }
+            } elseif ($attr === 'color') {
+                /** Background */
+                foreach ($items as $breakpoint => $value) {
+                    $this->html_classes[] = match ($breakpoint) {
+                        'xs' => "bg-{$value}",
+                        default => "bg-{$breakpoint}-{$value}"
                     };
                 }
             }
