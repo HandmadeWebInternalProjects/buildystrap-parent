@@ -1,12 +1,5 @@
-@php
-    $attrs = collect([
-        'id' => $module->getAttribute('id'),
-        'class' => $module->classes()
-    ])->filter()
-    ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
-    ->implode(' ');
-@endphp
+@extends('builder::module-base', ['class' => ''])
 
-<div {!! $attrs !!}>
+@section('field_content')
     <h1>{!! $module->fields()->get('title') !!}</h1>
-</div>
+@overwrite

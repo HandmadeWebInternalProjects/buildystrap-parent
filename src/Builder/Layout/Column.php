@@ -20,8 +20,6 @@ class Column extends Layout
     {
         parent::__construct($column, $parent);
 
-
-
         foreach ($column->modules ?? [] as $module) {
             // Global module
             $moduleType = $module->type === 'global-module' ? GlobalModule::class : Builder::getModule($module->type);

@@ -112,7 +112,7 @@ abstract class Module
 
         $views = [
             "builder-modules::$this->type",
-            'builder::moduleNotFound',
+            'builder::module-not-found',
         ];
 
         return view()->first($views)->with('module', $this)->render();
