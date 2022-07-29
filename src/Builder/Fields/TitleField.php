@@ -8,11 +8,14 @@ use function collect;
 
 class TitleField extends Field
 {
+    protected string $title_class = '';
+
     protected static function blueprint(): array
     {
         return [
             'config' => [
                 'label' => 'Title',
+                'hide_label' => true,
                 'tinymce' => [
                     'toolbar1' => 'bold,italic,underline',
                     'toolbar2' => false,
@@ -31,14 +34,24 @@ class TitleField extends Field
         $this->value = collect((array) $this->raw);
     }
 
+    public function titleClass(string $class): static
+    {
+        $this->title_class = $class;
+        return $this;
+    }
+
     public function __toString(): string
     {
         $level = $this->value()->get('level', 'h3');
         $text = $this->value()->get('text', '');
-        $size = $this->value()->get('size', '');
-        $colour = $this->value()->get('color', '');
-        $class = $this->value()->get('class', '');
+        $class = collect([])
+          ->push($this->value()->get('class', ''))
+          ->push($this->title_class)
+          ->push($this->value()->get('color', ''))
+          ->push($this->value()->get('size', ''))
+          ->filter()
+          ->implode(' ');
 
-        return sprintf('<%s class="%s %s %s">%s</%s>', $level, $class, $size, $colour, $text, $level);
+        return sprintf('<%s class="%s">%s</%s>', $level, $class, $text, $level);
     }
 }

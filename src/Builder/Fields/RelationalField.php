@@ -20,9 +20,6 @@ class RelationalField extends Field
 
     public function augment(): void
     {
-        $value = $this->value;
-        $this->value = collect($value)->map(function ($item) {
-            return get_post($item);
-        });
+        $this->value = collect($this->value)->map(fn ($item) => get_post($item))->filter();
     }
 }

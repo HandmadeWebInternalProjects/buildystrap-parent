@@ -18,7 +18,43 @@ class GalleryModule extends Module
                         'multiple' => true,
                     ],
                 ],
+                'columns' => [
+                    'type' => 'select-field',
+                    'config' => [
+                        'label' => 'Columns',
+                        'options' => [
+                            '1' => '1',
+                            '2' => '2',
+                            '3' => '3',
+                            '4' => '4',
+                            '5' => '5',
+                            '6' => '6',
+                        ],
+                    ],
+                ],
+                'col_gap' => [
+                    'type' => 'select-field',
+                    'config' => [
+                        'label' => 'Column Gap',
+                        'options' => [
+                            '0' => '0',
+                            '1' => '1',
+                            '2' => '2',
+                            '3' => '3',
+                            '4' => '4',
+                            '5' => '5',
+                            '6' => '6',
+                        ],
+                        'responsive' => true,
+                    ],
+                ],
             ],
         ];
     }
+
+    // public function augment(): void
+    // {
+    //     // Remember for modules to run
+    //     parent::augment();
+    // }
 }

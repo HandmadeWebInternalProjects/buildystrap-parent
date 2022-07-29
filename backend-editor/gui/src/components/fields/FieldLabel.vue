@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex align-items-center gap-4">
     <label class="text-600">{{ props.label }}</label>
     <a
       v-if="popover"

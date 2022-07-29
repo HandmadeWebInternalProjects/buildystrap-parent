@@ -13,7 +13,7 @@
     {!! wp_get_attachment_image(collect($module->get('image')->value())->first()->id, 'medium', '', ['class' => 'card-img-top object-contain']) !!}
 
     <div class="card-body">
-      {!! $module->get('title')->render(class: 'card-title') !!}
+      {!! $module->get('title')->titleClass('card-title') !!}
       
       {!! $module->get('body') !!}
 

@@ -90,6 +90,7 @@ abstract class Module
     public function classes(string $classes = ''): string
     {
         return collect([
+            'buildystrap-module',
             'buildystrap-' . $this->type(),
             $this->getAttribute('class', ''),
             $classes,

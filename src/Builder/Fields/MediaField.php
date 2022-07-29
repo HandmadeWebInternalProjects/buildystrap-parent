@@ -15,6 +15,8 @@ class MediaField extends Field
 
     public function __toString(): string
     {
-        return wp_get_attachment_image(collect($this->value())->first()->id, 'medium');
+        return collect($this->value())
+          ->map(fn ($item) => wp_get_attachment_image($item->id, 'full'))
+          ->implode('');
     }
 }
