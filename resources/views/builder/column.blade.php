@@ -1,7 +1,8 @@
 @php
     $attrs = collect([
         'id' => $column->getAttribute('id'),
-        'class' => $column->classes()
+        'class' => $column->classes(),
+        'style' => $column->inlineStyles(),
     ])->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');
