@@ -6,6 +6,7 @@ use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\MediaField;
+use Buildystrap\Builder\Fields\RelationalField;
 use Buildystrap\Builder\Fields\RichTextField;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Fields\TitleField;
@@ -48,6 +49,7 @@ class Builder
         'richtext-field' => RichTextField::class,
         'title-field' => TitleField::class,
         'media-field' => MediaField::class,
+        'relational-field' => RelationalField::class,
     ];
 
     protected static array $modules = [

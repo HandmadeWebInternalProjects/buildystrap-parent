@@ -20,44 +20,22 @@ class CardModule extends Module
                       'size' => 'full'
                     ]
                 ],
-                'link' => [
-                    'type' => 'relational-field',
-                    'config' => [
-                        'post_type' => 'posts',
-                        'multiple' => true,
-                        'if' => [
-                            'title' => 'not empty',
-                        ],
-                    ],
-                ],
-                'accordion' => [
-                    'type' => 'accordion-field',
-                    'config' => [
-                        'label' => 'Accordion',
-                        'multiple' => true,
-                        'tinymce' => [
-                            'toolbar1' => 'bold,italic,underline',
-                            'toolbar2' => false,
-                            'height' => '100',
-                            'resize' => false,
-                            'menubar' => false,
-                        ],
-                    ],
-                ],
-                'profile-pic' => [
-                    'type' => 'media-field',
-                    'config' => [
-                        'multiple' => true,
-                        'size' => 'full'
-                    ],
-                ],
                 'body' => [
                     'type' => 'richtext-field',
                     'config' => [
                         'label' => 'Body',
                     ],
                 ],
-
+                'link' => [
+                    'type' => 'relational-field',
+                    'config' => [
+                        'post_type' => 'posts',
+                        'multiple' => false,
+                        'if' => [
+                            'title' => 'not empty',
+                        ],
+                    ],
+                ],
             ],
         ];
     }

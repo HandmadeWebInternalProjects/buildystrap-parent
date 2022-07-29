@@ -13,6 +13,8 @@
 @import "bootstrap/scss/forms";
 @import "bootstrap/scss/buttons";
 @import "bootstrap/scss/alert";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
 
 $utilities: map-merge(
   $utilities,
@@ -24,6 +26,17 @@ $utilities: map-merge(
           responsive: true,
         )
       ),
+    "object-fit": (
+      property: object-fit,
+      class: object,
+      values: (
+        fill: fill,
+        contain: contain,
+        cover: cover,
+        none: none,
+        scale-down: scale-down,
+      ),
+    ),
   )
 );
 

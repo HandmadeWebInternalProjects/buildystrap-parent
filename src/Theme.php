@@ -77,18 +77,18 @@ class Theme
             'woocommerce/woocommerce.php'
         ) ? 'parent-style-woocommerce.css' : 'parent-style.css';
 
-//        wp_enqueue_style(
-//            'parent-style',
-//            get_template_directory_uri() . "/public/{$stylesheet}",
-//            [],
-//            wp_get_theme('buildystrap-parent')->get('Version')
-//        );
-
         wp_enqueue_style(
             'parent-style',
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css',
+            get_template_directory_uri() . "/public/{$stylesheet}",
             [],
+            wp_get_theme('buildystrap-parent')->get('Version')
         );
+
+        // wp_enqueue_style(
+        //     'parent-style',
+        //     'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css',
+        //     [],
+        // );
 
         // Font Awesome
         wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
