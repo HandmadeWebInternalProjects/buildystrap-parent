@@ -7,6 +7,7 @@
     ->implode(' ');
 @endphp
 
+@section('field_content')
 <div {!! $attrs !!}>
     
 
@@ -17,6 +18,8 @@
       
       {!! $module->get('body') !!}
 
+    {!! $module->get('body') !!}
+@overwrite
       @if($module->has('link'))
         <a href="{{ get_permalink($module->get('link')) }}" class="card-link">{{ $module->get('link')}}</a>
       @endif

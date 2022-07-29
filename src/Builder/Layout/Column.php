@@ -14,13 +14,10 @@ use function view;
 class Column extends Layout
 {
     protected array $modules = [];
-    protected array $html_classes = [];
 
     public function __construct(stdClass $column, ?Layout $parent = null)
     {
         parent::__construct($column, $parent);
-
-
 
         foreach ($column->modules ?? [] as $module) {
             // Global module
@@ -38,11 +35,6 @@ class Column extends Layout
 //                $this->modules[] = new $moduleType($module);
 //            }
         }
-    }
-
-    public function augment(): void
-    {
-        $this->generateClasses();
     }
 
     public function modules(): array

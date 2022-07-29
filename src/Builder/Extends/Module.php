@@ -7,6 +7,7 @@ use Buildystrap\Builder;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
+use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
 use Illuminate\Support\Collection;
 use stdClass;
@@ -22,6 +23,7 @@ abstract class Module
     use Config;
     use Augment;
     use InlineAttributes;
+    use HtmlStyleBuilder;
 
     protected string $uuid;
     protected string $type;
@@ -87,16 +89,6 @@ abstract class Module
 
     abstract protected static function blueprint(): array;
 
-    public function classes(string $classes = ''): string
-    {
-        return collect([
-            'buildystrap-module',
-            'buildystrap-' . $this->type(),
-            $this->getAttribute('class', ''),
-            $classes,
-        ])->filter()->implode(' ');
-    }
-
     public function type(): string
     {
         return $this->type;
@@ -113,10 +105,15 @@ abstract class Module
 
         $views = [
             "builder-modules::$this->type",
-            'builder::moduleNotFound',
+            'builder::module-not-found',
         ];
 
         return view()->first($views)->with('module', $this)->render();
+    }
+
+    public function augment(): void
+    {
+        $this->generateClasses();
     }
 
     public function has(string $value): bool

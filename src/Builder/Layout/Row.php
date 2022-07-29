@@ -21,11 +21,6 @@ class Row extends Layout
         }
     }
 
-    public function augment(): void
-    {
-        $this->generateClasses();
-    }
-
     public function columns(): array
     {
         return $this->columns;
