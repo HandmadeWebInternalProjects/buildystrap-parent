@@ -18,11 +18,6 @@ trait HtmlStyleBuilder
         return $this->getClasses($classes)->implode(' ');
     }
 
-    public function inlineStyles(string $styles = ''): string
-    {
-        return collect($this->inline_styles)->filter()->implode(' ');
-    }
-
     public function getClasses(string $classes = ''): Collection
     {
         $classes = collect([
@@ -36,6 +31,19 @@ trait HtmlStyleBuilder
             ->push($this->getAttribute('class', ''))
             ->filter();
         //->map(fn ($class) => Str::lower($class));
+    }
+
+    public function inlineStyles(string $inlineStyles = ''): string
+    {
+        return $this->getInlineStyles($inlineStyles)->implode(' ');
+    }
+
+    public function getInlineStyles(string $inlineStyles = ''): Collection
+    {
+        return collect($this->inline_styles)
+            ->push($inlineStyles)
+            ->filter();
+        //->map(fn ($style) => Str::lower($style));
     }
 
     protected function generateClasses(): void
@@ -188,46 +196,91 @@ trait HtmlStyleBuilder
             }
         }
 
-        /** Background */
-        foreach ($this->getInlineAttribute('background', []) as $attr => $items) {
-            /** Image */
-            if ($attr === 'image') {
-                foreach ($items as $item => $values) {
-                    /** Image Url */
-                    if ($item === 'id') {
-                        $images = collect($values)
-                            ->map(
-                                fn ($images) => collect($images)
-                                    ->take(1)
-                                    ->map(fn ($image) => wp_get_attachment_url($image->id))
-                                    ->first()
-                            )->filter();
+        /** Background Image URL */
+        foreach ($this->getInlineAttribute('background.image.id', []) as $breakpoint => $value) {
+            $imageUrl = collect($value)
+                ->take(1)
+                ->map(fn ($image) => wp_get_attachment_url($image->id))
+                ->first();
 
-                        foreach ($images as $breakpoint => $imageUrl) {
-                            $this->inline_styles[] = match ($breakpoint) {
-                                'xs' => "--bg-image-url: '{$imageUrl}';",
-                                default => "--bg-image-url-{$breakpoint}: '{$imageUrl}';"
-                            };
-                        }
-                    } else {
-                        /** Image BG Position/Size etc */
-                        foreach ($values as $breakpoint => $value) {
-                            $this->html_classes[] = match ($breakpoint) {
-                                'xs' => "bg-{$value}",
-                                default => "bg-{$breakpoint}-{$value}"
-                            };
-                        }
-                    }
-                }
-            } elseif ($attr === 'color') {
-                /** Background */
-                foreach ($items as $breakpoint => $value) {
-                    $this->html_classes[] = match ($breakpoint) {
-                        'xs' => "bg-{$value}",
-                        default => "bg-{$breakpoint}-{$value}"
-                    };
-                }
+            if ( ! empty($imageUrl)) {
+                $this->inline_styles[] = match ($breakpoint) {
+                    'xs' => "--bg-image-url: '{$imageUrl}';",
+                    default => "--bg-image-url-{$breakpoint}: '{$imageUrl}';"
+                };
             }
+        }
+
+        /** Background Image Size */
+        foreach ($this->getInlineAttribute('background.image.size', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "bg-{$value}",
+                default => "bg-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Background Image Position */
+        foreach ($this->getInlineAttribute('background.image.position', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "bg-{$value}",
+                default => "bg-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Background Image Repeat */
+        foreach ($this->getInlineAttribute('background.image.repeat', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "bg-{$value}",
+                default => "bg-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Background Color */
+        foreach ($this->getInlineAttribute('background.color', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "bg-{$value}",
+                default => "bg-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Typography Color */
+        foreach ($this->getInlineAttribute('typography.color', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "text-{$value}",
+                default => "text-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Typography Font Family */
+        foreach ($this->getInlineAttribute('typography.font-family', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "font-family-{$value}",
+                default => "font-family-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Typography Font Weight */
+        foreach ($this->getInlineAttribute('typography.font-weight', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "font-{$value}",
+                default => "font-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Typography Font Size */
+        foreach ($this->getInlineAttribute('typography.font-size', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "text-{$value}",
+                default => "text-{$breakpoint}-{$value}"
+            };
+        }
+
+        /** Typography Text Align */
+        foreach ($this->getInlineAttribute('typography.text-align', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "text-{$value}",
+                default => "text-{$breakpoint}-{$value}"
+            };
         }
     }
 }
