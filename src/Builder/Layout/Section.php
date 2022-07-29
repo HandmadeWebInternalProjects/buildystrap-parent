@@ -20,11 +20,6 @@ class Section extends Layout
         }
     }
 
-    public function augment(): void
-    {
-        $this->generateClasses();
-    }
-
     public function rows(): array
     {
         return $this->rows;

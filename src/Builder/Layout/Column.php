@@ -14,7 +14,6 @@ use function view;
 class Column extends Layout
 {
     protected array $modules = [];
-    protected array $html_classes = [];
 
     public function __construct(stdClass $column, ?Layout $parent = null)
     {
@@ -36,11 +35,6 @@ class Column extends Layout
 //                $this->modules[] = new $moduleType($module);
 //            }
         }
-    }
-
-    public function augment(): void
-    {
-        $this->generateClasses();
     }
 
     public function modules(): array
