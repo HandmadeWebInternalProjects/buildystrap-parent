@@ -2,6 +2,7 @@
 
 namespace Buildystrap\Traits;
 
+use Buildystrap\Builder\Extends\Module;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -18,6 +19,7 @@ trait HtmlStyleBuilder
     public function getClasses(string $classes = ''): Collection
     {
         $classes = collect([
+            $this instanceof Module ? 'buildystrap-module' : null,
             'buildystrap-' . $this->type(),
             $classes,
         ]);
