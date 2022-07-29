@@ -13,6 +13,7 @@ use stdClass;
 
 use function array_replace_recursive;
 use function collect;
+use function optional;
 use function view;
 
 abstract class Module
@@ -58,8 +59,16 @@ abstract class Module
         if (isset($module->inline) && $module->inline instanceof stdClass) {
             $this->inline_attributes = Arr::from_stdclass($module->inline);
         }
+    }
 
-        // dd($module);
+    public function get(string $value, mixed $default = null): mixed
+    {
+        return optional($this->fields()->get($value, $default))->augmented();
+    }
+
+    public function fields(): Collection
+    {
+        return $this->fields;
     }
 
     public static function getBlueprint(): Collection
@@ -92,34 +101,9 @@ abstract class Module
         return $this->type;
     }
 
-    public function uuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function enabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    public function fields(): Collection
-    {
-        return $this->fields;
-    }
-
     public function __toString(): string
     {
-        return $this->render();
-    }
-
-    public function has(string $value): bool
-    {
-        return $this->fields()->has($value);
-    }
-
-    public function get(string $value, mixed $default = null): mixed
-    {
-        return optional($this->fields()->get($value, $default))->augmented();
+        return $this->augmented()->render();
     }
 
     public function render(): string
@@ -132,5 +116,20 @@ abstract class Module
         ];
 
         return view()->first($views)->with('module', $this)->render();
+    }
+
+    public function has(string $value): bool
+    {
+        return $this->fields()->has($value);
+    }
+
+    public function enabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid;
     }
 }

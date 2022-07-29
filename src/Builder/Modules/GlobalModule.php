@@ -28,8 +28,6 @@ class GlobalModule extends Module
 
     public function render(): string
     {
-        $this->augmentOnce();
-
-        return GlobalModuleCache::render($this->global_id);
+        return GlobalModuleCache::render($this->augmented()->global_id);
     }
 }

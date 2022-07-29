@@ -34,9 +34,9 @@ $container = get_theme_mod('understrap_container_type');
 			<?php endif; ?>
 
 			<?php
-		} else {
-		    the_custom_logo();
-		}
+        } else {
+            the_custom_logo();
+        }
 ?>
 		<!-- end custom logo -->
 
@@ -53,7 +53,7 @@ $container = get_theme_mod('understrap_container_type');
 			<!-- The WordPress Menu goes here -->
 			<?php
             wp_nav_menu(
-            [
+    [
                     'theme_location'  => 'primary',
                     'container_class' => 'offcanvas-body',
                     'container_id'    => '',
@@ -63,7 +63,7 @@ $container = get_theme_mod('understrap_container_type');
                     'depth'           => 2,
                     'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
                 ]
-        );
+);
             ?>
 		</div><!-- .offcanvas -->
 

@@ -10,6 +10,16 @@ trait Augment
     protected bool $augmented = false;
 
     /**
+     * Get this augmented instance
+     * @return $this
+     */
+    public function augmented(): static
+    {
+        $this->augmentOnce();
+        return $this;
+    }
+
+    /**
      * Augment once
      * @return void
      */

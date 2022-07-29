@@ -3,7 +3,6 @@
 namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Arr;
-use Buildystrap\Str;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
@@ -43,6 +42,11 @@ abstract class Layout
         }
     }
 
+    public function classes(string $classes = ''): string
+    {
+        return $this->getClasses($classes)->implode(' ');
+    }
+
     public function getClasses(string $classes = ''): Collection
     {
         $classes = collect([
@@ -57,9 +61,9 @@ abstract class Layout
         //->map(fn ($class) => Str::lower($class));
     }
 
-    public function classes(string $classes = ''): string
+    public function type(): string
     {
-        return $this->getClasses($classes)->implode(' ');
+        return $this->type;
     }
 
     public function enabled(): bool
@@ -71,14 +75,10 @@ abstract class Layout
     {
         return $this->parent instanceof Layout;
     }
+
     public function parent(): ?Layout
     {
         return $this->parent;
-    }
-
-    public function type(): string
-    {
-        return $this->type;
     }
 
     public function uuid(): string
@@ -88,7 +88,7 @@ abstract class Layout
 
     public function __toString(): string
     {
-        return $this->render();
+        return $this->augmented()->render();
     }
 
     abstract public function render(): string;

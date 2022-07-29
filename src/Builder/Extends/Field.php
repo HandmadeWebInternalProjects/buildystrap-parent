@@ -2,11 +2,11 @@
 
 namespace Buildystrap\Builder\Extends;
 
-use Buildystrap\Arr;
 use Buildystrap\Traits\Augment;
 use Illuminate\Support\Collection;
 
 use function collect;
+use function is_string;
 
 abstract class Field
 {
@@ -28,33 +28,23 @@ abstract class Field
 
     abstract protected static function blueprint(): array;
 
+    public function raw(): mixed
+    {
+        return $this->raw;
+    }
+
     public function __toString(): string
     {
-        $this->augmentOnce();
+        $value = $this->value();
 
-        return $this->value();
-    }
-
-    public function get(string $value, mixed $default = null): mixed
-    {
-        return Arr::get((array) $this->value(), $value, $default);
-    }
-
-    public function augmented(): static
-    {
-        $this->augmentOnce();
-        return $this;
+        return match (true) {
+            is_string($value) => $value,
+            default => "<!-- {$this->type()} could not output value as a string -->"
+        };
     }
 
     public function value(): mixed
     {
-        $this->augmentOnce();
-
-        return $this->value;
-    }
-
-    public function raw(): mixed
-    {
-        return $this->raw;
+        return $this->augmented()->value;
     }
 }

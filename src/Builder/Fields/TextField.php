@@ -15,8 +15,4 @@ class TextField extends Field
             ],
         ];
     }
-
-    public function augment(): void
-    {
-    }
 }
