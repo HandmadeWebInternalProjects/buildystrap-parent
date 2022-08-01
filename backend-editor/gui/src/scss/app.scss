@@ -119,6 +119,16 @@ $utilities: map-merge(
     "scale": (
       property: transform,
       class: scale,
+      values: (
+        sm: scale(var(--bs-scale-sm, 0.98)),
+        md: scale(var(--bs-scale-md, 1.02)),
+        lg: scale(var(--bs-scale-lg, 1.05)),
+        xl: scale(var(--bs-scale-xl, 1.1)),
+      ),
+    ),
+    "scale-hover": (
+      property: transform,
+      class: scale,
       state: hover,
       values: (
         sm: scale(var(--bs-scale-sm, 0.98)),

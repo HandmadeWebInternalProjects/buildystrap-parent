@@ -68,6 +68,7 @@ import {
   faHeading,
   faEquals,
   faCircleQuestion,
+  faMobileAlt,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -93,7 +94,8 @@ library.add(
   faStop,
   faHeading,
   faEquals,
-  faCircleQuestion
+  faCircleQuestion,
+  faMobileAlt
 )
 /* add font awesome icon component */
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)

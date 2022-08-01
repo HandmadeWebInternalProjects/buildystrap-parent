@@ -45,6 +45,8 @@ const props = defineProps({
 const { getModuleBlueprintForType, getBuilderConfig } = useBuilderStore()
 const value = ref(props.component.values)
 
+console.log({ value })
+
 const ModuleType = computed((): any => {
   return getModuleBlueprintForType(props.type)
 })

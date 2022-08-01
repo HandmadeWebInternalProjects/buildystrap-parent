@@ -18,18 +18,26 @@ class GalleryModule extends Module
                         'multiple' => true,
                     ],
                 ],
+                'image_size' => [
+                    'type' => 'select-field',
+                    'config' => [
+                        'label' => 'Image Size',
+                        'options' => collect(get_registered_image_sizes())->map(fn ($size, $key) => strtolower($key))->toArray(),
+                    ],
+                ],
                 'columns' => [
                     'type' => 'select-field',
                     'config' => [
                         'label' => 'Columns',
                         'options' => [
-                            '1' => '1',
-                            '2' => '2',
-                            '3' => '3',
-                            '4' => '4',
-                            '5' => '5',
-                            '6' => '6',
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5',
+                            '6',
                         ],
+                        'responsive' => true,
                     ],
                 ],
                 'col_gap' => [
@@ -37,13 +45,13 @@ class GalleryModule extends Module
                     'config' => [
                         'label' => 'Column Gap',
                         'options' => [
-                            '0' => '0',
-                            '1' => '1',
-                            '2' => '2',
-                            '3' => '3',
-                            '4' => '4',
-                            '5' => '5',
-                            '6' => '6',
+                            '0',
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5',
+                            '6',
                         ],
                         'responsive' => true,
                     ],

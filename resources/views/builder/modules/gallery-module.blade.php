@@ -1,22 +1,21 @@
-@php
-    $attrs = collect([
-        'id' => $module->getAttribute('id'),
-        'class' => $module->classes()
-    ])->filter()
-    ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
-    ->implode(' ');
+@extends('builder::module-base', ['class' => ''])
 
-    $col_count = $module->get('columns') ?? 3;
-    $col_gap = $module->get('column_gap') ?? 3;
-@endphp
+@section('field_content')
 
-<div {!! $attrs !!}>
-  <div class="grid gap-{{ $col_gap }}">
-    @foreach($module->get('images')->value() as $image)
-      <div class="g-col-{{ 12 / $col_count }}">
-        {!! wp_get_attachment_image($image->id, 'large') !!}
-      </div>
-    @endforeach
+  @php
+      $col_count = getResponsiveClasses(module: $module, prop: 'columns', classPrefix: 'g-col', fallback: 'g-col-4', computed: fn($val) => (12 / (int) $val) );
+      $col_gap = getResponsiveClasses(module: $module, prop: 'col_gap', classPrefix: 'gap', fallback: 'gap-3');
+      $image_size = $module->get('image_size')->value();
+  @endphp
+
+  <div class="grid {{ $col_gap }}">
+    @if($module->has('images'))
+      @foreach($module->get('images')->value() as $image)
+        <div class="{{ $col_count }}">
+          {!! wp_get_attachment_image($image->id, $image_size) !!}
+        </div>
+      @endforeach
+    @endif
   </div>
     
-</div>
+@overwrite

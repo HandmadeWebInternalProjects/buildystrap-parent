@@ -76,8 +76,8 @@ watch(display, (val: any) => {
       :config="{
         label: 'Property',
         options: [
-          { value: 'd-flex', label: 'Flex' },
-          { value: 'd-grid', label: 'Grid' },
+          { value: 'flex', label: 'Flex' },
+          { value: 'grid', label: 'Grid' },
         ],
         taggable: true,
       }"
@@ -85,7 +85,7 @@ watch(display, (val: any) => {
 
     <div
       class="d-flex flex-column gap-3"
-      v-if="display.property[bp] === 'd-flex'">
+      v-if="display.property[bp] === 'flex'">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
@@ -123,11 +123,11 @@ watch(display, (val: any) => {
           :config="{
             label: 'Justify Content',
             options: [
-              { value: 'justify-content-start', label: 'Start' },
-              { value: 'justify-content-end', label: 'End' },
-              { value: 'justify-content-center', label: 'Center' },
-              { value: 'justify-content-between', label: 'Between' },
-              { value: 'justify-content-around', label: 'Around' },
+              { value: 'start', label: 'Start' },
+              { value: 'end', label: 'End' },
+              { value: 'center', label: 'Center' },
+              { value: 'between', label: 'Between' },
+              { value: 'around', label: 'Around' },
             ],
           }"
           v-model="display['justify-content'][bp]" />
@@ -138,11 +138,11 @@ watch(display, (val: any) => {
           :config="{
             label: 'Align Items',
             options: [
-              { value: 'align-items-start', label: 'Start' },
-              { value: 'align-items-end', label: 'End' },
-              { value: 'align-items-center', label: 'Center' },
-              { value: 'align-items-baseline', label: 'Baseline' },
-              { value: 'align-items-stretch', label: 'Stretch' },
+              { value: 'start', label: 'Start' },
+              { value: 'end', label: 'End' },
+              { value: 'center', label: 'Center' },
+              { value: 'baseline', label: 'Baseline' },
+              { value: 'stretch', label: 'Stretch' },
             ],
           }"
           v-model="display['align-items'][bp]" />
@@ -155,11 +155,11 @@ watch(display, (val: any) => {
           :config="{
             label: 'Align Self',
             options: [
-              { value: 'align-self-start', label: 'Start' },
-              { value: 'align-self-end', label: 'End' },
-              { value: 'align-self-center', label: 'Center' },
-              { value: 'align-self-baseline', label: 'Baseline' },
-              { value: 'align-self-stretch', label: 'Stretch' },
+              { value: 'start', label: 'Start' },
+              { value: 'end', label: 'End' },
+              { value: 'center', label: 'Center' },
+              { value: 'baseline', label: 'Baseline' },
+              { value: 'stretch', label: 'Stretch' },
             ],
           }"
           v-model="display['align-self'][bp]" />
@@ -170,18 +170,18 @@ watch(display, (val: any) => {
           :config="{
             label: 'Align Content',
             options: [
-              { value: 'align-content-start', label: 'Start' },
-              { value: 'align-content-end', label: 'End' },
-              { value: 'align-content-center', label: 'Center' },
-              { value: 'align-content-around', label: 'Around' },
-              { value: 'align-content-stretch', label: 'Stretch' },
+              { value: 'start', label: 'Start' },
+              { value: 'end', label: 'End' },
+              { value: 'center', label: 'Center' },
+              { value: 'around', label: 'Around' },
+              { value: 'stretch', label: 'Stretch' },
             ],
           }"
           v-model="display['align-content'][bp]" />
       </div>
     </div>
 
-    <div v-if="display.property[bp] === 'd-grid'">
+    <div v-if="display.property[bp] === 'grid'">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"

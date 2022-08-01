@@ -122,27 +122,27 @@
     "font_size": [
       {
         "label": "",
-        "value": "h1"
+        "value": "1"
       },
       {
         "label": "",
-        "value": "h2"
+        "value": "2"
       },
       {
         "label": "",
-        "value": "h3"
+        "value": "3"
       },
       {
         "label": "",
-        "value": "h4"
+        "value": "4"
       },
       {
         "label": "",
-        "value": "h5"
+        "value": "5"
       },
       {
         "label": "",
-        "value": "h6"
+        "value": "6"
       }
     ]
   },

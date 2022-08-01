@@ -14,14 +14,15 @@ watch(value.value, (newValue) => {
 })
 
 const baseStyles = {
-  "btn-primary": "Primary",
-  "btn-secondary": "Secondary",
-  "btn-success": "Success",
-  "btn-danger": "Danger",
-  "btn-warning": "Warning",
-  "btn-info": "Info",
-  "btn-light": "Light",
-  "btn-dark": "Dark",
+  Primary: "btn-primary",
+  Secondary: "btn-secondary",
+  Success: "btn-success",
+  Danger: "btn-danger",
+  Warning: "btn-warning",
+  Info: "btn-info",
+  Light: "btn-light",
+  Dark: "btn-dark",
+  Link: "btn-link",
 }
 
 const sizes = {

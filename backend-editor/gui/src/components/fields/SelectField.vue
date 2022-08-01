@@ -28,7 +28,8 @@ const options = normaliseOptions(config.value.options) || []
     <field-label
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
-      :popover="config?.popover" />
+      :popover="config?.popover"
+      :responsive="config?.responsive" />
     <v-select
       :loading="props.loading"
       :multiple="config?.multiple"

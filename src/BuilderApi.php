@@ -34,6 +34,13 @@ class BuilderApi
             'callback' => [static::class, 'get_global_modules'],
             'permission_callback' => '__return_true',
         ]);
+
+
+        register_rest_route('buildy/v1', '/get_image_sizes', [
+            'methods' => 'GET',
+            'callback' => [static::class, 'get_image_sizes'],
+            'permission_callback' => '__return_true',
+        ]);
     }
 
     public static function get_globals($request): WP_Error|WP_REST_Response
@@ -53,6 +60,16 @@ class BuilderApi
         return new WP_REST_Response([
             'status' => 200,
             'data' => $results,
+        ]);
+    }
+
+    public static function get_image_sizes($request): WP_Error|WP_REST_Response
+    {
+        $image_sizes = get_registered_image_sizes();
+
+        return new WP_REST_Response([
+            'status' => 200,
+            'data' => $image_sizes,
         ]);
     }
 

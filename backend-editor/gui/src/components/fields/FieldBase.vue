@@ -8,7 +8,10 @@
       :handle="handle"
       :meta="meta"
       :uuid="uuid"
-      v-model="value[handle]"
+      :placeholder="
+        config?.responsive && responsivePlaceholder(value, handle, bp)
+      "
+      v-model="fieldValue"
       :is="field.type"
       @update-meta="updateMeta" />
   </div>
@@ -18,6 +21,9 @@
 import Validator from "../../field-conditions/Validator"
 import { useFieldType, commonProps } from "./useFieldType"
 import { computed } from "vue"
+
+import { useBreakpoints } from "../../composables/useBreakpoints"
+const { bp } = useBreakpoints("global")
 
 const props = defineProps({
   ...commonProps,
@@ -37,14 +43,30 @@ const props = defineProps({
 
 const emit = defineEmits(["updateMeta", "update:modelValue"])
 
-const { update } = useFieldType(emit)
+const { update, responsivePlaceholder } = useFieldType(emit)
 
 const value = computed({
   get() {
     return props?.modelValue || {}
   },
   set(val) {
+    console.log({ val })
     update(val)
+  },
+})
+
+const fieldValue = computed({
+  get() {
+    return props.field.config?.responsive
+      ? value.value[props.handle]?.[bp.value] || undefined
+      : value.value[props.handle]
+  },
+  set(val) {
+    props.field.config?.responsive
+      ? ((value.value[props.handle]
+          ? value.value[props.handle]
+          : (value.value[props.handle] = {}))[bp.value] = val)
+      : (value.value[props.handle] = val)
   },
 })
 

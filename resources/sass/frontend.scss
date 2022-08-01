@@ -29,12 +29,34 @@ $utilities: map-merge(
     "object-fit": (
       property: object-fit,
       class: object,
+      responsive: true,
       values: (
         fill: fill,
         contain: contain,
         cover: cover,
         none: none,
         scale-down: scale-down,
+      ),
+    ),
+    "background-size": (
+      property: background-size,
+      class: bg,
+      responsive: true,
+      values: (
+        fill: fill,
+        contain: contain,
+        cover: cover,
+        none: none,
+        scale-down: scale-down,
+      ),
+    ),
+    "background-repeat": (
+      property: background-repeat,
+      class: bg,
+      responsive: true,
+      values: (
+        repeat: repeat,
+        no-repeat: no-repeat,
       ),
     ),
   )
@@ -45,3 +67,24 @@ $utilities: map-merge(
 @import "theme/understrap"; // <-------- Loads the Understrap defaults. Just a few classes to incorporate BS in WP
 // @import "theme/colors"; // <-------- This creates the necessary bootstrap color classes.
 // @import "theme/blocks"; // <-------- This adds Bootstrap styles to blocks.
+
+@mixin responsive-inline-helper($property, $css_var) {
+  @each $breakpoint, $val in $grid-breakpoints {
+    @if $breakpoint == "xs" {
+      #{$css_var}: "unset";
+      #{$property}: var(#{$css_var});
+    } @else {
+      @include media-breakpoint-up($breakpoint) {
+        #{$css_var}-#{$breakpoint}: var(#{$css_var});
+        #{$property}: var(#{$css_var}-#{$breakpoint});
+      }
+    }
+  }
+}
+
+.buildystrap-module,
+.buildystrap-section,
+.buildystrap-row,
+.buildystrap-column {
+  @include responsive-inline-helper(background-image, --bg-image-url);
+}

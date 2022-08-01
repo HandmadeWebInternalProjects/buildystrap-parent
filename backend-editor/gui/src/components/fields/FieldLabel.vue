@@ -1,6 +1,17 @@
 <template>
-  <div class="d-flex align-items-center gap-4">
-    <label class="text-600">{{ props.label }}</label>
+  <div class="d-flex align-items-center gap-3">
+    <label class="text-600 d-flex gap-1 align-items-center position-relative"
+      >{{ props.label }}
+      <div class="d-flex align-items-center" v-if="props.responsive">
+        <font-awesome-icon
+          @click="showBreakpointSwitcher = !showBreakpointSwitcher"
+          class="ms-1 pe-2 text-500 popover-trigger"
+          icon="mobile-alt" />
+        <transition name="fade">
+          <BreakpointSwitcher v-if="showBreakpointSwitcher" />
+        </transition>
+      </div>
+    </label>
     <a
       v-if="popover"
       tabindex="0"
@@ -16,14 +27,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onMounted, ref } from "vue"
 import * as bootstrap from "bootstrap"
+
+const showBreakpointSwitcher = ref(false)
+
 const props = defineProps({
   label: {
     type: String,
   },
   popover: {
     type: String,
+  },
+  responsive: {
+    type: Boolean,
+    default: false,
   },
 })
 

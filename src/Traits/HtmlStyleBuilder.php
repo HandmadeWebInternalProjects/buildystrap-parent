@@ -84,6 +84,24 @@ trait HtmlStyleBuilder
             };
         }
 
+
+        foreach ($this->getInlineAttribute('display.justify-content', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "justify-content-{$value}",
+                default => "justify-content-{$breakpoint}-{$value}"
+            };
+        }
+
+
+        foreach ($this->getInlineAttribute('display.align-items', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "align-items-{$value}",
+                default => "align-items-{$breakpoint}-{$value}"
+            };
+        }
+
+
+
         /** Col Gap */
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
@@ -205,8 +223,8 @@ trait HtmlStyleBuilder
 
             if ( ! empty($imageUrl)) {
                 $this->inline_styles[] = match ($breakpoint) {
-                    'xs' => "--bg-image-url: '{$imageUrl}';",
-                    default => "--bg-image-url-{$breakpoint}: '{$imageUrl}';"
+                    'xs' => "--bg-image-url: url('{$imageUrl}');",
+                    default => "--bg-image-url-{$breakpoint}: url('{$imageUrl}');"
                 };
             }
         }
@@ -270,8 +288,8 @@ trait HtmlStyleBuilder
         /** Typography Font Size */
         foreach ($this->getInlineAttribute('typography.font-size', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
-                'xs' => "text-{$value}",
-                default => "text-{$breakpoint}-{$value}"
+                'xs' => "fs-{$value}",
+                default => "fs-{$breakpoint}-{$value}"
             };
         }
 
