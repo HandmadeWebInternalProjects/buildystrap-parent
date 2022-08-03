@@ -16,3 +16,8 @@ add_action('init', [Theme::class, 'boot']);
 
 add_filter('buildystrap::builder::container', function ($container) {
 });
+
+/****************************************************************************************************************
+* Include Theme Options // used for global fields (e.g social icons)
+*/
+include get_template_directory() . '/src/theme_options.php';

@@ -15,4 +15,9 @@ class TextField extends Field
             ],
         ];
     }
+
+    public function __toString(): string
+    {
+        return $this->value();
+    }
 }

@@ -97,3 +97,61 @@ if ( ! function_exists('getResponsiveClasses')) {
         return implode(' ', $class_list);
     }
 }
+
+if ( ! function_exists('str_slug')) {
+    function str_slug($title, $separator = '-')
+    {
+
+        // Convert all dashes/underscores into separator
+        $flip = $separator === '-' ? '_' : '-';
+
+        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
+
+        // Replace @ with the word 'at'
+        $title = str_replace('@', $separator.'at'.$separator, $title);
+
+        // Remove all characters that are not the separator, letters, numbers, or whitespace.
+        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', strtolower($title));
+
+        // Replace all separator characters and whitespace by a single separator
+        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
+
+        return trim($title, $separator);
+    }
+}
+
+
+
+if (function_exists('get_field')) {
+    if ( ! function_exists('get_theme_colors')) {
+        function get_theme_colors()
+        {
+            // get the textarea value from options page without any formatting
+            // check if the repeater field has rows of data
+            $set_colours = [];
+            $additional_colours = [];
+
+            if (have_rows('theme_colours', 'option')) {
+                // TEMP -- ACF Update has caused warnings to appear --- The @ symbol will suppress it for now (still works)
+                $set_colours_data = get_field('theme_colours', 'option');
+
+                $additional_colours_data = get_field('additional_colours', 'option');
+
+                if ( ! $additional_colours_data) {
+                    $additional_colours_data = [];
+                }
+
+                foreach ($set_colours_data as $key=>$val) {
+                    $set_arr = [];
+                    $set_arr['label'] = $key;
+                    $set_arr['value'] = $val;
+                    array_push($set_colours, $set_arr);
+                }
+
+                return array_merge($set_colours, $additional_colours_data);
+            } else {
+                return;
+            }
+        }
+    }
+}

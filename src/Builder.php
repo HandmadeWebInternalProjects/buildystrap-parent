@@ -5,6 +5,8 @@ namespace Buildystrap;
 use Buildystrap\Builder\Content;
 use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
+use Buildystrap\Builder\Fields\AccordionField;
+use Buildystrap\Builder\Fields\ButtonField;
 use Buildystrap\Builder\Fields\MediaField;
 use Buildystrap\Builder\Fields\RelationalField;
 use Buildystrap\Builder\Fields\RichTextField;
@@ -46,10 +48,12 @@ class Builder
     protected static bool $booted = false;
 
     protected static array $fields = [
+        'accordion-field' => AccordionField::class,
         'text-field' => TextField::class,
         'select-field' => SelectField::class,
         'richtext-field' => RichTextField::class,
         'title-field' => TitleField::class,
+        'button-field' => ButtonField::class,
         'media-field' => MediaField::class,
         'relational-field' => RelationalField::class,
     ];

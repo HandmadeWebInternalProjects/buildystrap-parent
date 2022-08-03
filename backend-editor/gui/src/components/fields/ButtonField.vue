@@ -10,6 +10,8 @@ const { handle, config, modelValue } = toRefs(props)
 const value = ref(modelValue?.value || {})
 
 watch(value.value, (newValue) => {
+  console.log({ newValue })
+
   update(newValue)
 })
 
@@ -26,8 +28,8 @@ const baseStyles = {
 }
 
 const sizes = {
-  "btn-sm": "Small",
-  "btn-lg": "Large",
+  Small: "btn-sm",
+  Large: "btn-lg",
 }
 
 const updateStyleValue = (property: string, action: string) => {
@@ -48,8 +50,8 @@ watch(outlined, () => {
 
 const styles = computed(() => {
   if (outlined.value) {
-    return Object.entries(baseStyles).reduce((acc: any, [key, value]: any) => {
-      acc[`btn-outline-${key.split("-")[1]}`] = `Outline ${value}`
+    return Object.entries(baseStyles).reduce((acc: any, [value, key]: any) => {
+      acc[`Outline ${value}`] = `btn-outline-${key.split("-")[1]}`
       return acc
     }, {})
   }

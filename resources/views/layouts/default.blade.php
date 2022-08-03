@@ -1,8 +1,10 @@
 @include('partials.header')
 
 @if(Buildystrap\Builder::isEnabled())
+  <div class="buildystrap-container">
     {!! the_content() !!}
-@else
+  </div>
+  @else
     @yield('content')
 @endif
 

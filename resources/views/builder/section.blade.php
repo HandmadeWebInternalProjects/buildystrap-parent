@@ -10,8 +10,11 @@
 
 <div {!! $attrs !!}>
 
+  {!! $section->getConfig('boxed_layout') ? '<div class="container">' : null !!}
+
     @foreach($section->rows() as $row)
         {!! $row->render() !!}
     @endforeach
 
+    {!! $section->getConfig('boxed_layout') ? '</div>' : null !!}
 </div>
