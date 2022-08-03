@@ -34,9 +34,9 @@ watch(
 
 <template>
   <stacks v-if="getStacks.length"></stacks>
-  <div class="container d-flex flex-column rounded gap-3 mt-4 px-0">
+  <div class="container d-flex flex-column rounded gap-3 mt-4 mb-6 px-0 bg-white"> 
     <div
-      class="promote d-flex align-items-center bg-indigo-500 text-white rounded p-3">
+      class="promote d-flex align-items-center bg-indigo-500 text-white rounded p-3"> 
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xml:space="preserve"
@@ -58,7 +58,7 @@ watch(
           fill="none"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round" />
+          stroke-linejoin="round" /> 
         <circle
           stroke-miterlimit="10"
           cx="23.252"
@@ -111,14 +111,14 @@ watch(
           stroke-linecap="round"
           stroke-linejoin="round" />
       </svg>
-      <h2 style="font-size: 32px">BuildyStrap</h2>
+      <h2 class="mb-0">BuildyStrap</h2>
     </div>
     <draggable
       :list="builder"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
-      class="section-draggable d-flex flex-grow flex-column gap-3 group">
+      class="section-draggable d-flex flex-grow flex-column gap-3 group bg-white px-3">
       <template #item="{ element, index }">
         <component
           :is="`grid-${element.type}`"
@@ -128,7 +128,7 @@ watch(
       </template>
     </draggable>
     <div class="d-flex flex-row-reverse">
-      <button type="button" class="btn btn-primary" @click="addSection()">
+      <button type="button" class="btn btn-primary mb-3 me-3" @click="addSection()">
         Add Section
       </button>
     </div>

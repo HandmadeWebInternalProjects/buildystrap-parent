@@ -1,3 +1,5 @@
+$primary: #6610f2;
+
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/maps";
@@ -152,7 +154,7 @@ $utilities: map-merge(
 // Layout & components
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
-@import "bootstrap/scss/popover";
+@import "bootstrap/scss/popover"; 
 #app {
   @import "bootstrap/scss/type";
   // @import "bootstrap/scss/images";
@@ -188,16 +190,19 @@ $utilities: map-merge(
   @import "bootstrap/scss/helpers";
 
   @import "bootstrap/scss/utilities/api";
+
+  .svg-inline--fa {
+    vertical-align: -0.125em;
+  }
+
+  .card {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .stack-content {
+    overflow: auto;
+  }
 }
 
-.svg-inline--fa {
-  vertical-align: -0.125em;
-}
-.card {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-.stack-content {
-  overflow: auto;
-}
