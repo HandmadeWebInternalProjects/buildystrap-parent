@@ -5,11 +5,11 @@
   /* Default Grid System */
   <?php // dd(get_field('structure_default_grid_system', 'option'));?>
 
-  --default-grid-system: <?php echo get_field('structure_default_grid_system', 'option'); ?>;
-  --col-gap: <?php echo get_field('structure_column_gap', 'option'); ?>;
-  --module-gap: <?php echo get_field('structure_module_gap', 'option'); ?>;
-  --section-padding: <?php echo get_field('structure_section_padding', 'option'); ?>;
-  --row-padding: <?php echo get_field('structure_row_padding', 'option'); ?>;
+  --default-grid-system: <?php echo get_field('buildystrap_structure_default_grid_system', 'option'); ?>;
+  --col-gap: <?php echo get_field('buildystrap_structure_column_gap', 'option'); ?>;
+  --module-gap: <?php echo get_field('buildystrap_structure_module_gap', 'option'); ?>;
+  --section-padding: <?php echo get_field('buildystrap_structure_section_padding', 'option'); ?>;
+  --row-padding: <?php echo get_field('buildystrap_structure_row_padding', 'option'); ?>;
 
 /* Colours */
 <?php
@@ -23,7 +23,8 @@
           // loop through the rows of data
           foreach ($colors as $color) : ?>
 
---color-<?php echo sanitize_text_field($color['label']); ?>: <?php echo sanitize_hex_color($color['value']); ?>;
+--bs-<?php echo sanitize_text_field($color['label']); ?>: <?php echo sanitize_hex_color($color['value']); ?>;
+--bs-<?php echo sanitize_text_field($color['label']); ?>-rgb: <?php echo hex2rgb(sanitize_hex_color($color['value'])); ?>;
 
 <?php endforeach; endif; endif; ?>
 

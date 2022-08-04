@@ -122,7 +122,17 @@ if ( ! function_exists('str_slug')) {
 
 
 
-if (function_exists('get_field')) {
+if ( ! function_exists('acf_active')) {
+    function acf_active()
+    {
+        return function_exists('get_field');
+    }
+}
+
+
+
+
+if (acf_active()) {
     if ( ! function_exists('get_theme_colors')) {
         function get_theme_colors()
         {
@@ -131,11 +141,10 @@ if (function_exists('get_field')) {
             $set_colours = [];
             $additional_colours = [];
 
-            if (have_rows('theme_colours', 'option')) {
+            if (have_rows('buildystrap_theme_colours_included', 'option')) {
                 // TEMP -- ACF Update has caused warnings to appear --- The @ symbol will suppress it for now (still works)
-                $set_colours_data = get_field('theme_colours', 'option');
-
-                $additional_colours_data = get_field('additional_colours', 'option');
+                $set_colours_data = get_field('buildystrap_theme_colours_included', 'option');
+                $additional_colours_data = get_field('buildystrap_theme_colours_additional_colours', 'option');
 
                 if ( ! $additional_colours_data) {
                     $additional_colours_data = [];
@@ -153,5 +162,41 @@ if (function_exists('get_field')) {
                 return;
             }
         }
+    }
+}
+
+if ( ! function_exists('hex2rgb')) {
+    function hex2rgb($color)
+    {
+        $default = '0 0 0';
+
+        //Return default if no color provided
+        if (empty($color)) {
+            return $default;
+        }
+
+        //Sanitize $color if "#" is provided
+        if ($color[0] == '#') {
+            $color = substr($color, 1);
+        }
+
+        //Check if color has 6 or 3 characters and get values
+        if (strlen($color) == 6) {
+            $hex = [ $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] ];
+        } elseif (strlen($color) == 3) {
+            $hex = [ $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] ];
+        } else {
+            return $default;
+        }
+
+        //Convert hexadec to rgb
+        $rgb =  array_map('hexdec', $hex);
+
+        //Check if opacity is set(rgba or rgb)
+        $output = implode(',', $rgb);
+
+
+        //Return rgb(a) color string
+        return $output;
     }
 }

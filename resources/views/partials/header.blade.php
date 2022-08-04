@@ -9,7 +9,7 @@
 <div class="site" id="page">
 
 	<!-- ******************* The Navbar Area ******************* -->
-	<header id="wrapper-navbar" class="sticky-top">
+	<header id="wrapper-navbar" class="sticky-top <?= acf_active() ? 'bg-' . get_field('buildystrap_header_background_colour', 'option') : '' ?>">
 
 		<a class="skip-link sr-only sr-only-focusable" href="#content">{!! esc_html_e( 'Skip to content', 'buildystrap' ) !!}</a>
 

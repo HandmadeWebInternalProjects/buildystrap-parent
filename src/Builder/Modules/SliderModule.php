@@ -4,14 +4,14 @@ namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
 
-class ReplicatorModule extends Module
+class SliderModule extends Module
 {
     protected static function blueprint(): array
     {
         return [
             'icon' => 'fa-solid fa-magic-wand-sparkles',
             'fields' => [
-                'set_handle' => [
+                'slides' => [
                     'type' => 'replicator-field',
                     'fields' => [
                         'title' => [
@@ -21,24 +21,17 @@ class ReplicatorModule extends Module
                                 'label' => 'Title',
                             ],
                         ],
-                        'show' => [
-                            'type' => 'radio-buttons-field',
-                            'config' => [
-                                'label' => 'Show',
-                                'options' => ['image', 'cta'],
-                                'taggable' => true,
-                                'multiple' => true,
-
-                            ],
-                        ],
                         'image' => [
                             'type' => 'media-field',
                             'config' => [
                                 'label' => 'Image',
                                 'multiple' => false,
-                                'if' => [
-                                    'show' => 'equals image',
-                                ],
+                            ],
+                        ],
+                        'show_button' => [
+                            'type' => 'toggle-field',
+                            'config' => [
+                                'label' => 'Show Button',
                             ],
                         ],
                         'cta' => [
@@ -46,7 +39,7 @@ class ReplicatorModule extends Module
                             'config' => [
                                 'label' => 'Call to action',
                                 'if' => [
-                                    'show' => 'equals cta',
+                                    'show_button' => 'equals true',
                                 ],
                             ],
                         ],
@@ -57,7 +50,7 @@ class ReplicatorModule extends Module
                 ],
             ],
             'config' => [
-                'handle' => 'test',
+                'handle' => 'Slider',
             ],
         ];
     }

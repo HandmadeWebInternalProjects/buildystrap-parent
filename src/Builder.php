@@ -9,6 +9,7 @@ use Buildystrap\Builder\Fields\AccordionField;
 use Buildystrap\Builder\Fields\ButtonField;
 use Buildystrap\Builder\Fields\MediaField;
 use Buildystrap\Builder\Fields\RelationalField;
+use Buildystrap\Builder\Fields\ReplicatorField;
 use Buildystrap\Builder\Fields\RichTextField;
 use Buildystrap\Builder\Fields\SelectField;
 use Buildystrap\Builder\Fields\TextField;
@@ -19,7 +20,7 @@ use Buildystrap\Builder\Modules\ButtonModule;
 use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\GalleryModule;
 use Buildystrap\Builder\Modules\HeaderModule;
-use Buildystrap\Builder\Modules\ReplicatorModule;
+use Buildystrap\Builder\Modules\SliderModule;
 use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
 use Buildystrap\Builder\Renderer;
@@ -56,6 +57,7 @@ class Builder
         'button-field' => ButtonField::class,
         'media-field' => MediaField::class,
         'relational-field' => RelationalField::class,
+        'replicator-field' => ReplicatorField::class,
     ];
 
     protected static array $modules = [
@@ -66,7 +68,7 @@ class Builder
         'header-module' => HeaderModule::class,
         'tab-module' => TabModule::class,
         'accordion-module' => AccordionModule::class,
-        'replicator-module' => ReplicatorModule::class,
+        'slider-module' => SliderModule::class,
     ];
 
     protected static array $paths = [];
