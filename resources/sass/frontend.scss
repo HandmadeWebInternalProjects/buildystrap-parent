@@ -82,9 +82,4 @@ $utilities: map-merge(
   }
 }
 
-.buildystrap-module,
-.buildystrap-section,
-.buildystrap-row,
-.buildystrap-column {
-  @include responsive-inline-helper(background-image, --bg-image-url);
-}
+@import "theme/layout";

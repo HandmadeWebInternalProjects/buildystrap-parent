@@ -1,0 +1,23 @@
+.buildystrap-module,
+.buildystrap-section,
+.buildystrap-row,
+.buildystrap-column {
+  @include responsive-inline-helper(background-image, --bg-image-url);
+}
+
+.buildystrap-section {
+  padding: var(--section-padding) 0;
+}
+
+.buildystrap-row {
+  padding: var(--row-padding) 0;
+  &.grid {
+    gap: var(--col-gap);
+  }
+}
+
+.buildystrap-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--module-gap);
+}

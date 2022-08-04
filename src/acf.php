@@ -16,6 +16,7 @@ add_action('acf/init', 'register_buildy_acf_options_page');
 
 /** Place ACF PHP export below **/
 
+
 if (function_exists('acf_add_local_field_group')):
 
     acf_add_local_field_group([
@@ -762,7 +763,7 @@ if (function_exists('acf_add_local_field_group')):
                         'label' => 'Default Grid System',
                         'name' => 'default_grid_system',
                         'type' => 'button_group',
-                        'instructions' => '',
+                        'instructions' => 'Whether to use flex or grid for the main layout grid system (bootstrap supports both)',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => [
@@ -775,14 +776,71 @@ if (function_exists('acf_add_local_field_group')):
                             'grid' => 'Grid',
                         ],
                         'allow_null' => 0,
-                        'default_value' => 'flex',
+                        'default_value' => '',
                         'layout' => 'horizontal',
                         'return_format' => 'value',
                     ],
                     [
                         'key' => 'field_62ce5e610c42d',
-                        'label' => 'Default Column Gap',
-                        'name' => 'default_column_gap',
+                        'label' => 'Column Gap',
+                        'name' => 'column_gap',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => [
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ],
+                        'default_value' => '3rem',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                    ],
+                    [
+                        'key' => 'field_62eb1e47bcf2e',
+                        'label' => 'Module Gap',
+                        'name' => 'module_gap',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => [
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ],
+                        'default_value' => '3rem',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                    ],
+                    [
+                        'key' => 'field_62eb1e2dbcf2c',
+                        'label' => 'Section Padding',
+                        'name' => 'section_padding',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => [
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ],
+                        'default_value' => '3rem',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                    ],
+                    [
+                        'key' => 'field_62eb1e3abcf2d',
+                        'label' => 'Row Padding',
+                        'name' => 'row_padding',
                         'type' => 'text',
                         'instructions' => '',
                         'required' => 0,

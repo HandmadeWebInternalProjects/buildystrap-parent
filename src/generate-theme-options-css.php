@@ -6,6 +6,10 @@
   <?php // dd(get_field('structure_default_grid_system', 'option'));?>
 
   --default-grid-system: <?php echo get_field('structure_default_grid_system', 'option'); ?>;
+  --col-gap: <?php echo get_field('structure_column_gap', 'option'); ?>;
+  --module-gap: <?php echo get_field('structure_module_gap', 'option'); ?>;
+  --section-padding: <?php echo get_field('structure_section_padding', 'option'); ?>;
+  --row-padding: <?php echo get_field('structure_row_padding', 'option'); ?>;
 
 /* Colours */
 <?php
