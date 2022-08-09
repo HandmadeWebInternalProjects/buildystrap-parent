@@ -111,12 +111,12 @@
         "value": "100%"
       },
       {
-        "label": "",
-        "value": "50vh"
+        "label": "vh-50",
+        "value": "vh-50"
       },
       {
-        "label": "",
-        "value": "100vh"
+        "label": "vh-100",
+        "value": "vh-100"
       }
     ],
     "font_size": [
