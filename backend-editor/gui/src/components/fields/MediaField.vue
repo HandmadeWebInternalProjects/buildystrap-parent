@@ -55,7 +55,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, toRefs, onMounted, computed } from "vue"
+import { ref, toRefs, onUnmounted, computed } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 const props = defineProps({ ...commonProps })
 
@@ -149,8 +149,10 @@ const removeImage = (image: number) => {
   update(images.value.filter((el: MediaType) => el.id !== image))
 }
 
-onMounted(() => {
-  initMediaLibrary()
+onUnmounted(() => {
+  if (libraryRef.value) {
+    libraryRef.value.detach()
+  }
 })
 </script>
 <style lang="scss">

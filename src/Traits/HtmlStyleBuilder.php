@@ -127,7 +127,7 @@ trait HtmlStyleBuilder
         }
 
         /** Min Width */
-        foreach ($this->getInlineAttribute('minWidth', []) as $breakpoint => $value) {
+        foreach ($this->getInlineAttribute('sizing.minWidth', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "min-w-{$value}",
                 default => "min-w-{$breakpoint}-{$value}"
@@ -135,7 +135,7 @@ trait HtmlStyleBuilder
         }
 
         /** Width */
-        foreach ($this->getInlineAttribute('width', []) as $breakpoint => $value) {
+        foreach ($this->getInlineAttribute('sizing.width', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "w-{$value}",
                 default => "w-{$breakpoint}-{$value}"
@@ -143,7 +143,7 @@ trait HtmlStyleBuilder
         }
 
         /** Max Width */
-        foreach ($this->getInlineAttribute('maxWidth', []) as $breakpoint => $value) {
+        foreach ($this->getInlineAttribute('sizing.maxWidth', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "max-w-{$value}",
                 default => "max-w-{$breakpoint}-{$value}"
@@ -151,7 +151,7 @@ trait HtmlStyleBuilder
         }
 
         /** Min Height */
-        foreach ($this->getInlineAttribute('minHeight', []) as $breakpoint => $value) {
+        foreach ($this->getInlineAttribute('sizing.minHeight', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "min-h-{$value}",
                 default => "min-h-{$breakpoint}-{$value}"
@@ -159,7 +159,7 @@ trait HtmlStyleBuilder
         }
 
         /** Height */
-        foreach ($this->getInlineAttribute('height', []) as $breakpoint => $value) {
+        foreach ($this->getInlineAttribute('sizing.height', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "h-{$value}",
                 default => "h-{$breakpoint}-{$value}"
@@ -167,7 +167,7 @@ trait HtmlStyleBuilder
         }
 
         /** Max Height */
-        foreach ($this->getInlineAttribute('maxHeight', []) as $breakpoint => $value) {
+        foreach ($this->getInlineAttribute('sizing.maxHeight', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "max-h-{$value}",
                 default => "max-h-{$breakpoint}-{$value}"
@@ -260,6 +260,16 @@ trait HtmlStyleBuilder
                 default => "bg-{$breakpoint}-{$value}"
             };
         }
+
+
+        /** Background Blend Mode */
+        foreach ($this->getInlineAttribute('background.image.blend-mode', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "bg-blend-{$value}",
+                default => "bg-blend-{$breakpoint}-{$value}"
+            };
+        }
+
 
         /** Typography Color */
         foreach ($this->getInlineAttribute('typography.color', []) as $breakpoint => $value) {

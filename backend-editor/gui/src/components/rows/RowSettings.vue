@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed } from "vue"
 const props = defineProps({
   type: {
     type: String,
@@ -33,8 +33,32 @@ const props = defineProps({
 })
 
 const component = ref(props.component)
-const inline = ref(component.value?.inline || {})
-const attributes = ref(component.value?.attributes || {})
-const config = ref(component.value?.config || {})
+
+const inline = computed({
+  get() {
+    return component.value?.inline || {}
+  },
+  set(value) {
+    component.value.inline = value
+  },
+})
+
+const attributes = computed({
+  get() {
+    return component.value?.attributes || {}
+  },
+  set(value) {
+    component.value.attributes = value
+  },
+})
+
+const config = computed({
+  get() {
+    return component.value?.config || {}
+  },
+  set(value) {
+    component.value.config = value
+  },
+})
 </script>
 <style lang=""></style>

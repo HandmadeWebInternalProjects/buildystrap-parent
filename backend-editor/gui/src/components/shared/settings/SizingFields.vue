@@ -45,15 +45,13 @@ const { update, filterOutEmptyValues, responsivePlaceholder } =
   useFieldType(emit)
 
 const values: any = reactive({
-  minWidth: props.modelValue?.minWidth || {},
-  width: props.modelValue?.width || {},
-  maxWidth: props.modelValue?.maxWidth || {},
-  minHeight: props.modelValue?.minHeight || {},
-  height: props.modelValue?.height || {},
-  maxHeight: props.modelValue?.maxHeight || {},
+  minWidth: props.modelValue?.sizing?.minWidth || {},
+  width: props.modelValue?.sizing?.width || {},
+  maxWidth: props.modelValue?.sizing?.maxWidth || {},
+  minHeight: props.modelValue?.sizing?.minHeight || {},
+  height: props.modelValue?.sizing?.height || {},
+  maxHeight: props.modelValue?.sizing?.maxHeight || {},
 })
-
-console.log({ value: props.modelValue })
 
 const valuesMap: any = {
   minWidth: {
@@ -88,8 +86,7 @@ let options: { [key: string]: string[] } = {
 }
 
 watch(values, (val: { [key: string]: string }) => {
-  console.log({ val })
-
+  console.log("values", val)
   update(filterOutEmptyValues(val))
 })
 </script>

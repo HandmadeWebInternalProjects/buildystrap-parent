@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onBeforeMount, watch } from "vue"
+import { computed, ref, onBeforeMount } from "vue"
 import { useBuilderStore } from "../../stores/builder"
 import { useLocalStorage } from "../../composables/useLocalStorage"
 
@@ -66,8 +66,32 @@ const updateMeta = (meta: any) => {
 }
 
 const component = ref(props.component)
-const inline = ref(component.value?.inline || {})
-const attributes = ref(component.value?.attributes || {})
-const config = ref(component.value?.config || {})
+
+const inline = computed({
+  get() {
+    return component.value?.inline || {}
+  },
+  set(value) {
+    component.value.inline = value
+  },
+})
+
+const attributes = computed({
+  get() {
+    return component.value?.attributes || {}
+  },
+  set(value) {
+    component.value.attributes = value
+  },
+})
+
+const config = computed({
+  get() {
+    return component.value?.config || {}
+  },
+  set(value) {
+    component.value.config = value
+  },
+})
 </script>
 <style lang=""></style>

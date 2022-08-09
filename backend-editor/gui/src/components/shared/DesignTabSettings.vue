@@ -61,7 +61,8 @@ const inline = computed({
     return props.modelValue || {}
   },
   set(val: any) {
-    console.log({ val })
+    // Object.assign(props.modelValue, val)
+
     update(val)
   },
 })
@@ -71,7 +72,7 @@ const display = computed({
     return inline.value.display || {}
   },
   set(val: any) {
-    inline.value.display = val
+    inline.value = { ...inline.value, display: val }
   },
 })
 
@@ -80,7 +81,7 @@ const sizing = computed({
     return inline.value || {}
   },
   set(val: any) {
-    inline.value = Object.assign(inline.value, val)
+    inline.value = { ...inline.value, sizing: val }
   },
 })
 
@@ -89,7 +90,7 @@ const margin = computed({
     return inline.value.margin || {}
   },
   set(val: any) {
-    inline.value.margin = val
+    inline.value = { ...inline.value, margin: val }
   },
 })
 
@@ -98,7 +99,7 @@ const padding = computed({
     return inline.value.padding || {}
   },
   set(val: any) {
-    inline.value.padding = val
+    inline.value = { ...inline.value, padding: val }
   },
 })
 
@@ -107,7 +108,7 @@ const background = computed({
     return inline.value.background || {}
   },
   set(val: any) {
-    inline.value.background = val
+    inline.value = { ...inline.value, background: val }
   },
 })
 
@@ -116,7 +117,7 @@ const typography = computed({
     return inline.value.typography || {}
   },
   set(val: any) {
-    inline.value.typography = val
+    inline.value = { ...inline.value, typography: val }
   },
 })
 </script>

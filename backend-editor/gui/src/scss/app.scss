@@ -154,7 +154,7 @@ $utilities: map-merge(
 // Layout & components
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
-@import "bootstrap/scss/popover"; 
+@import "bootstrap/scss/popover";
 #app {
   @import "bootstrap/scss/type";
   // @import "bootstrap/scss/images";
@@ -205,4 +205,3 @@ $utilities: map-merge(
     overflow: auto;
   }
 }
-

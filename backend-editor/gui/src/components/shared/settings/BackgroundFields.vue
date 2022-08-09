@@ -35,6 +35,9 @@ const background: any = reactive({
     position: {
       ...(props.modelValue?.image?.position || {}),
     },
+    "blend-mode": {
+      ...(props.modelValue?.image?.["blend-mode"] || {}),
+    },
     repeat: {
       ...(props.modelValue?.image?.repeat || {}),
     },
@@ -121,6 +124,27 @@ watch(background, (val: any) => {
         }"
         v-model="background.image['repeat'][bp]" />
     </div>
+    <select-field
+      class="flex-grow-1 flex-basis-0"
+      handle="blend-mode"
+      :placeholder="responsivePlaceholder(background.image, 'blend-mode', bp)"
+      :config="{
+        label: 'Blend mode',
+        options: [
+          'normal',
+          'multiply',
+          'screen',
+          'overlay',
+          'darken',
+          'lighten',
+          'color-dodge',
+          'saturation',
+          'color',
+          'luminosity',
+        ],
+        taggable: true,
+      }"
+      v-model="background.image['blend-mode'][bp]" />
   </field-group>
 </template>
 

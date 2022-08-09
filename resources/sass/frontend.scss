@@ -50,6 +50,12 @@ $utilities: map-merge(
         scale-down: scale-down,
       ),
     ),
+    "background-blend-mode": (
+      property: background-blend-mode,
+      class: bg-blend,
+      values: normal multiply screen overlay darken lighten color-dodge
+        saturation color luminosity,
+    ),
     "background-repeat": (
       property: background-repeat,
       class: bg,
@@ -72,6 +78,17 @@ $utilities: map-merge(
             ),
         )
       ),
+    "min-height": (
+      property: min-height,
+      class: min-h,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "height"), "values"),
+          (
+            100vh: 100vh,
+          )
+        ),
+    ),
   )
 );
 

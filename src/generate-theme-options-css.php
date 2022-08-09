@@ -11,7 +11,7 @@
   --section-padding: <?php echo get_field('buildystrap_structure_section_padding', 'option'); ?>;
   --row-padding: <?php echo get_field('buildystrap_structure_row_padding', 'option'); ?>;
 
-/* Colours */
+/* Colours (included) */
 <?php
   // check if the repeater field has rows of data
   if (function_exists('get_theme_colors')):
