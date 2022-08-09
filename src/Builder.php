@@ -20,6 +20,7 @@ use Buildystrap\Builder\Modules\ButtonModule;
 use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\GalleryModule;
 use Buildystrap\Builder\Modules\HeaderModule;
+use Buildystrap\Builder\Modules\ImageModule;
 use Buildystrap\Builder\Modules\SliderModule;
 use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
@@ -64,6 +65,7 @@ class Builder
         'card-module' => CardModule::class,
         'text-module' => TextModule::class,
         'gallery-module' => GalleryModule::class,
+        'image-module' => ImageModule::class,
         'button-module' => ButtonModule::class,
         'header-module' => HeaderModule::class,
         'tab-module' => TabModule::class,

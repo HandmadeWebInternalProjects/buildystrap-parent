@@ -6,13 +6,6 @@
     <bs-tab name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
-    <bs-tab name="columns">
-      <column-settings
-        class="mb-4"
-        v-for="column in component.columns"
-        :field="column"
-        :key="'row-cols' + column.uuid" />
-    </bs-tab>
     <bs-tab name="visibility">
       <visibility-tab-settings v-model="config" />
     </bs-tab>
@@ -22,19 +15,14 @@
 <script setup lang="ts">
 import { ref } from "vue"
 const props = defineProps({
-  type: {
-    type: String,
-    required: true,
-  },
-  component: {
+  field: {
     type: Object,
     required: true,
   },
 })
 
-const component = ref(props.component)
-const inline = ref(component.value?.inline || {})
-const attributes = ref(component.value?.attributes || {})
-const config = ref(component.value?.config || {})
+const field = ref(props.field)
+const inline = ref(field.value?.inline || {})
+const attributes = ref(field.value?.attributes || {})
+const config = ref(field.value?.config || {})
 </script>
-<style lang=""></style>

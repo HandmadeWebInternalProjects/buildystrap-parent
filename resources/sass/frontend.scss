@@ -59,6 +59,19 @@ $utilities: map-merge(
         no-repeat: no-repeat,
       ),
     ),
+    "height":
+      map-merge(
+        map-get($utilities, "height"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "height"), "values"),
+              (
+                100vh: 100vh,
+              )
+            ),
+        )
+      ),
   )
 );
 
