@@ -5,7 +5,7 @@
   <div class="swiper-wrapper">
       @foreach($module->get('slides')->value() as $slide)
         <div class="swiper-slide">
-          <?= wp_get_attachment_image( collect($slide->image)->first()->id, 'full', false, [] ); ?>
+          <?= wp_get_attachment_image(collect($slide->image)->first()->id, 'full', false, []); ?>
         </div>
       @endforeach
   </div>

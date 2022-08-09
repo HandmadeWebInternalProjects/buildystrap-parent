@@ -5,7 +5,6 @@ namespace Buildystrap\Builder\Layout;
 use Buildystrap\Builder;
 use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Builder\Modules\GlobalModule;
-use stdClass;
 
 use function function_exists;
 use function get_field;
@@ -15,22 +14,24 @@ class Column extends Layout
 {
     protected array $modules = [];
 
-    public function __construct(stdClass $column, ?Layout $parent = null)
+    public function __construct(array $column, ?Layout $parent = null)
     {
         parent::__construct($column, $parent);
 
-        foreach ($column->modules ?? [] as $module) {
+        foreach ($column['modules'] ?? [] as $module) {
             // Global module
-            $moduleType = $module->type === 'global-module' ? GlobalModule::class : Builder::getModule($module->type);
+            $moduleType = $module['type'] === 'global-module' ? GlobalModule::class : Builder::getModule(
+                $module['type']
+            );
 
             $this->modules[] = new $moduleType($module);
 
             // Or
             // Convert Global module to the end module
-//            if ($module->type === 'global-module' && $globalModule = Builder::getGlobalModule($module->global_id)) {
+//            if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
 //                $this->modules[] = $globalModule;
 //            } else {
-//                $moduleType = Builder::getModule($module->type);
+//                $moduleType = Builder::getModule($module['type']);
 //
 //                $this->modules[] = new $moduleType($module);
 //            }
@@ -57,7 +58,10 @@ class Column extends Layout
         foreach ($this->getConfig('columnSizes', []) as $breakpoint => $value) {
             /** Figure out default Flex/Grid style */
             $prefix = ''; // Default to Flex
-            if (function_exists('get_field') && $grid_defaults = get_field('structure_default_grid_system', 'option')) {
+            if (function_exists('get_field') && $grid_defaults = get_field(
+                'buildystrap_structure_default_grid_system',
+                'option'
+            )) {
                 $prefix = match ($grid_defaults) {
                     'grid' => 'g-', // Grid
                     default => '', // Flex

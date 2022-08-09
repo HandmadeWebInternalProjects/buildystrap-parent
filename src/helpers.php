@@ -74,8 +74,13 @@ if ( ! function_exists('class_extends')) {
 }
 
 if ( ! function_exists('getResponsiveClasses')) {
-    function getResponsiveClasses(object $module, string $prop, string $classPrefix, string $fallback, mixed $computed = null)
-    {
+    function getResponsiveClasses(
+        object $module,
+        string $prop,
+        string $classPrefix,
+        string $fallback,
+        mixed $computed = null
+    ) {
         $has_prop = $module->has($prop);
         if ( ! $has_prop) {
             return $fallback;
@@ -99,27 +104,28 @@ if ( ! function_exists('getResponsiveClasses')) {
 }
 
 if ( ! function_exists('str_slug')) {
-    function str_slug($title, $separator = '-')
+    // Str::slug already exists for this..
+    function str_slug($title, $separator = '-'): string
     {
+        return Str::slug($title, $separator);
 
         // Convert all dashes/underscores into separator
         $flip = $separator === '-' ? '_' : '-';
 
-        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
+        $title = preg_replace('![' . preg_quote($flip) . ']+!u', $separator, $title);
 
         // Replace @ with the word 'at'
-        $title = str_replace('@', $separator.'at'.$separator, $title);
+        $title = str_replace('@', $separator . 'at' . $separator, $title);
 
         // Remove all characters that are not the separator, letters, numbers, or whitespace.
-        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', strtolower($title));
+        $title = preg_replace('![^' . preg_quote($separator) . '\pL\pN\s]+!u', '', strtolower($title));
 
         // Replace all separator characters and whitespace by a single separator
-        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
+        $title = preg_replace('![' . preg_quote($separator) . '\s]+!u', $separator, $title);
 
         return trim($title, $separator);
     }
 }
-
 
 
 if ( ! function_exists('acf_active')) {
@@ -128,9 +134,6 @@ if ( ! function_exists('acf_active')) {
         return function_exists('get_field');
     }
 }
-
-
-
 
 if (acf_active()) {
     if ( ! function_exists('get_theme_colors')) {
@@ -150,7 +153,7 @@ if (acf_active()) {
                     $additional_colours_data = [];
                 }
 
-                foreach ($set_colours_data as $key=>$val) {
+                foreach ($set_colours_data as $key => $val) {
                     $set_arr = [];
                     $set_arr['label'] = $key;
                     $set_arr['value'] = $val;
@@ -182,15 +185,15 @@ if ( ! function_exists('hex2rgb')) {
 
         //Check if color has 6 or 3 characters and get values
         if (strlen($color) == 6) {
-            $hex = [ $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] ];
+            $hex = [$color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]];
         } elseif (strlen($color) == 3) {
-            $hex = [ $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] ];
+            $hex = [$color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]];
         } else {
             return $default;
         }
 
         //Convert hexadec to rgb
-        $rgb =  array_map('hexdec', $hex);
+        $rgb = array_map('hexdec', $hex);
 
         //Check if opacity is set(rgba or rgb)
         $output = implode(',', $rgb);

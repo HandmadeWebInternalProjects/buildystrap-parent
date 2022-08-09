@@ -14,12 +14,9 @@ add_action('init', [BuilderApi::class, 'boot']);
 add_action('acf/init', [BuilderBackend::class, 'boot']);
 add_action('init', [Theme::class, 'boot']);
 
-add_filter('buildystrap::builder::container', function ($container) {
-});
-
 /****************************************************************************************************************
-* Include Theme Options // used for global fields (e.g social icons)
-*/
+ * Include Theme Options // used for global fields (e.g social icons)
+ */
 include get_template_directory() . '/src/theme_options.php';
 
 /* Custom Logo */
@@ -28,22 +25,32 @@ function custom_logo()
     $custom_logo = acf_active() ? get_field('buildystrap_company_details_site_logo', 'option') : null;
     if ( ! acf_active() || ! isset($custom_logo) && empty($custom_logo)) { ?>
 
-      <?php if (is_front_page() && is_home()) : ?>
+        <?php
+        if (is_front_page() && is_home()) : ?>
 
-        <h1 class="navbar-brand"><a rel="home" href="<?php echo esc_url(home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a></h1>
+            <h1 class="navbar-brand"><a rel="home" href="<?php
+                echo esc_url(home_url('/')); ?>" itemprop="url"><?php
+                    bloginfo('name'); ?></a></h1>
 
-      <?php else : ?>
+        <?php
+        else : ?>
 
-        <a class="navbar-brand" rel="home" href="<?php echo esc_url(home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
+            <a class="navbar-brand" rel="home" href="<?php
+            echo esc_url(home_url('/')); ?>" itemprop="url"><?php
+                bloginfo('name'); ?></a>
 
-      <?php endif; ?>
+        <?php
+        endif; ?>
 
-      <?php
+        <?php
     } else {
-        echo sprintf('<a class="navbar-brand" href="/"><img src="%s" alt="%s" /></a>', $custom_logo['url'], $custom_logo['alt']);
+        echo sprintf(
+            '<a class="navbar-brand" href="/"><img src="%s" alt="%s" /></a>',
+            $custom_logo['url'],
+            $custom_logo['alt']
+        );
     }
 }
-
 
 
 // Populate colour options
@@ -61,12 +68,12 @@ if ( ! function_exists('add_site_color_choices')) {
                 foreach ($colours as $colour) {
                     $colour_name = trim($colour['label']);
                     $colour_value = sanitize_hex_color($colour['value']);
-                    $field['choices'][ 'None' ] = 'None';
+                    $field['choices']['None'] = 'None';
                     if ($field['ui']) {
-                        $field['choices'][ $colour_name ] = "<div style='display: flex;'><span style='background: {$colour_value}; width: 20px;
+                        $field['choices'][$colour_name] = "<div style='display: flex;'><span style='background: {$colour_value}; width: 20px;
             margin-right: 0.6rem; display: block; border-radius: 50%;'></span>{$colour_name}</div>";
                     } else {
-                        $field['choices'][ $colour_value ] =  $colour_name;
+                        $field['choices'][$colour_value] = $colour_name;
                     }
                 }
         endif;

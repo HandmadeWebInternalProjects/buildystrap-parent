@@ -12,7 +12,7 @@ class Content
 
     public function __construct(string $content)
     {
-        $sections = json_decode($content) ?? [];
+        $sections = json_decode($content, true) ?? [];
 
         $this->container = new Container($sections);
     }

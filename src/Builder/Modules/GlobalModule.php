@@ -4,19 +4,18 @@ namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Cache\GlobalModuleCache;
-use stdClass;
 
 class GlobalModule extends Module
 {
     protected int $global_id;
 
-    public function __construct(stdClass $module)
+    public function __construct(array $module)
     {
-        $this->uuid = $module->uuid;
-        $this->enabled = $module->enabled ?? false;
-        $this->type = $module->type;
+        $this->uuid = $module['uuid'];
+        $this->enabled = $module['enabled'] ?? false;
+        $this->type = $module['type'];
 
-        $this->global_id = (int) $module->global_id;
+        $this->global_id = (int) $module['global_id'];
     }
 
     protected static function blueprint(): array

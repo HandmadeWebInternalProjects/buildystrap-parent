@@ -5,6 +5,7 @@ namespace Buildystrap\Builder\Fields;
 use Buildystrap\Builder\Extends\Field;
 
 use function collect;
+use function sprintf;
 
 class TitleField extends Field
 {
@@ -45,12 +46,12 @@ class TitleField extends Field
         $level = $this->value()->get('level', 'h3');
         $text = $this->value()->get('text', '');
         $class = collect([])
-          ->push($this->value()->get('class', ''))
-          ->push($this->title_class)
-          ->push($this->value()->get('color', ''))
-          ->push($this->value()->get('size', ''))
-          ->filter()
-          ->implode(' ');
+            ->push($this->value()->get('class', ''))
+            ->push($this->title_class)
+            ->push($this->value()->get('color', ''))
+            ->push($this->value()->get('size', ''))
+            ->filter()
+            ->implode(' ');
 
         return sprintf('<%s class="%s">%s</%s>', $level, $class, $text, $level);
     }

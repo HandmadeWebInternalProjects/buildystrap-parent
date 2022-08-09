@@ -3,7 +3,6 @@
 namespace Buildystrap\Builder\Layout;
 
 use Buildystrap\Builder\Extends\Layout;
-use stdClass;
 
 use function view;
 
@@ -11,11 +10,11 @@ class Section extends Layout
 {
     protected array $rows = [];
 
-    public function __construct(stdClass $section, ?Layout $parent = null)
+    public function __construct(array $section, ?Layout $parent = null)
     {
         parent::__construct($section, $parent);
 
-        foreach ($section->rows ?? [] as $row) {
+        foreach ($section['rows'] ?? [] as $row) {
             $this->rows[] = new Row($row, $this);
         }
     }

@@ -2,7 +2,6 @@
 
 namespace Buildystrap\Builder\Extends;
 
-use Buildystrap\Arr;
 use Buildystrap\Builder;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
@@ -10,10 +9,10 @@ use Buildystrap\Traits\Config;
 use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
 use Illuminate\Support\Collection;
-use stdClass;
 
 use function array_replace_recursive;
 use function collect;
+use function is_array;
 use function optional;
 use function view;
 
@@ -32,34 +31,34 @@ abstract class Module
     protected Collection $fields;
     protected Collection $values;
 
-    public function __construct(stdClass $module)
+    public function __construct(array $module)
     {
-        $this->uuid = $module->uuid;
-        $this->enabled = $module->enabled ?? false;
-        $this->type = $module->type;
+        $this->uuid = $module['uuid'];
+        $this->enabled = $module['enabled'] ?? false;
+        $this->type = $module['type'];
 
         $blueprintFields = static::getBlueprint()->get('fields');
 
-        $values = $module->values;
+        $values = $module['values'];
 
         $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
-            if ( ! empty($blueprintFields[$handle]) && $blueprintField = (object) $blueprintFields[$handle]) {
-                if ($field = Builder::getField($blueprintField->type)) {
+            if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
+                if ($field = Builder::getField($blueprintField['type'])) {
                     return new $field($value);
                 }
             }
         })->filter();
 
-        if (isset($module->config) && $module->config instanceof stdClass) {
-            $this->config = Arr::from_stdclass($module->config);
+        if (isset($module['config']) && is_array($module['config'])) {
+            $this->config = $module['config'];
         }
 
-        if (isset($module->attributes) && $module->attributes instanceof stdClass) {
-            $this->attributes = Arr::from_stdclass($module->attributes);
+        if (isset($module->attributes) && is_array($module['attributes'])) {
+            $this->attributes = $module['attributes'];
         }
 
-        if (isset($module->inline) && $module->inline instanceof stdClass) {
-            $this->inline_attributes = Arr::from_stdclass($module->inline);
+        if (isset($module->inline) && is_array($module['inline'])) {
+            $this->inline_attributes = $module['inline'];
         }
     }
 
