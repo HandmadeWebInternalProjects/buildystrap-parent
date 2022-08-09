@@ -6,6 +6,13 @@
     <bs-tab name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
+    <bs-tab name="columns">
+      <column-settings
+        class="mb-4"
+        v-for="column in component.columns"
+        :field="column"
+        :key="'row-cols' + column.uuid" />
+    </bs-tab>
     <bs-tab name="visibility">
       <visibility-tab-settings v-model="config" />
     </bs-tab>

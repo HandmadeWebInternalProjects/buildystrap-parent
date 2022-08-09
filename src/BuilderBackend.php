@@ -162,8 +162,8 @@ class BuilderBackend
         $acf_options = [];
 
         if (Builder::isEnabled() && class_exists('ACF')) {
-            $acf_options['theme_colours'] = get_field('theme_colours', 'option') ?? [];
-            $acf_options['additional_colours'] = get_field('additional_colours', 'option') ?? [];
+            $acf_options['theme_colours'] = get_field('buildystrap_theme_colours_included', 'option') ?? [];
+            $acf_options['additional_colours'] = get_field('buildystrap_theme_colours_additional_colours', 'option') ?? [];
             $acf_options['structure'] = get_field('structure', 'option') ?? [];
             $acf_options['module_styles'] = get_field('module_styles', 'option') ?? [];
         }

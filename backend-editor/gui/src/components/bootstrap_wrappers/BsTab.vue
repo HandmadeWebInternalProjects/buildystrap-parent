@@ -10,13 +10,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue"
-import { generateID } from "@/utils/id"
+import { computed, toRefs } from "vue"
 const props = defineProps({
   name: String,
   uuid: String,
   active: { type: Boolean, default: false },
 })
+
+const { active } = toRefs(props)
 
 const _uuid = computed(() => {
   return props.uuid || props.name

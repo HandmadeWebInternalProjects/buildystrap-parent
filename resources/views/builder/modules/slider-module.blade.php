@@ -10,5 +10,10 @@
       @endforeach
   </div>
 
+  <div class="swiper-pagination"></div>
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
   @endif
 @overwrite
