@@ -23,8 +23,8 @@ class AccordionField extends Field
             sprintf(
                 '<div class=\'accordion\'>%s</div>',
                 collect($this->value())->map(function ($el, $i) {
-                    $title = $el->title;
-                    $content = $el->content;
+                    $title = $el['title'];
+                    $content = $el['content'];
                     $id = Str::slug($title);
                     return sprintf(
                         "
