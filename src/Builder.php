@@ -102,7 +102,7 @@ class Builder
     {
         foreach (static::$fields as $field) {
             if ( ! class_extends($field, Field::class)) {
-                throw new Exception("$field does not extend " . Field::class);
+                throw new Exception("{$field} does not extend " . Field::class);
             }
         }
     }
@@ -114,7 +114,7 @@ class Builder
     {
         foreach (static::$modules as $module) {
             if ( ! class_extends($module, Module::class)) {
-                throw new Exception("$module does not extend " . Module::class);
+                throw new Exception("{$module} does not extend " . Module::class);
             }
         }
     }
@@ -143,7 +143,7 @@ class Builder
     public static function registerField(string $handle, string $field): array
     {
         if ( ! class_extends($field, Field::class)) {
-            throw new Exception("$field does not extend " . Field::class);
+            throw new Exception("{$field} does not extend " . Field::class);
         }
 
         static::$fields[Str::slug($handle)] = $field;
@@ -251,8 +251,8 @@ class Builder
         );
 
         if ($global = $wpdb->get_row($query)) {
-            $module = json_decode($global->content);
-            $_module = static::getModule($module->type);
+            $module = json_decode($global->content, true);
+            $_module = static::getModule($module['type']);
 
             return new $_module($module);
         }

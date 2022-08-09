@@ -6,6 +6,12 @@ use stdClass;
 
 class Arr extends \Illuminate\Support\Arr
 {
+    /**
+     * Recursively convert stdClass into an array
+     *
+     * @param stdClass $stdclass
+     * @return array
+     */
     public static function from_stdclass(stdClass $stdclass): array
     {
         $array = [];

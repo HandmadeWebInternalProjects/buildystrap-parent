@@ -2,13 +2,13 @@
 
 namespace Buildystrap\Builder\Extends;
 
-use Buildystrap\Arr;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
-use stdClass;
+
+use function is_array;
 
 abstract class Layout
 {
@@ -22,22 +22,22 @@ abstract class Layout
     protected string $type;
     protected ?Layout $parent;
 
-    public function __construct($instance, ?Layout $parent = null)
+    public function __construct(array $instance, ?Layout $parent = null)
     {
         $this->parent = $parent;
-        $this->uuid = $instance->uuid;
-        $this->type = $instance->type;
+        $this->uuid = $instance['uuid'];
+        $this->type = $instance['type'];
 
-        if (isset($instance->config) && $instance->config instanceof stdClass) {
-            $this->config = Arr::from_stdclass($instance->config);
+        if (isset($instance['config']) && is_array($instance['config'])) {
+            $this->config = $instance['config'];
         }
 
-        if (isset($instance->attributes) && $instance->attributes instanceof stdClass) {
-            $this->attributes = Arr::from_stdclass($instance->attributes);
+        if (isset($instance['attributes']) && is_array($instance['attributes'])) {
+            $this->attributes = $instance['attributes'];
         }
 
-        if (isset($instance->inline) && $instance->inline instanceof stdClass) {
-            $this->inline_attributes = Arr::from_stdclass($instance->inline);
+        if (isset($instance['inline']) && is_array($instance['inline'])) {
+            $this->inline_attributes = $instance['inline'];
         }
     }
 

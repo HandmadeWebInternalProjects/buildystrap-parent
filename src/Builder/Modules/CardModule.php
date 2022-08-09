@@ -17,8 +17,8 @@ class CardModule extends Module
                 'image' => [
                     'type' => 'media-field',
                     'config' => [
-                      'size' => 'full'
-                    ]
+                        'size' => 'full',
+                    ],
                 ],
                 'body' => [
                     'type' => 'richtext-field',

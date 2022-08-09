@@ -101,7 +101,6 @@ trait HtmlStyleBuilder
         }
 
 
-
         /** Col Gap */
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {

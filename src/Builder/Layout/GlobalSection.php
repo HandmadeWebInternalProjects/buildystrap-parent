@@ -5,9 +5,8 @@ namespace Buildystrap\Builder\Layout;
 use Buildystrap\Cache\GlobalSectionCache;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Config;
-use stdClass;
 
-use function is_iterable;
+use function is_array;
 
 class GlobalSection
 {
@@ -19,18 +18,18 @@ class GlobalSection
     protected string $type;
     protected int $global_id;
 
-    public function __construct(stdClass $global_section)
+    public function __construct(array $global_section)
     {
-        $this->uuid = $global_section->uuid;
-        $this->type = $global_section->type;
+        $this->uuid = $global_section['uuid'];
+        $this->type = $global_section['type'];
 
         $this->config = [];
-        if (isset($global_section->config) && is_iterable($global_section->config)) {
-            $this->config = (array) $global_section->config;
+        if (isset($global_section['config']) && is_array($global_section['config'])) {
+            $this->config = $global_section['config'];
         }
 
-        $this->global_id = $global_section->id;
-//        $this->container = GlobalSectionCache::get($global_section->id);
+        $this->global_id = $global_section['id'];
+//        $this->container = GlobalSectionCache::get($global_section['id']);
     }
 
     public function enabled(): bool

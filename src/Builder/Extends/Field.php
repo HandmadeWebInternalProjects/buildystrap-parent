@@ -15,7 +15,7 @@ abstract class Field
     protected mixed $value;
     protected mixed $raw;
 
-    public function __construct($value)
+    public function __construct(mixed $value)
     {
         $this->value = $value;
         $this->raw = $value;

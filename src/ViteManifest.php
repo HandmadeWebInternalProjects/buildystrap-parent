@@ -25,23 +25,24 @@ class ViteManifest
 
         $this->items = collect([]);
 
-        if (file_exists("$this->path/$this->file") && $items = json_decode(
-            file_get_contents("$this->path/$this->file")
-        )) {
+        if (file_exists("$this->path/$this->file")) {
+            $file_contents = file_get_contents("$this->path/$this->file");
+            $items = json_decode($file_contents, true);
+
             foreach ($items as $item) {
-                $this->items->put($item->src, $item);
+                $this->items->put($item['src'], $item);
             }
         }
     }
 
     public function getScriptFor(string $src): mixed
     {
-        return $this->items->get($src)->file ?? null;
+        return $this->items->get($src)['file'] ?? null;
     }
 
     public function getStylesFor(string $src): array
     {
-        return $this->items->get($src)->css ?? [];
+        return $this->items->get($src)['css'] ?? [];
     }
 
     public function getUrlFor(string $file): string

@@ -17,7 +17,7 @@ class ImageModule extends Module
                         'label' => 'Images',
                         'multiple' => false,
                     ],
-                ]
+                ],
             ],
         ];
     }

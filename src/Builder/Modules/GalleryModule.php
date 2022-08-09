@@ -22,7 +22,9 @@ class GalleryModule extends Module
                     'type' => 'select-field',
                     'config' => [
                         'label' => 'Image Size',
-                        'options' => collect(get_registered_image_sizes())->map(fn ($size, $key) => strtolower($key))->toArray(),
+                        'options' => collect(get_registered_image_sizes())->map(
+                            fn ($size, $key) => strtolower($key)
+                        )->toArray(),
                     ],
                 ],
                 'columns' => [

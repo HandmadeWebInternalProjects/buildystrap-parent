@@ -47,10 +47,10 @@
             "modules": [
               {
                 "uuid": "fhgju76574y5tgfhdfghg",
-                "type": "blurb-module",
+                "type": "text-module",
                 "config": {},
                 "attributes": {},
-                "fields": {
+                "values": {
                   "text": {
                     "type": "text-field",
                     "value": "Hello"
