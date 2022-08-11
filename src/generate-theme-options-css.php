@@ -1,3 +1,5 @@
+
+
 /******* Variables */
 
 :root {
@@ -6,15 +8,15 @@
 <?php
 // dd(get_field('buildystrap_structure_default_grid_system', 'option'));?>
 
---default-grid-system: <?php
+--bs-default-grid-system: <?php
 echo get_field('buildystrap_structure_default_grid_system', 'option'); ?>;
---col-gap: <?php
+--bs-col-gap: <?php
 echo get_field('buildystrap_structure_column_gap', 'option'); ?>;
---module-gap: <?php
+--bs-module-gap: <?php
 echo get_field('buildystrap_structure_module_gap', 'option'); ?>;
---section-padding: <?php
+--bs-section-padding: <?php
 echo get_field('buildystrap_structure_section_padding', 'option'); ?>;
---row-padding: <?php
+--bs-row-padding: <?php
 echo get_field('buildystrap_structure_row_padding', 'option'); ?>;
 
 /* Colours (included) */
@@ -40,9 +42,9 @@ if (function_exists('get_theme_colors')):
         endforeach; endif; endif; ?>
 
 <?php
-if (get_field('link_colour', 'option') && get_field('link_colour', 'option') !== 'None') :
+if (get_field('buildystrap_theme_colours_link_colour', 'option') && get_field('buildystrap_theme_colours_link_colour', 'option') !== 'None') :
 
-    $link_colour = get_field('link_colour', 'option');
+    $link_colour = get_field('buildystrap_theme_colours_link_colour', 'option');
 
     ?>
 
@@ -61,26 +63,26 @@ else :
 endif; ?>
 
 <?php
-if (get_field('text_colour_main', 'option') && get_field('text_colour_main', 'option') !== 'None') :
+if (get_field('buildystrap_theme_colours_text_colour_main', 'option') && get_field('buildystrap_theme_colours_text_colour_main', 'option') !== 'None') :
 
-    $text_colour_main = get_field('text_colour_main', 'option');
+    $text_colour_main = get_field('buildystrap_theme_colours_text_colour_main', 'option');
     ?>
 
-    --color-text-main: var(--color-<?php
+    --color-text-body: var(--color-<?php
     echo $text_colour_main; ?>);
 
 <?php
 else : ?>
 
-    --color-text-main: var(--color-black);
+    --color-text-body: var(--color-black);
 
 <?php
 endif; ?>
 
 <?php
-if (get_field('text_colour_headings', 'option') && get_field('text_colour_headings', 'option') !== 'None') :
+if (get_field('buildystrap_theme_colours_text_colour_headings', 'option') && get_field('buildystrap_theme_colours_text_colour_headings', 'option') !== 'None') :
 
-    $text_headings = get_field('text_colour_headings', 'option');
+    $text_headings = get_field('buildystrap_theme_colours_text_colour_headings', 'option');
 
     ?>
 
@@ -99,54 +101,44 @@ endif; ?>
 
 /* Typography */
 <?php
-if (get_field('enable_google_fonts', 'option')) :
-    $font_main = get_field('font_main', 'option');
-    $font_headings = get_field('font_headings', 'option');
-    $font_buttons = get_field('font_buttons', 'option');
-endif;
+  $font_main = get_field('buildystrap_typography_body_font', 'option');
+$font_headings = get_field('buildystrap_typography_heading_font', 'option');
+$font_buttons = get_field('buildystrap_typography_font_buttons', 'option');
 ?>
 
 <?php
 if (isset($font_main)) : ?>
     --font-main: "<?php
-    echo $font_main['font']; ?>";
+    echo $font_main['value']; ?>";
 <?php
 endif; ?>
 
 <?php
 if (isset($font_headings)) : ?>
     --font-headings: "<?php
-    echo $font_headings['font']; ?>";
+    echo $font_headings['value']; ?>";
 <?php
 endif; ?>
 
 <?php
 if (isset($font_buttons)) : ?>
     --font-buttons: "<?php
-    echo $font_buttons['font']; ?>";
+    echo $font_buttons['value']; ?>";
 <?php
 endif; ?>
 
 <?php
 // check if the repeater field has rows of data
-if (have_rows('additional_fonts', 'option')):
+if (have_rows('buildystrap_typography_additional_fonts', 'option')):
 
     // loop through the rows of data
-    while (have_rows('additional_fonts', 'option')) : the_row(); ?>
+    while (have_rows('buildystrap_typography_additional_fonts', 'option')) : the_row(); ?>
 
         <?php
-
-        // If font is disabled, skip it
-        if ( ! get_sub_field('enabled')) {
-            continue;
-        }
-
-        $fontChoice = get_sub_field('font_selector');
-        $fontFamily = $fontChoice['font'];
+        $fontFamily = get_sub_field('value');
         ?>
 
-        --font-<?php
-        trim(the_sub_field('name')); ?>: <?php
+        --font-<?= \Buildystrap\Str::slug(the_sub_field('label')); ?>: <?php
         echo $fontFamily; ?>;
 
 
@@ -155,6 +147,8 @@ if (have_rows('additional_fonts', 'option')):
 
 <?php
 $col_gap = get_field('default_column_gap', 'option') ?? '3rem'; ?>
+--bs-gutter: <?= $col_gap; ?>;
+--bs-gap: <?= $col_gap; ?>;
 --col-gap: <?= $col_gap; ?>;
 
 

@@ -79,10 +79,22 @@ class Column extends Layout
                 };
             }
 
+
+
+
+
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "{$prefix}col-{$value}",
                 default => "{$prefix}col-{$breakpoint}-{$value}"
             };
+
+            if ( ! isset($this->html_classes['xs'])) {
+                $this->html_classes['xs'] = "{$prefix}col-12";
+            }
+
+            if ($this->getInlineAttribute('moduleGap', [])) {
+                $this->html_classes['xs'] .= ' mg-' . $this->getInlineAttribute('moduleGap', []);
+            }
         }
     }
 }

@@ -45,10 +45,11 @@ class TitleField extends Field
     {
         $level = $this->value()->get('level', 'h3');
         $text = $this->value()->get('text', '');
+        $color = $this->value()->get('color', '');
         $class = collect([])
             ->push($this->value()->get('class', ''))
             ->push($this->title_class)
-            ->push($this->value()->get('color', ''))
+            ->push("text-{$color}")
             ->push($this->value()->get('size', ''))
             ->filter()
             ->implode(' ');

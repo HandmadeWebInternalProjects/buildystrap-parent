@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { toRefs, ref, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
+const { getThemeColours } = useBuilderOptions()
+
 const props = defineProps({ ...commonProps })
 
 const { config, modelValue, uuid } = toRefs(props)
@@ -56,10 +59,7 @@ watch(value.value, (newValue) => {
               handle="colour"
               :config="{
                 label: 'Colour',
-                options: {
-                  Primary: 'text-primary',
-                  Secondary: 'text-secondary',
-                },
+                options: getThemeColours(),
                 popover: 'Change the colour of this heading tag',
                 placeholder: 'Default',
                 popover: 'Change the colour of this heading tag.',

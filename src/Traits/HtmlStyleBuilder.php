@@ -104,16 +104,16 @@ trait HtmlStyleBuilder
         /** Col Gap */
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
-                'xs' => "colgap-{$value}",
-                default => "colgap-{$breakpoint}-{$value}"
+                'xs' => "gx-{$value}",
+                default => "gx-{$breakpoint}-{$value}"
             };
         }
 
         /** Row Gap */
         foreach ($this->getInlineAttribute('display.row-gap', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
-                'xs' => "rowgap-{$value}",
-                default => "rowgap-{$breakpoint}-{$value}"
+                'xs' => "gy-{$value}",
+                default => "gy-{$breakpoint}-{$value}"
             };
         }
 
@@ -217,7 +217,7 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('background.image.id', []) as $breakpoint => $value) {
             $imageUrl = collect($value)
                 ->take(1)
-                ->map(fn ($image) => wp_get_attachment_url($image->id))
+                ->map(fn ($image) => wp_get_attachment_url($image['id']))
                 ->first();
 
             if ( ! empty($imageUrl)) {

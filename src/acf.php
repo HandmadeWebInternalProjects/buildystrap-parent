@@ -18,6 +18,7 @@ add_action('acf/init', 'register_buildy_acf_options_page');
 /** Place ACF PHP export below **/
 
 
+
 if (function_exists('acf_add_local_field_group')):
 
     acf_add_local_field_group([
@@ -503,8 +504,8 @@ if (function_exists('acf_add_local_field_group')):
                     ],
                     [
                         'key' => 'field_62ce5cd577fc0',
-                        'label' => 'Text Colour Main',
-                        'name' => 'text_colour_main',
+                        'label' => 'Text Colour Body',
+                        'name' => 'text_colour_body',
                         'type' => 'select',
                         'instructions' => '',
                         'required' => 0,
@@ -784,11 +785,11 @@ if (function_exists('acf_add_local_field_group')):
                         ],
                         'choices' => [
                             'None' => 'None',
-                            'primary' => '<div style=\'display: flex;\'><span style=\'background: #8224e3; width: 20px;
+                            'primary' => '<div style=\'display: flex;\'><span style=\'background: #25d03a; width: 20px;
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>primary</div>',
-                            'secondary' => '<div style=\'display: flex;\'><span style=\'background: ; width: 20px;
+                            'secondary' => '<div style=\'display: flex;\'><span style=\'background: #2a2a2a; width: 20px;
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>secondary</div>',
-                            'tertiary' => '<div style=\'display: flex;\'><span style=\'background: ; width: 20px;
+                            'tertiary' => '<div style=\'display: flex;\'><span style=\'background: #dd3333; width: 20px;
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>tertiary</div>',
                             'success' => '<div style=\'display: flex;\'><span style=\'background: #198754; width: 20px;
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>success</div>',
@@ -802,6 +803,10 @@ if (function_exists('acf_add_local_field_group')):
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>light</div>',
                             'dark' => '<div style=\'display: flex;\'><span style=\'background: #212529; width: 20px;
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>dark</div>',
+                            'white' => '<div style=\'display: flex;\'><span style=\'background: #ffffff; width: 20px;
+						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>white</div>',
+                            'mcnugget' => '<div style=\'display: flex;\'><span style=\'background: #dd9933; width: 20px;
+						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>mcnugget</div>',
                         ],
                         'default_value' => false,
                         'allow_null' => 0,

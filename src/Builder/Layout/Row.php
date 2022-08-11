@@ -61,6 +61,13 @@ class Row extends Layout
             };
         }
 
+        // if columns is not divisible by 12, then we can change the column count in the grid so it works
+        $col_count = count($this->columns);
+        if (12 % $col_count !== 0) {
+            $this->inline_styles[] = "--bs-columns: {$col_count}";
+        }
+
+
         $this->html_classes['xs'] = $class;
     }
 

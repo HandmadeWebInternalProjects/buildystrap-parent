@@ -1,6 +1,12 @@
 <template lang="">
   <bs-tabs>
-    <bs-tab :uuid="`design-${uuid}`" :active="true" name="design">
+    <bs-tab :uuid="`modules-${uuid}`" :active="true" name="modules">
+      <select-field
+        handle="modules"
+        :config="{ label: 'Module Gap', options: ['1', '2', '3', '4', '5'] }"
+        v-model="moduleGap" />
+    </bs-tab>
+    <bs-tab :uuid="`design-${uuid}`" name="design">
       <design-tab-settings v-model="inline" />
     </bs-tab>
     <bs-tab :uuid="`attributes-${uuid}`" name="attributes">
@@ -25,15 +31,6 @@ const props = defineProps({
 
 const uuid = generateID()
 
-// const field = ref(props.field)
-// const inline = ref(field.value?.inline || {})
-// const attributes = ref(field.value?.attributes || {})
-// const config = ref(field.value?.config || {})
-
-// watch(inline.value, (val) => {
-//   console.log({ val })
-// })
-
 const field = ref(props.field)
 
 const inline = computed({
@@ -42,6 +39,15 @@ const inline = computed({
   },
   set(value) {
     field.value.inline = value
+  },
+})
+
+const moduleGap = computed({
+  get() {
+    return field.value?.inline?.moduleGap || undefined
+  },
+  set(value) {
+    inline.value = { ...inline.value, moduleGap: value }
   },
 })
 
