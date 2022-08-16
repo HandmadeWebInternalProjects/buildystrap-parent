@@ -18,11 +18,11 @@ class RelationalField extends Field
 
     public function __toString(): string
     {
-        return $this->value()->first()->post_title;
+        return $this->value();
     }
 
-    public function augment(): void
-    {
-        $this->value = collect($this->value)->map(fn ($item) => get_post($item))->filter();
-    }
+    // public function augment(): void
+    // {
+    //     $this->value = collect($this->value)->map(fn ($item) => get_post($item))->filter();
+    // }
 }

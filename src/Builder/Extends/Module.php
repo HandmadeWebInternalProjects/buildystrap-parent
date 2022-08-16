@@ -53,11 +53,11 @@ abstract class Module
             $this->config = $module['config'];
         }
 
-        if (isset($module->attributes) && is_array($module['attributes'])) {
+        if (isset($module['attributes']) && is_array($module['attributes'])) {
             $this->attributes = $module['attributes'];
         }
 
-        if (isset($module->inline) && is_array($module['inline'])) {
+        if (isset($module['inline']) && is_array($module['inline'])) {
             $this->inline_attributes = $module['inline'];
         }
     }

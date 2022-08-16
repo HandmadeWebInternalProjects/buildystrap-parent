@@ -21,8 +21,9 @@ const selected = computed({
 })
 
 const loading = ref(true)
-
-const postType = config.value.post_type || "posts"
+const postType = config.value?.post_type || "posts"
+const returnValue = config.value.return_value || "id"
+const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
@@ -42,10 +43,20 @@ onMounted(async () => {
 
   if (!mappedEntries) return
 
+  mappedEntries = Array.isArray(mappedEntries)
+    ? mappedEntries
+    : Object.values(mappedEntries)
+
   entries.value = mappedEntries.map((entry: any) => {
     return {
-      value: entry.id,
-      label: entry.title.rendered,
+      value: returnValue
+        .split(".")
+        .filter((path) => path)
+        .reduce((a, b) => a && a[b], entry),
+      label: returnLabel
+        .split(".")
+        .filter((path) => path)
+        .reduce((a, b) => a && a[b], entry),
     }
   })
 

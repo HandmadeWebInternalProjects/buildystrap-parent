@@ -1,0 +1,22 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+) !default;
+
+@mixin responsive-inline-helper($property, $css_var) {
+  @each $breakpoint, $val in $grid-breakpoints {
+    @if $breakpoint == "xs" {
+      #{$css_var}: "unset";
+      #{$property}: var(#{$css_var});
+    } @else {
+      @include media-breakpoint-up($breakpoint) {
+        #{$css_var}-#{$breakpoint}: var(#{$css_var});
+        #{$property}: var(#{$css_var}-#{$breakpoint});
+      }
+    }
+  }
+}

@@ -128,12 +128,26 @@ if ( ! function_exists('str_slug')) {
 }
 
 
+
+
 if ( ! function_exists('acf_active')) {
     function acf_active()
     {
         return function_exists('get_field');
     }
 }
+
+
+if ( ! function_exists('bs_get_field')) {
+    function bs_get_field(string $field, int $id, string $default = ''): string
+    {
+        if (acf_active() && get_field($field, $id)) {
+            return get_field($field, $id);
+        }
+        return $default;
+    }
+}
+
 
 if (acf_active()) {
     if ( ! function_exists('get_theme_colors')) {
@@ -201,5 +215,56 @@ if ( ! function_exists('hex2rgb')) {
 
         //Return rgb(a) color string
         return $output;
+    }
+}
+
+if ( ! function_exists('rgbToHsl')) {
+    function rgbToHsl($rgb)
+    {
+        $rgb = explode(',', $rgb);
+        $r = $rgb[0];
+        $g = $rgb[1];
+        $b = $rgb[2];
+
+        $oldR = $r;
+        $oldG = $g;
+        $oldB = $b;
+
+        $r /= 255;
+        $g /= 255;
+        $b /= 255;
+
+        $max = max($r, $g, $b);
+        $min = min($r, $g, $b);
+
+        $h;
+        $s;
+        $l = ($max + $min) / 2;
+        $d = $max - $min;
+
+        if ($d == 0) {
+            $h = $s = 0; // achromatic
+        } else {
+            $s = $d / (1 - abs(2 * $l - 1));
+
+            switch ($max) {
+                case $r:
+                    $h = 60 * fmod((($g - $b) / $d), 6);
+                    if ($b > $g) {
+                        $h += 360;
+                    }
+                    break;
+
+                case $g:
+                    $h = 60 * (($b - $r) / $d + 2);
+                    break;
+
+                case $b:
+                    $h = 60 * (($r - $g) / $d + 4);
+                    break;
+            }
+        }
+
+        return [ round($h, 2), round($s, 2), round($l, 2) ];
     }
 }

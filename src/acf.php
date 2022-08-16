@@ -19,6 +19,8 @@ add_action('acf/init', 'register_buildy_acf_options_page');
 
 
 
+
+
 if (function_exists('acf_add_local_field_group')):
 
     acf_add_local_field_group([
@@ -1162,7 +1164,7 @@ if (function_exists('acf_add_local_field_group')):
                         'label' => 'Body Font',
                         'name' => 'body_font',
                         'type' => 'group',
-                        'instructions' => '',
+                        'instructions' => 'Enter the font name exactly as it is in CSS (including spaces / casing if applicable)',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => [
@@ -1172,25 +1174,6 @@ if (function_exists('acf_add_local_field_group')):
                         ],
                         'layout' => 'row',
                         'sub_fields' => [
-                            [
-                                'key' => 'field_62eb4296a1038',
-                                'label' => 'Label',
-                                'name' => 'label',
-                                'type' => 'text',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => [
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ],
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                            ],
                             [
                                 'key' => 'field_62eb4296a1039',
                                 'label' => 'Font Name',
@@ -1217,7 +1200,7 @@ if (function_exists('acf_add_local_field_group')):
                         'label' => 'Heading Font',
                         'name' => 'heading_font',
                         'type' => 'group',
-                        'instructions' => '',
+                        'instructions' => 'Enter the font name exactly as it is in CSS (including spaces / casing if applicable)',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => [
@@ -1227,25 +1210,6 @@ if (function_exists('acf_add_local_field_group')):
                         ],
                         'layout' => 'row',
                         'sub_fields' => [
-                            [
-                                'key' => 'field_62eb4296a103b',
-                                'label' => 'Label',
-                                'name' => 'label',
-                                'type' => 'text',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => [
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ],
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                            ],
                             [
                                 'key' => 'field_62eb4296a103c',
                                 'label' => 'Font Name',
@@ -1287,7 +1251,7 @@ if (function_exists('acf_add_local_field_group')):
                         'button_label' => '',
                         'sub_fields' => [
                             [
-                                'key' => 'field_62eb4296a103e',
+                                'key' => 'field_62f4718c46e4d',
                                 'label' => 'Label',
                                 'name' => 'label',
                                 'type' => 'text',
@@ -1310,7 +1274,7 @@ if (function_exists('acf_add_local_field_group')):
                                 'label' => 'Font Name',
                                 'name' => 'value',
                                 'type' => 'text',
-                                'instructions' => '',
+                                'instructions' => 'Enter the font name exactly as it is in CSS (including spaces / casing if applicable)',
                                 'required' => 0,
                                 'conditional_logic' => 0,
                                 'wrapper' => [

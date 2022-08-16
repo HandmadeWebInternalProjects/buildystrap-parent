@@ -31,12 +31,14 @@ if (function_exists('get_theme_colors')):
         // loop through the rows of data
         foreach ($colors as $color) : ?>
 
+          <?php $rgb = hex2rgb(sanitize_hex_color($color['value'])); ?>
+
             --bs-<?php
             echo sanitize_text_field($color['label']); ?>: <?php
             echo sanitize_hex_color($color['value']); ?>;
             --bs-<?php
             echo sanitize_text_field($color['label']); ?>-rgb: <?php
-            echo hex2rgb(sanitize_hex_color($color['value'])); ?>;
+            echo $rgb; ?>;
 
         <?php
         endforeach; endif; endif; ?>
@@ -149,14 +151,14 @@ if (have_rows('buildystrap_typography_additional_fonts', 'option')):
 $col_gap = get_field('default_column_gap', 'option') ?? '3rem'; ?>
 --bs-gutter: <?= $col_gap; ?>;
 --bs-gap: <?= $col_gap; ?>;
---col-gap: <?= $col_gap; ?>;
+--bs-col-gap: <?= $col_gap; ?>;
 
 
 }
 /******* END Variables */
 
 
-/******* Color Utils */
+/******* Colors */
 <?php
 
 if (function_exists('get_theme_colors')):
@@ -189,6 +191,21 @@ if (function_exists('get_theme_colors')):
             ?>);
             }
 
+            /* Buttons */
+            <?= ".btn.btn-{$colorName} {" ?> 
+                --bs-btn-bg: var(--bs-<?= $colorName ?>);
+                --bs-btn-hover-bg: var(--bs-btn-bg);
+                --bs-btn-border-color: var(--bs-btn-bg);
+                --bs-btn-hover-border-color: var(--bs-btn-bg);
+                --bs-btn-active-color: var(--bs-white);
+                --bs-btn-active-bg: var(--bs-btn-bg);
+                --bs-btn-active-border-color: var(--bs-btn-bg);
+                --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                --bs-btn-focus-shadow-rgb: var(--bs-<?= $colorName ?>-rgb);
+                --bs-btn-disabled-bg: #d5d5d5;
+                --bs-btn-disabled-border-color: #d5d5d5;
+            <?= '}' ?> 
+
 
         <?php
         endforeach; endif; endif; ?>
@@ -196,4 +213,4 @@ if (function_exists('get_theme_colors')):
 color: var(--color-<?php
 echo $link_colour; ?>);
 }
-/******* END Color Utils */
+/******* END Colors */

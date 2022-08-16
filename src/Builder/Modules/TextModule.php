@@ -12,7 +12,7 @@ class TextModule extends Module
             'icon' => 'fa-solid fa-paragraph',
             'fields' => [
                 'text' => [
-                    'type' => 'text-field',
+                    'type' => 'richtext-field',
                 ],
             ],
         ];

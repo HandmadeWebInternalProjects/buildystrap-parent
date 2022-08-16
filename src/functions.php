@@ -45,7 +45,7 @@ function custom_logo()
         <?php
     } else {
         echo sprintf(
-            '<a class="navbar-brand" href="/"><img src="%s" alt="%s" /></a>',
+            '<a class="navbar-brand" href="/"><img class="site-logo" src="%s" alt="%s" /></a>',
             $custom_logo['url'],
             $custom_logo['alt']
         );

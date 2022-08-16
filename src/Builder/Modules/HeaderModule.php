@@ -23,6 +23,7 @@ class HeaderModule extends Module
                             'resize' => false,
                             'menubar' => false,
                             'statusbar' => false,
+                            'forced_root_block' => false,
                         ],
                     ],
                 ],

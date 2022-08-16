@@ -21,6 +21,7 @@ use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\GalleryModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ImageModule;
+use Buildystrap\Builder\Modules\PostGridModule;
 use Buildystrap\Builder\Modules\SliderModule;
 use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
@@ -64,6 +65,7 @@ class Builder
     protected static array $modules = [
         'card-module' => CardModule::class,
         'text-module' => TextModule::class,
+        'post-grid-module' => PostGridModule::class,
         'gallery-module' => GalleryModule::class,
         'image-module' => ImageModule::class,
         'button-module' => ButtonModule::class,
@@ -130,6 +132,7 @@ class Builder
             ->map(fn ($path) => "$path/modules")->toArray();
 
         view()->addNamespace('builder-modules', static::paths());
+        view()->addNamespace('child-theme', get_stylesheet_directory());
     }
 
     public static function paths(): array

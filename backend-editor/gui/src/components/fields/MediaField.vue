@@ -52,6 +52,14 @@
         class="form-control pointer-events-none"
         type="file" />
     </div>
+    <select-field
+      class="flex-grow-1 flex-basis-0"
+      handle="size"
+      :config="{
+        label: 'Image Size',
+        options: ['contain', 'cover', 'fit', 'fill'],
+        placeholder: 'Image Size',
+      }" />
   </div>
 </template>
 <script setup lang="ts">
@@ -70,6 +78,7 @@ const images = computed({
     return props?.modelValue || props?.value || []
   },
   set(value) {
+    console.log({ value })
     update(value)
   },
 })

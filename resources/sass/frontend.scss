@@ -10,10 +10,10 @@
 @import "bootstrap/scss/utilities";
 
 // Layout & components
-@import "bootstrap/scss/forms";
-@import "bootstrap/scss/buttons";
-@import "bootstrap/scss/alert";
-@import "bootstrap/scss/containers";
+// @import "bootstrap/scss/forms";
+// @import "bootstrap/scss/buttons";
+// @import "bootstrap/scss/alert";
+// @import "bootstrap/scss/containers";
 // @import "bootstrap/scss/grid";
 
 $utilities: map-merge(
@@ -65,6 +65,13 @@ $utilities: map-merge(
         no-repeat: no-repeat,
       ),
     ),
+    "width":
+      map-merge(
+        map-get($utilities, "width"),
+        (
+          responsive: true,
+        )
+      ),
     "height":
       map-merge(
         map-get($utilities, "height"),
@@ -169,27 +176,18 @@ $utilities: map-merge(
         5: 50px,
       ),
     ),
+    "font-weight": (
+      property: font-weight,
+      class: font,
+      values: normal bold,
+    ),
   )
 );
 
 @import "bootstrap/scss/utilities/api";
 
-@import "theme/understrap"; // <-------- Loads the Understrap defaults. Just a few classes to incorporate BS in WP
 // @import "theme/colors"; // <-------- This creates the necessary bootstrap color classes.
 // @import "theme/blocks"; // <-------- This adds Bootstrap styles to blocks.
 
-@mixin responsive-inline-helper($property, $css_var) {
-  @each $breakpoint, $val in $grid-breakpoints {
-    @if $breakpoint == "xs" {
-      #{$css_var}: "unset";
-      #{$property}: var(#{$css_var});
-    } @else {
-      @include media-breakpoint-up($breakpoint) {
-        #{$css_var}-#{$breakpoint}: var(#{$css_var});
-        #{$property}: var(#{$css_var}-#{$breakpoint});
-      }
-    }
-  }
-}
-
+@import "mixins/mixins";
 @import "theme/layout";
