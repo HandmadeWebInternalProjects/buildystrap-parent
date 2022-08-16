@@ -20,9 +20,10 @@ class Column extends Layout
 
         foreach ($column['modules'] ?? [] as $module) {
             // Global module
-            $moduleType = $module['type'] === 'global-module' ? GlobalModule::class : Builder::getModule(
-                $module['type']
-            );
+            $moduleType = match (true) {
+                ($module['type'] === 'global-module') => GlobalModule::class,
+                default => Builder::getModule($module['type'])
+            };
 
             $this->modules[] = new $moduleType($module);
 

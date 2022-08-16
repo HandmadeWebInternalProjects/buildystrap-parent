@@ -15,11 +15,10 @@ class Container
     public function __construct(array $sections)
     {
         foreach ($sections ?? [] as $section) {
-            if ($section['type'] === 'section') {
-                $this->sections[] = new Section($section);
-            } elseif ($section['type'] === 'global-section') {
-                $this->sections[] = new GlobalSection($section);
-            }
+            $this->sections[] = match (true) {
+                ($section['type'] === 'global-section') => new GlobalSection($section),
+                default => new Section($section)
+            };
         }
     }
 
