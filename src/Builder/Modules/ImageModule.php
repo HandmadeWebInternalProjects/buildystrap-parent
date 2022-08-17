@@ -12,11 +12,7 @@ class ImageModule extends Module
             'icon' => 'fa-solid fa-images',
             'fields' => [
                 'image' => [
-                    'type' => 'media-field',
-                    'config' => [
-                        'label' => 'Images',
-                        'multiple' => false,
-                    ],
+                    'type' => 'image-field',
                 ],
             ],
         ];

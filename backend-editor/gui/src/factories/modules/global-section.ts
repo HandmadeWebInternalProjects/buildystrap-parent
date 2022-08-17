@@ -2,14 +2,10 @@ const GlobalSection = function (
   this: any,
   {
     ADMIN_LABEL,
-    CONFIG = {},
-    META = {},
     VALUE,
     UUID,
   }: {
     ADMIN_LABEL: string
-    CONFIG: { [key: string]: any }
-    META: { [key: string]: any }
     VALUE: any
     UUID: string
   }
@@ -19,9 +15,8 @@ const GlobalSection = function (
   this.config = {
     enabled: true,
     adminLabel: ADMIN_LABEL || this.type,
-    boxed_layout: true,
   }
-  this.rows = []
+  this.global_id = VALUE
   this.attributes = {}
   this.inline = {}
 }

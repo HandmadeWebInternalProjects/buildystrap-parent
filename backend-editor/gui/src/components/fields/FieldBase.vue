@@ -11,6 +11,7 @@
       :placeholder="
         config?.responsive && responsivePlaceholder(value, handle, bp)
       "
+      :values="value"
       v-model="fieldValue"
       :is="field.type"
       @update-meta="updateMeta" />

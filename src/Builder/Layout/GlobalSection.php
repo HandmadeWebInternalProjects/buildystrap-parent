@@ -2,13 +2,14 @@
 
 namespace Buildystrap\Builder\Layout;
 
+use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Cache\GlobalSectionCache;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Config;
 
 use function is_array;
 
-class GlobalSection
+class GlobalSection extends layout
 {
     use Attributes;
     use Config;
@@ -28,8 +29,8 @@ class GlobalSection
             $this->config = $global_section['config'];
         }
 
-        $this->global_id = $global_section['id'];
-//        $this->container = GlobalSectionCache::get($global_section['id']);
+        $this->global_id = $global_section['global_id'];
+//        $this->container = GlobalSectionCache::get($global_section['global_id']);
     }
 
     public function enabled(): bool

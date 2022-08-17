@@ -39,7 +39,7 @@ const moduleId = computed({
     return attributes.value.id || ""
   },
   set(val: any) {
-    attributes.value.id = val
+    attributes.value = Object.assign(attributes.value, { id: val })
   },
 })
 
@@ -48,7 +48,7 @@ const moduleClass = computed({
     return attributes.value.class || ""
   },
   set(val: any) {
-    attributes.value.class = val
+    attributes.value = Object.assign(attributes.value, { class: val })
   },
 })
 </script>

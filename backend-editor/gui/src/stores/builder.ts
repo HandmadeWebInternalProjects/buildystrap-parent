@@ -10,6 +10,8 @@ export type BuildyConfig = {
   is_admin: boolean
   is_global_module: boolean
   builder_options: { [key: string]: any }
+  globalSections: { [key: string]: any }
+  globalModules: { [key: string]: any }
 }
 
 export const useBuilderStore = defineStore({
@@ -17,10 +19,6 @@ export const useBuilderStore = defineStore({
   state: () => ({
     config: <BuildyConfig>{},
     registeredComponents: {},
-    globals: <{ [key: string]: any }>{
-      sections: <{ [key: string]: any }>{},
-      modules: <{ [key: string]: any }>{},
-    },
   }),
   getters: {
     getRegisteredComponents: (state): { [key: string]: any } => {
@@ -31,8 +29,9 @@ export const useBuilderStore = defineStore({
     },
     getModuleBlueprints: (state): { [key: string]: any } =>
       state.config.moduleBlueprints,
-    getGlobalSections: (state) => state.globals.sections,
-    getGlobalModules: (state): { [key: string]: any } => state.globals.modules,
+    getGlobalSections: (state) => state.config?.globalSections,
+    getGlobalModules: (state): { [key: string]: any } =>
+      state.config?.globalModules,
     getBuilderConfig: (state) => state.config,
     getBuilderOptions: (state) => state.config.builder_options,
   },

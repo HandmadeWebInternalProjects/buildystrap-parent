@@ -20,6 +20,8 @@ class Row extends Layout
         foreach ($row['columns'] ?? [] as $column) {
             $this->columns[] = new Column($column, $this);
         }
+
+        $this->colCount = $this->getConfig('columnCount') ?? count($this->columns);
     }
 
     public function columns(): array
@@ -62,9 +64,8 @@ class Row extends Layout
         }
 
         // if columns is not divisible by 12, then we can change the column count in the grid so it works
-        $col_count = count($this->columns);
-        if (12 % $col_count !== 0) {
-            $this->inline_styles[] = "--bs-columns: {$col_count}";
+        if (12 % $this->colCount !== 0 || $this->colCount > 12) {
+            $this->inline_styles[] = "--bs-columns: {$this->colCount}";
         }
 
 

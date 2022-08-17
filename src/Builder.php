@@ -7,6 +7,7 @@ use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\AccordionField;
 use Buildystrap\Builder\Fields\ButtonField;
+use Buildystrap\Builder\Fields\ImageField;
 use Buildystrap\Builder\Fields\MediaField;
 use Buildystrap\Builder\Fields\RelationalField;
 use Buildystrap\Builder\Fields\ReplicatorField;
@@ -58,6 +59,7 @@ class Builder
         'title-field' => TitleField::class,
         'button-field' => ButtonField::class,
         'media-field' => MediaField::class,
+        'image-field' => ImageField::class,
         'relational-field' => RelationalField::class,
         'replicator-field' => ReplicatorField::class,
     ];

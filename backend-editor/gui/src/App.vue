@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
+import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
+import { useBuilderStore } from "./stores/builder"
+const { getGlobalSections } = storeToRefs(useBuilderStore())
+
 import {
   createModule,
   type ModuleType,
@@ -8,6 +12,8 @@ import {
 
 const contentEl = document.getElementById("content")
 const builder = ref<ModuleType[]>([])
+
+const globalStackOpen = ref(false)
 
 const { getStacks } = useStacks()
 
@@ -20,10 +26,22 @@ const addSection = () => {
   builder.value.push(newModule)
 }
 
+const addGlobalSection = (globalSection: { id: number; title: string }) => {
+  const VALUE = globalSection.id
+  const ADMIN_LABEL = globalSection.title
+  const TYPE = "GlobalSection"
+  const newModule = createModule("GlobalSection", {
+    ADMIN_LABEL,
+    TYPE,
+    VALUE,
+  })
+  builder.value.push(newModule)
+  console.log({ newModule })
+}
+
 watch(
   builder,
   (newValue) => {
-    console.log({ newValue })
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
   },
   {
@@ -34,9 +52,10 @@ watch(
 
 <template>
   <stacks v-if="getStacks.length"></stacks>
-  <div class="container d-flex flex-column rounded gap-3 mt-4 mb-6 px-0 bg-white"> 
+  <div
+    class="container d-flex flex-column rounded gap-3 mt-4 mb-6 px-0 bg-white">
     <div
-      class="promote d-flex align-items-center bg-indigo-500 text-white rounded p-3"> 
+      class="promote d-flex align-items-center bg-indigo-500 text-white rounded p-3">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xml:space="preserve"
@@ -58,7 +77,7 @@ watch(
           fill="none"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round" /> 
+          stroke-linejoin="round" />
         <circle
           stroke-miterlimit="10"
           cx="23.252"
@@ -127,11 +146,36 @@ watch(
           :component="element" />
       </template>
     </draggable>
-    <div class="d-flex flex-row-reverse">
-      <button type="button" class="btn btn-primary mb-3 me-3" @click="addSection()">
+    <div class="d-flex ms-auto">
+      <button
+        type="button"
+        class="btn btn-primary mb-3 me-3"
+        @click="globalStackOpen = true">
+        Add Global Section
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary mb-3 me-3"
+        @click="addSection()">
         Add Section
       </button>
     </div>
+    <buildy-stack
+      @close="globalStackOpen = false"
+      v-if="globalStackOpen"
+      half
+      name="module-selector">
+      <div class="p-4 py-5">
+        <h3>Globals</h3>
+        <div
+          v-for="globalSection in getGlobalSections"
+          @click="addGlobalSection(globalSection)"
+          :key="globalSection.id"
+          class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
+          {{ globalSection.title }}
+        </div>
+      </div>
+    </buildy-stack>
   </div>
 </template>
 

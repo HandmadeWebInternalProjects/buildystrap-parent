@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { toRefs, ref, computed, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
+
+const { getThemeColours } = useBuilderOptions()
 const props = defineProps({ ...commonProps })
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
@@ -70,6 +73,9 @@ const styles = computed(() => {
         type="button"
         class="btn"
         :class="[value['style'], value['size']]"
+        :style="{
+          '--bs-btn-color': `var(--bs-${value['color']})`,
+        }"
         :disabled="value['disabled']">
         {{ value["text"] || "Example" }}
       </button>
@@ -77,6 +83,15 @@ const styles = computed(() => {
     <field-group class="mb-4">
       <text-field handle="text" v-model="value['text']" />
       <text-field handle="url" v-model="value['url']" />
+      <select-field
+        class="w-100"
+        handle="button-color"
+        :config="{
+          label: 'Button Color',
+          options: getThemeColours(),
+          taggable: true,
+        }"
+        v-model="value['color']" />
       <div class="d-flex gap-4">
         <select-field
           class="flex-grow-1"

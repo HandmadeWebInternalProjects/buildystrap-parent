@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { toRefs, ref, computed, onMounted } from "vue"
+import { toRefs, ref, computed, onMounted, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderStore } from "../../stores/builder"
+import { getDeep } from "@/utils/objects"
 const props = defineProps({ ...commonProps })
 
-const { handle, config, modelValue } = toRefs(props)
+const { handle, config, modelValue, values } = toRefs(props)
 const { getBuilderConfig } = useBuilderStore()
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
@@ -21,16 +22,44 @@ const selected = computed({
 })
 
 const loading = ref(true)
-const postType = config.value?.post_type || "posts"
+const endpoint = config.value?.endpoint || "posts"
+const depends_on = config.value?.depends_on
+  ? computed(() => values.value[config.value?.depends_on])
+  : ref(null)
+let data_type = config.value?.data_type || null
 const returnValue = config.value.return_value || "id"
 const returnLabel = config.value.return_label || "title.rendered"
+
+const fetchFromEndpoint = async (endpoint) => {
+  try {
+    const res = await fetch(endpoint)
+    let data = await res.json()
+    return data
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+const fetchFromDataType = async () => {
+  try {
+    const res = await fetch(
+      `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}`
+    )
+    let data = await res.json()
+    data = Object.values(data).filter((el) => {
+      return el.types.includes(depends_on.value)
+    })
+    return data
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
 
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
   try {
-    const res = await fetch(
-      `${getBuilderConfig.rest_endpoint}wp/v2/${postType}`
-    )
+    console.log("fired from main")
+    const res = await fetch(`${getBuilderConfig.rest_endpoint}${endpoint}`)
     data = await res.json()
     return data
   } catch (error: any) {
@@ -38,10 +67,28 @@ const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   }
 }
 
-onMounted(async () => {
-  let mappedEntries = await fetchEntries()
+const mapEntries = async () => {
+  loading.value = true
+  let mappedEntries
 
-  if (!mappedEntries) return
+  if (config.value?.depends_on) {
+    if (depends_on.value) {
+      if (data_type === "endpoint") {
+        mappedEntries = await fetchFromEndpoint(depends_on.value)
+      } else {
+        mappedEntries = await fetchFromDataType()
+      }
+    }
+  } else {
+    mappedEntries = await fetchEntries()
+  }
+
+  if (!mappedEntries) {
+    loading.value = false
+    entries.value = []
+    selected.value = null
+    return
+  }
 
   mappedEntries = Array.isArray(mappedEntries)
     ? mappedEntries
@@ -49,10 +96,7 @@ onMounted(async () => {
 
   entries.value = mappedEntries.map((entry: any) => {
     return {
-      value: returnValue
-        .split(".")
-        .filter((path) => path)
-        .reduce((a, b) => a && a[b], entry),
+      value: getDeep(entry, returnValue),
       label: returnLabel
         .split(".")
         .filter((path) => path)
@@ -61,6 +105,14 @@ onMounted(async () => {
   })
 
   loading.value = false
+}
+
+watch(depends_on, (newVal) => {
+  mapEntries()
+})
+
+onMounted(async () => {
+  mapEntries()
 })
 </script>
 

@@ -54,10 +54,14 @@ const changeLayout = (layout: string) => {
   })
 
   const oldModules: { [key: string]: any } = {}
+  const oldSettings: any = {}
   const colCount = row.value.columns.length
 
   if (colCount) {
     row.value.columns.forEach((component: any, index: number) => {
+      oldSettings[index] = {}
+      oldSettings[index].inline = component.inline
+      oldSettings[index].attributes = component.attributes
       if (component.modules.length) {
         oldModules[index] = []
         component.modules.forEach((oldModule: any) => {
@@ -83,6 +87,16 @@ const changeLayout = (layout: string) => {
       row.value.columns[key].modules.push(...oldModules[key])
     } else {
       row.value.columns[0].modules.push(...oldModules[key])
+    }
+  })
+
+  // Add old settings to new layout
+  Object.keys(oldSettings).forEach((key) => {
+    if (row.value.columns[key]) {
+      row.value.columns[key] = {
+        ...row.value.columns[key],
+        ...oldSettings[key],
+      }
     }
   })
 }

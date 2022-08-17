@@ -35,6 +35,8 @@ class ButtonField extends Field
             ->filter()
             ->implode(' ');
 
-        return sprintf('<a href="%s" class="btn %s">%s</a>', $url, $class, __($text, 'buildystrap'));
+        $style = "--bs-btn-color: var(--bs-{$this->value()->get('color', '')})";
+
+        return sprintf('<a href="%s" class="btn %s" style="%s">%s</a>', $url, $class, $style, __($text, 'buildystrap'));
     }
 }

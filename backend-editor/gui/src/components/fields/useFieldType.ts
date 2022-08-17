@@ -22,6 +22,9 @@ export const commonProps = {
   value: {
     type: [String, Number, Array, Object],
   },
+  values: {
+    type: [Object, null],
+  },
   moduleType: {
     type: String,
     default: "",
@@ -88,7 +91,6 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
           label: el?.label || el,
         }))
       : Object.entries(options).map(([label, value]) => {
-          console.log({ label, value })
           return { value, label }
         })
   }

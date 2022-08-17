@@ -1,7 +1,7 @@
 import { generateID } from "../../utils/id"
 
 import { Section } from "./section"
-// import { GlobalSection } from "./global-section"
+import { GlobalSection } from "./global-section"
 import { Row } from "./row"
 import { Column } from "./column"
 import { Module } from "./module"
@@ -20,7 +20,7 @@ export type ModuleType = {
 
 const el = <{ [key: string]: any }>{
   Section,
-  // GlobalSection: GlobalSection,
+  GlobalSection,
   Row,
   Column,
   Module,

@@ -30,15 +30,18 @@ if (function_exists('get_theme_colors')):
 
         // loop through the rows of data
         foreach ($colors as $color) : ?>
+          <?php if ( ! $color['value']) {
+              continue;
+          } ?>
 
           <?php $rgb = hex2rgb(sanitize_hex_color($color['value'])); ?>
 
             --bs-<?php
-            echo sanitize_text_field($color['label']); ?>: <?php
-            echo sanitize_hex_color($color['value']); ?>;
+                                      echo sanitize_text_field($color['label']); ?>: <?php
+                                      echo sanitize_hex_color($color['value']); ?>;
             --bs-<?php
-            echo sanitize_text_field($color['label']); ?>-rgb: <?php
-            echo $rgb; ?>;
+                                      echo sanitize_text_field($color['label']); ?>-rgb: <?php
+                                      echo $rgb; ?>;
 
         <?php
         endforeach; endif; endif; ?>
@@ -170,7 +173,10 @@ if (function_exists('get_theme_colors')):
         // loop through the rows of data
         foreach ($colors as $color) :
             $colorName = sanitize_text_field($color['label']);
-            ?>
+
+            if ( ! $color['value']) {
+                continue;
+            } ?>
 
             .text-<?php
             echo $colorName; ?>,
@@ -193,6 +199,7 @@ if (function_exists('get_theme_colors')):
 
             /* Buttons */
             <?= ".btn.btn-{$colorName} {" ?> 
+                --bs-btn-color: var(--bs-white);
                 --bs-btn-bg: var(--bs-<?= $colorName ?>);
                 --bs-btn-hover-bg: var(--bs-btn-bg);
                 --bs-btn-border-color: var(--bs-btn-bg);
@@ -200,6 +207,21 @@ if (function_exists('get_theme_colors')):
                 --bs-btn-active-color: var(--bs-white);
                 --bs-btn-active-bg: var(--bs-btn-bg);
                 --bs-btn-active-border-color: var(--bs-btn-bg);
+                --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+                --bs-btn-focus-shadow-rgb: var(--bs-<?= $colorName ?>-rgb);
+                --bs-btn-disabled-bg: #d5d5d5;
+                --bs-btn-disabled-border-color: #d5d5d5;
+            <?= '}' ?> 
+
+            <?= ".btn.btn-outline-{$colorName} {" ?> 
+                --bs-btn-color: var(--bs-white);
+                --bs-btn-bg: transparent;
+                --bs-btn-hover-bg: var(--bs-<?= $colorName ?>);
+                --bs-btn-border-color: var(--bs-<?= $colorName ?>);
+                --bs-btn-hover-border-color: var(--bs-<?= $colorName ?>);
+                --bs-btn-active-color: var(--bs-white);
+                --bs-btn-active-bg: var(--bs-<?= $colorName ?>);
+                --bs-btn-active-border-color: var(--bs-<?= $colorName ?>);
                 --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
                 --bs-btn-focus-shadow-rgb: var(--bs-<?= $colorName ?>-rgb);
                 --bs-btn-disabled-bg: #d5d5d5;

@@ -8,7 +8,7 @@ export const useBuilderOptions = () => {
 
     return boxModelSizing.map((obj: { label: string; value: string }) => ({
       label: obj?.label ? obj.label + " - " + obj?.value : obj?.value,
-      value: obj?.label ? obj.label.toLowerCase() : obj?.value,
+      value: obj?.value ? obj.value.toLowerCase() : obj?.value,
     }))
   }
 
@@ -16,9 +16,8 @@ export const useBuilderOptions = () => {
     const sizing = getBuilderOptions?.structure[type] || []
     return sizing.map((obj: { label: string; value: string }) => {
       return {
-        ...obj,
-        label: obj?.label ? obj.label || type : obj?.value || type,
-        value: obj?.label ? obj.label.toLowerCase() : obj?.value || type,
+        label: obj?.label ? obj.label : obj?.value ?? type,
+        value: obj?.value ? obj.value.toLowerCase() : type,
       }
     })
   }
