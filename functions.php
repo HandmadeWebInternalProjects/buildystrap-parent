@@ -42,3 +42,6 @@ require __DIR__ . '/src/helpers.php';
 
 // Load Buildystrap functions
 require __DIR__ . '/src/functions.php';
+
+// Load shortcodes
+require __DIR__ . '/src/shortcodes.php';

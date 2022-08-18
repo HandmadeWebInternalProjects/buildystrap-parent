@@ -1,10 +1,33 @@
 <template lang="">
-  <bs-tabs>
+  <button
+    type="button"
+    class="btn btn-outline-primary w-100"
+    @click="toggled = !toggled">
+    Edit Column {{ index + 1 }}
+  </button>
+  <bs-tabs v-if="toggled">
     <bs-tab :uuid="`modules-${uuid}`" :active="true" name="modules">
       <select-field
+        class="mb-4"
         handle="modules"
         :config="{ label: 'Module Gap', options: ['1', '2', '3', '4', '5'] }"
         v-model="moduleGap" />
+      <field-label label="Column Sizes" />
+      <ul class="m-0 p-0 grid gap-2">
+        <li
+          class="g-col-6"
+          v-for="breakpoint in breakpoints"
+          :key="`${uuid}-${breakpoint}`">
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              :id="`${uuid}-${breakpoint}`"
+              v-model="columnSizes[breakpoint]" />
+            <label :for="`${uuid}-${breakpoint}`">{{ breakpoint }}</label>
+          </div>
+        </li>
+      </ul>
     </bs-tab>
     <bs-tab :uuid="`design-${uuid}`" name="design">
       <design-tab-settings v-model="inline" />
@@ -22,16 +45,24 @@
 import { generateID } from "@/utils/id"
 import { ref, computed } from "vue"
 
+import { breakpoints } from "@/composables/useBreakpoints"
+
+const toggled = ref(false)
+
 const props = defineProps({
   field: {
     type: Object,
     required: true,
   },
+  index: Number,
 })
 
 const uuid = generateID()
 
 const field = ref(props.field)
+console.log({ field })
+
+const columnSizes = ref(field.value.config.columnSizes)
 
 const inline = computed({
   get() {

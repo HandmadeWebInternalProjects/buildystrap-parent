@@ -168,6 +168,7 @@ class BuilderBackend
                 'option'
             ) ?? [];
             $acf_options['structure'] = get_field('buildystrap_structure', 'option') ?? [];
+            $acf_options['typography'] = get_field('buildystrap_typography', 'option') ?? [];
             $acf_options['module_styles'] = get_field('buildystrap_module_styles', 'option') ?? [];
         }
 

@@ -27,7 +27,7 @@ const el = <{ [key: string]: any }>{
   GlobalModule,
 }
 
-const createModule = function (
+export const createModule = function (
   type: string,
   attributes?: { [key: string]: any }
 ): ModuleType {
@@ -37,5 +37,3 @@ const createModule = function (
     ...attributes,
   })
 }
-
-export { createModule }

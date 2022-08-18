@@ -118,30 +118,32 @@
         "label": "100vh",
         "value": "100vh"
       }
-    ],
+    ]
+  },
+  "typography": {
     "font_size": [
       {
-        "label": "",
+        "label": "H1",
         "value": "1"
       },
       {
-        "label": "",
+        "label": "H2",
         "value": "2"
       },
       {
-        "label": "",
+        "label": "H3",
         "value": "3"
       },
       {
-        "label": "",
+        "label": "H4",
         "value": "4"
       },
       {
-        "label": "",
+        "label": "H5",
         "value": "5"
       },
       {
-        "label": "",
+        "label": "H6",
         "value": "6"
       }
     ]

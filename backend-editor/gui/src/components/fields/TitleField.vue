@@ -2,7 +2,7 @@
 import { toRefs, ref, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderOptions } from "@/composables/useBuilderOptions"
-const { getThemeColours } = useBuilderOptions()
+const { getThemeColours, getFontSize } = useBuilderOptions()
 
 const props = defineProps({ ...commonProps })
 
@@ -47,13 +47,27 @@ watch(value.value, (newValue) => {
               handle="size"
               :config="{
                 label: 'Size',
-                options: ['h1', 'h2'],
+                options: getFontSize(),
                 placeholder: 'Default',
                 popover:
                   'Choose which class to apply to this heading tag if the font size needs to be different than the level (for SEO purposes).',
                 taggable: true,
               }"
               v-model="value['size']" />
+            <select-field
+              class="flex-grow-1 flex-basis-0"
+              handle="weight"
+              :config="{
+                label: 'Weight',
+                options: ['light', 'normal', 'bold'],
+                placeholder: 'Default',
+                popover:
+                  'Choose which class to apply to this heading tag if the font size needs to be different than the level (for SEO purposes).',
+                taggable: true,
+              }"
+              v-model="value['weight']" />
+          </div>
+          <div class="d-flex gap-3">
             <select-field
               class="flex-grow-1 flex-basis-0"
               handle="colour"
@@ -66,17 +80,17 @@ watch(value.value, (newValue) => {
                 taggable: true,
               }"
               v-model="value['color']" />
+            <text-field
+              class="flex-grow-1"
+              handle="class"
+              type="text"
+              v-model="value['class']"
+              placeholder=""
+              :config="{
+                label: 'Class',
+                popover: 'Add a custom class to the heading tag.',
+              }" />
           </div>
-          <text-field
-            class=""
-            handle="class"
-            type="text"
-            v-model="value['class']"
-            placeholder=""
-            :config="{
-              label: 'Class',
-              popover: 'Add a custom class to the heading tag.',
-            }" />
         </div>
       </field-group>
     </template>

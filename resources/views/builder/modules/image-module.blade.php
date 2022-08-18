@@ -8,7 +8,7 @@
     $width = isset($image['width']) ? "width: {$image['width']};" : '';
     $max_width = isset($image['max_width']) ? "max-width: {$image['max_width']};" : '';
     $height = isset($image['height']) ? "height: {$image['height']};" : '';
-    $max_height = isset($image['max_height']) ? "max_height: {$image['max_height']};" : '';
+    $max_height = isset($image['max_height']) ? "max-height: {$image['max_height']};" : '';
 @endphp
 
 @section('field_content')

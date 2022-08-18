@@ -7,6 +7,7 @@ use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\AccordionField;
 use Buildystrap\Builder\Fields\ButtonField;
+use Buildystrap\Builder\Fields\CodeField;
 use Buildystrap\Builder\Fields\ImageField;
 use Buildystrap\Builder\Fields\MediaField;
 use Buildystrap\Builder\Fields\RelationalField;
@@ -19,6 +20,7 @@ use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
 use Buildystrap\Builder\Modules\CardModule;
+use Buildystrap\Builder\Modules\CodeModule;
 use Buildystrap\Builder\Modules\GalleryModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ImageModule;
@@ -54,6 +56,7 @@ class Builder
     protected static array $fields = [
         'accordion-field' => AccordionField::class,
         'text-field' => TextField::class,
+        'code-field' => CodeField::class,
         'select-field' => SelectField::class,
         'richtext-field' => RichTextField::class,
         'title-field' => TitleField::class,
@@ -67,6 +70,7 @@ class Builder
     protected static array $modules = [
         'card-module' => CardModule::class,
         'text-module' => TextModule::class,
+        'code-module' => CodeModule::class,
         'post-grid-module' => PostGridModule::class,
         'gallery-module' => GalleryModule::class,
         'image-module' => ImageModule::class,

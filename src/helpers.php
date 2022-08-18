@@ -148,6 +148,23 @@ if ( ! function_exists('bs_get_field')) {
     }
 }
 
+if ( ! function_exists('format_phone')) {
+    function format_phone($number, $cc = '61', $html = null, $type = 'tel')
+    {
+        $phoneURL = preg_replace('/\s+/', '', $number);
+        $phoneURL = str_replace("+$cc", '', $phoneURL);
+        $phoneURL = str_replace([ '(', ')' ], '', $phoneURL);
+        $phoneURL = ltrim($phoneURL, '0');
+        $formattedPhone = "{$type}:+{$cc}{$phoneURL}";
+
+        if ( ! $html) :
+            return $formattedPhone; else : ?>
+  <a class="formatted-phone country-code-<?= $cc ?>" href="<?= $formattedPhone; ?>"><?= esc_html__($number, 'hmw-starter-child'); ?></a>
+  <?php
+            endif;
+    }
+}
+
 
 if (acf_active()) {
     if ( ! function_exists('get_theme_colors')) {

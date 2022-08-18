@@ -55,20 +55,30 @@ class Column extends Layout
     {
         parent::generateClasses();
 
-        /** Flex/Grid Column Sizes */
-        foreach ($this->getConfig('columnSizes', []) as $breakpoint => $value) {
-            /** Figure out default Flex/Grid style */
-            $prefix = ''; // Default to Flex
-            if (function_exists('get_field') && $grid_defaults = get_field(
-                'buildystrap_structure_default_grid_system',
-                'option'
-            )) {
-                $prefix = match ($grid_defaults) {
-                    'grid' => 'g-', // Grid
-                    default => '', // Flex
-                };
-            }
+        $columnSizes = $this->getConfig('columnSizes', []);
 
+
+        /** Figure out default Flex/Grid style */
+        $prefix = ''; // Default to Flex
+        if (function_exists('get_field') && $grid_defaults = get_field(
+            'buildystrap_structure_default_grid_system',
+            'option'
+        )) {
+            $prefix = match ($grid_defaults) {
+                'grid' => 'g-', // Grid
+                default => '', // Flex
+            };
+        }
+
+
+
+        if ( ! isset($columnSizes['xs'])) {
+            $this->html_classes['xs'] = "{$prefix}col-12";
+        }
+
+
+        /** Flex/Grid Column Sizes */
+        foreach ($columnSizes as $breakpoint => $value) {
             if ($this->hasParent()) {
                 /** Use Flex/Grid style for this breakpoint from the parent row (if set) */
                 $prefix = match (true) {
@@ -80,18 +90,10 @@ class Column extends Layout
                 };
             }
 
-
-
-
-
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "{$prefix}col-{$value}",
                 default => "{$prefix}col-{$breakpoint}-{$value}"
             };
-
-            if ( ! isset($this->html_classes['xs'])) {
-                $this->html_classes['xs'] = "{$prefix}col-12";
-            }
 
             if ($this->getInlineAttribute('moduleGap', [])) {
                 $this->html_classes['xs'] .= ' mg-' . $this->getInlineAttribute('moduleGap', []);

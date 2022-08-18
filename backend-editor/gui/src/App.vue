@@ -5,10 +5,8 @@ import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 const { getGlobalSections } = storeToRefs(useBuilderStore())
 
-import {
-  createModule,
-  type ModuleType,
-} from "./factories/modules/moduleFactory"
+// @ts-ignore 
+import { createModule, type ModuleType, } from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
 const builder = ref<ModuleType[]>([])

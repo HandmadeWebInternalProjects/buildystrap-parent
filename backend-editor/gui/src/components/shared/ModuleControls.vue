@@ -33,6 +33,8 @@ import { recursifyID } from "../../utils/id"
 
 import { UCFirst } from "../../utils/helpers"
 import { createModule } from "../../factories/modules/moduleFactory"
+import { useClipboard } from "@/composables/useClipboard"
+
 // import { EvaIcon } from "vue-eva-icons";
 // import ModuleSelector from "../ModuleSelector.vue";
 // import SettingStack from "../shared/SettingStack.vue";
@@ -68,8 +70,11 @@ const props = defineProps({
 const index = computed(() => props.index)
 const parentArray = ref(props.value || [])
 const component = ref(props.component)
-const customSettings = ref(<ControlItem>props.customSettings)
-const settingsFields = ref(<ControlItem>props.settingsFields)
+const customSettings = ref(props.customSettings)
+const settingsFields = ref(props.settingsFields)
+
+const { isValidPasteLocation, pasteFromClipboard, copyToClipboard } =
+  useClipboard(component.value)
 
 type ControlItem = {
   icon?: string[]
@@ -77,7 +82,7 @@ type ControlItem = {
   class?: string
   order?: number
   component?: any
-  action?: () => void
+  action?: any
 }
 
 const settings = computed((): ControlItem[] => {
@@ -101,15 +106,19 @@ const settings = computed((): ControlItem[] => {
       // condition: this.component,
       order: 30,
     },
-    // clipboardCopy: {
-    //   // icon: this.isValidPasteLocation ? "clipboard" : "clipboard-outline",
-    //   title: "Copy module to clipboard",
-    //   // action: this.isValidPasteLocation
-    //   //   ? this.pasteFromClipboard
-    //   //   : this.copyToClipboard,
-    //   order: 30,
-    //   // class: this.isValidPasteLocation ? "pulse-constant" : "",
-    // },
+    clipboardCopy: navigator?.clipboard
+      ? {
+          icon: isValidPasteLocation
+            ? ["fas", "clipboard"]
+            : ["fas", "clipboard-check"],
+          title: "Copy module to clipboard",
+          action: isValidPasteLocation
+            ? pasteFromClipboard(pasteModule)
+            : copyToClipboard,
+          order: 30,
+          // class: this.isValidPasteLocation ? "pulse-constant" : "",
+        }
+      : {},
     delete: {
       icon: ["fas", "trash"],
       title: "Delete this module",
@@ -118,8 +127,8 @@ const settings = computed((): ControlItem[] => {
     },
     ...customSettings.value,
   })
-    .filter((el: any) => el)
-    .sort((a: { order: number }, b: { order: number }) => a.order - b.order)
+    .filter((el: any) => Object.hasOwnProperty.call(el, "order"))
+    .sort((a: any, b: any) => a.order - b.order)
 })
 
 const addModule = (): void => {
@@ -135,6 +144,11 @@ const cloneModule = (): void => {
   // Generate ID's for each nested module
   recursifyID(clone)
   parentArray.value.splice(index.value + 1, 0, clone)
+}
+
+const pasteModule = (fromClipBoard: any): void => {
+  recursifyID(fromClipBoard)
+  parentArray.value.splice(index.value + 1, 0, fromClipBoard)
 }
 
 const removeModule = (): void => {

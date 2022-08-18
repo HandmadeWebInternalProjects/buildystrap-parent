@@ -21,6 +21,7 @@ add_action('acf/init', 'register_buildy_acf_options_page');
 
 
 
+
 if (function_exists('acf_add_local_field_group')):
 
     acf_add_local_field_group([
@@ -216,8 +217,33 @@ if (function_exists('acf_add_local_field_group')):
                                 'maxlength' => '',
                             ],
                             [
+                                'key' => 'field_62fd80aa001f5',
+                                'label' => 'Icon Style',
+                                'name' => 'icon_style',
+                                'type' => 'select',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => [
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => '',
+                                ],
+                                'choices' => [
+                                    'fa' => 'Font Awesome',
+                                    'la' => 'Line Awesome',
+                                ],
+                                'default_value' => false,
+                                'allow_null' => 0,
+                                'multiple' => 0,
+                                'ui' => 0,
+                                'return_format' => 'value',
+                                'ajax' => 0,
+                                'placeholder' => '',
+                            ],
+                            [
                                 'key' => 'field_62ce53271cb9c',
-                                'label' => 'Font Awesome Icon',
+                                'label' => 'Icon',
                                 'name' => 'icon',
                                 'type' => 'text',
                                 'instructions' => '',
@@ -805,10 +831,10 @@ if (function_exists('acf_add_local_field_group')):
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>light</div>',
                             'dark' => '<div style=\'display: flex;\'><span style=\'background: #212529; width: 20px;
 						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>dark</div>',
-                            'white' => '<div style=\'display: flex;\'><span style=\'background: #ffffff; width: 20px;
-						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>white</div>',
-                            'mcnugget' => '<div style=\'display: flex;\'><span style=\'background: #dd9933; width: 20px;
-						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>mcnugget</div>',
+                            800 => '<div style=\'display: flex;\'><span style=\'background: ; width: 20px;
+						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>800</div>',
+                            900 => '<div style=\'display: flex;\'><span style=\'background: ; width: 20px;
+						margin-right: 0.6rem; display: block; border-radius: 50%;\'></span>900</div>',
                         ],
                         'default_value' => false,
                         'allow_null' => 0,

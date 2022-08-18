@@ -35,21 +35,21 @@ export const useBuilderOptions = () => {
 
   const getTypography = () => {
     const bodyFont =
-      getBuilderOptions?.structure?.typography?.body_font.value || "sans-serif"
+      getBuilderOptions?.typography?.body_font.value || "sans-serif"
     const headingFont =
-      getBuilderOptions?.structure?.typography?.heading_font.value || "serif"
+      getBuilderOptions?.typography?.heading_font.value || "serif"
     const additionalFonts =
-      getBuilderOptions?.structure?.typography?.additional_fonts || []
+      getBuilderOptions?.typography?.additional_fonts || []
     return [bodyFont, headingFont, ...additionalFonts].filter((el) => el)
   }
 
   const getFontSize = () => {
-    const fontSize = getBuilderOptions?.structure?.font_size || []
+    const fontSize = getBuilderOptions?.typography?.font_size || []
 
     return fontSize.map((obj: { label: string; value: string }) => ({
       ...obj,
-      label: obj?.label ? obj.label + " - " + obj.value : obj.value,
-      value: obj?.label ? obj.label.toLowerCase() : obj?.value || [],
+      label: obj?.label ? obj.label : obj?.value ?? "",
+      value: obj?.value ? obj.value.toLowerCase() : "",
     }))
   }
 

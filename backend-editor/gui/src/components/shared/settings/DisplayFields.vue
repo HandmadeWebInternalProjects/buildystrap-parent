@@ -92,10 +92,10 @@ watch(display, (val: any) => {
           :config="{
             label: 'Flex Direction',
             options: [
-              { value: 'flex-row', label: 'Row' },
-              { value: 'flex-row-reverse', label: 'Row Reverse' },
-              { value: 'flex-column', label: 'Column' },
-              { value: 'flex-column-reverse', label: 'Column Reverse' },
+              { value: 'row', label: 'Row' },
+              { value: 'row-reverse', label: 'Row Reverse' },
+              { value: 'column', label: 'Column' },
+              { value: 'column-reverse', label: 'Column Reverse' },
             ],
           }"
           v-model="display['flex-direction'][bp]" />

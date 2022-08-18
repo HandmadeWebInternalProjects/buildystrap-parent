@@ -72,6 +72,31 @@ $utilities: map-merge(
           responsive: true,
         )
       ),
+    "max-width": (
+      property: max-width,
+      class: max-w,
+      responsive: true,
+      values: (
+        none: none,
+        25: 25%,
+        33: 33.333333%,
+        50: 50%,
+        66: 66.666667%,
+        75: 75%,
+        100: 100%,
+      ),
+    ),
+    "min-height": (
+      property: min-height,
+      class: min-h,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "height"), "values"),
+          (
+            100vh: 100vh,
+          )
+        ),
+    ),
     "height":
       map-merge(
         map-get($utilities, "height"),
@@ -81,6 +106,24 @@ $utilities: map-merge(
               map-get(map-get($utilities, "height"), "values"),
               (
                 100vh: 100vh,
+              )
+            ),
+        )
+      ),
+    "padding":
+      map-merge(
+        map-get($utilities, "padding"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "padding"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
               )
             ),
         )
@@ -157,17 +200,6 @@ $utilities: map-merge(
             ),
         )
       ),
-    "min-height": (
-      property: min-height,
-      class: min-h,
-      values:
-        map-merge(
-          map-get(map-get($utilities, "height"), "values"),
-          (
-            100vh: 100vh,
-          )
-        ),
-    ),
     "column-gap": (
       css-var: true,
       css-variable-name: col-gap,
@@ -224,6 +256,13 @@ $utilities: map-merge(
     ),
   )
 );
+
+[class*="gx-"] {
+  column-gap: var(--bs-col-gap);
+}
+[class*="gy-"] {
+  row-gap: var(--bs-row-gap);
+}
 
 @import "bootstrap/scss/utilities/api";
 

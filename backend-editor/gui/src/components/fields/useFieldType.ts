@@ -23,7 +23,7 @@ export const commonProps = {
     type: [String, Number, Array, Object],
   },
   values: {
-    type: [Object, null],
+    type: [Object],
   },
   moduleType: {
     type: String,

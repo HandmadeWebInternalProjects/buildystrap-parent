@@ -29,6 +29,7 @@ const typography: any = reactive({
   "font-family": props.modelValue["font-family"] || {},
   "font-weight": props.modelValue["font-weight"] || {},
   "font-size": props.modelValue["font-size"] || {},
+  "line-height": props.modelValue["line-height"] || {},
   "text-align": props.modelValue["text-align"] || {},
 })
 
@@ -97,6 +98,16 @@ watch(typography, (val: any) => {
           ],
         }"
         v-model="typography['text-align'][bp]" />
+
+      <select-field
+        class="flex-grow-1 flex-basis-0"
+        handle="line-height"
+        :placeholder="responsivePlaceholder(typography, 'line-height', bp)"
+        :config="{
+          label: 'Line Height',
+          options: ['1', 'sm', 'base', 'lg'],
+        }"
+        v-model="typography['line-height'][bp]" />
     </div>
   </field-group>
 </template>

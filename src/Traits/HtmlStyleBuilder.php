@@ -84,6 +84,12 @@ trait HtmlStyleBuilder
             };
         }
 
+        foreach ($this->getInlineAttribute('display.flex-direction', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "flex-{$value}",
+                default => "flex-{$breakpoint}-{$value}"
+            };
+        }
 
         foreach ($this->getInlineAttribute('display.justify-content', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
@@ -92,14 +98,12 @@ trait HtmlStyleBuilder
             };
         }
 
-
         foreach ($this->getInlineAttribute('display.align-items', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "align-items-{$value}",
                 default => "align-items-{$breakpoint}-{$value}"
             };
         }
-
 
         /** Col Gap */
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
@@ -260,7 +264,6 @@ trait HtmlStyleBuilder
             };
         }
 
-
         /** Background Blend Mode */
         foreach ($this->getInlineAttribute('background.image.blend-mode', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
@@ -268,7 +271,6 @@ trait HtmlStyleBuilder
                 default => "bg-blend-{$breakpoint}-{$value}"
             };
         }
-
 
         /** Typography Color */
         foreach ($this->getInlineAttribute('typography.color', []) as $breakpoint => $value) {
@@ -301,6 +303,16 @@ trait HtmlStyleBuilder
                 default => "fs-{$breakpoint}-{$value}"
             };
         }
+
+
+        /** Typography Line Height */
+        foreach ($this->getInlineAttribute('typography.line-height', []) as $breakpoint => $value) {
+            $this->html_classes[] = match ($breakpoint) {
+                'xs' => "lh-{$value}",
+                default => "lh-{$breakpoint}-{$value}"
+            };
+        }
+
 
         /** Typography Text Align */
         foreach ($this->getInlineAttribute('typography.text-align', []) as $breakpoint => $value) {

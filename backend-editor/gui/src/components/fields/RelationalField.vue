@@ -16,7 +16,7 @@ const selected = computed({
   get() {
     return modelValue?.value || []
   },
-  set(newVal: Array<number>) {
+  set(newVal: Array<any> | null) {
     update(newVal)
   },
 })
@@ -24,13 +24,13 @@ const selected = computed({
 const loading = ref(true)
 const endpoint = config.value?.endpoint || "posts"
 const depends_on = config.value?.depends_on
-  ? computed(() => values.value[config.value?.depends_on])
+  ? computed(() => values?.value?.[config.value?.depends_on])
   : ref(null)
 let data_type = config.value?.data_type || null
 const returnValue = config.value.return_value || "id"
 const returnLabel = config.value.return_label || "title.rendered"
 
-const fetchFromEndpoint = async (endpoint) => {
+const fetchFromEndpoint = async (endpoint: string) => {
   try {
     const res = await fetch(endpoint)
     let data = await res.json()
@@ -46,7 +46,7 @@ const fetchFromDataType = async () => {
       `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}`
     )
     let data = await res.json()
-    data = Object.values(data).filter((el) => {
+    data = Object.values(data).filter((el: any) => {
       return el.types.includes(depends_on.value)
     })
     return data
@@ -99,15 +99,15 @@ const mapEntries = async () => {
       value: getDeep(entry, returnValue),
       label: returnLabel
         .split(".")
-        .filter((path) => path)
-        .reduce((a, b) => a && a[b], entry),
+        .filter((path: string) => path)
+        .reduce((a: { [key: string]: string }, b: string) => a && a[b], entry),
     }
   })
 
   loading.value = false
 }
 
-watch(depends_on, (newVal) => {
+watch(depends_on, () => {
   mapEntries()
 })
 

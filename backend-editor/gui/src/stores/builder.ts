@@ -18,6 +18,7 @@ export const useBuilderStore = defineStore({
   id: "builder",
   state: () => ({
     config: <BuildyConfig>{},
+    pasteLocations: <string[]>[],
     registeredComponents: {},
   }),
   getters: {
@@ -34,16 +35,20 @@ export const useBuilderStore = defineStore({
       state.config?.globalModules,
     getBuilderConfig: (state) => state.config,
     getBuilderOptions: (state) => state.config.builder_options,
+    getPasteLocations: (state) => state.pasteLocations,
   },
   actions: {
     setConfig(config: BuildyConfig) {
       this.config = { ...config }
     },
     setGlobals(globals: { [key: string]: any }, type: string) {
-      this.globals[type] = Object.assign({}, { ...globals })
+      this.config.globalModules[type] = Object.assign({}, { ...globals })
     },
     setRegisteredComponents(payload: { [key: string]: any }) {
       this.registeredComponents = { ...payload }
+    },
+    updatePasteLocations(payload: string[]) {
+      this.pasteLocations = payload
     },
   },
 })
