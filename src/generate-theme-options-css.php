@@ -31,8 +31,8 @@ if (function_exists('get_theme_colors')):
         // loop through the rows of data
         foreach ($colors as $color) : ?>
           <?php if ( ! $color['value']) {
-              continue;
-          } ?>
+            continue;
+        } ?>
 
           <?php $rgb = hex2rgb(sanitize_hex_color($color['value'])); ?>
 

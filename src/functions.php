@@ -63,8 +63,8 @@ if ( ! function_exists('add_site_color_choices')) {
         $field['choices'] = [];
         if (function_exists('get_theme_colors')) :
             $colours = @get_theme_colors();
-            // $colours = [["name" => "red", "value" => "sdf79sf"]];
-            if ( ! empty($colours) && (is_array($colours) || is_object($colours))) :
+        // $colours = [["name" => "red", "value" => "sdf79sf"]];
+        if ( ! empty($colours) && (is_array($colours) || is_object($colours))) :
                 foreach ($colours as $colour) {
                     $colour_name = trim($colour['label']);
                     $colour_value = sanitize_hex_color($colour['value']);
