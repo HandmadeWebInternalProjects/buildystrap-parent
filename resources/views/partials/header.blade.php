@@ -13,6 +13,6 @@
 
 		<a class="skip-link sr-only sr-only-focusable" href="#content">{!! esc_html_e( 'Skip to content', 'buildystrap' ) !!}</a>
 
-		{!! get_template_part( 'global-templates/navbar', $navbar_type) !!}
+		{!! get_template_part( 'resources/views/global-templates/navbar', $navbar_type) !!}
 
 	</header><!-- #wrapper-navbar end -->

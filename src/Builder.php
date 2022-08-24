@@ -138,7 +138,6 @@ class Builder
             ->map(fn ($path) => "$path/modules")->toArray();
 
         view()->addNamespace('builder-modules', static::paths());
-        view()->addNamespace('child-theme', get_stylesheet_directory());
     }
 
     public static function paths(): array

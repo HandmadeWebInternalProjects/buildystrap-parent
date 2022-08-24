@@ -13,7 +13,7 @@
 			<div class="row">
 
 				<!-- Do the left sidebar check -->
-				{!! get_template_part( 'global-templates/left-sidebar-check' ) !!}
+				{!! get_template_part( 'resources/views/global-templates/left-sidebar-check' ) !!}
 
 				<main class="site-main" id="main">
 
@@ -32,10 +32,10 @@
 							* If you want to override this in a child theme, then include a file
 							* called content-___.php (where ___ is the Post Format name) and that will be used instead.
 							*/ --}}
-							{!! get_template_part( 'loop-templates/content', get_post_format() ) !!}
+							{!! get_template_part( 'resources/views/loop-templates/content', get_post_format() ) !!}
 						@endwhile
 					@else
-						{!! get_template_part( 'loop-templates/content', 'none' ) !!}
+						{!! get_template_part( 'resources/views/loop-templates/content', 'none' ) !!}
 					@endif
 
 				</main><!-- #main -->
@@ -44,7 +44,7 @@
 				{{-- // Display the pagination component. --}}
 				{!! understrap_pagination() !!}
 				{{-- // Do the right sidebar check. --}}
-				{!! get_template_part( 'global-templates/right-sidebar-check' ) !!}
+				{!! get_template_part( 'resources/views/global-templates/right-sidebar-check' ) !!}
 
 			</div><!-- .row -->
 

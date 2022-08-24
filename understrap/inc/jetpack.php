@@ -49,9 +49,9 @@ if ( ! function_exists('understrap_components_infinite_scroll_render')) {
         while (have_posts()) {
             the_post();
             if (is_search()) :
-                get_template_part('loop-templates/content', 'search'); else :
-                get_template_part('loop-templates/content', get_post_format());
-            endif;
+                get_template_part('resources/views/loop-templates/content', 'search'); else :
+                    get_template_part('resources/views/loop-templates/content', get_post_format());
+                endif;
         }
     }
 }

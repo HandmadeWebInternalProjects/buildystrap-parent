@@ -19,7 +19,10 @@ watch(value.value, (newValue) => {
   <bs-card :label="config?.label !== undefined ? config.label : handle">
     <template v-slot:body>
       <div>
-        <media-field :config="{ multiple: false }" v-model="value['image']" />
+        <media-field
+          handle="image"
+          :config="{ multiple: false }"
+          v-model="value['image']" />
       </div>
 
       <select-field

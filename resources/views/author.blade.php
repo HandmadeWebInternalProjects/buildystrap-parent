@@ -13,7 +13,7 @@
 			<div class="row">
 
 				<!-- Do the left sidebar check -->
-				<?php get_template_part('global-templates/left-sidebar-check'); ?>
+				<?php get_template_part('resources/views/global-templates/left-sidebar-check'); ?>
 
 				<main class="site-main" id="main">
 
@@ -78,10 +78,10 @@
                     if (have_posts()) {
                         while (have_posts()) {
                             the_post();
-                            get_template_part('loop-templates/content', 'author');
+                            get_template_part('resources/views/loop-templates/content', 'author');
                         }
                     } else {
-                        get_template_part('loop-templates/content', 'none');
+                        get_template_part('resources/views/loop-templates/content', 'none');
                     }
                     ?>
 					<!-- End Loop -->
@@ -92,7 +92,7 @@
 				<?php understrap_pagination(); ?>
 
 				<!-- Do the right sidebar check -->
-				<?php get_template_part('global-templates/right-sidebar-check'); ?>
+				<?php get_template_part('resources/views/global-templates/right-sidebar-check'); ?>
 
 			</div> <!-- .row -->
 

@@ -53,7 +53,7 @@ abstract class Layout
 
     public function enabled(): bool
     {
-        return $this->getFromConfig('enabled', false);
+        return $this->getConfig('enabled', false);
     }
 
     public function hasParent(): bool

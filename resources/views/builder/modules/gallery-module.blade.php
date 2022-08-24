@@ -5,14 +5,9 @@
   @php
 
       $col_count = $module->has('columns') ? collect($module->get('columns')->value())->map(function($value, $key) {
-        if (12 % $value === 0) {
-          return '';
-        }
-        if ($key === 'xs') {
-          return "--bs-columns: $value;";
-        }
-        return "--bs-columns-$key: $value;";
-      })->join('') : 12;
+        $prefix = ($key !== 'xs') ? "-$key" : null;
+        return (12 % $value === 0) ? null : "--bs-columns$prefix: $value;";
+      })->filter()->join('') : null;
 
       $col_class = getResponsiveClasses(module: $module, prop: 'columns', classPrefix: 'g-col', fallback: 'g-col-4', computed: fn($val) => 12 % $val === 0 ? (12 / (int) $val) : 1);
       $col_gap = getResponsiveClasses(module: $module, prop: 'col_gap', classPrefix: 'gap', fallback: 'gap-3');

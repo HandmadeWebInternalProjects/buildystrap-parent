@@ -46,7 +46,7 @@ if ( ! function_exists('understrap_woocommerce_wrapper_start')) {
         echo '<div class="wrapper" id="woocommerce-wrapper">';
         echo '<div class="' . esc_attr($container) . '" id="content" tabindex="-1">';
         echo '<div class="row">';
-        get_template_part('global-templates/left-sidebar-check');
+        get_template_part('resources/views/global-templates/left-sidebar-check');
         echo '<main class="site-main" id="main">';
     }
 }
@@ -58,7 +58,7 @@ if ( ! function_exists('understrap_woocommerce_wrapper_end')) {
     function understrap_woocommerce_wrapper_end()
     {
         echo '</main><!-- #main -->';
-        get_template_part('global-templates/right-sidebar-check');
+        get_template_part('resources/views/global-templates/right-sidebar-check');
         echo '</div><!-- .row -->';
         echo '</div><!-- Container end -->';
         echo '</div><!-- Wrapper end -->';
@@ -97,18 +97,18 @@ if ( ! function_exists('understrap_wc_form_field_args')) {
                 ];
                 break;
 
-            /*
-             * By default WooCommerce will populate a select with the country names - $args
-             * defined for this specific input type targets only the country select element.
-             */
+                /*
+                 * By default WooCommerce will populate a select with the country names - $args
+                 * defined for this specific input type targets only the country select element.
+                 */
             case 'country':
                 $args['class'][] = 'form-group mb-3 single-country';
                 break;
 
-            /*
-             * By default WooCommerce will populate a select with state names - $args defined
-             * for this specific input type targets only the country select element.
-             */
+                /*
+                 * By default WooCommerce will populate a select with state names - $args defined
+                 * for this specific input type targets only the country select element.
+                 */
             case 'state':
                 $args['class'][]           = 'form-group mb-3';
                 $args['custom_attributes'] = [
@@ -121,12 +121,12 @@ if ( ! function_exists('understrap_wc_form_field_args')) {
                 $args['input_class'][] = 'form-control';
                 break;
             case 'checkbox':
-                    $args['class'][] = 'form-group mb-3';
-                    // Wrap the label in <span> tag.
-                    $args['label'] = isset($args['label']) ? '<span class="custom-control-label">' . $args['label'] . '<span>' : '';
-                    // Add a class to the form input's <label> tag.
-                    $args['label_class'][] = 'custom-control custom-checkbox';
-                    $args['input_class'][] = 'custom-control-input';
+                $args['class'][] = 'form-group mb-3';
+                // Wrap the label in <span> tag.
+                $args['label'] = isset($args['label']) ? '<span class="custom-control-label">' . $args['label'] . '<span>' : '';
+                // Add a class to the form input's <label> tag.
+                $args['label_class'][] = 'custom-control custom-checkbox';
+                $args['input_class'][] = 'custom-control-input';
                 break;
             case 'radio':
                 $args['label_class'][] = 'custom-control custom-radio';

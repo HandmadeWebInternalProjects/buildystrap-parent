@@ -5314,9 +5314,14 @@
   padding: var(--bs-row-padding) 0;
 }
 .buildystrap-row.grid {
-  -moz-column-gap: var(--bs-col-gap, var(--bs-gap));
-       column-gap: var(--bs-col-gap, var(--bs-gap));
-  row-gap: var(--bs-row-gap);
+  gap: 0;
+}
+@media (min-width: 768px) {
+  .buildystrap-row.grid {
+    -moz-column-gap: var(--bs-col-gap);
+         column-gap: var(--bs-col-gap);
+    row-gap: var(--bs-row-gap);
+  }
 }
 
 .buildystrap-column {

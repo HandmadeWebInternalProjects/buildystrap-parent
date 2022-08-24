@@ -24,7 +24,7 @@
 @section('field_content')
   <div class="grid gap-3">
     @foreach($posts as $post)
-      @include("child-theme::loop-templates.content-{$postType}", ['post' => $post, 'class' => 'g-col-4'])
+      @include("loop-templates.content-{$postType}", ['post' => $post, 'class' => 'g-col-4'])
     @endforeach
   </div>
 @overwrite

@@ -2,17 +2,18 @@
 
 namespace Buildystrap\Builder\Layout;
 
-use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Cache\GlobalSectionCache;
 use Buildystrap\Traits\Attributes;
+use Buildystrap\Traits\Augment;
 use Buildystrap\Traits\Config;
 
 use function is_array;
 
-class GlobalSection extends layout
+class GlobalSection
 {
     use Attributes;
     use Config;
+    use Augment;
 
 //    protected ?Container $container;
     protected string $uuid;
@@ -35,7 +36,7 @@ class GlobalSection extends layout
 
     public function enabled(): bool
     {
-        return $this->getFromConfig('enabled', false);
+        return $this->getConfig('enabled', false);
     }
 
     public function type(): string

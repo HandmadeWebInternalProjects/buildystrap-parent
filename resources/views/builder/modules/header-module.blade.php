@@ -1,4 +1,4 @@
-@extends('builder::module-base-blank')
+@extends('builder::module-base')
 
 @section('field_content')
     {!! $module->get('title') !!}

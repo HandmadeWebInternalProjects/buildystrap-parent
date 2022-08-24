@@ -23,30 +23,30 @@ $container = get_theme_mod('understrap_container_type');
 			<?php
             get_template_part('sidebar-templates/sidebar', 'left');
 
-            if (is_active_sidebar('left-sidebar') xor is_active_sidebar('right-sidebar')) {
-                $class = 'col-md-8';
-            } elseif (is_active_sidebar('left-sidebar') && is_active_sidebar('right-sidebar')) {
-                $class = 'col-md-4';
-            } else {
-                $class = 'col-md-12';
-            }
-            ?>
+if (is_active_sidebar('left-sidebar') xor is_active_sidebar('right-sidebar')) {
+    $class = 'col-md-8';
+} elseif (is_active_sidebar('left-sidebar') && is_active_sidebar('right-sidebar')) {
+    $class = 'col-md-4';
+} else {
+    $class = 'col-md-12';
+}
+?>
 			<div class="<?php echo $class; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped?> content-area" id="primary">
 
 				<main class="site-main" id="main" role="main">
 
 					<?php
-                    while (have_posts()) {
-                        the_post();
+        while (have_posts()) {
+            the_post();
 
-                        get_template_part('loop-templates/content', 'page');
+            get_template_part('resources/views/loop-templates/content', 'page');
 
-                        // If comments are open or we have at least one comment, load up the comment template.
-                        if (comments_open() || get_comments_number()) {
-                            comments_template();
-                        }
-                    }
-                    ?>
+            // If comments are open or we have at least one comment, load up the comment template.
+            if (comments_open() || get_comments_number()) {
+                comments_template();
+            }
+        }
+?>
 
 				</main><!-- #main -->
 

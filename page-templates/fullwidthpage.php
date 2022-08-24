@@ -14,7 +14,7 @@ get_header();
 $container = get_theme_mod('understrap_container_type');
 
 if (is_front_page()) {
-    get_template_part('global-templates/hero');
+    get_template_part('resources/views/global-templates/hero');
 }
 ?>
 
@@ -31,14 +31,14 @@ if (is_front_page()) {
 					<?php
                     while (have_posts()) {
                         the_post();
-                        get_template_part('loop-templates/content', 'page');
+                        get_template_part('resources/views/loop-templates/content', 'page');
 
                         // If comments are open or we have at least one comment, load up the comment template.
                         if (comments_open() || get_comments_number()) {
                             comments_template();
                         }
                     }
-                    ?>
+?>
 
 				</main><!-- #main -->
 
