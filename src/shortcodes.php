@@ -27,7 +27,7 @@ if ( ! function_exists('company_phone_shortcode')) {
 
 <?php  ?>
 
-<a class="<?= $atts['field']; ?>" href="<?= format_phone($company_phone, '61', false, $atts['type']) ?>">
+<a class="<?= $atts['field']; ?> d-flex align-items-baseline gap-3" href="<?= format_phone($company_phone, '61', false, $atts['type']) ?>">
     <?php if ($atts['icon']) : ?>
       <i class="<?= esc_attr($atts['icon']) ?>"></i>
     <?php endif; ?>
@@ -76,7 +76,7 @@ if ( ! function_exists('company_email_shortcode')) {
         $company_email = get_field('buildystrap_company_details_company_email', 'option') ? get_field('buildystrap_company_details_company_email', 'option') : '';
         ob_start(); ?>
 
-        <a class="company-email" href="mailto:<?php echo esc_attr($company_email); ?>">
+        <a class="company-email d-flex align-items-baseline gap-3" href="mailto:<?php echo esc_attr($company_email); ?>">
           <?php if ($atts['icon']) : ?>
             <i class="<?= esc_attr($atts['icon']) ?>"></i>
           <?php endif; ?>
@@ -119,11 +119,15 @@ if ( ! function_exists('social_icons_shortcode')) {
 
 // [company-address]
 if ( ! function_exists('company_address_shortcode')) {
-    function company_address_shortcode()
+    function company_address_shortcode($atts)
     {
         if (is_admin() || ! function_exists('get_field')) {
             return;
         }
+
+        $atts = shortcode_atts([
+          'icon' => false
+        ], $atts);
 
         $address = get_field('buildystrap_company_details_company_address', 'option') ? get_field('buildystrap_company_details_company_address', 'option') : '';
 
@@ -132,9 +136,14 @@ if ( ! function_exists('company_address_shortcode')) {
         }
 
         ob_start(); ?>
-
-        <address class="company-address">
-          <?php echo $address; ?>
+        
+        <address class="company-address d-flex align-items-baseline gap-3">
+          <?php if ($atts['icon']) : ?>
+            <i class="<?= esc_attr($atts['icon']) ?>"></i>
+          <?php endif; ?>
+          <div>
+            <?php echo $address; ?>
+          </div>
         </address>
 
 

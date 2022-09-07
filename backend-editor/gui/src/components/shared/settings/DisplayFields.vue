@@ -74,6 +74,10 @@ watch(display, (val: any) => {
       :config="{
         label: 'Property',
         options: [
+          { value: 'none', label: 'None (hidden)' },
+          { value: 'block', label: 'Block' },
+          { value: 'inline', label: 'Inline' },
+          { value: 'inline-flex', label: 'Inline Flex' },
           { value: 'flex', label: 'Flex' },
           { value: 'grid', label: 'Grid' },
         ],

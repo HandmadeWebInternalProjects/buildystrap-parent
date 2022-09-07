@@ -6,15 +6,16 @@
 
       $col_count = $module->has('columns') ? collect($module->get('columns')->value())->map(function($value, $key) {
         $prefix = ($key !== 'xs') ? "-$key" : null;
-        return (12 % $value === 0) ? null : "--bs-columns$prefix: $value;";
+        return (12 % $value === 0) ? null : "--bs$prefix-columns: $value;";
       })->filter()->join('') : null;
 
       $col_class = getResponsiveClasses(module: $module, prop: 'columns', classPrefix: 'g-col', fallback: 'g-col-4', computed: fn($val) => 12 % $val === 0 ? (12 / (int) $val) : 1);
       $col_gap = getResponsiveClasses(module: $module, prop: 'col_gap', classPrefix: 'gap', fallback: 'gap-3');
+      $place_items = getResponsiveClasses(module: $module, prop: 'place_items', classPrefix: 'place-items', fallback: '');
       $image_size = $module->has('image_size') ? $module->get('image_size')->value() : 'medium';
   @endphp
 
-  <div class="grid {{ $col_gap }}" @if($col_count) style="{{ $col_count }}" @endif>
+  <div class="grid {{ $col_gap }} {{ $place_items }}" @if($col_count) style="{{ $col_count }}" @endif>
     @if($module->has('images'))
       @foreach($module->get('images')->value() as $image)
         <div class="{{ $col_class }}">

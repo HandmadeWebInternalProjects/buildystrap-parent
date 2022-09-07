@@ -16,6 +16,7 @@ use Buildystrap\Builder\Fields\RichTextField;
 use Buildystrap\Builder\Fields\SelectField;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Fields\TitleField;
+use Buildystrap\Builder\Fields\ToggleField;
 use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
@@ -56,6 +57,7 @@ class Builder
     protected static array $fields = [
         'accordion-field' => AccordionField::class,
         'text-field' => TextField::class,
+        'toggle-field' => ToggleField::class,
         'code-field' => CodeField::class,
         'select-field' => SelectField::class,
         'richtext-field' => RichTextField::class,
@@ -167,6 +169,26 @@ class Builder
     public static function getField(string $handle): mixed
     {
         return Arr::get(static::fields(), Str::slug($handle));
+    }
+
+    public static function getModuleStyles(): Collection
+    {
+        if ( ! function_exists('get_field')) {
+            return collect();
+        }
+
+        $shared = get_field('buildystrap_module_styles_shared', 'option') ?: [];
+        $modules = get_field('buildystrap_module_styles_modules', 'option') ?: [];
+
+        if ($shared) {
+            $shared = ['module_name' => 'shared', 'styles' => $shared];
+            array_push($modules, $shared);
+        }
+
+        return collect($modules ?? [])->map(fn ($module) => [
+            'module_name' => Str::slug($module['module_name']) . '-module',
+            'styles' => $module['styles'] ?? [],
+        ]);
     }
 
     public static function getGlobals(): Collection

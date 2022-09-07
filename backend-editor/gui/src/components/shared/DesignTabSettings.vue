@@ -1,5 +1,14 @@
 <template>
   <div class="d-flex flex-column gap-4 pb-5">
+    <bs-card label="Module Styles">
+      <template v-slot:body>
+        <module-styles
+          :config="{ label: 'Margin' }"
+          breakpoint-handle="display"
+          v-model="module_styles" />
+      </template>
+    </bs-card>
+
     <bs-card label="Display" breakpoint-handle="display">
       <template v-slot:body>
         <display-fields breakpoint-handle="display" v-model="display" />
@@ -64,6 +73,15 @@ const inline = computed({
     // Object.assign(props.modelValue, val)
 
     update(val)
+  },
+})
+
+const module_styles = computed({
+  get() {
+    return inline.value.module_styles || {}
+  },
+  set(val: any) {
+    inline.value = { ...inline.value, module_styles: val }
   },
 })
 

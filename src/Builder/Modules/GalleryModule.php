@@ -58,6 +58,18 @@ class GalleryModule extends Module
                         'responsive' => true,
                     ],
                 ],
+                'place_items' => [
+                    'type' => 'select-field',
+                    'config' => [
+                        'label' => 'Place Items',
+                        'options' => [
+                            'center',
+                            'start',
+                            'end',
+                        ],
+                        'responsive' => true,
+                    ],
+                ],
             ],
         ];
     }

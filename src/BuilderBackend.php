@@ -122,6 +122,7 @@ class BuilderBackend
             'moduleBlueprints' => Builder::moduleBlueprints(),
             'globalSections' => Builder::getGlobals(),
             'globalModules' => Builder::getGlobalModules(),
+            'moduleStyles' => Builder::getModuleStyles(),
             // 'registered_image_sizes' => static::get_all_image_sizes(),
             'registered_post_types' => get_post_types(['_builtin' => false]),
             'builder_options' => array_merge_recursive(static::get_default_options(), static::get_acf_options()),

@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onBeforeMount } from "vue"
+import { computed, ref, onBeforeMount, provide } from "vue"
 import { useBuilderStore } from "../../stores/builder"
 import { useLocalStorage } from "../../composables/useLocalStorage"
 
@@ -45,7 +45,8 @@ const props = defineProps({
 const { getModuleBlueprintForType, getBuilderConfig } = useBuilderStore()
 const value = ref(props.component.values)
 
-console.log({ value })
+// provide component to children
+provide("component", props.component)
 
 const ModuleType = computed((): any => {
   return getModuleBlueprintForType(props.type)

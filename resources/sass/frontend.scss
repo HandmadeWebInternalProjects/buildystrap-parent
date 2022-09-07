@@ -110,6 +110,114 @@ $utilities: map-merge(
             ),
         )
       ),
+    "margin":
+      map-merge(
+        map-get($utilities, "margin"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "margin"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "margin-y":
+      map-merge(
+        map-get($utilities, "margin-y"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "margin-y"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "margin-top":
+      map-merge(
+        map-get($utilities, "margin-top"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "margin-top"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "margin-end":
+      map-merge(
+        map-get($utilities, "margin-end"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "margin-end"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "margin-bottom":
+      map-merge(
+        map-get($utilities, "margin-bottom"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "margin-bottom"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "margin-start":
+      map-merge(
+        map-get($utilities, "margin-start"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "margin-start"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
     "padding":
       map-merge(
         map-get($utilities, "padding"),
@@ -118,6 +226,24 @@ $utilities: map-merge(
           values:
             map-merge(
               map-get(map-get($utilities, "padding"), "values"),
+              (
+                6: $spacer * 4,
+                7: $spacer * 6,
+                8: $spacer * 8,
+                9: $spacer * 10,
+                10: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "padding-y":
+      map-merge(
+        map-get($utilities, "padding-y"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "padding-y"), "values"),
               (
                 6: $spacer * 4,
                 7: $spacer * 6,

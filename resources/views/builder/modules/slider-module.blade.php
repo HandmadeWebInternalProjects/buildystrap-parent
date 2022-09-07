@@ -1,4 +1,4 @@
-@extends('builder::module-base', ['class' => 'swiper'])
+@extends('builder::module-base', ['class' => 'swiper bs-swiper'])
 
 @section('field_content')
   @if($module->has('slides'))

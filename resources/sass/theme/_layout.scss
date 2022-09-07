@@ -12,7 +12,6 @@
 .buildystrap-row {
   padding: var(--bs-row-padding) 0;
   &.grid {
-    gap: 0;
     @include media-breakpoint-up(md) {
       column-gap: var(--bs-col-gap);
       row-gap: var(--bs-row-gap);

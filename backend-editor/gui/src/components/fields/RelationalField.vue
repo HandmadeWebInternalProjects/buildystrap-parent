@@ -90,6 +90,8 @@ const mapEntries = async () => {
     return
   }
 
+  console.log({ mappedEntries })
+
   mappedEntries = Array.isArray(mappedEntries)
     ? mappedEntries
     : Object.values(mappedEntries)
@@ -97,10 +99,7 @@ const mapEntries = async () => {
   entries.value = mappedEntries.map((entry: any) => {
     return {
       value: getDeep(entry, returnValue),
-      label: returnLabel
-        .split(".")
-        .filter((path: string) => path)
-        .reduce((a: { [key: string]: string }, b: string) => a && a[b], entry),
+      label: getDeep(entry, returnLabel),
     }
   })
 

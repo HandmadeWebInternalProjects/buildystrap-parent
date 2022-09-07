@@ -23,90 +23,47 @@ echo get_field('buildystrap_structure_row_padding', 'option'); ?>;
 <?php
 // check if the repeater field has rows of data
 if (function_exists('get_theme_colors')):
-
     $colors = get_theme_colors();
-
     if (isset($colors)):
-
         // loop through the rows of data
         foreach ($colors as $color) : ?>
           <?php if ( ! $color['value']) {
-            continue;
-        } ?>
-
+              continue;
+          } ?>
           <?php $rgb = hex2rgb(sanitize_hex_color($color['value'])); ?>
-
-            --bs-<?php
-                                      echo sanitize_text_field($color['label']); ?>: <?php
-                                      echo sanitize_hex_color($color['value']); ?>;
-            --bs-<?php
-                                      echo sanitize_text_field($color['label']); ?>-rgb: <?php
-                                      echo $rgb; ?>;
-
-        <?php
-        endforeach; endif; endif; ?>
-
-<?php
-if (get_field('buildystrap_theme_colours_link_colour', 'option') && get_field('buildystrap_theme_colours_link_colour', 'option') !== 'None') :
-
-    $link_colour = get_field('buildystrap_theme_colours_link_colour', 'option');
-
-    ?>
-
-    --color-link: var(--color-<?php
-    echo $link_colour; ?>);
-
-<?php
-else :
-    $link_colour = 'primary';
-    ?>
-
-
-    --color-link: var(--color-primary);
-
-<?php
+          --bs-<?= sanitize_text_field($color['label']); ?>: <?= sanitize_hex_color($color['value']); ?>;
+          --bs-<?= sanitize_text_field($color['label']); ?>-rgb: <?= $rgb; ?>;
+        <?php endforeach;
+    endif;
 endif; ?>
 
 <?php
-if (get_field('buildystrap_theme_colours_text_colour_main', 'option') && get_field('buildystrap_theme_colours_text_colour_main', 'option') !== 'None') :
-
-    $text_colour_main = get_field('buildystrap_theme_colours_text_colour_main', 'option');
-    ?>
-
-    --color-text-body: var(--color-<?php
-    echo $text_colour_main; ?>);
+$colour_text_link = get_field('buildystrap_theme_colours_link_colour', 'option');
+if ($colour_text_link && $colour_text_link !== 'None') : ?>
+    --bs-link-color: var(--bs-<?= $colour_text_link; ?>);
+<?php else : ?>
+    --bs-link-color: var(--color-black);
+<?php endif; ?>
 
 <?php
-else : ?>
-
+$colour_text_body = get_field('buildystrap_theme_colours_text_colour_main', 'option');
+if ($colour_text_body && $colour_text_body !== 'None') : ?>
+    --color-text-body: var(--bs-<?= $colour_text_body; ?>);
+<?php else : ?>
     --color-text-body: var(--color-black);
+<?php endif; ?>
 
 <?php
-endif; ?>
-
-<?php
-if (get_field('buildystrap_theme_colours_text_colour_headings', 'option') && get_field('buildystrap_theme_colours_text_colour_headings', 'option') !== 'None') :
-
-    $text_headings = get_field('buildystrap_theme_colours_text_colour_headings', 'option');
-
-    ?>
-
-
-    --color-text-headings: var(--color-<?php
-    echo $text_headings; ?>);
-
-<?php
-else : ?>
-
+$colour_text_headings = get_field('buildystrap_theme_colours_text_colour_headings', 'option');
+if ($colour_text_headings && $colour_text_headings !== 'None') : ?>
+    --color-text-headings: var(--bs-<?= $colour_text_headings; ?>);
+<?php else : ?>
     --color-text-headings: var(--color-black);
-
-<?php
-endif; ?>
-
+<?php endif; ?>
 
 /* Typography */
 <?php
-  $font_main = get_field('buildystrap_typography_body_font', 'option');
+$font_main = get_field('buildystrap_typography_body_font', 'option');
 $font_headings = get_field('buildystrap_typography_heading_font', 'option');
 $font_buttons = get_field('buildystrap_typography_font_buttons', 'option');
 ?>

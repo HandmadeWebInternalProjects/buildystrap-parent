@@ -48,6 +48,10 @@ trait HtmlStyleBuilder
 
     protected function generateClasses(): void
     {
+        if ($styles = $this->getInlineAttribute('module_styles', null)) {
+            $this->html_classes[] = implode(' ', $styles);
+        }
+
         /** Position */
         foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {

@@ -20,7 +20,7 @@ add_action('init', [Theme::class, 'boot']);
 include get_template_directory() . '/src/theme_options.php';
 
 /* Custom Logo */
-function custom_logo()
+function custom_logo($url = null)
 {
     $custom_logo = acf_active() ? get_field('buildystrap_company_details_site_logo', 'option') : null;
     if ( ! acf_active() || ! isset($custom_logo) && empty($custom_logo)) { ?>
@@ -29,14 +29,14 @@ function custom_logo()
         if (is_front_page() && is_home()) : ?>
 
             <h1 class="navbar-brand"><a rel="home" href="<?php
-                echo esc_url(home_url('/')); ?>" itemprop="url"><?php
+                echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php
                     bloginfo('name'); ?></a></h1>
 
         <?php
         else : ?>
 
             <a class="navbar-brand" rel="home" href="<?php
-            echo esc_url(home_url('/')); ?>" itemprop="url"><?php
+            echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php
                 bloginfo('name'); ?></a>
 
         <?php
@@ -45,7 +45,8 @@ function custom_logo()
         <?php
     } else {
         echo sprintf(
-            '<a class="navbar-brand" href="/"><img class="site-logo" src="%s" alt="%s" /></a>',
+            '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+            isset($url) ? $url : home_url('/'),
             $custom_logo['url'],
             $custom_logo['alt']
         );
@@ -57,14 +58,17 @@ function custom_logo()
 // Add the global colour options to all of these fields
 if ( ! function_exists('add_site_color_choices')) {
     add_filter('acf/load_field/key=field_62eb52287454c', 'add_site_color_choices');
+    add_filter('acf/load_field/key=field_62ce5cbe77fbf', 'add_site_color_choices');
+    add_filter('acf/load_field/key=field_62ce5cd577fc0', 'add_site_color_choices');
+    add_filter('acf/load_field/key=field_62ce5d0577fc1', 'add_site_color_choices');
 
     function add_site_color_choices($field)
     {
         $field['choices'] = [];
         if (function_exists('get_theme_colors')) :
             $colours = @get_theme_colors();
-        // $colours = [["name" => "red", "value" => "sdf79sf"]];
-        if ( ! empty($colours) && (is_array($colours) || is_object($colours))) :
+            // $colours = [["name" => "red", "value" => "sdf79sf"]];
+            if ( ! empty($colours) && (is_array($colours) || is_object($colours))) :
                 foreach ($colours as $colour) {
                     $colour_name = trim($colour['label']);
                     $colour_value = sanitize_hex_color($colour['value']);
