@@ -45,14 +45,37 @@ class TitleField extends Field
     {
         $level = $this->value()->get('level', 'h3');
         $text = $this->value()->get('text', '');
-        $weight = $this->value()->get('weight', '');
-        $color = $this->value()->get('color', '');
+        $color = $this->value()->get('color', []);
+        $weight = $this->value()->get('weight', []);
+        $size = $this->value()->get('size', []);
+
+        foreach ($size as $breakpoint => $value) {
+            $size = match ($breakpoint) {
+                'xs' => "fs-{$value}",
+                default => "fs-{$breakpoint}-{$value}"
+            };
+        }
+
+        foreach ($color as $breakpoint => $value) {
+            $color = match ($breakpoint) {
+                'xs' => "text-{$value}",
+                default => "text-{$breakpoint}-{$value}"
+            };
+        }
+
+        foreach ($weight as $breakpoint => $value) {
+            $weight = match ($breakpoint) {
+                'xs' => "font-{$value}",
+                default => "font-{$breakpoint}-{$value}"
+            };
+        }
+
         $class = collect([])
             ->push($this->value()->get('class', ''))
             ->push($this->title_class)
-            ->push("text-{$color}")
-            ->push("font-{$weight}")
-            ->push($this->value()->get('size', ''))
+            ->push($color)
+            ->push($weight)
+            ->push($size)
             ->filter()
             ->implode(' ');
 
