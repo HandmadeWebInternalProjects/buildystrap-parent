@@ -108,12 +108,12 @@ const settings = computed((): ControlItem[] => {
     },
     clipboardCopy: navigator?.clipboard
       ? {
-          icon: isValidPasteLocation
-            ? ["fas", "clipboard"]
-            : ["fas", "clipboard-check"],
+          icon: isValidPasteLocation.value
+            ? ["fas", "clipboard-check"]
+            : ["fas", "clipboard"],
           title: "Copy module to clipboard",
-          action: isValidPasteLocation
-            ? pasteFromClipboard(pasteModule)
+          action: isValidPasteLocation.value
+            ? () => pasteFromClipboard(pasteModule)
             : copyToClipboard,
           order: 30,
           // class: this.isValidPasteLocation ? "pulse-constant" : "",

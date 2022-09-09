@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { ref, watch, onMounted } from "vue"
 import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
+import { useClipboard } from "./composables/useClipboard"
 const { getGlobalSections } = storeToRefs(useBuilderStore())
 
-// @ts-ignore 
-import { createModule, type ModuleType, } from "@/factories/modules/moduleFactory"
+const { readFromClipboard } = useClipboard({})
+
+// @ts-ignore
+import {
+  createModule,
+  type ModuleType,
+} from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
 const builder = ref<ModuleType[]>([])
@@ -36,6 +42,10 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
   builder.value.push(newModule)
   console.log({ newModule })
 }
+
+onMounted(() => {
+  readFromClipboard()
+})
 
 watch(
   builder,
