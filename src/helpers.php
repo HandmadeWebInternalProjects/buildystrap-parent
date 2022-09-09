@@ -138,6 +138,17 @@ if ( ! function_exists('acf_active')) {
 }
 
 
+if ( ! function_exists('bs_has_field')) {
+    function bs_has_field(string $field, int $id, string $default = ''): string
+    {
+        if (acf_active() && $check = get_field($field, $id)) {
+            return true;
+        }
+        return false;
+    }
+}
+
+
 if ( ! function_exists('bs_get_field')) {
     function bs_get_field(string $field, int $id, string $default = ''): string
     {
@@ -158,10 +169,11 @@ if ( ! function_exists('format_phone')) {
         $formattedPhone = "{$type}:+{$cc}{$phoneURL}";
 
         if ( ! $html) :
-            return $formattedPhone; else : ?>
+            return $formattedPhone;
+        else : ?>
   <a class="formatted-phone country-code-<?= $cc ?>" href="<?= $formattedPhone; ?>"><?= esc_html__($number, 'hmw-starter-child'); ?></a>
   <?php
-            endif;
+        endif;
     }
 }
 

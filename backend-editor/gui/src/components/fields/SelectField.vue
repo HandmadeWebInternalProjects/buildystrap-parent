@@ -39,7 +39,7 @@ const options = normaliseOptions(config.value.options) || []
       :name="handle"
       :disabled="config.disabled || false"
       :placeholder="placeholder || config.placeholder"
-      :options="options">
+      :options="Object.keys(options).length ? options : null">
     </v-select>
   </div>
 </template>

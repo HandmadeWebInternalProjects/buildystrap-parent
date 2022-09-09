@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex align-items-center gap-3">
+  <div class="d-flex align-items-center gap-1">
     <label class="text-600 d-flex gap-1 align-items-center position-relative"
       >{{ props.label }}
       <div class="d-flex align-items-center" v-if="props.responsive">
         <font-awesome-icon
           @click="showBreakpointSwitcher = !showBreakpointSwitcher"
-          class="ms-1 pe-2 text-500 popover-trigger"
+          class="ms-1 text-500 popover-trigger"
           icon="mobile-alt" />
         <transition name="fade">
           <BreakpointSwitcher v-if="showBreakpointSwitcher" />

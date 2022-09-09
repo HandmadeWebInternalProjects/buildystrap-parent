@@ -6,7 +6,6 @@ use WP_Post;
 
 use function add_action;
 use function add_meta_box;
-use function delete_post_meta;
 use function in_array;
 use function update_post_meta;
 
@@ -39,9 +38,7 @@ class BuilderMetaBox
         }
 
         if (isset($_POST['_buildy_enabled'])) {
-            update_post_meta($post_id, '_buildy_enabled', true);
-        } elseif ($update) {
-            delete_post_meta($post_id, '_buildy_enabled');
+            update_post_meta($post_id, '_buildy_enabled', $_POST['_buildy_enabled']);
         }
     }
 }
