@@ -6,16 +6,22 @@
 }
 
 .buildystrap-section {
-  padding: var(--bs-section-padding) 0;
+  padding: 2rem 0;
+  @include media-breakpoint-up(lg) {
+    padding: var(--bs-section-padding) 0;
+  }
 }
 
 .buildystrap-row {
-  padding: var(--bs-row-padding) 0;
+  padding: calc(var(--bs-row-padding) / 2) 0;
   &.grid {
     @include media-breakpoint-up(md) {
       column-gap: var(--bs-col-gap);
       row-gap: var(--bs-row-gap);
     }
+  }
+  @include media-breakpoint-up(md) {
+    padding: var(--bs-row-padding) 0;
   }
 }
 

@@ -10,8 +10,11 @@ const { readFromClipboard } = useClipboard({})
 
 // @ts-ignore
 import {
+  // @ts-ignore
   createModule,
+  // @ts-ignore
   type ModuleType,
+  // @ts-ignore
 } from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
@@ -44,7 +47,7 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
 }
 
 onMounted(() => {
-  readFromClipboard()
+  navigator?.clipboard ? readFromClipboard() : null
 })
 
 watch(
