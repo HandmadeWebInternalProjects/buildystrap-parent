@@ -15,7 +15,6 @@ const { update, normaliseOptions } = useFieldType(emit)
 
 const selected = computed({
   get() {
-    console.log({ modelValue: modelValue?.value })
     return modelValue?.value
   },
   set(newVal) {

@@ -1,29 +1,35 @@
 import { computed } from "vue"
 import { useBuilderStore } from "@/stores/builder"
+import { storeToRefs } from "pinia"
 
 export const useClipboard = (component: any) => {
-  const { updatePasteLocations, getPasteLocations } = useBuilderStore()
+  const { updatePasteLocations } = useBuilderStore()
+  const { getPasteLocations } = storeToRefs(useBuilderStore())
 
   const isValidPasteLocation = computed(() => {
-    return getPasteLocations.includes(component.type)
+    return getPasteLocations.value.some((type) => {
+      return component.type.includes(type)
+    })
   })
 
-  const checkModuleCompatibility = (type: string | string[]) => {
-    if (type === "section" || type === "global-section") {
-      type = ["section", "global-section"]
-    } else {
-      Array.isArray(type) || (type = [type])
-    }
-    return type.includes(component.type)
-  }
-
-  const updateClipboard = (newClip: string, context: string[]) => {
+  const updateClipboard = (newClip: string, context: string) => {
     navigator.clipboard.writeText(newClip).then(
       () => {
-        console.log("copy success")
-        updatePasteLocations(context)
+        if (!context || typeof context !== "string") {
+          return updatePasteLocations([])
+        }
+        switch (true) {
+          case context.includes("module"):
+            updatePasteLocations(["module"])
+            break
+          case context.includes("section"):
+            updatePasteLocations(["section", "GlobalSection"])
+            break
+          default:
+            updatePasteLocations([context])
+        }
       },
-      function (err) {
+      (err) => {
         console.log(`copy failed: ${err}`)
       }
     )
@@ -31,7 +37,7 @@ export const useClipboard = (component: any) => {
 
   const copyToClipboard = () => {
     const clipboardModule = JSON.stringify(component)
-    const type = "text/json"
+    const type = "text/plain"
     const blob = new Blob([clipboardModule], { type })
     const data = [new ClipboardItem({ [type]: blob })]
 
@@ -48,10 +54,8 @@ export const useClipboard = (component: any) => {
   const pasteFromClipboard = (cb: (newModule: { type: string }) => void) => {
     navigator.clipboard.readText().then((clipboardText) => {
       const newModule: { type: string } = JSON.parse(clipboardText)
-      if (checkModuleCompatibility(newModule.type)) {
+      if (isValidPasteLocation.value) {
         cb(newModule)
-        updatePasteLocations([""])
-        emptyClipboard()
       } else {
         alert(`Can only paste ${newModule.type} with other ${newModule.type}s'`)
       }
@@ -81,7 +85,7 @@ export const useClipboard = (component: any) => {
   const emptyClipboard = () => {
     navigator.clipboard.writeText("<empty clipboard>").then(
       () => {
-        console.log("empty clipboard success")
+        updatePasteLocations([])
       },
       () => {
         /* clipboard write failed */
@@ -100,9 +104,9 @@ export const useClipboard = (component: any) => {
         const newModule = tryParseJSON(clipboardText)
 
         if (newModule && newModule.type) {
-          updatePasteLocations(newModule.type)
+          updatePasteLocations([newModule.type])
         } else {
-          updatePasteLocations([""])
+          updatePasteLocations([])
         }
       })
       .catch((err) => console.log(err))
@@ -110,7 +114,6 @@ export const useClipboard = (component: any) => {
 
   return {
     isValidPasteLocation,
-    checkModuleCompatibility,
     updateClipboard,
     copyToClipboard,
     pasteFromClipboard,
