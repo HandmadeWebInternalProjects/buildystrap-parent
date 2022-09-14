@@ -297,3 +297,58 @@ if ( ! function_exists('rgbToHsl')) {
         return [ round($h, 2), round($s, 2), round($l, 2) ];
     }
 }
+
+
+
+if ( ! function_exists('hmw_woocommerce_cart_link')) {
+    /**
+    * Cart Link.
+    *
+    * Displayed a link to the cart including the number of items present and the cart total.
+    *
+    * @return void
+    */
+    function hmw_woocommerce_cart_link()
+    {
+        ?>
+<a class="cart-contents <?php echo WC()->cart->get_cart_contents_count() > 0 ? 'has-items' : '';  ?>"
+  href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'hmw'); ?>">
+  <?php if (WC()->cart->get_cart_contents_count() > 0) : ?>
+  <span class="count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+  <?php endif; ?>
+</a>
+<?php
+    }
+}
+
+
+
+if ( ! function_exists('hmw_woocommerce_header_cart')) {
+    /**
+     * Display Header Cart.
+     *
+     * @return void
+     */
+    function hmw_woocommerce_header_cart()
+    {
+        if (is_cart()) {
+            $class = 'current-menu-item';
+        } else {
+            $class = '';
+        }
+        ?>
+<ul id="site-headser-cart" class="site-header-cart">
+  <li class="<?php echo esc_attr($class); ?>">
+    <?php hmw_woocommerce_cart_link(); ?>
+    <?php
+      $instance = [
+        'title' => '',
+      ];
+
+        the_widget('WC_Widget_Cart', $instance);
+        ?>
+  </li>
+</ul>
+<?php
+    }
+}

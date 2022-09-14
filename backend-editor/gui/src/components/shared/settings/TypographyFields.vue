@@ -92,9 +92,9 @@ watch(typography, (val: any) => {
         :config="{
           label: 'Text Align',
           options: [
-            { value: 'left', label: 'Left' },
+            { value: 'start', label: 'Left' },
             { value: 'center', label: 'Center' },
-            { value: 'right', label: 'Right' },
+            { value: 'end', label: 'Right' },
           ],
         }"
         v-model="typography['text-align'][bp]" />
