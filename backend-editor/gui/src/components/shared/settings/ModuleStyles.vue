@@ -1,7 +1,7 @@
 <template>
   <div>
     <select-field
-      v-if="moduleStyles"
+      v-if="moduleStyles.length"
       handle="box_model_top"
       type="text"
       :config="{
@@ -29,6 +29,7 @@ type ModuleStyle = {
 
 // inject component
 const component = inject<{ [key: string]: any }>("component")
+console.log(component.type)
 
 const props = defineProps({
   modelValue: {

@@ -1,10 +1,14 @@
 <template lang="">
   <bs-tabs>
     <bs-tab :active="true" name="Options">
-      <toggle-field
-        handle="boxed_layout"
-        :config="{ label: 'Boxed Layout', options: ['true', 'false'] }"
-        v-model="config['boxed_layout']" />
+      <bs-card label="Boxed Layout">
+        <template v-slot:body>
+          <toggle-field
+          handle="boxed_layout"
+          :config="{ label: false, options: ['true', 'false'] }"
+          v-model="config['boxed_layout']" />
+        </template>
+      </bs-card>
     </bs-tab>
     <bs-tab name="design">
       <design-tab-settings v-model="inline" />

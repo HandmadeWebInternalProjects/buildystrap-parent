@@ -45,6 +45,9 @@ const options = normaliseOptions(config.value.options) || []
 </template>
 <style lang="scss">
 .select-field {
+  --vs-controls-size: 0.75;
+  --vs-actions-padding: 0 6px 0 3px;
+  --vs-dropdown-option--active-bg: var(--bs-indigo);
   text-transform: capitalize;
 
   &.sub-label {
@@ -52,12 +55,51 @@ const options = normaliseOptions(config.value.options) || []
       font-size: 0.7em;
     }
   }
+  
   .vs__dropdown-toggle {
     background: white;
+    padding: 0;
+
+    .vs__selected-options {
+      padding: 0;
+
+      .vs__selected {
+        margin: 2px;
+      }
+
+      .vs__search {
+        border: 0;
+
+        &:focus {
+          border-color: var(--bs-indigo);
+          box-shadow: 0 0 0 1px var(--bs-indigo);
+        }
+      }
+    }
+
+    .vs__actions {
+
+      .vs__clear {
+        display: flex;
+        transform: scale(0.8);
+
+        svg {
+          vertical-align: initial !important;
+        }
+      }
+    }
   }
-  .vs__search {
-    border: 0;
+
+  .vs__dropdown-menu {
+    top: 100%;
+    padding: 0 !important;
+
+    .vs__dropdown-option {
+      padding: 5px 10px !important;
+      margin: 0 !important;
+    }
   }
+
   .v-select:not(.vs--open) .vs__selected {
     background: var(--bs-gray-100);
     border: 1px solid #ccc;

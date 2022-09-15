@@ -1,13 +1,13 @@
 <template lang="">
   <div>
-    <ul class="nav nav-pills pb-2 border-bottom" id="myTab" role="tablist">
+    <ul class="nav nav-pills pb-2 border-bottom" role="tablist">
       <li
         v-for="tab in tabs"
         :key="tab?.props?.uuid ?? tab?.props?.name"
         class="nav-item"
         role="presentation">
         <button
-          class="nav-link"
+          class="nav-link text-capitalize"
           :class="[{ active: tab?.props?.active }]"
           data-bs-toggle="tab"
           :data-bs-target="`#tab-${tab?.props?.uuid ?? tab?.props?.name}`"

@@ -40,14 +40,14 @@ const customSettings = {
 </script>
 
 <template>
-  <div class="shadow-sm text-white rounded d-flex bg-teal-700">
+  <div class="shadow-sm text-white rounded d-flex bg-purple-600">
     <div
-      class="sortable-handle handle-single bg-teal-800 align-items-center absolute top-0 left-0 h-full rounded-start"></div>
+      class="sortable-handle handle-single bg-purple-700 align-items-center absolute top-0 left-0 h-full rounded-start"></div>
     <div
       class="d-flex flex-row justify-content-between align-items-center flex-grow-1 px-3 py-2">
       <span
         contenteditable="true"
-        class="module-title flex-grow-1 py-1 me-2 text-nowrap overflow-hidden"
+        class="module-title flex-grow-1 p-1 me-2 text-nowrap overflow-hidden rounded-1"
         >{{ component?.config?.adminLabel }}</span
       >
       <module-controls
@@ -61,4 +61,13 @@ const customSettings = {
   </div>
 </template>
 
-<style lang=""></style>
+<style lang="scss">
+.module-title {
+  width: 1px;
+  font-size: 14px;
+
+  &:focus-visible {
+    outline: 1px dashed rgba(255,255,255,0.5);
+  }
+}
+</style>
