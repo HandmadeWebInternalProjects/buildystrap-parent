@@ -24,6 +24,8 @@ class BuilderCPT
             'name' => __('Buildystrap Global Sections', 'buildystrap'),
             'singular_name' => __('Buildystrap Global Section', 'buildystrap'),
             'menu_name' => __('Global Sections', 'buildystrap'),
+		    "add_new_item" => __( "Add new Global Section", "buildystrap" ),
+		    "edit_item" => __( "Edit Global Section", "buildystrap" ),
         ];
 
         $args = [
@@ -62,6 +64,8 @@ class BuilderCPT
             'name' => __('Buildystrap Global Modules', 'buildystrap'),
             'singular_name' => __('Buildystrap Global Module', 'buildystrap'),
             'menu_name' => __('Global Modules', 'buildystrap'),
+            "add_new_item" => __( "Add new Global Module", "buildystrap" ),
+		    "edit_item" => __( "Edit Global Module", "buildystrap" ),
         ];
 
         $args = [

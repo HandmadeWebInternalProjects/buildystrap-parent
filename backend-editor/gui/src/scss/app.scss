@@ -153,9 +153,11 @@ $utilities: map-merge(
 
 // Layout & components
 @import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
 @import "bootstrap/scss/popover";
-#app {
+#app,
+.buildy {
+  @import "bootstrap/scss/reboot";
+
   @import "bootstrap/scss/type";
   // @import "bootstrap/scss/images";
   @import "bootstrap/scss/containers";
@@ -163,7 +165,7 @@ $utilities: map-merge(
   // @import "bootstrap/scss/tables";
   @import "bootstrap/scss/forms";
   @import "bootstrap/scss/buttons";
-  @import "bootstrap/scss/transitions";
+  @import "bootstrap/scss/transitions"; 
   // @import "bootstrap/scss/dropdown";
   // @import "bootstrap/scss/button-group";
   @import "bootstrap/scss/nav";
@@ -203,5 +205,18 @@ $utilities: map-merge(
 
   .stack-content {
     overflow: auto;
+  }
+
+  .btn-purple {
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: #{shade-color($purple, 20%)};
+    --bs-btn-border-color: #{shade-color($purple, 20%)};
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #{shade-color($purple, 30%)};
+    --bs-btn-hover-border-color: #{shade-color($purple, 30%)};
+    --bs-btn-focus-shadow-rgb: var(--bs-purple-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #{shade-color($purple, 30%)};
+    --bs-btn-active-border-color: #{shade-color($purple, 30%)};
   }
 }
