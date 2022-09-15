@@ -41,8 +41,8 @@ const toggle = () => {
 @use "sass:math";
 
 // Colors
-$brand-primary: #29b5a8;
-$brand-secondary: #ff8300;
+$brand-primary: var(--bs-indigo);
+$brand-secondary: var(--bs-orange);
 $gray: #6b7381;
 $gray-light: lighten($gray, 15%);
 $gray-lighter: lighten($gray, 30%);
@@ -52,9 +52,9 @@ $btn-default-color: $gray;
 $btn-default-bg: $gray-lighter;
 
 // Toggle Sizes
-$toggle-default-size: 1.5rem;
+$toggle-default-size: 1.75rem;
 $toggle-default-label-width: 4rem;
-$toggle-default-font-size: 0.75rem;
+$toggle-default-font-size: 1rem;
 
 @mixin toggle-color(
   $color: $btn-default-color,
@@ -92,7 +92,7 @@ $toggle-default-font-size: 0.75rem;
   border: none;
   height: $size;
   width: $size * 2;
-  border-radius: $size;
+  border-radius: 5px;
 
   &:focus,
   &.focus {
@@ -110,7 +110,6 @@ $toggle-default-font-size: 0.75rem;
     font-weight: 600;
     // color: $color;
     font-size: $font-size;
-    text-transform: uppercase;
     letter-spacing: 2px;
     position: absolute;
     bottom: 0;
@@ -132,7 +131,7 @@ $toggle-default-font-size: 0.75rem;
     left: math.div(($size * 0.25), 2);
     width: $size * 0.75;
     height: $size * 0.75;
-    border-radius: $size * 0.75;
+    border-radius: 5px;
     background: #fff;
     transition: left 0.25s;
   }
@@ -153,7 +152,7 @@ $toggle-default-font-size: 0.75rem;
   &.btn-sm {
     &:before,
     &:after {
-      line-height: calc($size - 2px);
+      line-height: $size;
       color: #fff;
       letter-spacing: 0.75px;
       left: calc($size * 0.275);
@@ -193,7 +192,7 @@ $toggle-default-font-size: 0.75rem;
     }
 
     &.btn-sm {
-      @include toggle-mixin($font-size: 0.55rem, $margin: 0);
+      @include toggle-mixin($font-size: 0.65rem, $margin: 0);
     }
 
     &.btn-xs {

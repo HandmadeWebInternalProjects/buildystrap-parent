@@ -20,7 +20,7 @@ class BuilderMetaBox
     public static function add_metabox(string $post_type, WP_Post $post): void
     {
         foreach (Builder::enabledTypes() as $postType) {
-            add_meta_box('buildy_metabox', 'Buildy', [static::class, 'display_metabox'], $postType, 'side', 'high');
+            add_meta_box('buildy_metabox', 'Buildystrap', [static::class, 'display_metabox'], $postType, 'side', 'high');
         }
     }
 

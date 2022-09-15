@@ -6,17 +6,17 @@ export const useBuilderOptions = () => {
   const getBoxModelSizing = () => {
     const boxModelSizing = getBuilderOptions?.structure.box_model_sizing || []
 
-    return boxModelSizing.map((obj: { label: string; value: string }) => ({
-      label: obj?.label ? obj.label + " - " + obj?.value : obj?.value,
+    return boxModelSizing.filter((el: any) => el).map((obj: { label: string; value: string }) => ({
+      label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value,
       value: obj?.value ? obj.value.toLowerCase() : obj?.value,
     }))
   }
 
   const getSizing = (type: string) => {
     const sizing = getBuilderOptions?.structure[type] || []
-    return sizing.map((obj: { label: string; value: string }) => {
+    return sizing.filter((el: any) => el).map((obj: { label: string; value: string }) => {
       return {
-        label: obj?.label ? obj.label : obj?.value ?? type,
+        label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value ?? type,
         value: obj?.value ? obj.value.toLowerCase() : type,
       }
     })
@@ -27,7 +27,7 @@ export const useBuilderOptions = () => {
     const additionalColours = getBuilderOptions?.additional_colours || []
     return [
       ...Object.keys(themeColours),
-      ...additionalColours.map((el: { label: string; value: any }) =>
+      ...additionalColours.filter((el: any) => el).map((el: { label: string; value: any }) =>
         el?.label ? el.label.toLowerCase() : el?.value || []
       ),
     ]
@@ -46,9 +46,9 @@ export const useBuilderOptions = () => {
   const getFontSize = () => {
     const fontSize = getBuilderOptions?.typography?.font_size || []
 
-    return fontSize.map((obj: { label: string; value: string }) => ({
+    return fontSize.filter((el: any) => el).map((obj: { label: string; value: string }) => ({
       ...obj,
-      label: obj?.label ? obj.label : obj?.value ?? "",
+      label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value ?? "",
       value: obj?.value ? obj.value.toLowerCase() : "",
     }))
   }
