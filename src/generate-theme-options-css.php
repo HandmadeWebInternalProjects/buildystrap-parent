@@ -46,17 +46,19 @@ if ($colour_text_link && $colour_text_link !== 'None') : ?>
 <?php endif; ?>
 
 <?php
-$colour_text_body = get_field('buildystrap_theme_colours_text_colour_main', 'option');
-if ($colour_text_body && $colour_text_body !== 'None') : ?>
-    --color-text-body: var(--bs-<?= $colour_text_body; ?>);
+$colour_text_body = get_field('buildystrap_theme_colours_text_colour_body', 'option');
+
+if (isset($colour_text_body['label']) && $colour_text_body['label'] !== 'None') : ?>
+    --color-text-body: var(--bs-<?= $colour_text_body['label']; ?>);
 <?php else : ?>
     --color-text-body: var(--color-black);
 <?php endif; ?>
 
 <?php
 $colour_text_headings = get_field('buildystrap_theme_colours_text_colour_headings', 'option');
-if ($colour_text_headings && $colour_text_headings !== 'None') : ?>
-    --color-text-headings: var(--bs-<?= $colour_text_headings; ?>);
+
+if (isset($colour_text_headings['label']) && $colour_text_headings['label'] !== 'None') : ?>
+    --color-text-headings: var(--bs-<?= $colour_text_headings['label']; ?>);
 <?php else : ?>
     --color-text-headings: var(--color-black);
 <?php endif; ?>

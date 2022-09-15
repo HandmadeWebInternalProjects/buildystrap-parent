@@ -71,6 +71,7 @@ import {
   faMobileAlt,
   faClipboard,
   faClipboardCheck,
+  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -99,7 +100,8 @@ library.add(
   faCircleQuestion,
   faMobileAlt,
   faClipboard,
-  faClipboardCheck
+  faClipboardCheck,
+  faArrowUpRightFromSquare
 )
 /* add font awesome icon component */
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)

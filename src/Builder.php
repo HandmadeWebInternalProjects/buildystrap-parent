@@ -231,7 +231,7 @@ class Builder
         return collect($globals ?? []);
     }
 
-    public static function getGlobal(int $post_id): ?Container
+    public static function getGlobal(int $post_id, $wrapper = null): ?Container
     {
         global $wpdb;
 
@@ -252,7 +252,7 @@ class Builder
         );
 
         if ($global = $wpdb->get_row($query)) {
-            $content = new Content($global->content);
+            $content = new Content($global->content, $wrapper);
 
             return $content->container();
         }
@@ -260,7 +260,7 @@ class Builder
         return null;
     }
 
-    public static function getGlobalModule(int $post_id): ?Module
+    public static function getGlobalModule(int $post_id, $wrapper = null): ?Module
     {
         global $wpdb;
 
@@ -284,7 +284,7 @@ class Builder
             $module = json_decode($global->content, true);
             $_module = static::getModule($module['type']);
 
-            return new $_module($module);
+            return new $_module($module, $wrapper = null);
         }
 
         return null;

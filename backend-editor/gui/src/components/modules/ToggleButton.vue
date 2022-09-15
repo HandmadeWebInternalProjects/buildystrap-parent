@@ -6,6 +6,8 @@
     class="btn btn-sm btn-toggle"
     :class="[{ active: state }]"
     data-toggle="button"
+    data-enabled-text="On"
+    data-disabled-text="Off"
     :aria-pressed="state"
     autocomplete="off">
     <div class="handle"></div>
@@ -117,11 +119,11 @@ $toggle-default-font-size: 0.75rem;
     transition: opacity 0.25s;
   }
   &:before {
-    content: "Off";
+    content: attr(data-disabled-text);
     left: -$margin;
   }
   &:after {
-    content: "On";
+    content: attr(data-enabled-text);
     right: -$margin;
     opacity: 0.5;
   }

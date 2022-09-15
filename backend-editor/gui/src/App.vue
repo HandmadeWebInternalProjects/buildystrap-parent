@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
-const { getGlobalSections } = storeToRefs(useBuilderStore())
+const { getGlobalSections, getGlobalModules } = storeToRefs(useBuilderStore())
 
 const { readFromClipboard } = useClipboard({})
 
@@ -21,6 +21,7 @@ const contentEl = document.getElementById("content")
 const builder = ref<ModuleType[]>([])
 
 const globalStackOpen = ref(false)
+const revealGlobalModules = ref(false)
 
 const { getStacks } = useStacks()
 
@@ -176,14 +177,26 @@ watch(
       v-if="globalStackOpen"
       half
       name="module-selector">
-      <div class="p-4 py-5">
-        <h3>Globals</h3>
+      <div
+        @click.shift="revealGlobalModules = !revealGlobalModules"
+        class="p-4 py-5">
+        <h3>Global Sections</h3>
         <div
           v-for="globalSection in getGlobalSections"
           @click="addGlobalSection(globalSection)"
           :key="globalSection.id"
           class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
           {{ globalSection.title }}
+        </div>
+        <div class="mt-4" v-if="revealGlobalModules">
+          <h5>Global Modules</h5>
+          <div
+            v-for="globalModule in getGlobalModules"
+            @click="addGlobalSection(globalModule)"
+            :key="globalModule.id"
+            class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
+            {{ globalModule.title }}
+          </div>
         </div>
       </div>
     </buildy-stack>
