@@ -24,13 +24,13 @@ class GlobalSectionCache extends AbstractBlinkCache
         return $global;
     }
 
-    public static function get(int $global_id): ?Container
+    public static function get(int $global_id, $wrapper = null): ?Container
     {
         if ($global = static::blink()->get($global_id)) {
             return $global;
         }
 
-        $global = Builder::getGlobal($global_id);
+        $global = Builder::getGlobal($global_id, $wrapper);
         static::blink()->put($global_id, $global);
 
         return $global;

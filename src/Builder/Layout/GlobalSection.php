@@ -2,67 +2,34 @@
 
 namespace Buildystrap\Builder\Layout;
 
+use Buildystrap\Builder\Extends\Layout;
+use Buildystrap\Cache\GlobalModuleCache;
 use Buildystrap\Cache\GlobalSectionCache;
-use Buildystrap\Traits\Attributes;
-use Buildystrap\Traits\Augment;
-use Buildystrap\Traits\Config;
 
-use function is_array;
-
-class GlobalSection
+class GlobalSection extends Layout
 {
-    use Attributes;
-    use Config;
-    use Augment;
+    protected array $rows = [];
+    public int $global_id;
 
-//    protected ?Container $container;
-    protected string $uuid;
-    protected string $type;
-    protected int $global_id;
-
-    public function __construct(array $global_section)
+    public function __construct(array $global_section, ?Layout $parent = null)
     {
-        $this->uuid = $global_section['uuid'];
-        $this->type = $global_section['type'];
+        parent::__construct($global_section, $parent);
 
-        $this->config = [];
-        if (isset($global_section['config']) && is_array($global_section['config'])) {
-            $this->config = $global_section['config'];
-        }
 
         $this->global_id = $global_section['global_id'];
-//        $this->container = GlobalSectionCache::get($global_section['global_id']);
-    }
-
-    public function enabled(): bool
-    {
-        return $this->getConfig('enabled', false);
-    }
-
-    public function type(): string
-    {
-        return $this->type;
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function __toString(): string
-    {
-        return $this->render();
+        // if ($this->global_id != 901) {
+        //     dd($global_section);
+        // }
     }
 
     public function render(): string
     {
         $this->augmentOnce();
 
-        return GlobalSectionCache::render($this->global_id);
-    }
+        // We can actually use global modules here if we want to bypass something being nested inside a section > row > column
+        // This is a hidden feature in the GUI and requires holding CTRL and clicking the title when viewing global sections to reveal modules
+        $global = GlobalSectionCache::get($this->global_id, $this) ?? GlobalModuleCache::get($this->global_id, $this);
 
-//    public function container(): ?Container
-//    {
-//        return $this->container;
-//    }
+        return isset($global) ? $global->render() : '';
+    }
 }

@@ -10,11 +10,11 @@ class Content
 {
     protected Container $container;
 
-    public function __construct(string $content)
+    public function __construct(string $content, $global_section_wrapper = null)
     {
         $sections = json_decode($content, true) ?? [];
 
-        $this->container = new Container($sections);
+        $this->container = new Container($sections, $global_section_wrapper);
     }
 
     public function container(): Container

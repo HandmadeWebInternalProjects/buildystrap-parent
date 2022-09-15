@@ -23,10 +23,10 @@ const parentArray = ref(props.parentArray || [])
 const sectionIndex = computed(() => props.sectionIndex || 0)
 
 const customSettings = {
-  menu: false,
+  // menu: false,
   clone: false,
   goToGlobal: {
-    icon: ["fas", "pen-to-square"],
+    icon: ["fas", "arrow-up-right-from-square"],
     title: "Open settings modal",
     action: () =>
       // check if window has .open method
