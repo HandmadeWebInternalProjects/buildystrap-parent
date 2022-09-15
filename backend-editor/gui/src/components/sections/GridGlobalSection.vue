@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue"
+import { ref, computed, provide } from "vue"
 
 const props = defineProps({
   component: {
@@ -15,6 +15,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+// Module styles injection
+provide("component", props?.component.value)
 
 const parentArray = ref(props.parentArray || [])
 const sectionIndex = computed(() => props.sectionIndex || 0)

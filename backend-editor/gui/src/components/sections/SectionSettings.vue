@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref, computed, provide } from "vue"
 const props = defineProps({
   type: {
     type: String,
@@ -35,6 +35,9 @@ const props = defineProps({
 })
 
 const component = ref(props.component)
+
+// Module styles injection
+provide("component", component.value)
 
 const inline = computed({
   get() {

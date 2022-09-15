@@ -1,7 +1,7 @@
 <template>
   <div>
     <select-field
-      v-if="moduleStyles"
+      v-if="moduleStyles.length"
       handle="box_model_top"
       type="text"
       :config="{
@@ -48,11 +48,9 @@ const moduleStyles = computed((): any => {
     ) || []
 
   const hasModuleStyles =
-    getModuleStyles?.value.find(
-      (moduleStyle: ModuleStyle) => moduleStyle.module_name === component?.type
+    getModuleStyles?.value.find((moduleStyle: ModuleStyle) =>
+      moduleStyle.module_name.includes(component?.type)
     ) || []
-
-  console.log({ hasModuleStyles })
 
   const combined_styles = [
     ...(hasModuleStyles?.styles || []),
