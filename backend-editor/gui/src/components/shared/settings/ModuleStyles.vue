@@ -10,6 +10,11 @@
         multiple: true,
       }"
       v-model="value" />
+      <div v-else>
+        <p class="text-muted mb-0">No module styles found.</p>
+        <p class="text-muted mb-0">You can add module styles under <a @click.prevent="setLocalStorage" href="" target="_blank">Buildystrap Settings</a>.</p>
+        <p class="text-muted mb-0">Use "<strong>{{ component?.type }}</strong>" as the Module Name.</p>
+      </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -29,7 +34,6 @@ type ModuleStyle = {
 
 // inject component
 const component = inject<{ [key: string]: any }>("component")
-console.log(component.type)
 
 const props = defineProps({
   modelValue: {
@@ -69,5 +73,10 @@ const value = computed({
     update(val)
   },
 })
+
+const setLocalStorage = () => {
+  localStorage.setItem("acf", JSON.stringify({'tabs-options' : [6]}))
+  window.open("/wp-admin/admin.php?page=buildystrap-settings", "_blank")
+}
 </script>
 <style lang=""></style>

@@ -1,16 +1,27 @@
 <template>
   <div class="d-flex flex-column gap-4">
-    <text-field
-      handle="id"
-      :config="{ label: 'ID', placeholder: 'Enter the ID for the module' }"
-      v-model="moduleId" />
-    <text-field
-      handle="class"
-      :config="{
-        label: 'Class',
-        placeholder: 'Enter the classe(s) for the module',
-      }"
-      v-model="moduleClass" />
+    <bs-card label="ID">
+      <template v-slot:body>
+        <text-field
+          handle="id"
+          :config="{ 
+            label: false, 
+            placeholder: 'Enter the ID for the module' 
+          }"
+          v-model="moduleId" />
+      </template>
+    </bs-card>
+    <bs-card label="Class">
+      <template v-slot:body>
+        <text-field
+          handle="class"
+          :config="{
+            label: false,
+            placeholder: 'Enter the class or classes for the module',
+          }"
+          v-model="moduleClass" />
+      </template>
+    </bs-card>
   </div>
 </template>
 <script setup lang="ts">

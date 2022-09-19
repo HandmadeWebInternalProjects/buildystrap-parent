@@ -48,7 +48,7 @@ export const useBuilderOptions = () => {
 
     return fontSize.filter((el: any) => el).map((obj: { label: string; value: string }) => ({
       ...obj,
-      label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value ?? "",
+      label: obj?.label ? obj.label : obj?.value ?? "",
       value: obj?.value ? obj.value.toLowerCase() : "",
     }))
   }

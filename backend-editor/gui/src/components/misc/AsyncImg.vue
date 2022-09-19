@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-spinner v-if="!src" class="w-100 h-100 text-500"></v-spinner>
+    <v-spinner v-if="!src" class="text-500"></v-spinner>
     <img class="w-100" :id="`img-${id}`" v-if="src" :src="src" />
   </div>
 </template>
@@ -37,4 +37,5 @@ onMounted(async () => {
   src.value = await getImageSrc(props.id)
 })
 </script>
-<style lang=""></style>
+<style lang="">
+</style>

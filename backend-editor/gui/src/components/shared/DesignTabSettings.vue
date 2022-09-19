@@ -3,7 +3,6 @@
     <bs-card label="Module Styles">
       <template v-slot:body>
         <module-styles
-          :config="{ label: 'Margin' }"
           breakpoint-handle="display"
           v-model="module_styles" />
       </template>

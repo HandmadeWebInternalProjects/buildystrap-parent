@@ -160,13 +160,22 @@ onUnmounted(() => {
 .image-selector input {
   font-size: 0.9em !important;
 }
+.image-preview {
+
+  img {
+    border-radius: 5px;
+  }
+}
 .remove-image-icon {
   position: absolute;
   top: 0.4rem;
   right: 0.4rem;
   cursor: pointer;
-  font-size: 1.2rem;
-  color: #000;
+  padding: 7.5px; 
+  background: var(--bs-indigo);
+  font-size: 1.8rem;
+  color: white;
   z-index: 100;
+  border-radius: 50%;
 }
 </style>

@@ -3,55 +3,55 @@
     "default_column_gap": "3rem",
     "box_model_sizing": [
       {
-        "label": "",
+        "label": "0rem",
         "value": "0"
       },
       {
-        "label": "",
+        "label": "1rem",
         "value": "1"
       },
       {
-        "label": "",
+        "label": "2rem",
         "value": "2"
       },
       {
-        "label": "",
+        "label": "3rem",
         "value": "3"
       },
       {
-        "label": "",
+        "label": "4rem",
         "value": "4"
       },
       {
-        "label": "",
+        "label": "5rem",
         "value": "5"
       },
       {
-        "label": "",
+        "label": "6rem",
         "value": "6"
       },
       {
-        "label": "",
+        "label": "7rem",
         "value": "7"
       },
       {
-        "label": "",
+        "label": "8rem",
         "value": "8"
       },
       {
-        "label": "",
+        "label": "9rem",
         "value": "9"
       },
       {
-        "label": "",
+        "label": "10rem",
         "value": "10"
       },
       {
-        "label": "",
+        "label": "11rem",
         "value": "11"
       },
       {
-        "label": "",
+        "label": "12rem",
         "value": "12"
       }
     ],
