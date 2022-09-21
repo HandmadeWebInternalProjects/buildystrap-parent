@@ -39,7 +39,7 @@ const options = normaliseOptions(config.value.options) || []
       :name="handle"
       :disabled="config.disabled || false"
       :placeholder="placeholder || config.placeholder"
-      :options="Object.keys(options).length ? options : null">
+      :options="options">
     </v-select>
   </div>
 </template>
@@ -55,7 +55,7 @@ const options = normaliseOptions(config.value.options) || []
       font-size: 0.7em;
     }
   }
-  
+
   .vs__dropdown-toggle {
     background: white;
     padding: 0;
@@ -84,7 +84,6 @@ const options = normaliseOptions(config.value.options) || []
     }
 
     .vs__actions {
-
       .vs__clear {
         display: flex;
         transform: scale(0.8);

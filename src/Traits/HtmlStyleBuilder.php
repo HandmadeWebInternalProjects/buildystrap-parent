@@ -111,6 +111,10 @@ trait HtmlStyleBuilder
 
         /** Col Gap */
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
+            if (!in_array('col-gap', $this->html_classes)) {
+              $this->html_classes[] = 'col-gap';
+            }
+            $this->html_classes[] = 'col-gap';
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "gx-{$value}",
                 default => "gx-{$breakpoint}-{$value}"
@@ -119,6 +123,9 @@ trait HtmlStyleBuilder
 
         /** Row Gap */
         foreach ($this->getInlineAttribute('display.row-gap', []) as $breakpoint => $value) {
+            if (!in_array('row-gap', $this->html_classes)) {
+              $this->html_classes[] = 'row-gap';
+            }
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "gy-{$value}",
                 default => "gy-{$breakpoint}-{$value}"

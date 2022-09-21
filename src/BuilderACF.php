@@ -914,6 +914,25 @@ if(function_exists('acf_add_local_field_group')):
                 'layout' => 'block',
                 'sub_fields' => [
                     [
+                        'key' => 'field_61ez60dad795_5',
+                        'label' => 'Enqueue Bootstrap Bundle',
+                        'name' => 'use_bootstrap_bundle',
+                        'type' => 'true_false',
+                        'instructions' => 'Whether to load custom css or the full bootstrap bundle',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => [
+                          'width' => '',
+                          'class' => '',
+                          'id' => '',
+                        ],
+                        'allow_null' => 0,
+                        'default_value' => 0,
+                        'ui' => 1,
+                        'ui_on_text' => '',
+                        'ui_off_text' => '',
+                    ],
+                    [
                         'key' => 'field_62e202dad6868',
                         'label' => 'Default Grid System',
                         'name' => 'default_grid_system',

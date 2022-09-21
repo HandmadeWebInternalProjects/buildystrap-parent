@@ -54,7 +54,9 @@ const moduleStyles = computed((): any => {
 
   const hasModuleStyles =
     getModuleStyles?.value.find((moduleStyle: ModuleStyle) =>
-      moduleStyle.module_name.includes(component?.type)
+      moduleStyle.module_name
+        .toLowerCase()
+        .includes(component?.type.toLowerCase())
     ) || []
 
   const combined_styles = [

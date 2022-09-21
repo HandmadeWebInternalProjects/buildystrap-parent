@@ -10,7 +10,7 @@ class CodeField extends Field
     {
         return [
             'config' => [
-                'display' => 'Code Field',
+                'label' => 'Code Field',
             ],
         ];
     }

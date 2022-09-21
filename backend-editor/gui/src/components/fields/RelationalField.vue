@@ -45,7 +45,7 @@ const fetchFromDataType = async () => {
     const res = await fetch(
       `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}`
     )
-    let data = await res.json()
+    let data = await res.json(data_type)
     data = Object.values(data).filter((el: any) => {
       return el.types.includes(depends_on.value)
     })
@@ -58,7 +58,6 @@ const fetchFromDataType = async () => {
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
   try {
-    console.log("fired from main")
     const res = await fetch(`${getBuilderConfig.rest_endpoint}${endpoint}`)
     data = await res.json()
     return data
@@ -89,8 +88,6 @@ const mapEntries = async () => {
     selected.value = null
     return
   }
-
-  console.log({ mappedEntries })
 
   mappedEntries = Array.isArray(mappedEntries)
     ? mappedEntries
@@ -129,7 +126,7 @@ onMounted(async () => {
         :key="entries"
         :loading="loading"
         :config="{
-          options: entries,
+          options: entries || [],
           label: false,
           multiple: config?.multiple,
         }"
