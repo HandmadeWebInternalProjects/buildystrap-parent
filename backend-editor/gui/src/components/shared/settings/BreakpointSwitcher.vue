@@ -1,10 +1,10 @@
 <template lang="">
-  <div class="text-center">
+  <div class="d-flex items-center text-center">
     <ul class="d-flex gap-1 m-0 p-0">
       <li
         v-for="val in breakpoints"
         :key="val"
-        class="border cursor-pointer py-1 px-2 rounded"
+        class="border cursor-pointer mb-0 py-1 px-2 rounded"
         :class="{
           'bg-indigo-500 text-white': val === bp,
         }"

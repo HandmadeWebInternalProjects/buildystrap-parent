@@ -4,9 +4,9 @@
       <bs-card label="Boxed Layout">
         <template v-slot:body>
           <toggle-field
-          handle="boxed_layout"
-          :config="{ label: false, options: ['true', 'false'] }"
-          v-model="config['boxed_layout']" />
+            handle="boxed_layout"
+            :config="{ label: false, options: ['true', 'false'] }"
+            v-model="config['boxed_layout']" />
         </template>
       </bs-card>
     </bs-tab>

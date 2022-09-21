@@ -70,20 +70,22 @@ const designToggle = ref(false)
       <h3 class="mb-0 d-flex gap-2">
         Edit
         <span
-          class="block px-1"
+          class="tab-title block text-capitalize"
           ref="adminLabelEl"
           contenteditable="true"
           @blur="updateAdminLabel($event.target as HTMLElement)"
           >{{ component?.config?.adminLabel || slugToStr(component?.type) }}
         </span>
-        <font-awesome-icon
-          @click="focusOnAdminLabel"
-          :icon="['fas', 'pen-to-square']"
-          class="cursor-pointer"
-          title="Rename Module"
-          width="15"
-          height="15"
-          fill="currentColor" />
+        <sup>
+          <font-awesome-icon
+            @click="focusOnAdminLabel"
+            :icon="['fas', 'pen-to-square']"
+            class="cursor-pointer"
+            title="Rename Module"
+            width="15"
+            height="15"
+            fill="currentColor" />
+        </sup>
       </h3>
     </div>
     <div class="p-4">
@@ -95,7 +97,23 @@ const designToggle = ref(false)
   </buildy-stack>
 </template>
 <style lang="scss">
-.stack-content .tab-content {
-  padding-bottom: 32px;
+.stack-content {
+
+  .tab-header {
+
+    .tab-title {
+      border-radius: 5px;
+
+      &:focus-visible {
+        outline: 1px dashed rgba(255,255,255,0.5);
+      }
+    }
+    sup {
+      top: -0.25em !important;
+    }
+  }
+  .tab-content {
+    padding-bottom: 32px;
+  }
 }
 </style>

@@ -25,4 +25,11 @@ const { update } = useFieldType(emit)
   </div>
 </template>
 
-<style lang=""></style>
+<style lang="scss">
+  input[type=text] {
+    &:focus {
+      border-color: var(--bs-indigo);
+      box-shadow: 0 0 0 1px var(--bs-indigo);
+    }
+  }
+</style>

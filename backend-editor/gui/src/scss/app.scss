@@ -219,4 +219,8 @@ $utilities: map-merge(
     --bs-btn-active-bg: #{shade-color($purple, 30%)};
     --bs-btn-active-border-color: #{shade-color($purple, 30%)};
   }
+
+  input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea {
+    border-color: var(--bs-gray-400);
+  }
 }

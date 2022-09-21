@@ -18,7 +18,6 @@
       role="button"
       data-bs-toggle="popover"
       data-bs-trigger="focus"
-      title="Dismissible popover"
       :data-bs-content="popover"
       ><font-awesome-icon
         class="ms-1 text-500 popover-trigger"

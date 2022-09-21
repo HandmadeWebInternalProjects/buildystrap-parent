@@ -103,10 +103,10 @@ export const useClipboard = (component: any) => {
         }
         const newModule = tryParseJSON(clipboardText)
 
-        if (newModule && newModule.type) {
+        if (newModule && newModule?.type) {
           updatePasteLocations([newModule.type])
         } else {
-          updatePasteLocations([])
+          updatePasteLocations([""])
         }
       })
       .catch((err) => console.log(err))
