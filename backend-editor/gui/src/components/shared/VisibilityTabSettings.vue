@@ -5,30 +5,26 @@
       popover="Select which devices you would like this to be hidden on">
       <template v-slot:body>
         <checkboxes-field
-          handle="class"
+          handle="visibility"
           :placeholder="responsivePlaceholder(modelValue, 'visibility', bp)"
           :config="{
             options: [
               {
-                label: 'Everything - Do not output this module at all',
+                label: 'All',
                 value: 'all',
               },
               {
-                label: 'Small Devices (most phones, smaller tablets)',
-                value: 'xs',
+                label: 'Mobile',
+                value: 'mobile',
               },
               {
-                label: 'Medium Devices (most tablets, smaller laptops)',
-                value: 'md',
+                label: 'Tablet',
+                value: 'tablet',
               },
               {
-                label: 'Large Devices (most laptops / desktops)',
-                value: 'lg',
-              },
-              {
-                label: 'Extra Large (wide screens, tvs)',
-                value: 'xl',
-              },
+                label: 'Desktop',
+                value: 'desktop',
+              }
             ],
             label: false,
           }"

@@ -65,6 +65,12 @@ const options = normaliseOptions(config.value.options) || []
 
       .vs__selected {
         margin: 2px;
+
+        .vs__deselect {
+          display: flex;
+          padding-left: 5px;
+          transform: scale(0.8);
+        }
       }
 
       .vs__search {

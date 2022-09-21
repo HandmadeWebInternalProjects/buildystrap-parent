@@ -7,9 +7,8 @@
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
     <bs-tab name="columns">
-      <div class="d-flex flex-column gap-3">
+      <div class="grid gap-3">
         <column-settings
-          class="mb-4"
           v-for="(column, index) in component.columns"
           :field="column"
           :index="index"

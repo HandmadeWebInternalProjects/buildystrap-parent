@@ -1,12 +1,13 @@
 <template lang="">
   <button
     type="button"
-    class="btn btn-outline-primary w-100"
+    class="btn btn-sm"
+    :class="`btn g-col-${columnSizes?.lg}`, isOpen ? 'bg-orange-500 text-white' : 'border-orange-500 text-orange-500'"
     @click="toggleItem(uuid)">
     Edit Column {{ index + 1 }}
   </button>
-  <bs-tabs v-if="isOpen">
-    <bs-tab :uuid="`modules-${uuid}`" :active="true" name="modules">
+  <bs-tabs v-if="isOpen" class="column-options g-col-12 bg-200 rounded p-4">
+    <bs-tab :uuid="`modules-${uuid}`" :active="true" name="modules" class="card-body p-0">
       <select-field
         class="mb-4"
         handle="modules"
@@ -18,13 +19,12 @@
           class="g-col-6"
           v-for="breakpoint in breakpoints"
           :key="`${uuid}-${breakpoint}`">
-          <div class="form-floating">
+          <div class="position-relative d-flex flex-column sub-label">
             <input
               type="text"
-              class="form-control"
               :id="`${uuid}-${breakpoint}`"
               v-model="columnSizes[breakpoint]" />
-            <label :for="`${uuid}-${breakpoint}`">{{ breakpoint }}</label>
+            <label :for="`${uuid}-${breakpoint}`" class="breakpoint-label text-600">{{ breakpoint }}</label>
           </div>
         </li>
       </ul>
@@ -44,6 +44,7 @@
 <script setup lang="ts">
 import { generateID } from "@/utils/id"
 import { ref, computed } from "vue"
+
 import { useToggleByID } from "@/composables/useToggleByID"
 import { breakpoints } from "@/composables/useBreakpoints"
 
@@ -99,3 +100,12 @@ const config = computed({
   },
 })
 </script>
+
+<style lang="scss">
+  .column-options {
+    order: 99;
+  }
+  .breakpoint-label {
+    text-transform: none !important;
+  }
+</style>

@@ -1,6 +1,6 @@
 <template lang="">
   <div class="card border-0 bg-100">
-    <div class="card-header pb-1 border-0 d-flex align-items-center">
+    <div class="card-header border-0 d-flex align-items-center">
       <field-label :label="label" :popover="popover" />
       <breakpoint-switcher
         v-if="breakpointHandle"
@@ -29,4 +29,17 @@ const props = defineProps({
   },
 })
 </script>
-<style lang=""></style>
+<style lang="scss">
+  .card-header {
+    min-height: 45px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .card-body {
+    .sub-label {
+      label {
+        font-size: 0.7em;
+      }
+    }
+  }
+</style>

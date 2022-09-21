@@ -1,10 +1,18 @@
 {
   "src/main.ts": {
+<<<<<<< HEAD
     "file": "assets/main.f65554e8.js",
     "src": "src/main.ts",
     "isEntry": true,
     "css": [
       "assets/main.02bb788a.css"
+=======
+    "file": "assets/main.f4d4ab8d.js",
+    "src": "src/main.ts",
+    "isEntry": true,
+    "css": [
+      "assets/main.46a21612.css"
+>>>>>>> main
     ]
   }
 }
