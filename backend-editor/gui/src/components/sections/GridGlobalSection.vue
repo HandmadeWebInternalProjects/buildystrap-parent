@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, provide } from "vue"
+import { ref, computed } from "vue"
 
 const props = defineProps({
   component: {
@@ -15,9 +15,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-// Module styles injection
-provide("component", props?.component.value)
 
 const parentArray = ref(props.parentArray || [])
 const sectionIndex = computed(() => props.sectionIndex || 0)
@@ -70,7 +67,7 @@ const customSettings = {
   font-size: 14px;
 
   &:focus-visible {
-    outline: 1px dashed rgba(255,255,255,0.5);
+    outline: 1px dashed rgba(255, 255, 255, 0.5);
   }
 }
 </style>

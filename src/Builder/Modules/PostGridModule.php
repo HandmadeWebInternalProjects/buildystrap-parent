@@ -42,13 +42,7 @@ class PostGridModule extends Module
                     ],
                 ],
                 'template_part' => [
-                    'type' => 'relational-field',
-                    'config' => [
-                        'endpoint' => 'wp/v2/wp_template_part',
-                        'return_value' => 'slug',
-                        'return_label' => 'slug',
-                        'allow_null' => true,
-                    ],
+                    'type' => 'text-field',
                 ],
             ],
         ];

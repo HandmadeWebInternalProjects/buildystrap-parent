@@ -29,7 +29,6 @@ type ModuleStyle = {
 
 // inject component
 const component = inject<{ [key: string]: any }>("component")
-console.log(component.type)
 
 const props = defineProps({
   modelValue: {

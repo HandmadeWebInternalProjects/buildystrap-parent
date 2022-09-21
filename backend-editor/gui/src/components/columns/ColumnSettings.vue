@@ -2,10 +2,10 @@
   <button
     type="button"
     class="btn btn-outline-primary w-100"
-    @click="toggled = !toggled">
+    @click="toggleItem(uuid)">
     Edit Column {{ index + 1 }}
   </button>
-  <bs-tabs v-if="toggled">
+  <bs-tabs v-if="isOpen">
     <bs-tab :uuid="`modules-${uuid}`" :active="true" name="modules">
       <select-field
         class="mb-4"
@@ -44,10 +44,8 @@
 <script setup lang="ts">
 import { generateID } from "@/utils/id"
 import { ref, computed } from "vue"
-
+import { useToggleByID } from "@/composables/useToggleByID"
 import { breakpoints } from "@/composables/useBreakpoints"
-
-const toggled = ref(false)
 
 const props = defineProps({
   field: {
@@ -59,8 +57,9 @@ const props = defineProps({
 
 const uuid = generateID()
 
+const { isOpen, toggleItem } = useToggleByID(uuid)
+
 const field = ref(props.field)
-console.log({ field })
 
 const columnSizes = ref(field.value.config.columnSizes)
 

@@ -15,16 +15,16 @@ class TitleField extends Field
     {
         return [
             'config' => [
-                'label' => 'Title',
-                'hide_label' => true,
+                'label' => 'Heading',
                 'tinymce' => [
-                    'toolbar1' => 'bold,italic,underline',
+                    'toolbar1' => 'bold,italic,underline,styleselect',
                     'toolbar2' => false,
                     'height' => '20',
                     'autoresize_min_height' => '20',
                     'resize' => false,
                     'menubar' => false,
                     'statusbar' => false,
+                    'forced_root_block' => false,
                 ],
             ],
         ];
@@ -43,7 +43,8 @@ class TitleField extends Field
 
     public function __toString(): string
     {
-        $level = $this->value()->get('level', 'h3');
+        $level = $this->value()->get('level');
+        $level = ! empty($level) ? $level : 'h3';
         $text = $this->value()->get('text', '');
         $color = $this->value()->get('color', []);
         $weight = $this->value()->get('weight', []);

@@ -2,11 +2,19 @@
 
 namespace Buildystrap\Builder\Fields;
 
-class RichTextField extends TextField
+use Buildystrap\Builder\Extends\Field;
+
+class RichTextField extends Field
 {
-    public function augment(): void
+    protected static function blueprint(): array
     {
-        parent::augment();
-        $this->value = apply_shortcodes($this->value);
+        return [
+            'config' => [],
+        ];
     }
+      public function augment(): void
+      {
+          parent::augment();
+          $this->value = apply_shortcodes($this->value);
+      }
 }

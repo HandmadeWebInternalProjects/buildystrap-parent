@@ -119,11 +119,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "margin"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -137,11 +139,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "margin-y"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -155,11 +159,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "margin-top"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -173,11 +179,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "margin-end"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -191,11 +199,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "margin-bottom"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -209,11 +219,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "margin-start"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -227,11 +239,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "padding"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -245,11 +259,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "padding-y"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -263,11 +279,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "padding-top"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -281,11 +299,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "padding-end"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -299,11 +319,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "padding-bottom"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -317,11 +339,13 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "padding-start"), "values"),
               (
-                6: $spacer * 4,
-                7: $spacer * 6,
+                6: $spacer * 6,
+                7: $spacer * 7,
                 8: $spacer * 8,
-                9: $spacer * 10,
-                10: $spacer * 12,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
               )
             ),
         )
@@ -332,17 +356,17 @@ $utilities: map-merge(
       class: gx,
       responsive: true,
       values: (
-        0: 0px,
-        1: 10px,
-        2: 20px,
-        3: 30px,
-        4: 40px,
-        5: 50px,
-        6: 60px,
-        7: 70px,
-        8: 80px,
-        9: 90px,
-        10: 100px,
+        0: 0rem,
+        1: 1rem,
+        2: 2rem,
+        3: 3rem,
+        4: 4rem,
+        5: 5rem,
+        6: 6rem,
+        7: 7rem,
+        8: 8rem,
+        9: 9rem,
+        10: 10rem,
       ),
     ),
     "row-gap": (
@@ -350,17 +374,17 @@ $utilities: map-merge(
       css-variable-name: row-gap,
       class: gy,
       values: (
-        0: 0px,
-        1: 10px,
-        2: 20px,
-        3: 30px,
-        4: 40px,
-        5: 50px,
-        6: 60px,
-        7: 70px,
-        8: 80px,
-        9: 90px,
-        10: 100px,
+        0: 0rem,
+        1: 1rem,
+        2: 2rem,
+        3: 3rem,
+        4: 4rem,
+        5: 5rem,
+        6: 6rem,
+        7: 7rem,
+        8: 8rem,
+        9: 9rem,
+        10: 10rem,
       ),
     ),
     "module-gap": (

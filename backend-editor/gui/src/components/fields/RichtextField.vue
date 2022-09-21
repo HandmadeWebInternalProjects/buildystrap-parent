@@ -90,6 +90,26 @@ const initObj = reactive({
     ],
     strikethrough: { inline: "del" },
   },
+  style_formats: [
+    {
+      title: "Uppercase",
+      inline: "span",
+      styles: { textTransform: "uppercase" },
+      classes: "text-uppercase",
+    },
+    {
+      title: "Lowercase",
+      inline: "span",
+      styles: { textTransform: "lowercase" },
+      classes: "text-lowercase",
+    },
+    {
+      title: "Captialize",
+      inline: "span",
+      styles: { textTransform: "capitalize" },
+      classes: "text-captialize",
+    },
+  ],
   relative_urls: false,
   remove_script_host: false,
   convert_urls: false,
@@ -108,7 +128,7 @@ const initObj = reactive({
   menubar: true,
   indent: false,
   toolbar1:
-    "wp_add_media | undo redo | formatselect | link unlink | bold italic underline strikethrough | removeformat | bullist numlist | blockquote | alignleft aligncenter alignright | code | wp_adv",
+    "wp_add_media | uppercase | undo redo | formatselect | styleselect | link unlink | bold italic underline strikethrough | removeformat | bullist numlist | blockquote | alignleft aligncenter alignright | code | wp_adv",
   toolbar2:
     "shortcodes | forecolor backcolor | pastetext | charmap | hr fullscreen",
   toolbar3: "",
