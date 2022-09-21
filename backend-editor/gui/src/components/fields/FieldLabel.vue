@@ -2,13 +2,13 @@
   <div class="d-flex align-items-center gap-1">
     <label class="text-600 d-flex gap-1 align-items-center position-relative"
       >{{ props.label }}
-      <div class="d-flex align-items-center" v-if="props.responsive">
+      <div class="label-responsive d-flex align-items-center" v-if="props.responsive">
         <font-awesome-icon
           @click="showBreakpointSwitcher = !showBreakpointSwitcher"
-          class="ms-1 text-500 popover-trigger"
+          class="ms-1 text-500"
           icon="mobile-alt" />
         <transition name="fade">
-          <BreakpointSwitcher v-if="showBreakpointSwitcher" />
+          <BreakpointSwitcher v-if="showBreakpointSwitcher" class="label-responsive__breakpoints shadow-sm" />
         </transition>
       </div>
     </label>
@@ -19,8 +19,9 @@
       data-bs-toggle="popover"
       data-bs-trigger="focus"
       :data-bs-content="popover"
+      class="popover-trigger__wrapper"
       ><font-awesome-icon
-        class="ms-1 text-500 popover-trigger"
+        class="text-500 popover-trigger"
         icon="question-circle" />
     </a>
   </div>
@@ -58,16 +59,35 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
-.card-body label {
-  font-size: 0.85em;
-  text-transform: capitalize;
-  line-height: 2;
-}
+  #app {
+    .card-body label {
+      font-size: 0.85em;
+      text-transform: capitalize;
+      line-height: 2;
+    }
+    .popover-trigger__wrapper {
+      margin-left: 0.1rem;
+    }
 
-.popover {
-  z-index: 99999999 !important;
-}
-.popover-trigger {
-  font-size: 0.9em;
-}
+    .label-responsive {
+
+      &__breakpoints {
+        position: absolute;
+        left: calc(100% + 5px);
+        z-index: 2;
+
+        ul {
+          li {
+            padding: 0 3px !important;
+            background: white;
+            line-height: 18px;
+            text-transform: none;
+          }
+        }
+      }
+    }
+  }
+  .popover {
+    z-index: 99999999 !important;
+  }
 </style>

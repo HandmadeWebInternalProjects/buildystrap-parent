@@ -4,9 +4,9 @@
       <li
         v-for="val in breakpoints"
         :key="val"
-        class="border cursor-pointer mb-0 py-1 px-2 rounded"
+        class="border cursor-pointer mb-0 py-1 px-2 rounded rounded-1"
         :class="{
-          'bg-indigo-500 text-white': val === bp,
+          'bg-indigo-500 border-indigo-500 text-white': val === bp,
         }"
         @click="bp = val">
         {{ val }}

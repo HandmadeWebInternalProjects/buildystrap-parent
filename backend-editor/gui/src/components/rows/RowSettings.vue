@@ -7,10 +7,11 @@
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
     <bs-tab name="columns">
-      <div class="grid gap-3">
+      <div class="grid gap-3" :style="`--bs-columns: ${component?.config?.columnCount || 12}`">
         <column-settings
           v-for="(column, index) in component.columns"
           :field="column"
+          :component="column"
           :index="index"
           :key="'row-cols' + column.uuid" />
       </div>

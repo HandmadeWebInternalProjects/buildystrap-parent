@@ -17,6 +17,7 @@ class CardModule extends Module
                 'image' => [
                     'type' => 'media-field',
                     'config' => [
+                        'label' => 'Image',
                         'size' => 'full',
                     ],
                 ],

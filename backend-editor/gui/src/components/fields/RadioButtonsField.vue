@@ -59,7 +59,9 @@ const options = normaliseOptions(config.value.options) || []
     + label {
       &,
       &:hover {
+        padding: 0 10px;
         color: white;
+        line-height: 30px;
         background-color: var(--bs-gray-400);
         border-color: var(--bs-gray-400);
       }
