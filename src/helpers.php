@@ -150,7 +150,7 @@ if ( ! function_exists('bs_has_field')) {
 
 
 if ( ! function_exists('bs_get_field')) {
-    function bs_get_field(string $field, int $id, string $default = ''): string
+    function bs_get_field(string $field, int | string $id, string $default = ''): string
     {
         if (acf_active() && get_field($field, $id)) {
             return get_field($field, $id);
