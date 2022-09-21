@@ -29,7 +29,6 @@ type ModuleStyle = {
 
 // inject component
 const component = inject<{ [key: string]: any }>("component")
-console.log(component.type)
 
 const props = defineProps({
   modelValue: {
@@ -50,7 +49,9 @@ const moduleStyles = computed((): any => {
 
   const hasModuleStyles =
     getModuleStyles?.value.find((moduleStyle: ModuleStyle) =>
-      moduleStyle.module_name.includes(component?.type)
+      moduleStyle.module_name
+        .toLowerCase()
+        .includes(component?.type.toLowerCase())
     ) || []
 
   const combined_styles = [

@@ -38,7 +38,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, reactive, watch } from "vue"
+import { computed } from "vue"
 import { useFieldType } from "../fields/useFieldType"
 import { useBreakpoints } from "../../composables/useBreakpoints"
 const { bp } = useBreakpoints("global")
@@ -62,14 +62,14 @@ const config = computed({
   },
 })
 
-const visibility = reactive({
-  ...(config?.value?.visibility || {}),
-})
-
-watch(visibility, (newValue) => {
-  console.log({ newValue })
-
-  config.value.visibility = newValue
+const visibility = computed({
+  get() {
+    return config.value.visibility || {}
+  },
+  set(val: any) {
+    console.log({ val })
+    config.value = { ...config.value, visibility: val }
+  },
 })
 </script>
 <style lang=""></style>

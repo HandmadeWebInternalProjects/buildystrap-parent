@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useFieldType, commonProps } from "./useFieldType"
-import { computed, toRefs } from "vue"
+import { watch, ref, toRefs } from "vue"
 
 const props = defineProps(commonProps)
 
@@ -12,13 +12,10 @@ const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update, normaliseOptions } = useFieldType(emit)
 
 const options = normaliseOptions(config.value.options) || []
-const values = computed<any>({
-  get() {
-    return modelValue?.value || []
-  },
-  set(val) {
-    update(val)
-  },
+const values = ref(modelValue?.value || [])
+
+watch(values, (val) => {
+  update(val)
 })
 </script>
 
