@@ -11,7 +11,7 @@ const { getBuilderConfig } = useBuilderStore()
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
-const entries = ref<Array<{ label: string; value: number }>>([])
+const entries = ref<Array<{ label: string; value: any }>>([])
 const selected = computed({
   get() {
     return modelValue?.value || []
@@ -23,11 +23,20 @@ const selected = computed({
 
 const loading = ref(true)
 const endpoint = config.value?.endpoint || "posts"
-const depends_on = config.value?.depends_on
-  ? computed(() => values?.value?.[config.value?.depends_on])
-  : ref(null)
+
+const depends_on = computed(() => {
+  if (!config.value?.depends_on) return null
+  let deps = config.value?.depends_on
+  if (deps && deps.includes(".")) {
+    return getDeep(values?.value, deps)
+  }
+  return values?.value?.[config.value?.depends_on]
+})
+
 let data_type = config.value?.data_type || null
-const returnValue = config.value.return_value || "id"
+
+const returnValue =
+  (config.value?.return_value || config.value?.return_values) ?? "id"
 const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchFromEndpoint = async (endpoint: string) => {
@@ -45,9 +54,10 @@ const fetchFromDataType = async () => {
     const res = await fetch(
       `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}`
     )
-    let data = await res.json(data_type)
+    let data = await res.json()
     data = Object.values(data).filter((el: any) => {
-      return el.types.includes(depends_on.value)
+      let key = depends_on.value
+      return el.types.includes(key)
     })
     return data
   } catch (error: any) {
@@ -73,6 +83,7 @@ const mapEntries = async () => {
   if (config.value?.depends_on) {
     if (depends_on.value) {
       if (data_type === "endpoint") {
+        if (depends_on.value) console.log({ dependsOn: depends_on.value })
         mappedEntries = await fetchFromEndpoint(depends_on.value)
       } else {
         mappedEntries = await fetchFromDataType()
@@ -94,10 +105,23 @@ const mapEntries = async () => {
     : Object.values(mappedEntries)
 
   entries.value = mappedEntries.map((entry: any) => {
-    return {
-      value: getDeep(entry, returnValue),
+    const payload: { label: any; value: any } = {
       label: getDeep(entry, returnLabel),
+      value: "",
     }
+
+    if (Array.isArray(returnValue)) {
+      payload.value = {}
+      returnValue.forEach((key: string) => {
+        Object.entries(key).forEach(([k, v]) => {
+          payload.value[k] = getDeep(entry, v)
+        })
+      })
+    } else {
+      payload["value"] = getDeep(entry, returnValue)
+    }
+
+    return payload
   })
 
   loading.value = false

@@ -2,7 +2,10 @@
   <button
     type="button"
     class="btn btn-sm"
-    :class="`btn g-col-${columnSizes?.lg}`, isOpen ? 'bg-orange-500 text-white' : 'border-orange-500 text-orange-500'"
+    :class="
+      (`btn g-col-${columnSizes?.lg}`,
+      isOpen ? 'bg-orange-500 text-white' : 'border-orange-500 text-orange-500')
+    "
     @click="toggleItem(uuid)">
     Edit Column {{ index + 1 }}
   </button>
@@ -123,10 +126,10 @@ const config = computed({
 </script>
 
 <style lang="scss">
-  .column-options {
-    order: 99;
-  }
-  .breakpoint-label {
-    text-transform: none !important;
-  }
+.column-options {
+  order: 99;
+}
+.breakpoint-label {
+  text-transform: none !important;
+}
 </style>

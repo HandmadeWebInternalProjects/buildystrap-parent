@@ -87,7 +87,7 @@ const styles = computed(() => {
         class="w-100"
         handle="button-color"
         :config="{
-          label: 'Button Color',
+          label: 'Text Color',
           options: getThemeColours(),
           taggable: true,
         }"
@@ -99,6 +99,7 @@ const styles = computed(() => {
           v-model="value['style']"
           :key="styles"
           :config="{
+            label: 'Background Colour',
             options: styles,
           }" />
         <select-field

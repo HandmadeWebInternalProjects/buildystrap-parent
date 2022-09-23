@@ -21,6 +21,16 @@ class CardModule extends Module
                         'size' => 'full',
                     ],
                 ],
+                'image_placement' => [
+                    'type' => 'select-field',
+                    'config' => [
+                        'options' => [
+                            'Top' => 'flex-column',
+                            'Left' => 'flex-row',
+                            'Right' => 'flex-row-reverse',
+                        ],
+                    ],
+                ],
                 'body' => [
                     'type' => 'richtext-field',
                     'config' => [
@@ -30,7 +40,7 @@ class CardModule extends Module
                 'link' => [
                     'type' => 'relational-field',
                     'config' => [
-                        'post_type' => 'posts',
+                        'endpoint' => 'wp/v2/posts',
                         'multiple' => false,
                         'if' => [
                             'title' => 'not empty',

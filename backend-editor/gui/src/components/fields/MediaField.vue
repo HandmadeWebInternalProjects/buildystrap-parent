@@ -55,7 +55,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, toRefs, onUnmounted, computed } from "vue"
+import { ref, toRefs, onUnmounted, computed, nextTick } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 const props = defineProps({ ...commonProps })
 
@@ -70,7 +70,6 @@ const images = computed({
     return props?.modelValue || props?.value || []
   },
   set(value) {
-    console.log({ value })
     update(value)
   },
 })
@@ -78,14 +77,14 @@ const images = computed({
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
-const libraryRef: any = ref(null)
+let libraryRef: any = null
 
 const initMediaLibrary = () => {
   if (window?.wp?.media) {
-    libraryRef.value = window.wp.media({
+    libraryRef = window.wp.media({
       // Accepts [ 'select', 'post', 'image', 'audio', 'video' ]
       // Determines what kind of library should be rendered.
-      frame: "select",
+      frame: "post",
       // Modal title.
       title: "Select Images",
       // Enable/disable multiple select
@@ -107,21 +106,20 @@ const initMediaLibrary = () => {
       },
     })
   }
-  if (libraryRef.value) {
-    libraryRef.value.on("select", () => {
-      var selectedImages = libraryRef.value.state().get("selection")
+  if (libraryRef) {
+    libraryRef.on("select", () => {
+      var selectedImages = libraryRef.state().get("selection")
       let selection = selectedImages.map((attachment: any) => {
         attachment = attachment.toJSON()
         return {
           id: attachment.id,
         }
       })
-      console.log({ selection })
       images.value = selection
     })
 
-    libraryRef.value.on("open", () => {
-      let selection = libraryRef.value.state().get("selection")
+    libraryRef.on("open", () => {
+      let selection = libraryRef.state().get("selection")
       if (images.value.length) {
         images.value.forEach((image: MediaType) => {
           if (image.id) {
@@ -134,15 +132,16 @@ const initMediaLibrary = () => {
         })
       }
     })
+    libraryRef.open()
   }
 }
 
-const openMediaLibrary = () => {
-  if (libraryRef.value) {
-    libraryRef.value.open()
+const openMediaLibrary = async () => {
+  if (libraryRef) {
+    libraryRef.open()
+    return
   } else {
     initMediaLibrary()
-    libraryRef.value.open()
   }
 }
 
@@ -151,8 +150,8 @@ const removeImage = (image: number) => {
 }
 
 onUnmounted(() => {
-  if (libraryRef.value) {
-    libraryRef.value.detach()
+  if (libraryRef) {
+    libraryRef.detach()
   }
 })
 </script>
@@ -161,7 +160,6 @@ onUnmounted(() => {
   font-size: 0.9em !important;
 }
 .image-preview {
-
   img {
     border-radius: 5px;
   }
@@ -171,7 +169,7 @@ onUnmounted(() => {
   top: 0.4rem;
   right: 0.4rem;
   cursor: pointer;
-  padding: 7.5px; 
+  padding: 7.5px;
   background: var(--bs-indigo);
   font-size: 1.8rem;
   color: white;

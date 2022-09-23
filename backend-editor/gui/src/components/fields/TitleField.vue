@@ -45,7 +45,7 @@ watch(fields, (newValue) => {
               ...config,
               label: false,
             }"
-            v-model="value['text']" />
+            v-model="fields.text" />
           <div class="d-flex gap-4">
             <radio-buttons-field
               class=""
@@ -68,7 +68,7 @@ watch(fields, (newValue) => {
                 placeholder: 'Default',
                 responsive: true,
                 popover:
-                  'Choose which class to apply to this heading tag if the font size needs to be different than the level (for SEO purposes).',
+                  'Change the font-size of the header tag. This will override the default font-size set in the theme.',
                 taggable: true,
               }"
               v-model="fields.size[bp]" />
@@ -81,8 +81,7 @@ watch(fields, (newValue) => {
                 options: ['light', 'normal', 'bold'],
                 placeholder: 'Default',
                 responsive: true,
-                popover:
-                  'Choose which class to apply to this heading tag if the font size needs to be different than the level (for SEO purposes).',
+                popover: 'Change the font weight of the header tag',
                 taggable: true,
               }"
               v-model="fields.weight[bp]" />
@@ -98,7 +97,6 @@ watch(fields, (newValue) => {
                 popover: 'Change the colour of this heading tag',
                 placeholder: 'Default',
                 responsive: true,
-                popover: 'Change the colour of this heading tag.',
                 taggable: true,
               }"
               v-model="fields.color[bp]" />
@@ -109,8 +107,9 @@ watch(fields, (newValue) => {
               v-model="fields.class"
               placeholder=""
               :config="{
-                label: 'Class',
-                popover: 'Add a custom class to the heading tag.',
+                label: 'Heading Class',
+                popover:
+                  'Add a custom class, this will apply directly to the H-tag.',
               }" />
           </div>
         </div>

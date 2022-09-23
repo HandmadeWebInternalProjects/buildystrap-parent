@@ -40,19 +40,23 @@ watch(value.value, (newValue) => {
         <text-field
           class="flex-grow-1"
           :config="{ label: 'Width' }"
+          handle="width"
           v-model="value['width']" />
         <text-field
           class="flex-grow-1"
+          handle="height"
           :config="{ label: 'Height' }"
           v-model="value['height']" />
       </div>
       <div class="d-flex gap-4">
         <text-field
           class="flex-grow-1"
+          handle="max_width"
           :config="{ label: 'Max Width' }"
           v-model="value['max_width']" />
         <text-field
           class="flex-grow-1"
+          handle="max_height"
           :config="{ label: 'Max Height' }"
           v-model="value['max_height']" />
       </div>
