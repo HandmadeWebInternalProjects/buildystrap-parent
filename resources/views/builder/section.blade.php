@@ -10,6 +10,12 @@
 
 <div {!! $attrs !!}>
 
+  @if($section->getInlineAttribute('background.separate_element', false))
+    @component('builder.components.background-image-element', [
+      'background' => $section->getInlineAttribute('background', [])
+    ])@endcomponent
+  @endif
+
   {!! $section->getConfig('boxed_layout') ? '<div class="container">' : null !!}
 
     @foreach($section->rows() as $row)

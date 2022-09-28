@@ -17,7 +17,7 @@
       ]
     ];
   }
-  
+
   $posts = get_posts($args);
 @endphp
 

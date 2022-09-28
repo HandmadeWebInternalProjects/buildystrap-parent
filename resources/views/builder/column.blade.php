@@ -9,6 +9,12 @@
 @endphp
 
 <div {!! $attrs !!}>
+    @if($column->getInlineAttribute('background.separate_element', false))
+      @component('builder.components.background-image-element', [
+        'background' => $column->getInlineAttribute('background', [])
+      ])@endcomponent
+    @endif
+
     @foreach($column->modules() as $module)
         {!! $module->render() !!}
     @endforeach
