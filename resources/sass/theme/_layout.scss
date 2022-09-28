@@ -13,6 +13,15 @@
 }
 
 .buildystrap-row {
+  &.grid {
+    --bs-columns: 1;
+    gap: 0;
+    @include media-breakpoint-up(lg) {
+      --bs-columns: 12;
+      grid-template-columns: repeat(var(--bs-columns, 12), 1fr);
+      gap: var(--bs-gap, 1.5rem);
+    }
+  }
   padding: calc(var(--bs-row-padding) / 2) $grid-gutter-width;
   @include media-breakpoint-up(md) {
     padding: var(--bs-row-padding) 0;

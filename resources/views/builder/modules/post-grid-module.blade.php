@@ -22,9 +22,9 @@
 @endphp
 
 @section('field_content')
-  <div class="grid gap-5">
+  <div class="grid gap-2 gap-md-5">
     @foreach($posts as $post)
-      <div class="g-col-md-4">
+      <div class="g-col-12 g-col-md-4">
         @include("loop-templates.content-{$postType}", ['post' => $post])
       </div>
     @endforeach

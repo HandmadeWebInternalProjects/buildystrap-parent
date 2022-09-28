@@ -110,6 +110,20 @@ $utilities: map-merge(
             ),
         )
       ),
+    "max-height": (
+      property: min-height,
+      class: max-h,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "height"), "values"),
+          (
+            0: 0%,
+            50vh: 50vh,
+            100: 100%,
+            100vh: 100vh,
+          )
+        ),
+    ),
     "margin":
       map-merge(
         map-get($utilities, "margin"),

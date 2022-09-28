@@ -84,7 +84,7 @@ const initMediaLibrary = () => {
     libraryRef = window.wp.media({
       // Accepts [ 'select', 'post', 'image', 'audio', 'video' ]
       // Determines what kind of library should be rendered.
-      frame: "post",
+      frame: "select",
       // Modal title.
       title: "Select Images",
       // Enable/disable multiple select
@@ -116,6 +116,7 @@ const initMediaLibrary = () => {
         }
       })
       images.value = selection
+      console.log("selection", selection)
     })
 
     libraryRef.on("open", () => {

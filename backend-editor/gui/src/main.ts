@@ -16,6 +16,7 @@ import "bootstrap"
 
 declare global {
   interface Window {
+    app: any
     Buildy: BuildyInterface
     builderContent?: string
     wp?: any
@@ -32,6 +33,7 @@ const app = configOptions.is_global_module
   : createApp(App)
 
 import { Buildy } from "./components/Buildy"
+window.app = app
 window.Buildy = new Buildy(app)
 
 // Setup main store system
