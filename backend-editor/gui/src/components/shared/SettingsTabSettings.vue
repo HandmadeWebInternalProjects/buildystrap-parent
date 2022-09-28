@@ -4,9 +4,9 @@
       <template v-slot:body>
         <text-field
           handle="id"
-          :config="{ 
-            label: false, 
-            placeholder: 'Enter the ID for the module' 
+          :config="{
+            label: false,
+            placeholder: 'Enter the ID for the module',
           }"
           v-model="moduleId" />
       </template>
@@ -38,7 +38,13 @@ const { update } = useFieldType(emit)
 
 const attributes = computed({
   get() {
-    return props.modelValue || {}
+    const attributes = props?.modelValue || {}
+
+    if (Array.isArray(attributes)) {
+      return {}
+    }
+
+    return attributes
   },
   set(val: any) {
     update(val)
@@ -56,9 +62,11 @@ const moduleId = computed({
 
 const moduleClass = computed({
   get() {
+    console.log(attributes)
     return attributes.value.class || ""
   },
   set(val: any) {
+    console.log(val)
     attributes.value = Object.assign(attributes.value, { class: val })
   },
 })

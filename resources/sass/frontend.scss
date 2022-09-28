@@ -70,6 +70,13 @@ $utilities: map-merge(
         map-get($utilities, "width"),
         (
           responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "width"), "values"),
+              (
+                100vw: 100vw,
+              )
+            ),
         )
       ),
     "max-width": (
@@ -105,6 +112,7 @@ $utilities: map-merge(
             map-merge(
               map-get(map-get($utilities, "height"), "values"),
               (
+                fit: fit-content,
                 100vh: 100vh,
               )
             ),
@@ -338,6 +346,26 @@ $utilities: map-merge(
           values:
             map-merge(
               map-get(map-get($utilities, "padding-start"), "values"),
+              (
+                6: $spacer * 6,
+                7: $spacer * 7,
+                8: $spacer * 8,
+                9: $spacer * 9,
+                10: $spacer * 10,
+                11: $spacer * 11,
+                12: $spacer * 12,
+              )
+            ),
+        )
+      ),
+    "gap":
+      map-merge(
+        map-get($utilities, "gap"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "gap"), "values"),
               (
                 6: $spacer * 6,
                 7: $spacer * 7,

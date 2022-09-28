@@ -9,5 +9,10 @@
 @endphp
 
 <div {!! $attrs !!}>
+    @if($module->getInlineAttribute('background.separate_element', false))
+      @component('builder.components.background-image-element', [
+        'background' => $module->getInlineAttribute('background', [])
+      ])@endcomponent
+    @endif
     @yield('field_content')
 </div>

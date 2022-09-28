@@ -38,6 +38,7 @@ const background: any = reactive({
     "blend-mode": {
       ...(props.modelValue?.image?.["blend-mode"] || {}),
     },
+
     repeat: {
       ...(props.modelValue?.image?.repeat || {}),
     },
@@ -45,6 +46,8 @@ const background: any = reactive({
   color: {
     ...(props.modelValue?.color || {}),
   },
+  separate_element: props.modelValue?.separate_element || false,
+  background_element_class: props.modelValue?.background_element_class || null,
 })
 
 watch(background, (val: any) => {
@@ -145,6 +148,25 @@ watch(background, (val: any) => {
         taggable: true,
       }"
       v-model="background.image['blend-mode'][bp]" />
+    <toggle-field
+      class="flex-grow-1 flex-basis-0"
+      handle="separate-element"
+      :config="{
+        label: 'Separate Element?',
+        popover:
+          'If enabled, the background will be applied to a separate div element, rather than the parent container.',
+      }"
+      v-model="background.separate_element" />
+    <text-field
+      v-if="background?.separate_element"
+      class="flex-grow-1 flex-basis-0"
+      handle="background-class"
+      :config="{
+        label: 'Background element class',
+        popover:
+          'If separate element is enabled, you can add custom classes to it.',
+      }"
+      v-model="background.background_element_class" />
   </field-group>
 </template>
 
