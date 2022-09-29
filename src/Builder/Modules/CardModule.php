@@ -41,17 +41,13 @@ class CardModule extends Module
                     ],
                 ],
                 'link' => [
-                    'type' => 'relational-field',
+                    'type' => 'link-field',
                     'config' => [
                         'label' => 'Link',
-                        'endpoint' => 'wp/v2/posts',
-                        'multiple' => false,
-                        'if' => [
-                            'title' => 'not empty',
-                        ],
+                        'placeholder' => 'https://',
                     ],
                 ],
-            ],
+            ]
         ];
     }
 }

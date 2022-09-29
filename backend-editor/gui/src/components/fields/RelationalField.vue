@@ -52,7 +52,7 @@ const fetchFromEndpoint = async (endpoint: string) => {
 const fetchFromDataType = async () => {
   try {
     const res = await fetch(
-      `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}`
+      `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}?per_page=100`
     )
     let data = await res.json()
     data = Object.values(data).filter((el: any) => {
@@ -68,7 +68,9 @@ const fetchFromDataType = async () => {
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
   try {
-    const res = await fetch(`${getBuilderConfig.rest_endpoint}${endpoint}`)
+    const res = await fetch(
+      `${getBuilderConfig.rest_endpoint}${endpoint}?per_page=100`
+    )
     data = await res.json()
     return data
   } catch (error: any) {
@@ -153,6 +155,7 @@ onMounted(async () => {
           options: entries || [],
           label: false,
           multiple: config?.multiple,
+          taggable: config?.taggable,
         }"
         @input="update(($event?.target as HTMLInputElement)?.value)"
         :placeholder="config.placeholder || handle" />

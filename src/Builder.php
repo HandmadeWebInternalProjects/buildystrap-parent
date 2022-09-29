@@ -16,6 +16,7 @@ use Buildystrap\Builder\Fields\ReplicatorField;
 use Buildystrap\Builder\Fields\RichTextField;
 use Buildystrap\Builder\Fields\SelectField;
 use Buildystrap\Builder\Fields\TextField;
+use Buildystrap\Builder\Fields\LinkField;
 use Buildystrap\Builder\Fields\TitleField;
 use Buildystrap\Builder\Fields\ToggleField;
 use Buildystrap\Builder\Layout\Container;
@@ -59,6 +60,7 @@ class Builder
     'accordion-field' => AccordionField::class,
     'tab-field' => TabField::class,
     'text-field' => TextField::class,
+    'link-field' => LinkField::class,
     'toggle-field' => ToggleField::class,
     'code-field' => CodeField::class,
     'select-field' => SelectField::class,

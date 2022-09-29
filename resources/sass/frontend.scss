@@ -65,6 +65,22 @@ $utilities: map-merge(
         no-repeat: no-repeat,
       ),
     ),
+    "background-position": (
+      property: background-position,
+      class: bg,
+      responsive: true,
+      values: (
+        left: left,
+        left-top: left top,
+        left-bottom: left bottom,
+        right: right,
+        right-top: right top,
+        right-bottom: right bottom,
+        center: center,
+        center-top: center top,
+        center-bottom: center bottom,
+      ),
+    ),
     "width":
       map-merge(
         map-get($utilities, "width"),
@@ -119,7 +135,7 @@ $utilities: map-merge(
         )
       ),
     "max-height": (
-      property: min-height,
+      property: max-height,
       class: max-h,
       values:
         map-merge(
