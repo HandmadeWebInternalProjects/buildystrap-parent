@@ -24,8 +24,11 @@ class CardModule extends Module
                 'image_placement' => [
                     'type' => 'select-field',
                     'config' => [
+                        'label' => 'Image Placement',
+                        'placeholder' => 'Default',
                         'options' => [
                             'Top' => 'flex-column',
+                            'Bottom' => 'flex-column-reverse',
                             'Left' => 'flex-row',
                             'Right' => 'flex-row-reverse',
                         ],
@@ -40,6 +43,7 @@ class CardModule extends Module
                 'link' => [
                     'type' => 'relational-field',
                     'config' => [
+                        'label' => 'Link',
                         'endpoint' => 'wp/v2/posts',
                         'multiple' => false,
                         'if' => [

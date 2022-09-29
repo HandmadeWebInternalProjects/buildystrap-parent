@@ -17,7 +17,7 @@ const { update } = useFieldType(emit)
       :popover="config?.popover" />
     <textarea
       rows="14"
-      class="w-100"
+      class="w-100 p-2"
       :handle="handle"
       :value="modelValue"
       @input="update(($event?.target as HTMLInputElement)?.value)"

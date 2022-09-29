@@ -12,6 +12,10 @@ class CodeModule extends Module
             'icon' => 'fa-solid fa-paragraph',
             'fields' => [
                 'code' => [
+                    'config' => [
+                        'label' => 'Code',
+                        'placeholder' => 'Insert code or scripts here.'
+                    ],
                     'type' => 'code-field',
                 ],
             ],
