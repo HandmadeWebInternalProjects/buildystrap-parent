@@ -14,6 +14,7 @@ class PostGridModule extends Module
         'post_type' => [
           'type' => 'relational-field',
           'config' => [
+            'label' => 'Post Type',
             'endpoint' => 'wp/v2/types',
             'return_value' => 'slug',
             'return_label' => 'slug',
@@ -23,6 +24,7 @@ class PostGridModule extends Module
         'taxonomy' => [
           'type' => 'relational-field',
           'config' => [
+            'label' => 'Taxonomy',
             'depends_on' => 'post_type',
             'data_type' => 'taxonomies',
             'return_values' => [
@@ -36,6 +38,7 @@ class PostGridModule extends Module
         'term' => [
           'type' => 'relational-field',
           'config' => [
+            'label' => 'Term',
             'depends_on' => 'taxonomy.terms_link',
             'data_type' => 'endpoint',
             'return_value' => 'id',
@@ -46,6 +49,10 @@ class PostGridModule extends Module
         ],
         'template_part' => [
           'type' => 'text-field',
+          'config' => [
+            'label' => 'Template Part',
+            'placeholder' => 'template-parts/content',
+          ],
         ],
       ],
     ];

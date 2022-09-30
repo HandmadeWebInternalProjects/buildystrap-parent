@@ -60,6 +60,9 @@ onMounted(() => {
 </script>
 <style lang="scss">
   #app {
+    label {
+      line-height: 2;
+    }
     .card-body label {
       font-size: 0.85em;
       text-transform: capitalize;

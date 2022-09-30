@@ -155,6 +155,7 @@ onMounted(async () => {
           options: entries || [],
           label: false,
           multiple: config?.multiple,
+          taggable: config?.taggable,
         }"
         @input="update(($event?.target as HTMLInputElement)?.value)"
         :placeholder="config.placeholder || handle" />

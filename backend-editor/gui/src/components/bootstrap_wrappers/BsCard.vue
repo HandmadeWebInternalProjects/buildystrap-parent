@@ -30,6 +30,11 @@ const props = defineProps({
 })
 </script>
 <style lang="scss">
+  .card {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
   .card-header {
     min-height: 45px;
     padding-top: 0.5rem;

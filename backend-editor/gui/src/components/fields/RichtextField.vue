@@ -270,4 +270,8 @@ div.mce-statusbar .mce-container-body {
 div.mce-statusbar .mce-container-body .mce-path-item {
   line-height: 24px;
 }
+.mce-menubtn button,
+.mce-listbox button {
+    min-height: 30px;
+}
 </style>
