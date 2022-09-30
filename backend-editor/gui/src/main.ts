@@ -21,6 +21,8 @@ declare global {
     builderContent?: string
     wp?: any
     tinymce?: any
+    jQuery: any
+    wpLink: any
   }
 }
 
@@ -74,6 +76,7 @@ import {
   faClipboard,
   faClipboardCheck,
   faArrowUpRightFromSquare,
+  faLink,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -103,7 +106,8 @@ library.add(
   faMobileAlt,
   faClipboard,
   faClipboardCheck,
-  faArrowUpRightFromSquare
+  faArrowUpRightFromSquare,
+  faLink
 )
 /* add font awesome icon component */
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)
