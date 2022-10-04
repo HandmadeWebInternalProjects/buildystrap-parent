@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { toRefs, computed, onMounted, onUnmounted } from "vue"
+import { toRefs, ref, onMounted, onUnmounted } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 const props = defineProps({ ...commonProps })
 
@@ -34,17 +34,15 @@ onMounted(() => {
 
   window.jQuery(document).on("wplink-close", () => {
     const linkData = {
-      url: document.querySelector<HTMLInputElement>("#wp-link-url").value,
-      title: document.querySelector<HTMLInputElement>("#wp-link-text").value,
+      url: document.querySelector<HTMLInputElement>("#wp-link-url")?.value,
+      title: document.querySelector<HTMLInputElement>("#wp-link-text")?.value,
       target: document.querySelector<HTMLInputElement>("#wp-link-target")
-        .checked
+        ?.checked
         ? "_blank"
         : "",
     }
 
     link.value = linkData
-
-    console.log(link.value)
 
     // Emit to parent
     update(linkData)
