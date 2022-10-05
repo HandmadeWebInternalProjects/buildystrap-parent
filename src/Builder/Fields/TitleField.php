@@ -46,6 +46,9 @@ class TitleField extends Field
         $level = $this->value()->get('level');
         $level = ! empty($level) ? $level : 'h3';
         $text = $this->value()->get('text', '');
+        $size = [];
+        $color = [];
+        $weight = [];
 
         foreach ($this->value()->get('size', []) as $breakpoint => $value) {
             $size[] = match ($breakpoint) {
