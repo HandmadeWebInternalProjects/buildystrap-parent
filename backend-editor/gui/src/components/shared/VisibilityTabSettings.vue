@@ -24,7 +24,7 @@
               {
                 label: 'Desktop',
                 value: 'desktop',
-              }
+              },
             ],
             label: false,
           }"
@@ -60,10 +60,9 @@ const config = computed({
 
 const visibility = computed({
   get() {
-    return config.value.visibility || {}
+    return config.value.visibility || []
   },
   set(val: any) {
-    console.log({ val })
     config.value = { ...config.value, visibility: val }
   },
 })
