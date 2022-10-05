@@ -46,26 +46,23 @@ class TitleField extends Field
         $level = $this->value()->get('level');
         $level = ! empty($level) ? $level : 'h3';
         $text = $this->value()->get('text', '');
-        $color = $this->value()->get('color', []);
-        $weight = $this->value()->get('weight', []);
-        $size = $this->value()->get('size', []);
 
-        foreach ($size as $breakpoint => $value) {
-            $size = match ($breakpoint) {
+        foreach ($this->value()->get('size', []) as $breakpoint => $value) {
+            $size[] = match ($breakpoint) {
                 'xs' => "fs-{$value}",
                 default => "fs-{$breakpoint}-{$value}"
             };
         }
 
-        foreach ($color as $breakpoint => $value) {
-            $color = match ($breakpoint) {
+        foreach ($this->value()->get('color', []) as $breakpoint => $value) {
+            $color[] = match ($breakpoint) {
                 'xs' => "text-{$value}",
                 default => "text-{$breakpoint}-{$value}"
             };
         }
 
-        foreach ($weight as $breakpoint => $value) {
-            $weight = match ($breakpoint) {
+        foreach ($this->value()->get('weight', []) as $breakpoint => $value) {
+            $weight[] = match ($breakpoint) {
                 'xs' => "font-{$value}",
                 default => "font-{$breakpoint}-{$value}"
             };
@@ -74,9 +71,9 @@ class TitleField extends Field
         $class = collect([])
             ->push($this->value()->get('class', ''))
             ->push($this->title_class)
-            ->push($color)
-            ->push($weight)
-            ->push($size)
+            ->merge($color)
+            ->merge($weight)
+            ->merge($size)
             ->filter()
             ->implode(' ');
 

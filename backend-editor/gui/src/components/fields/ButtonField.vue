@@ -9,11 +9,11 @@ const props = defineProps({ ...commonProps })
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
-const { handle, config, modelValue } = toRefs(props)
+const { handle, config, uuid, modelValue } = toRefs(props)
 const value = ref(modelValue?.value || {})
 
 watch(value.value, (newValue) => {
-  console.log({ newValue })
+  // console.log({ newValue })
 
   update(newValue)
 })
@@ -67,7 +67,7 @@ const styles = computed(() => {
     <template v-slot:body>
       <field-group>
         <text-field class="g-col-12" handle="text" v-model="value['text']" :config="{ label: 'Title' }" />
-        <link-field class="g-col-12" handle="url" v-model="value['url']" :config="{ label: 'URL', hideTitle: true }" />
+        <link-field class="g-col-12" handle="url" v-model="value['url']" :uuid="uuid" :config="{ label: 'URL', hideTitle: true }" />
         <select-field
           class="g-col-12 w-100"
           handle="button-color"

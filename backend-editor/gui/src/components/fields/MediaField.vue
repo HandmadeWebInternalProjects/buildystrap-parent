@@ -6,13 +6,13 @@
       :popover="config?.popover" />
     <div
       @click.prevent="openMediaLibrary"
-      class="flex w-full position-relative cursor-pointer items-center justify-center image-selector"
+      class="flex w-full position-relative cursor-pointer items-center justify-center image-selector border border-dashed border-2 rounded p-3"
       :class="[images ? 'hasImage' : 'empty']">
       <draggable
         class="d-flex flex-wrap gap-3"
         :class="[
           {
-            'border border-dashed border-2 bg-100 rounded p-3':
+            '':
               config.multiple && images.length,
           },
         ]"
@@ -34,12 +34,6 @@
       </draggable>
       <div
         class="d-flex flex-wrap gap-3"
-        :class="[
-          {
-            'border border-dashed border-2 bg-100 rounded p-3':
-              config.multiple && placeholder?.length,
-          },
-        ]"
         v-if="placeholder?.length">
         <async-img
           v-for="phId in placeholder"

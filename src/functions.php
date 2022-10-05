@@ -23,7 +23,7 @@ include get_template_directory() . '/src/theme_options.php';
 function custom_logo($url = null)
 {
     $custom_logo = acf_active() ? get_field('buildystrap_company_details_site_logo', 'option') : null;
-    if ( ! acf_active() || ! isset($custom_logo) && empty($custom_logo)) { ?>
+    if ( ! acf_active() || empty($custom_logo)) { ?>
 
         <?php
         if (is_front_page() && is_home()) : ?>

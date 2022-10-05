@@ -25,6 +25,7 @@ class CardModule extends Module
                     'type' => 'select-field',
                     'config' => [
                         'label' => 'Image Placement',
+                        'class' => 'g-col-6',
                         'placeholder' => 'Default',
                         'options' => [
                             'Top' => 'flex-column',
@@ -32,6 +33,21 @@ class CardModule extends Module
                             'Left' => 'flex-row',
                             'Right' => 'flex-row-reverse',
                         ],
+                    ],
+                ],
+                'image_aspect_ratio' => [
+                    'type' => 'select-field',
+                    'config' => [
+                        'label' => 'Image Aspect Ratio',
+                        'class' => 'g-col-6',
+                        'placeholder' => 'Default',
+                        'options' => [
+                            '1/1',
+                            '4/3',
+                            '16/9',
+                            '16/10'
+                        ],
+                        'taggable' => true,
                     ],
                 ],
                 'body' => [

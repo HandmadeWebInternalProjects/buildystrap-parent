@@ -7,9 +7,12 @@
 
 
 @section('field_content')
-    <div class="">
+    <div class="card-image">
         @if($module->has('image'))
-          {!! wp_get_attachment_image(collect($module->get('image')->value())->first()['id'], 'medium', '', ['class' => 'card-img object-cover']) !!}
+          @php
+          $aspect_ratio = $module->get('image_aspect_ratio') ? "aspect-ratio: {$module->get('image_aspect_ratio')};" : '';
+          @endphp
+          {!! wp_get_attachment_image(collect($module->get('image')->value())->first()['id'], 'medium', '', ['class' => 'card-img object-cover', 'style' => $aspect_ratio]) !!}
         @endif
     </div>
 
@@ -22,11 +25,10 @@
         {!! $module->get('body') !!}
       @endif
       
-      @if($module->has('link'))
-      @php
-        $linked_post = get_post($module->get('link')->value()); 
-      @endphp
-        <a href="{{ get_permalink($linked_post) }}" class="card-link">{{ get_the_title($linked_post) }}</a>
+      @if($module->has('button_groups'))
+        @foreach($module->get('button_groups')->value() as $button_group)
+          @component('builder.components.button', ['button' => $button_group['button']]) @endcomponent
+        @endforeach
       @endif
   </div>
 

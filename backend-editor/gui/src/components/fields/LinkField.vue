@@ -18,10 +18,7 @@ const link = ref(
 )
 
 const openLinkBrowser = () => {
-  wpLinkRef.value?.open(`hidden-${uuid.value}`)
-}
 
-onMounted(() => {
   window.jQuery(document).on("wplink-open", () => {
     const url = document.querySelector<HTMLInputElement>("#wp-link-url")
     const title = document.querySelector<HTMLInputElement>("#wp-link-text")
@@ -35,6 +32,8 @@ onMounted(() => {
     title && (title.value = link.value?.title ?? "")
     target && (target.checked = link.value?.target === "_blank")
   })
+
+  wpLinkRef.value?.open(`hidden-${uuid.value}`)
 
   window.jQuery(document).on("wplink-close", () => {
     const linkData = {
@@ -52,7 +51,13 @@ onMounted(() => {
 
     // Emit to parent
     update(linkData)
+
+    window.jQuery(document).off("wplink-open")
+    window.jQuery(document).off("wplink-close")
   })
+}
+
+onMounted(() => {
 })
 
 onUnmounted(() => {
@@ -67,7 +72,7 @@ onUnmounted(() => {
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config?.popover" />
-    <text-area :id="`hidden-${uuid}`"></text-area>
+    <input type="text" :id="`hidden-${uuid}`" class="d-none" />
     <div @click="openLinkBrowser" class="input-group">
       <span class="input-group-text">
         <font-awesome-icon

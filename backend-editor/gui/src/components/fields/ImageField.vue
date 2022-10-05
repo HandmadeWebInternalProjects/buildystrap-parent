@@ -25,16 +25,38 @@ watch(value.value, (newValue) => {
           v-model="value['image']" />
       </div>
 
-      <select-field
-        class="flex-grow-1 flex-basis-0"
-        handle="size"
-        :config="{
-          label: 'Image Fit',
-          options: ['contain', 'cover', 'fit', 'fill'],
-          popover: 'Choose how the image should fit within the container.',
-          placeholder: 'Image Fit',
-        }"
-        v-model="value['object_fit']" />
+      <div class="d-flex gap-4">
+        <select-field
+          class="flex-grow-1 flex-basis-0"
+          handle="object_fit"
+          :config="{
+            label: 'Object Fit',
+            options: ['contain', 'cover', 'fit', 'fill'],
+            popover: 'Choose how the image should fit within the container.',
+            placeholder: 'Default',
+          }"
+          v-model="value['object_fit']" />
+          <select-field
+          class="flex-grow-1 flex-basis-0"
+          handle="object_position"
+          :config="{
+            label: 'Object Position',
+            options: [
+              { value: 'left', label: 'Left' },
+              { value: 'left-top', label: 'Left Top' },
+              { value: 'left-bottom', label: 'Left Bottom' },
+              { value: 'right', label: 'Right' },
+              { value: 'right-top', label: 'Right Top' },
+              { value: 'right-bottom', label: 'Right Bottom' },
+              { value: 'center', label: 'Center' },
+              { value: 'center-top', label: 'Center Top' },
+              { value: 'center-bottom', label: 'Center Bottom' },
+            ],
+            popover: 'Choose how the image should be positioned within the container.',
+            placeholder: 'Default',
+          }"
+          v-model="value['object_position']" />
+      </div>
 
       <div class="d-flex gap-4">
         <text-field

@@ -13,6 +13,9 @@ class ImageModule extends Module
             'fields' => [
                 'image' => [
                     'type' => 'image-field',
+                    'config' => [
+                        'label' => false
+                    ],
                 ],
             ],
         ];
