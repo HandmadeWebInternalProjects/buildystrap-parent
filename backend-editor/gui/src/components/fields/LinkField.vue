@@ -27,6 +27,10 @@ onMounted(() => {
     const title = document.querySelector<HTMLInputElement>("#wp-link-text")
     const target = document.querySelector<HTMLInputElement>("#wp-link-target")
 
+    if( config.value?.hideTitle === true ) {
+      title?.closest('.wp-link-text-field')?.classList.add('d-none')
+    }
+
     url && (url.value = link.value?.url ?? "")
     title && (title.value = link.value?.title ?? "")
     target && (target.checked = link.value?.target === "_blank")
@@ -42,6 +46,8 @@ onMounted(() => {
         : "",
     }
 
+    document.querySelector<HTMLInputElement>("#wp-link-text")?.closest('.wp-link-text-field')?.classList.remove('d-none')
+
     link.value = linkData
 
     // Emit to parent
@@ -56,13 +62,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="link-field">
     <field-label
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config?.popover" />
     <text-area :id="`hidden-${uuid}`"></text-area>
-    <div @click="openLinkBrowser" class="input-group mb-3">
+    <div @click="openLinkBrowser" class="input-group">
       <span class="input-group-text">
         <font-awesome-icon
           :icon="['fas', 'link']"
@@ -75,9 +81,10 @@ onUnmounted(() => {
       </span>
       <input
         type="text"
-        v-model="link.title"
+        v-model="link.url"
         class="form-control"
         aria-label="url" />
+      <span v-if="link.title && !config?.hideTitle" class="input-group-text">{{ link.title }}</span>
       <span v-if="link.target === '_blank'" class="input-group-text">
         <font-awesome-icon
           :icon="['fas', 'arrow-up-right-from-square']"
@@ -92,4 +99,14 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .link-field {
+
+    .input-group * {
+      font-size: 14px !important;
+    }
+  }
+  .wp-link-text-field.d-none {
+    display: none !important;
+  }
+</style>

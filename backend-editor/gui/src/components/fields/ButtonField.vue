@@ -63,65 +63,66 @@ const styles = computed(() => {
 </script>
 
 <template>
-  <div>
-    <div class="d-flex gap-4 align-items-center justify-content-between">
-      <field-label
-        v-if="config.label !== false"
-        :label="config?.label !== undefined ? config.label : handle"
-        :popover="config?.popover" />
-      <button
-        type="button"
-        class="btn"
-        :class="[value['style'], value['size']]"
-        :style="{
-          '--bs-btn-color': `var(--bs-${value['color']})`,
-        }"
-        :disabled="value['disabled']">
-        {{ value["text"] || "Example" }}
-      </button>
-    </div>
-    <field-group class="mb-4">
-      <text-field handle="text" v-model="value['text']" />
-      <text-field handle="url" v-model="value['url']" />
-      <select-field
-        class="w-100"
-        handle="button-color"
-        :config="{
-          label: 'Text Color',
-          options: getThemeColours(),
-          taggable: true,
-        }"
-        v-model="value['color']" />
-      <div class="d-flex gap-4">
+  <bs-card :label="config.label">
+    <template v-slot:body>
+      <field-group>
+        <text-field class="g-col-12" handle="text" v-model="value['text']" :config="{ label: 'Title' }" />
+        <link-field class="g-col-12" handle="url" v-model="value['url']" :config="{ label: 'URL', hideTitle: true }" />
         <select-field
-          class="flex-grow-1"
-          handle="style"
-          v-model="value['style']"
-          :key="styles"
+          class="g-col-12 w-100"
+          handle="button-color"
           :config="{
-            label: 'Background Colour',
-            options: styles,
-          }" />
-        <select-field
-          class="flex-grow-1"
-          handle="size"
-          v-model="value['size']"
-          :config="{
-            options: sizes,
-          }" />
-      </div>
-      <div class="d-flex gap-4">
-        <toggle-field
-          handle="outlined"
-          v-model="value['outlined']"
-          :config="{ label: 'Outlined' }" />
-        <toggle-field
-          handle="disabled"
-          v-model="value['disabled']"
-          :config="{ label: 'Disabled' }" />
-      </div>
-    </field-group>
-  </div>
+            label: 'Text Color',
+            options: getThemeColours(),
+            taggable: true,
+          }"
+          v-model="value['color']" />
+        <div class="g-col-12 grid gap-4" style="--bs-columns: 2;">
+          <select-field
+            class=""
+            handle="style"
+            v-model="value['style']"
+            :key="styles"
+            :config="{
+              label: 'Background Colour',
+              options: styles,
+            }" />
+          <select-field
+            class=""
+            handle="size"
+            v-model="value['size']"
+            :config="{
+              options: sizes,
+            }" />
+        </div>
+        <div class="g-col-12 d-flex justify-content-between align-items-center">
+          <div class="d-flex gap-4">
+            <toggle-field
+              handle="outlined"
+              v-model="value['outlined']"
+              :config="{ label: 'Outlined' }" />
+            <toggle-field
+              handle="disabled"
+              v-model="value['disabled']"
+              :config="{ label: 'Disabled' }" />
+          </div>
+          <button
+            type="button"
+            class="preview-btn btn"
+            :class="[value['style'], value['size']]"
+            :style="{
+              '--bs-btn-color': `var(--bs-${value['color']})`,
+            }"
+            :disabled="value['disabled']">
+            {{ value["text"] || "Example" }}
+          </button>
+        </div>
+      </field-group>
+    </template>
+  </bs-card>
+    
+
 </template>
 
-<style lang=""></style>
+<style lang="scss">
+</style>

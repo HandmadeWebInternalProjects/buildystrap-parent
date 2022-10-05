@@ -48,7 +48,7 @@ watch(display, (val: any) => {
 <template>
   <field-group>
     <select-field
-      class="w-100"
+      class="g-col-12 w-100"
       handle="position"
       :placeholder="responsivePlaceholder(display, 'position', bp)"
       :config="{
@@ -64,11 +64,12 @@ watch(display, (val: any) => {
       }"
       v-model="display.position[bp]" />
     <box-model-fields
+      class="g-col-12"
       breakpoint-handle="display"
       :placeholder="responsivePlaceholder(display, 'attributes', bp)"
       v-model="display.attributes" />
     <select-field
-      class="w-100"
+      class="g-col-12 w-100"
       handle="property"
       :placeholder="responsivePlaceholder(display, 'property', bp)"
       :config="{
@@ -86,7 +87,7 @@ watch(display, (val: any) => {
       v-model="display.property[bp]" />
 
     <div
-      class="d-flex flex-column gap-3"
+      class="g-col-12 d-flex flex-column gap-3"
       v-if="display.property[bp] === 'flex'">
       <div class="d-flex gap-3">
         <select-field
@@ -117,7 +118,7 @@ watch(display, (val: any) => {
           }"
           v-model="display['flex-wrap'][bp]" />
       </div>
-      <div class="d-flex gap-3">
+      <div class="g-col-12 d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
           handle="justify-content"
@@ -149,7 +150,7 @@ watch(display, (val: any) => {
           }"
           v-model="display['align-items'][bp]" />
       </div>
-      <div class="d-flex gap-3">
+      <div class="g-col-12 d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
           handle="align-self"
@@ -183,7 +184,7 @@ watch(display, (val: any) => {
       </div>
     </div>
 
-    <div v-if="display.property[bp] === 'grid'">
+    <div v-if="display.property[bp] === 'grid'" class="g-col-12">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
@@ -212,7 +213,7 @@ watch(display, (val: any) => {
       </div>
     </div>
 
-    <div class="d-flex gap-3">
+    <div class="g-col-12 d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="column-gap"
@@ -236,7 +237,7 @@ watch(display, (val: any) => {
     </div>
 
     <select-field
-      class="flex-grow-1 flex-basis-0"
+      class="g-col-12 flex-grow-1 flex-basis-0"
       handle="order"
       :placeholder="responsivePlaceholder(display, 'order', bp)"
       :config="{

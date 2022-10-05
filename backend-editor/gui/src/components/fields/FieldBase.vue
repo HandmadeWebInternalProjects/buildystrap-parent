@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showField()">
+  <div v-if="showField()" :class="`${field.config?.class ?? 'g-col-12'}`">
     <component
       :type="field.type"
       :module-type="moduleType"

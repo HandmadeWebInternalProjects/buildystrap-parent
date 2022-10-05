@@ -13,6 +13,9 @@ class ButtonModule extends Module
             'fields' => [
                 'button' => [
                     'type' => 'button-field',
+                    'config' => [
+                        'label' => 'Button',
+                    ],
                 ],
             ],
         ];

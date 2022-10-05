@@ -59,7 +59,7 @@ watch(background, (val: any) => {
 <template>
   <field-group>
     <select-field
-      class="w-100"
+      class="g-col-12 w-100"
       handle="backgroundColor"
       :placeholder="responsivePlaceholder(background, 'color', bp)"
       :config="{
@@ -69,7 +69,7 @@ watch(background, (val: any) => {
       }"
       v-model="background.color[bp]" />
     <media-field
-      class="w-100"
+      class="g-col-12 w-100"
       handle="backgroundImage"
       :placeholder="responsivePlaceholder(background.image, 'id', bp)"
       :config="{
@@ -77,7 +77,7 @@ watch(background, (val: any) => {
         label: 'Background Image',
       }"
       v-model="background.image['id'][bp]" />
-    <div class="d-flex gap-3">
+    <div class="g-col-12 d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="size"
@@ -94,7 +94,7 @@ watch(background, (val: any) => {
         }"
         v-model="background.image['size'][bp]" />
       <select-field
-        class="flex-grow-1 flex-basis-0"
+        class="g-col-12 flex-grow-1 flex-basis-0"
         handle="position"
         :placeholder="responsivePlaceholder(background.image, 'position', bp)"
         :config="{
@@ -114,7 +114,7 @@ watch(background, (val: any) => {
         }"
         v-model="background.image['position'][bp]" />
       <select-field
-        class="flex-grow-1 flex-basis-0"
+        class="g-col-12 flex-grow-1 flex-basis-0"
         handle="repeat"
         :placeholder="responsivePlaceholder(background.image, 'repeat', bp)"
         :config="{
@@ -128,7 +128,7 @@ watch(background, (val: any) => {
         v-model="background.image['repeat'][bp]" />
     </div>
     <select-field
-      class="flex-grow-1 flex-basis-0"
+      class="g-col-12 flex-grow-1 flex-basis-0"
       handle="blend-mode"
       :placeholder="responsivePlaceholder(background.image, 'blend-mode', bp)"
       :config="{
@@ -149,7 +149,7 @@ watch(background, (val: any) => {
       }"
       v-model="background.image['blend-mode'][bp]" />
     <toggle-field
-      class="flex-grow-1 flex-basis-0"
+      class="g-col-12 flex-grow-1 flex-basis-0"
       handle="separate-element"
       :config="{
         label: 'Separate Element?',
@@ -159,7 +159,7 @@ watch(background, (val: any) => {
       v-model="background.separate_element" />
     <text-field
       v-if="background?.separate_element"
-      class="flex-grow-1 flex-basis-0"
+      class="g-col-12 flex-grow-1 flex-basis-0"
       handle="background-class"
       :config="{
         label: 'Background element class',

@@ -37,7 +37,7 @@ watch(fields, (newValue) => {
   <bs-card :label="config.label">
     <template v-slot:body>
       <field-group>
-        <div class="d-flex flex-column gap-3">
+        <div class="g-col-12 d-flex flex-column gap-3">
           <richtext-field
             class="w-100"
             handle="text"

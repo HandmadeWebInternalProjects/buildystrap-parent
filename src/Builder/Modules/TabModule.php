@@ -12,10 +12,24 @@ class TabModule extends Module
             'icon' => 'fa-solid fa-equals',
             'fields' => [
                 'tabs' => [
-                    'type' => 'tab-field',
+                    'type' => 'replicator-field',
                     'config' => [
-                        'label' => '',
+                        'label' => 'Tab',
                     ],
+                    'fields' => [
+                        'title' => [
+                            'type' => 'text-field',
+                            'config' => [
+                                'label' => 'Title',
+                            ],
+                        ],
+                        'content' => [
+                            'type' => 'richtext-field',
+                            'config' => [
+                                'label' => 'Content',
+                            ],
+                        ],
+                    ]
                 ],
             ],
         ];

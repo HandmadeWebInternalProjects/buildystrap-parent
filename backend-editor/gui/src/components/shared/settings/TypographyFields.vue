@@ -41,7 +41,7 @@ watch(typography, (val: any) => {
 <template>
   <field-group>
     <select-field
-      class="w-100"
+      class="g-col-12 w-100"
       handle="text-colour"
       :placeholder="responsivePlaceholder(typography, 'color', bp)"
       :config="{
@@ -50,7 +50,7 @@ watch(typography, (val: any) => {
         taggable: true,
       }"
       v-model="typography.color[bp]" />
-    <div class="d-flex gap-3">
+    <div class="g-col-12 d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="font-family"
@@ -63,7 +63,7 @@ watch(typography, (val: any) => {
         }"
         v-model="typography['font-family'][bp]" />
       <select-field
-        class="flex-grow-1 flex-basis-0"
+        class="g-col-12 flex-grow-1 flex-basis-0"
         handle="font-weight"
         :placeholder="responsivePlaceholder(typography, 'font-weight', bp)"
         :config="{
@@ -74,7 +74,7 @@ watch(typography, (val: any) => {
         }"
         v-model="typography['font-weight'][bp]" />
     </div>
-    <div class="d-flex gap-3">
+    <div class="g-col-12 d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"
         handle="size"
@@ -100,7 +100,7 @@ watch(typography, (val: any) => {
         v-model="typography['text-align'][bp]" />
 
       <select-field
-        class="flex-grow-1 flex-basis-0"
+        class="g-col-12 flex-grow-1 flex-basis-0"
         handle="line-height"
         :placeholder="responsivePlaceholder(typography, 'line-height', bp)"
         :config="{

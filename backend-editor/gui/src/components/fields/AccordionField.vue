@@ -45,17 +45,19 @@ const values = computed({
       item-key="_uuid"
       class="accordion mb-3"
       id="accordionExample">
-      <template #item="{ element }">
+      <template #item="{ element, index }">
         <bs-accordion-item
-          :title="element?.title || ''"
+          :title="element?.title || `Item ${index + 1}`"
           :uuid="element._uuid"
           @remove="removeItem">
           <field-group>
             <text-field
+              class="g-col-12"
               handle="accordion-title"
               :config="{ label: 'Title' }"
               v-model="element['title']" />
             <richtext-field
+              class="g-col-12"
               handle="accordion-content"
               :config="{ ...config, label: 'Content' }"
               v-model="element['content']"
@@ -67,8 +69,22 @@ const values = computed({
     <button
       @click="addItem"
       type="button"
-      class="btn btn-primary bg-indigo-500">
+      class="btn btn-sm btn-primary bg-indigo-500">
       Add item
     </button>
   </div>
 </template>
+
+<style lang="scss">
+  .accordion {
+    .accordion-item {
+      .accordion-header {
+        .accordion-button {
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+</style>

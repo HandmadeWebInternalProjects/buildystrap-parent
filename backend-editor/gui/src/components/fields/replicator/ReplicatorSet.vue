@@ -1,19 +1,9 @@
 <template lang="">
-  <div class="p-3 bg-100 rounded position-relative">
-    <field-label
-      @click="collapsed = !collapsed"
-      v-if="collapsed"
-      :label="value[field?.config?.preview] || 'Preview not set'"
-      :popover="config?.popover" />
-    <font-awesome-icon
-      class="position-absolute cursor-pointer collapse-toggle"
-      :icon="collapsed ? 'chevron-down' : 'chevron-up'"
-      @click="collapsed = !collapsed" />
-    <font-awesome-icon
-      class="position-absolute cursor-pointer remove-set"
-      icon="trash"
-      @click="removeSet" />
-    <div v-show="!collapsed">
+  <bs-accordion-item
+    :title="`${field?.config.label ?? 'Item'} ${index + 1}`"
+    :uuid="value._uuid"
+    @remove="removeSet">
+    <div>
       <field-group>
         <field-base
           v-for="(field, key) in fields"
@@ -27,13 +17,17 @@
           :uuid="value._uuid" />
       </field-group>
     </div>
-  </div>
+  </bs-accordion-item>
 </template>
 <script lang="ts" setup>
 import { ref, computed } from "vue"
 const props = defineProps({
   config: {
     type: Object,
+  },
+  index: {
+    type: Number,
+    required: true,
   },
   value: {
     type: Object,
@@ -72,6 +66,7 @@ const removeSet = () => {
 
 const value = computed({
   get() {
+    console.log(props.value)
     return props.value || {}
   },
   set(newValue) {

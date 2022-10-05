@@ -1,6 +1,6 @@
 <template lang="">
   <div class="card border-0 bg-100">
-    <div class="card-header border-0 d-flex align-items-center">
+    <div v-if="label !== false" class="card-header border-0 d-flex align-items-center">
       <field-label :label="label" :popover="popover" />
       <breakpoint-switcher
         v-if="breakpointHandle"
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 const props = defineProps({
   label: {
-    type: String,
+    type: [String, Boolean],
     required: true,
   },
   popover: {

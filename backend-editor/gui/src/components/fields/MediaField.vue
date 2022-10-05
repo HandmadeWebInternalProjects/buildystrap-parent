@@ -9,7 +9,7 @@
       class="flex w-full position-relative cursor-pointer items-center justify-center image-selector"
       :class="[images ? 'hasImage' : 'empty']">
       <draggable
-        class="d-flex gap-3"
+        class="d-flex flex-wrap gap-3"
         :class="[
           {
             'border border-dashed border-2 bg-100 rounded p-3':
@@ -19,7 +19,7 @@
         :list="images"
         item-key="id">
         <template #item="{ element }">
-          <div class="position-relative w-25">
+          <div class="image-preview-wrapper position-relative">
             <async-img
               :id="element.id"
               class="image-preview w-100 aspect-square" />
@@ -33,7 +33,7 @@
         </template>
       </draggable>
       <div
-        class="d-flex gap-3"
+        class="d-flex flex-wrap gap-3"
         :class="[
           {
             'border border-dashed border-2 bg-100 rounded p-3':
@@ -116,7 +116,7 @@ const initMediaLibrary = () => {
         }
       })
       images.value = selection
-      console.log("selection", selection)
+      // console.log("selection", selection)
     })
 
     libraryRef.on("open", () => {
@@ -159,6 +159,9 @@ onUnmounted(() => {
 <style lang="scss">
 .image-selector input {
   font-size: 0.9em !important;
+}
+.image-preview-wrapper {
+  width: calc(16.6667% - 1rem);
 }
 .image-preview {
   img {

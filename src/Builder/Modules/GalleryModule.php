@@ -31,6 +31,7 @@ class GalleryModule extends Module
                     'type' => 'select-field',
                     'config' => [
                         'label' => 'Columns',
+                        'class' => 'g-col-4',
                         'options' => [
                             '1',
                             '2',
@@ -46,6 +47,7 @@ class GalleryModule extends Module
                     'type' => 'select-field',
                     'config' => [
                         'label' => 'Column Gap',
+                        'class' => 'g-col-4',
                         'options' => [
                             '0',
                             '1',
@@ -62,6 +64,7 @@ class GalleryModule extends Module
                     'type' => 'select-field',
                     'config' => [
                         'label' => 'Place Items',
+                        'class' => 'g-col-4',
                         'options' => [
                             'center',
                             'start',

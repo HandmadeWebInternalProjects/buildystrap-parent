@@ -40,12 +40,19 @@ class CardModule extends Module
                         'label' => 'Body',
                     ],
                 ],
-                'link' => [
-                    'type' => 'link-field',
+                'button_groups' => [
+                    'type' => 'replicator-field',
                     'config' => [
-                        'label' => 'Link',
-                        'placeholder' => 'https://',
+                        'label' => 'Button',
                     ],
+                    'fields' => [
+                        'button' => [
+                            'type' => 'button-field',
+                            'config' => [
+                                'label' => false,
+                            ],
+                        ],
+                    ]
                 ],
             ]
         ];

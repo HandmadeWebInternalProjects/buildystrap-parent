@@ -3,8 +3,8 @@
     type="button"
     class="btn btn-sm"
     :class="
-      (`btn g-col-${columnSizes?.lg}`,
-      isOpen ? 'bg-orange-500 text-white' : 'border-orange-500 text-orange-500')
+      [`btn g-col-${columnSizes?.lg}`,
+      isOpen ? 'bg-orange-500 text-white' : 'border-orange-500 text-orange-500']
     "
     @click="toggleItem(uuid)">
     Edit Column {{ index + 1 }}

@@ -1,20 +1,21 @@
 <template>
-  <div class="replicator-field">
-    <div class="d-flex gap-4 mb-3 justify-content-center">
+  <div class="accordion replicator-field">
+    <!-- <div class="d-flex gap-4 mb-3 justify-content-center">
       <span @click="collapseAll" type="button">Collapse All</span>
       <span @click="openAll" type="button">Open All</span>
-    </div>
+    </div> -->
     <draggable
       :list="values"
       @change="handleDragChange"
       group="replicator-sets"
       item-key="_uuid"
-      class="replicator-draggable h-100 d-flex flex-grow flex-column gap-3 group">
+      class="replicator-draggable h-100 d-flex flex-grow flex-column group">
       <template #item="{ element, index }">
         <replicator-set
           v-if="Object.keys(field.fields).length"
           :field="field"
           :value="element"
+          :index="index"
           :module-type="moduleType"
           :meta="meta[index]"
           @remove-set="removeSet(index)"
@@ -22,8 +23,8 @@
           @input="updateSet" />
       </template>
     </draggable>
-    <button class="btn btn-primary mt-4" type="button" @click="addSet">
-      Add Set
+    <button class="btn btn-sm btn-primary mt-3" type="button" @click="addSet">
+      Add {{ `${field?.config?.label ?? 'Item'}` }}
     </button>
   </div>
 </template>
@@ -45,7 +46,7 @@ const values = ref(
 )
 
 const set: any = computed(() => getModuleBlueprintForType(moduleType.value))
-const field = reactive({ fields: {} })
+const field = reactive<any>({ fields: {} })
 
 const meta = ref(values.value.map(() => ({ collapsed: false })))
 
@@ -54,7 +55,7 @@ onMounted(() => {
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
-  console.log(moduleType.value)
+  // console.log(moduleType.value)
 })
 
 const addSet = () => {
