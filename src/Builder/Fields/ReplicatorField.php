@@ -8,15 +8,15 @@ use function collect;
 
 class ReplicatorField extends Field
 {
-    protected static function blueprint(): array
-    {
-        return [
-            'config' => [],
-        ];
-    }
+  protected static function blueprint(): array
+  {
+    return [
+      'config' => [],
+    ];
+  }
 
-    public function __toString(): string
-    {
-        return collect($this->value())->first();
-    }
+  public function __toString(): string
+  {
+    return '<em>error: you must loop through the fields on replicator modules</em>';
+  }
 }
