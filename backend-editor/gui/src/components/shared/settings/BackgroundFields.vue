@@ -65,7 +65,6 @@ watch(background, (val: any) => {
       :config="{
         label: 'Background Color',
         options: getThemeColours(),
-        taggable: true,
       }"
       v-model="background.color[bp]" />
     <media-field
@@ -85,12 +84,14 @@ watch(background, (val: any) => {
         :config="{
           label: 'Size',
           options: [
+            { value: 'none', label: 'None' },
+            { value: '100', label: '100% auto' },
             { value: 'cover', label: 'Cover' },
             { value: 'contain', label: 'Contain' },
             { value: 'fit', label: 'Fit' },
             { value: 'fill', label: 'Fill' },
+            { value: 'scale-down', label: 'Scale Down' },
           ],
-          taggable: true,
         }"
         v-model="background.image['size'][bp]" />
       <select-field
@@ -110,7 +111,6 @@ watch(background, (val: any) => {
             { value: 'center-top', label: 'Center Top' },
             { value: 'center-bottom', label: 'Center Bottom' },
           ],
-          taggable: true,
         }"
         v-model="background.image['position'][bp]" />
       <select-field
@@ -121,9 +121,10 @@ watch(background, (val: any) => {
           label: 'Repeat',
           options: [
             { value: 'repeat', label: 'Repeat' },
+            { value: 'repeat-x', label: 'Repeat Horizontally' },
+            { value: 'repeat-y', label: 'Repeat Vertically' },
             { value: 'no-repeat', label: 'No Repeat' },
           ],
-          taggable: true,
         }"
         v-model="background.image['repeat'][bp]" />
     </div>
@@ -145,7 +146,6 @@ watch(background, (val: any) => {
           'color',
           'luminosity',
         ],
-        taggable: true,
       }"
       v-model="background.image['blend-mode'][bp]" />
     <toggle-field

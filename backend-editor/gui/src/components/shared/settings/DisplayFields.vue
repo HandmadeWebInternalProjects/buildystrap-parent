@@ -78,11 +78,11 @@ watch(display, (val: any) => {
           { value: 'none', label: 'None (hidden)' },
           { value: 'block', label: 'Block' },
           { value: 'inline', label: 'Inline' },
+          { value: 'inline-block', label: 'Inline Block' },
           { value: 'inline-flex', label: 'Inline Flex' },
           { value: 'flex', label: 'Flex' },
           { value: 'grid', label: 'Grid' },
         ],
-        taggable: true,
       }"
       v-model="display.property[bp]" />
 
@@ -195,7 +195,6 @@ watch(display, (val: any) => {
           :config="{
             label: 'Grid Template Rows',
             options,
-            taggable: true,
           }"
           v-model="display['grid-template-rows'][bp]" />
         <select-field
@@ -207,7 +206,6 @@ watch(display, (val: any) => {
           :config="{
             label: 'Grid Template Columns',
             options,
-            taggable: true,
           }"
           v-model="display['grid-template-columns'][bp]" />
       </div>
@@ -242,8 +240,7 @@ watch(display, (val: any) => {
       :placeholder="responsivePlaceholder(display, 'order', bp)"
       :config="{
         label: 'Order',
-        options,
-        taggable: true,
+        options: [-1, ...options, 99, 999, 9999],
         popover: 'Only works if the parent has flex or grid properties.',
       }"
       v-model="display['order'][bp]" />
