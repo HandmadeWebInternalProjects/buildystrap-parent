@@ -1,6 +1,7 @@
 <?php
 
 use Buildystrap\Str;
+use Buildystrap\BuilderBackend;
 
 if (!function_exists('extendable_layout')) {
   function extendable_layout($post = null, string $default = 'default'): string
@@ -301,7 +302,13 @@ if (!function_exists('rgbToHsl')) {
   }
 }
 
-
+if (!function_exists('is_taggable')) {
+  function is_taggable($property, $value)
+  {
+    $options = collect(BuilderBackend::get_default_options()['structure'][$property])->pluck('value')->toArray();
+    return !in_array($value, $options);
+  }
+}
 
 if (!function_exists('hmw_woocommerce_cart_link')) {
   /**

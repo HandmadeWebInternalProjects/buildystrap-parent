@@ -16,6 +16,57 @@
 // @import "bootstrap/scss/containers";
 // @import "bootstrap/scss/grid";
 
+$box-model-sizing: ();
+@for $i from 0 through 12 {
+  $box-model-sizing: map-merge(
+    $box-model-sizing,
+    (
+      $i: #{$i}rem,
+    )
+  );
+}
+
+$order: ();
+@for $i from 0 through 12 {
+  $order: map-merge(
+    $order,
+    (
+      $i: #{$i},
+    )
+  );
+}
+
+$grid-template: ();
+@for $i from 0 through 12 {
+  $grid-template: map-merge(
+    $grid-template,
+    (
+      $i: repeat(#{$i}, minmax(0, 1fr)),
+    )
+  );
+}
+
+$width: (
+  none: none,
+  auto: auto,
+  0: 0,
+  25: 25%,
+  33: 33.33%,
+  50: 50%,
+  66: 66.66%,
+  75: 75%,
+  100: 100%,
+  100vw: 100vw, 
+);
+
+$height: (
+  auto: auto,
+  0: 0,
+  100: 100%,
+  50vh: 50vh,          
+  100vh: 100vh,  
+);
+
 $utilities: map-merge(
   $utilities,
   (
@@ -38,31 +89,277 @@ $utilities: map-merge(
         scale-down: scale-down,
       ),
     ),
+    "top": (
+      property: top,
+      class: top,
+      responsive: true,
+      values: map-merge(
+        map-get(map-get($utilities, "top"), "values"),
+        $box-model-sizing,
+      ),
+    ),
+    "bottom": (
+      property: bottom,
+      class: bottom,
+      responsive: true,
+      values: map-merge(
+        map-get(map-get($utilities, "bottom"), "values"),
+        $box-model-sizing,
+      ),
+    ),
+    "start": (
+      property: left,
+      class: start,
+      responsive: true,
+      values: map-merge(
+        map-get(map-get($utilities, "start"), "values"),
+        $box-model-sizing,
+      ),
+    ),
+    "end": (
+      property: right,
+      class: end,
+      responsive: true,
+      values: map-merge(
+        map-get(map-get($utilities, "end"), "values"),
+        $box-model-sizing,
+      ),
+    ),
+    "grid-template-rows": (
+      property: grid-template-rows,
+      class: grid-template-rows,
+      responsive: true,
+      values: $grid-template,
+    ),
+    "grid-template-colums": (
+      property: grid-template-columns,
+      class: grid-template-columns,
+      responsive: true,
+      values: $grid-template,
+    ),
+    "order": (
+      property: order,
+      class: order,
+      responsive: true,
+      values: map-merge(
+        $order,
+        (
+          -1: -1,
+          99: 99,
+          999: 999,
+          9999: 9999,
+        ),
+      ),
+    ),
+    "min-width": (
+      property: min-width,
+      class: min-w,
+      responsive: true,
+      values: 
+        map-merge(
+          map-get(map-get($utilities, "width"), "values"),
+          $width
+        ),
+    ),
+    "width":
+      map-merge(
+        map-get($utilities, "width"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "width"), "values"),
+              $width
+            ),
+        )
+      ),
+    "max-width": (
+      property: max-width,
+      class: max-w,
+      responsive: true,
+      values: 
+        map-merge(
+          map-get(map-get($utilities, "width"), "values"),
+          $width
+        ),
+    ),
+    "min-height": (
+      property: min-height,
+      class: min-h,
+      responsive: true,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "height"), "values"),
+          $height
+        ),
+    ),
+    "height":
+      map-merge(
+        map-get($utilities, "height"),
+        (
+          responsive: true,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "height"), "values"),
+              $height
+            ),
+        )
+      ),
+    "max-height": (
+      property: max-height,
+      class: max-h,
+      responsive: true,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "height"), "values"),
+          $height
+        ),
+    ),
+    "margin":
+      map-merge(
+        map-get($utilities, "margin"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "margin-y":
+      map-merge(
+        map-get($utilities, "margin-y"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "margin-top":
+      map-merge(
+        map-get($utilities, "margin-top"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "margin-end":
+      map-merge(
+        map-get($utilities, "margin-end"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "margin-bottom":
+      map-merge(
+        map-get($utilities, "margin-bottom"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "margin-start":
+      map-merge(
+        map-get($utilities, "margin-start"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "padding":
+      map-merge(
+        map-get($utilities, "padding"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "padding-y":
+      map-merge(
+        map-get($utilities, "padding-y"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "padding-top":
+      map-merge(
+        map-get($utilities, "padding-top"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "padding-end":
+      map-merge(
+        map-get($utilities, "padding-end"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "padding-bottom":
+      map-merge(
+        map-get($utilities, "padding-bottom"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "padding-start":
+      map-merge(
+        map-get($utilities, "padding-start"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
+    "gap":
+      map-merge(
+        map-get($utilities, "gap"),
+        (
+          responsive: true,
+          values: $box-model-sizing
+        )
+      ),
+    "column-gap": (
+      css-var: true,
+      css-variable-name: col-gap,
+      class: gx,
+      responsive: true,
+      values: $box-model-sizing,
+    ),
+    "row-gap": (
+      css-var: true,
+      css-variable-name: row-gap,
+      class: gy,
+      values: $box-model-sizing,
+    ),
+    "module-gap": (
+      css-var: true,
+      css-variable-name: module-gap,
+      class: mg,
+      values: $box-model-sizing,
+    ),
+    "background-color": (
+      property: background-color,
+      class: bg,
+      responsive: true,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "color"), "values"),
+          (tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity))),
+        ),
+    ),
     "background-size": (
       property: background-size,
       class: bg,
       responsive: true,
       values: (
-        fill: fill,
-        contain: contain,
-        cover: cover,
         none: none,
+        100: 100% auto,
+        cover: cover,
+        contain: contain,
+        fit: fit,
+        fill: fill,
         scale-down: scale-down,
-      ),
-    ),
-    "background-blend-mode": (
-      property: background-blend-mode,
-      class: bg-blend,
-      values: normal multiply screen overlay darken lighten color-dodge
-        saturation color luminosity,
-    ),
-    "background-repeat": (
-      property: background-repeat,
-      class: bg,
-      responsive: true,
-      values: (
-        repeat: repeat,
-        no-repeat: no-repeat,
       ),
     ),
     "background-position": (
@@ -81,385 +378,46 @@ $utilities: map-merge(
         center-bottom: center bottom,
       ),
     ),
-    "width":
-      map-merge(
-        map-get($utilities, "width"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "width"), "values"),
-              (
-                100vw: 100vw,
-              )
-            ),
-        )
-      ),
-    "max-width": (
-      property: max-width,
-      class: max-w,
+    "background-repeat": (
+      property: background-repeat,
+      class: bg,
       responsive: true,
       values: (
-        none: none,
-        25: 25%,
-        33: 33.333333%,
-        50: 50%,
-        66: 66.666667%,
-        75: 75%,
-        100: 100%,
+        repeat: repeat,
+        repeat-x: repeat-x,
+        repeat-y: repeat-y,
+        no-repeat: no-repeat,
       ),
     ),
-    "min-height": (
-      property: min-height,
-      class: min-h,
-      values:
-        map-merge(
-          map-get(map-get($utilities, "height"), "values"),
-          (
-            100vh: 100vh,
-          )
-        ),
+    "background-blend-mode": (
+      property: background-blend-mode,
+      class: bg-blend,
+      values: normal multiply screen overlay darken lighten color-dodge
+        saturation color luminosity,
     ),
-    "height":
-      map-merge(
-        map-get($utilities, "height"),
-        (
-          values:
-            map-merge(
-              map-get(map-get($utilities, "height"), "values"),
-              (
-                fit: fit-content,
-                100vh: 100vh,
-              )
-            ),
-        )
+    "color": (
+      property: color,
+      class: text,
+      local-vars: (
+        "text-opacity": 1
       ),
-    "max-height": (
-      property: max-height,
-      class: max-h,
-      values:
-        map-merge(
-          map-get(map-get($utilities, "height"), "values"),
-          (
-            0: 0%,
-            50vh: 50vh,
-            100: 100%,
-            100vh: 100vh,
-          )
-        ),
-    ),
-    "margin":
-      map-merge(
-        map-get($utilities, "margin"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "margin"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "margin-y":
-      map-merge(
-        map-get($utilities, "margin-y"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "margin-y"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "margin-top":
-      map-merge(
-        map-get($utilities, "margin-top"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "margin-top"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "margin-end":
-      map-merge(
-        map-get($utilities, "margin-end"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "margin-end"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "margin-bottom":
-      map-merge(
-        map-get($utilities, "margin-bottom"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "margin-bottom"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "margin-start":
-      map-merge(
-        map-get($utilities, "margin-start"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "margin-start"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "padding":
-      map-merge(
-        map-get($utilities, "padding"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "padding"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "padding-y":
-      map-merge(
-        map-get($utilities, "padding-y"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "padding-y"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "padding-top":
-      map-merge(
-        map-get($utilities, "padding-top"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "padding-top"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "padding-end":
-      map-merge(
-        map-get($utilities, "padding-end"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "padding-end"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "padding-bottom":
-      map-merge(
-        map-get($utilities, "padding-bottom"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "padding-bottom"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "padding-start":
-      map-merge(
-        map-get($utilities, "padding-start"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "padding-start"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "gap":
-      map-merge(
-        map-get($utilities, "gap"),
-        (
-          responsive: true,
-          values:
-            map-merge(
-              map-get(map-get($utilities, "gap"), "values"),
-              (
-                6: $spacer * 6,
-                7: $spacer * 7,
-                8: $spacer * 8,
-                9: $spacer * 9,
-                10: $spacer * 10,
-                11: $spacer * 11,
-                12: $spacer * 12,
-              )
-            ),
-        )
-      ),
-    "column-gap": (
-      css-var: true,
-      css-variable-name: col-gap,
-      class: gx,
       responsive: true,
-      values: (
-        0: 0rem,
-        1: 1rem,
-        2: 2rem,
-        3: 3rem,
-        4: 4rem,
-        5: 5rem,
-        6: 6rem,
-        7: 7rem,
-        8: 8rem,
-        9: 9rem,
-        10: 10rem,
-      ),
-    ),
-    "row-gap": (
-      css-var: true,
-      css-variable-name: row-gap,
-      class: gy,
-      values: (
-        0: 0rem,
-        1: 1rem,
-        2: 2rem,
-        3: 3rem,
-        4: 4rem,
-        5: 5rem,
-        6: 6rem,
-        7: 7rem,
-        8: 8rem,
-        9: 9rem,
-        10: 10rem,
-      ),
-    ),
-    "module-gap": (
-      css-var: true,
-      css-variable-name: module-gap,
-      class: mg,
-      values: (
-        1: 10px,
-        2: 20px,
-        3: 30px,
-        4: 40px,
-        5: 50px,
-      ),
+      values:
+        map-merge(
+          map-get(map-get($utilities, "color"), "values"),
+          (tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity))),
+        ),
+    ), 
+    "font-family": (
+      property: font-family,
+      class: font-family,
+      responsive: true,
+      values: serif sans-serif,
     ),
     "font-weight": (
       property: font-weight,
       class: font,
+      responsive: true,
       values: normal bold,
     ),
   )
@@ -479,3 +437,55 @@ $utilities: map-merge(
 
 @import "mixins/mixins";
 @import "theme/layout";
+
+.gx-taggable {
+  @include responsive-inline-helper(column-gap, --gx);
+}
+.gy-taggable {
+  @include responsive-inline-helper(row-gap, --gy);
+}
+.mt-taggable {
+  @include responsive-inline-helper(margin-top, --mt);
+}
+.mb-taggable {
+  @include responsive-inline-helper(margin-bottom, --mb);
+}
+.me-taggable {
+  @include responsive-inline-helper(margin-end, --me);
+}
+.ms-taggable {
+  @include responsive-inline-helper(margin-start, --ms);
+}
+.pt-taggable {
+  @include responsive-inline-helper(padding-top, --pt);
+}
+.pb-taggable {
+  @include responsive-inline-helper(padding-bottom, --pb);
+}
+.pe-taggable {
+  @include responsive-inline-helper(padding-end, --pe);
+}
+.ps-taggable {
+  @include responsive-inline-helper(padding-start, --ps);
+}
+.min-width-taggable {
+  @include responsive-inline-helper(min-width, --min-width);
+}
+.width-taggable {
+  @include responsive-inline-helper(width, --width);
+}
+.max-width-taggable {
+  @include responsive-inline-helper(max-width, --max-width);
+}
+.min-height-taggable {
+  @include responsive-inline-helper(min-height, --min-height);
+}
+.height-taggable {
+  @include responsive-inline-helper(height, --height);
+}
+.max-height-taggable {
+  @include responsive-inline-helper(max-height, --max-height);
+}
+.font-family-taggable {
+  @include responsive-inline-helper(font-family, --font-family);
+}

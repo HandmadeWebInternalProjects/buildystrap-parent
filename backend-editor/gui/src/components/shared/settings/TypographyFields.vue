@@ -47,7 +47,6 @@ watch(typography, (val: any) => {
       :config="{
         label: 'Text Colour',
         options: getThemeColours(),
-        taggable: true,
       }"
       v-model="typography.color[bp]" />
     <div class="g-col-12 d-flex gap-3">
@@ -58,8 +57,6 @@ watch(typography, (val: any) => {
         :config="{
           label: 'Font Family',
           options: getTypography(),
-          disabled: bp !== 'xs',
-          taggable: true,
         }"
         v-model="typography['font-family'][bp]" />
       <select-field
@@ -68,9 +65,8 @@ watch(typography, (val: any) => {
         :placeholder="responsivePlaceholder(typography, 'font-weight', bp)"
         :config="{
           label: 'Font Weight',
-          options: ['normal', 'bold'],
+          options: [100, 200, 300, 'normal', 500, 600, 'bold', 800, 900],
           disabled: bp !== 'xs',
-          taggable: true,
         }"
         v-model="typography['font-weight'][bp]" />
     </div>
@@ -82,7 +78,6 @@ watch(typography, (val: any) => {
         :config="{
           label: 'Font Size',
           options: getFontSize(),
-          taggable: true,
         }"
         v-model="typography['font-size'][bp]" />
       <select-field

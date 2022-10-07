@@ -14,7 +14,14 @@ $grid-breakpoints: (
       #{$property}: var(#{$css_var});
     } @else {
       @include media-breakpoint-up($breakpoint) {
-        #{$css_var}-#{$breakpoint}: var(#{$css_var});
+        $index: index(map-keys($grid-breakpoints), $breakpoint);
+        $prev_breakpoint: nth(map-keys($grid-breakpoints), $index - 1);
+
+        @if $prev_breakpoint == "xs" {
+          #{$css_var}-#{$breakpoint}: var(#{$css_var});
+        } @else {
+          #{$css_var}-#{$breakpoint}: var(#{$css_var}-#{$prev_breakpoint});
+        }
         #{$property}: var(#{$css_var}-#{$breakpoint});
       }
     }

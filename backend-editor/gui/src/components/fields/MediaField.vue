@@ -35,11 +35,13 @@
       <div
         class="d-flex flex-wrap gap-3"
         v-if="placeholder?.length">
-        <async-img
-          v-for="phId in placeholder"
-          :key="phId.id"
-          :id="phId.id"
-          class="image-preview opacity-50 aspect-square w-25" />
+        <div class="image-preview-wrapper position-relative">
+          <async-img
+            v-for="phId in placeholder"
+            :key="phId.id"
+            :id="phId.id"
+            class="image-preview image-placeholder opacity-50 aspect-square" />
+        </div>
       </div>
       <input
         v-if="!images.length && !placeholder?.length"
