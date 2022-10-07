@@ -58,3 +58,13 @@
     row-gap: var(--bs-row-gap);
   }
 }
+
+.buildystrap-module {
+
+  * {
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

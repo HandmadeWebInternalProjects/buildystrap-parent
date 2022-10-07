@@ -36,7 +36,7 @@
       @endphp
       <div class='tab-content'>
         <div 
-          class='tab-pane py-4 fade {{ $active }}' 
+          class='tab-pane fade {{ $active }} p-1 border border-1 border-top-0 rounded-bottom' 
           id='{{ $slug }}-tab-pane' 
           role='tabpanel' 
           aria-labelledby='{{ $slug }}-tab' 
