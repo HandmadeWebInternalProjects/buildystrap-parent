@@ -41,8 +41,8 @@ class Row extends Layout
         parent::generateClasses();
 
         // Check if the row has an override for flex / grid specifically
-        $hasClassOverride = $this->getClasses()->filter(function ($class) {
-            return Str::contains($class, ['-flex', '-grid']);
+        $hasClassOverride = parent::getClasses()->filter(function ($class) {
+            return Str::contains($class, ['-flex', '-grid', '-inline', '-block', '-none']);
         })->isNotEmpty();
 
         // If it does, don't add the default flex / grid classes
@@ -59,7 +59,7 @@ class Row extends Layout
         )) {
             $class = match ($grid_defaults) {
                 'grid' => 'grid', // Grid
-                default => 'd-flex', // Flex
+                default => 'row', // Flex
             };
         }
 
@@ -70,10 +70,5 @@ class Row extends Layout
 
 
         $this->html_classes['xs'] = $class;
-    }
-
-    public function getClasses(string $classes = ''): Collection
-    {
-        return parent::getClasses($classes)->push('row');
     }
 }

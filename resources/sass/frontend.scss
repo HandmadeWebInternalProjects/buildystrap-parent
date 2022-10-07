@@ -341,10 +341,13 @@ $utilities: map-merge(
     "background-color": (
       property: background-color,
       class: bg,
+      local-vars: (
+        "bg-opacity": 1
+      ),
       responsive: true,
       values:
         map-merge(
-          map-get(map-get($utilities, "color"), "values"),
+          $utilities-bg-colors,
           (tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity))),
         ),
     ),
