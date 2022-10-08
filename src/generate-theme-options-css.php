@@ -71,14 +71,14 @@ $font_buttons = get_field('buildystrap_typography_font_buttons', 'option');
 ?>
 
 <?php
-if (isset($font_main)) : ?>
+if (isset($font_main) && $font_main['value']) : ?>
     --font-main: "<?php
     echo $font_main['value']; ?>";
 <?php
 endif; ?>
 
 <?php
-if (isset($font_headings)) : ?>
+if (isset($font_headings) && $font_headings['value']) : ?>
     --font-headings: "<?php
     echo $font_headings['value']; ?>";
 <?php

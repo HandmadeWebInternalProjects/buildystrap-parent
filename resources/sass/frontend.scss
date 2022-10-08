@@ -220,7 +220,13 @@ $utilities: map-merge(
         map-get($utilities, "margin"),
         (
           responsive: true,
-          values: $box-model-sizing,
+          values:
+            map-merge(
+              $box-model-sizing,
+              (
+                auto: auto,
+              ),
+            ),
         )
       ),
     "margin-y":
@@ -228,7 +234,13 @@ $utilities: map-merge(
         map-get($utilities, "margin-y"),
         (
           responsive: true,
-          values: $box-model-sizing,
+          values:
+            map-merge(
+              $box-model-sizing,
+              (
+                auto: auto,
+              ),
+            ),
         )
       ),
     "margin-top":
@@ -236,7 +248,13 @@ $utilities: map-merge(
         map-get($utilities, "margin-top"),
         (
           responsive: true,
-          values: $box-model-sizing,
+          values:
+            map-merge(
+              $box-model-sizing,
+              (
+                auto: auto,
+              ),
+            ),
         )
       ),
     "margin-end":
@@ -244,7 +262,13 @@ $utilities: map-merge(
         map-get($utilities, "margin-end"),
         (
           responsive: true,
-          values: $box-model-sizing,
+          values:
+            map-merge(
+              $box-model-sizing,
+              (
+                auto: auto,
+              ),
+            ),
         )
       ),
     "margin-bottom":
@@ -252,7 +276,13 @@ $utilities: map-merge(
         map-get($utilities, "margin-bottom"),
         (
           responsive: true,
-          values: $box-model-sizing,
+          values:
+            map-merge(
+              $box-model-sizing,
+              (
+                auto: auto,
+              ),
+            ),
         )
       ),
     "margin-start":
@@ -260,7 +290,13 @@ $utilities: map-merge(
         map-get($utilities, "margin-start"),
         (
           responsive: true,
-          values: $box-model-sizing,
+          values:
+            map-merge(
+              $box-model-sizing,
+              (
+                auto: auto,
+              ),
+            ),
         )
       ),
     "padding":
