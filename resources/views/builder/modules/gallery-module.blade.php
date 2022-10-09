@@ -1,4 +1,8 @@
-@extends('builder::module-base', ['class' => ''])
+@php
+$lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lightbox')->value()) ? 'gallery-lightbox' : false;
+@endphp
+
+@extends('builder::module-base', ['class' => $lightbox_enabled, 'uuid' => $module->uuid()])
 
 @section('field_content')
 
@@ -21,7 +25,14 @@
     @if($module->has('images'))
       @foreach($module->get('images')->value() as $image)
         <div class="{{ $col_class }}">
-          {!! wp_get_attachment_image($image['id'], $image_size) !!}
+          @if($lightbox_enabled)
+            @php $alt = get_post_meta($image['id'], '_wp_attachment_image_alt', true) ?? null; @endphp
+            <a href="{!! wp_get_attachment_image_url($image['id'], 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
+          @endif
+              {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded']) !!}
+          @if($lightbox_enabled)
+            </a>
+          @endif
         </div>
       @endforeach
     @endif

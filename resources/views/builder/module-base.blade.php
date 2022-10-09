@@ -2,6 +2,7 @@
     $attrs = collect([
         'id' => $module->getAttribute('id'),
         'class' => $module->classes( ! empty($class) ? $class : ''),
+        'data-uuid' => ! empty($uuid) ? $uuid : '',
         'style' => $module->inlineStyles(),
     ])->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))

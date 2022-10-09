@@ -5,9 +5,9 @@
   $taxonomy = $module->has('taxonomy') ? $module->get('taxonomy')->value() : null;
   $taxonomy_slug = isset($taxonomy['slug']) ? $taxonomy['slug'] : 'category';
   $template_part =  $module->has('template_part') ? $module->get('template_part')->value() : 'post';
-  $args = ['post_type' => $postType, 'posts_per_page' => 6];
+  $args = ['post_type' => $postType, 'numberposts' => 6];
 
-  if ($module->has('term')) {
+  if ($module->get('term')->value()) {
     // add tax_query to args
     $args['tax_query'] = [
       [

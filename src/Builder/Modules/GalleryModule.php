@@ -73,6 +73,13 @@ class GalleryModule extends Module
                         'responsive' => true,
                     ],
                 ],
+                'enable_lightbox' => [
+                    'type' => 'toggle-field',
+                    'config' => [
+                        'label' => 'Enable Lightbox',
+                        'class' => 'g-col-12',
+                    ],
+                ],
             ],
         ];
     }

@@ -17,6 +17,13 @@ class ImageModule extends Module
                         'label' => false
                     ],
                 ],
+                'enable_lightbox' => [
+                    'type' => 'toggle-field',
+                    'config' => [
+                        'label' => 'Enable Lightbox',
+                        'class' => 'g-col-12',
+                    ],
+                ],
             ],
         ];
     }
