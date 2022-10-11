@@ -1,12 +1,16 @@
 @php
-$text = $button['text'];
-$url = $button['url'];
-$class = collect([])
-    ->push($button['style'] ?? 'btn-primary')
-    ->push($button['size'] ?? '')
+  $text = $button['text'] ?? '';
+  $style = $button['style'] ?? 'btn-primary';
+  $size = $button['size'] ?? null;
+  $color = $button['color'] ?? null;
+  $class = collect([])
+    ->push('btn')
+    ->push($style)
+    ->push($size)
     ->filter()
     ->implode(' ');
-$style = isset($button['color']) ? "--bs-btn-color: var(--bs-{$button['color']})" : '';
-
-echo sprintf('<a href="%s" class="btn %s" style="%s">%s</a>', $url['url'], $class, $style, __($text, 'buildystrap'));
+  $style = isset($color) ? "style='--bs-btn-color: var(--bs-{$color});'" : '';
+  $url = $button['url']['url'] ?? '#';
 @endphp
+
+<a href="{{ $url }}" class="{{ $class }}" {{ $style }}>{!! __($text, 'buildystrap') !!}</a>
