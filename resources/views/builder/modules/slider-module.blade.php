@@ -1,11 +1,11 @@
-@extends('builder::module-base', ['class' => 'swiper  bs-swiper'])
+@extends('builder::module-base', ['class' => 'w-100 swiper  bs-swiper'])
 
 @section('field_content')
   @if($module->has('slides'))
   <div class="swiper-wrapper max-w-100">
       @foreach($module->get('slides')->value() as $slide)
         <div class="swiper-slide">
-          <?= wp_get_attachment_image(collect($slide['image'])->first()['id'], 'full', false, ['class' => 'rounded']); ?>
+          <?= wp_get_attachment_image(collect($slide['image'])->first()['id'], 'full', false, ['class' => 'w-100 rounded']); ?>
         </div>
       @endforeach
   </div>

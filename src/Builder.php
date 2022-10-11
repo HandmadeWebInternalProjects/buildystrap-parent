@@ -31,6 +31,7 @@ use Buildystrap\Builder\Modules\PostGridModule;
 use Buildystrap\Builder\Modules\SliderModule;
 use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
+use Buildystrap\Builder\Modules\VideoModule;
 use Buildystrap\Builder\Renderer;
 use Exception;
 use Illuminate\Support\Collection;
@@ -85,6 +86,7 @@ class Builder
     'tab-module' => TabModule::class,
     'accordion-module' => AccordionModule::class,
     'slider-module' => SliderModule::class,
+    'video-module' => VideoModule::class,
   ];
 
   protected static array $paths = [];

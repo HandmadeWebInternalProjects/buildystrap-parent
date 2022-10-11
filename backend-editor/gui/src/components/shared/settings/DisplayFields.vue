@@ -111,9 +111,9 @@ watch(display, (val: any) => {
           :config="{
             label: 'Wrap',
             options: [
-              { value: 'flex-nowrap', label: 'No Wrap' },
-              { value: 'flex-wrap', label: 'Wrap' },
-              { value: 'flex-wrap-reverse', label: 'Wrap Reverse' },
+              { value: 'nowrap', label: 'No Wrap' },
+              { value: 'wrap', label: 'Wrap' },
+              { value: 'wrap-reverse', label: 'Wrap Reverse' },
             ],
           }"
           v-model="display['flex-wrap'][bp]" />

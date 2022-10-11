@@ -29,7 +29,7 @@ class Theme
 
     public static function boot(): void
     {
-        if ( ! static::$booted) {
+        if (!static::$booted) {
             static::$booted = true;
 
             add_action('wp_enqueue_scripts', [static::class, 'enqueue_styles']);
@@ -84,14 +84,25 @@ class Theme
             wp_get_theme('buildystrap-parent')->get('Version')
         );
 
-        // wp_enqueue_style(
-        //     'parent-style',
-        //     'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css',
-        //     [],
-        // );
+        if (bs_get_field('buildystrap_structure_use_bootstrap_bundle', 'option')) {
+            wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css');
+            wp_enqueue_style('swiper', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css');
+            wp_enqueue_style('defaults', get_template_directory_uri() . '/public/defaults.css', []);
 
-        // Font Awesome
-        wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
+            wp_enqueue_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js', [], '5.2.1', true);
+            wp_enqueue_script('swiper', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', [], '', true);
+            wp_enqueue_script('defaults', get_template_directory_uri() . '/public/defaults.js', [], '', true);
+        }
+
+        wp_enqueue_style('hmw-theme-options', get_stylesheet_directory_uri() . '/public/hmw-theme-options.css', []);
+
+        // Font / Line Awesome
+        if (bs_get_field('buildystrap_typography_enable_font_awesome', 'option')) {
+            wp_enqueue_style('font-awesome', "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css");
+        }
+        if (bs_get_field('buildystrap_typography_enable_line_awesome', 'option')) {
+            wp_enqueue_style('line-awesome', "https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css");
+        }
     }
 
     /**
@@ -138,7 +149,7 @@ class Theme
         $shouldClear = false;
 
         if ($upgrader instanceof WP_Upgrader) {
-            if ( ! empty($options['themes']) && in_array('buildystrap-parent', $options['themes'])) {
+            if (!empty($options['themes']) && in_array('buildystrap-parent', $options['themes'])) {
                 $shouldClear = true;
             }
         } else {

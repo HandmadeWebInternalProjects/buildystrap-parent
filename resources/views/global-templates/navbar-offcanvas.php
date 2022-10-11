@@ -36,19 +36,17 @@ $container = get_theme_mod('understrap_container_type');
 
 			<!-- The WordPress Menu goes here -->
 			<?php
-            wp_nav_menu(
-    [
-                                            'theme_location'  => 'primary',
-                                            'container_class' => 'offcanvas-body',
-                                            'container_id'    => '',
-                                            'menu_class'      => 'navbar-nav justify-content-end flex-grow-1 pe-3',
-                                            'fallback_cb'     => '',
-                                            'menu_id'         => 'main-menu',
-                                            'depth'           => 2,
-                                            'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
-                                        ]
-);
-?>
+            wp_nav_menu([
+				'theme_location'  => 'primary',
+				'container_class' => 'offcanvas-body',
+				'container_id'    => '',
+				'menu_class'      => 'navbar-nav justify-content-end flex-grow-1 pe-3',
+				'fallback_cb'     => '',
+				'menu_id'         => 'main-menu',
+				'depth'           => 2,
+				'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
+			]);
+			?>
 		</div><!-- .offcanvas -->
 
 	</div><!-- .container(-fluid) -->

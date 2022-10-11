@@ -479,54 +479,7 @@ $utilities: map-merge(
 @import "mixins/mixins";
 @import "theme/layout";
 
-.gx-taggable {
-  @include responsive-inline-helper(column-gap, --gx);
-}
-.gy-taggable {
-  @include responsive-inline-helper(row-gap, --gy);
-}
-.mt-taggable {
-  @include responsive-inline-helper(margin-top, --mt);
-}
-.mb-taggable {
-  @include responsive-inline-helper(margin-bottom, --mb);
-}
-.me-taggable {
-  @include responsive-inline-helper(margin-end, --me);
-}
-.ms-taggable {
-  @include responsive-inline-helper(margin-start, --ms);
-}
-.pt-taggable {
-  @include responsive-inline-helper(padding-top, --pt);
-}
-.pb-taggable {
-  @include responsive-inline-helper(padding-bottom, --pb);
-}
-.pe-taggable {
-  @include responsive-inline-helper(padding-end, --pe);
-}
-.ps-taggable {
-  @include responsive-inline-helper(padding-start, --ps);
-}
-.min-width-taggable {
-  @include responsive-inline-helper(min-width, --min-width);
-}
-.width-taggable {
-  @include responsive-inline-helper(width, --width);
-}
-.max-width-taggable {
-  @include responsive-inline-helper(max-width, --max-width);
-}
-.min-height-taggable {
-  @include responsive-inline-helper(min-height, --min-height);
-}
-.height-taggable {
-  @include responsive-inline-helper(height, --height);
-}
-.max-height-taggable {
-  @include responsive-inline-helper(max-height, --max-height);
-}
-.font-family-taggable {
-  @include responsive-inline-helper(font-family, --font-family);
-}
+@import "theme/taggables";
+
+// Components
+@import "components/videos";

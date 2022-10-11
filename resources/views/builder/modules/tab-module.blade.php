@@ -34,9 +34,9 @@
           $slug = \Str::slug($title);
           $active = $index === 0 ? 'show active' : '';
       @endphp
-      <div class='tab-content'>
+      <div class='tab-content accordion'>
         <div 
-          class='tab-pane fade {{ $active }} p-1 border border-1 border-top-0 rounded-bottom' 
+          class='tab-pane fade {{ $active }} border border-1 border-top-0 rounded-bottom accordion-body' 
           id='{{ $slug }}-tab-pane' 
           role='tabpanel' 
           aria-labelledby='{{ $slug }}-tab' 

@@ -30,19 +30,19 @@ $container = get_theme_mod('understrap_container_type');
 
 		<!-- The WordPress Menu goes here -->
 		<?php
-wp_nav_menu(
-    [
-        'theme_location'  => 'primary',
-        'container_class' => 'collapse navbar-collapse',
-        'container_id'    => 'navbarNavDropdown',
-        'menu_class'      => 'navbar-nav ms-auto',
-        'fallback_cb'     => '',
-        'menu_id'         => 'main-menu',
-        'depth'           => 2,
-        'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
-    ]
-);
-?>
+		wp_nav_menu(
+			[
+				'theme_location'  => 'primary',
+				'container_class' => 'collapse navbar-collapse',
+				'container_id'    => 'navbarNavDropdown',
+				'menu_class'      => 'navbar-nav ms-auto',
+				'fallback_cb'     => '',
+				'menu_id'         => 'main-menu',
+				'depth'           => 2,
+				'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
+			]
+		);
+		?>
 
 	</div><!-- .container(-fluid) -->
 

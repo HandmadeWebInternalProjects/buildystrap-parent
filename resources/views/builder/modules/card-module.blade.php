@@ -1,10 +1,9 @@
 @php
   $direction = $module->get('image_placement') ?? 'flex-column';
-  $card_classes = collect(['card', 'flex-wrap', $direction])->filter()->implode(' ');
+  $card_classes = collect(['card', $direction])->filter()->implode(' ');
 @endphp
 
 @extends('builder::module-base', ['class' => $card_classes])
-
 
 @section('field_content')
     <div class="card-image">
@@ -12,7 +11,7 @@
           @php
           $aspect_ratio = $module->get('image_aspect_ratio') ? "aspect-ratio: {$module->get('image_aspect_ratio')};" : '';
           @endphp
-          {!! wp_get_attachment_image(collect($module->get('image')->value())->first()['id'], 'medium', '', ['class' => 'card-img object-cover', 'style' => $aspect_ratio]) !!}
+          {!! wp_get_attachment_image(collect($module->get('image')->value())->first()['id'], 'medium', '', ['class' => 'card-img object-cover h-auto', 'style' => $aspect_ratio]) !!}
         @endif
     </div>
 

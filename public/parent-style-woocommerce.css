@@ -10119,6 +10119,9 @@
 .buildystrap-row {
   padding: calc(var(--bs-row-padding) / 2) 1.5rem;
 }
+.buildystrap-row.row {
+  --bs-gutter-x: var(--bs-gap);
+}
 .buildystrap-row.grid {
   --bs-columns: 1;
   gap: 0;
@@ -10770,4 +10773,116 @@
     --font-family-xxl: var(--font-family-xl);
     font-family: var(--font-family-xxl);
   }
+}
+
+.buildystrap-video-module {
+  position: relative;
+}
+.buildystrap-video-module .video-container {
+  width: 100%;
+  vertical-align: bottom;
+}
+.buildystrap-video-module .video-container .video-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  z-index: 10;
+  opacity: 1;
+  transition: all 2s ease-in-out;
+  overflow: hidden;
+}
+.buildystrap-video-module .video-container .video-overlay:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s ease-in-out;
+}
+.buildystrap-video-module .video-container .video-overlay iframe,
+.buildystrap-video-module .video-container .video-overlay object,
+.buildystrap-video-module .video-container .video-overlay embed {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.buildystrap-video-module .video-container .video-overlay__contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 6rem 3rem;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s ease-in-out;
+}
+@media (min-width: 1200px) {
+  .buildystrap-video-module .video-container .video-overlay__contents {
+    padding: 6rem;
+  }
+}
+.buildystrap-video-module .video-container .video-overlay__contents a.video-play {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 6rem;
+  background-color: var(--bs-white);
+  border-radius: 50%;
+  z-index: 2;
+}
+@media (min-width: 992px) {
+  .buildystrap-video-module .video-container .video-overlay__contents a.video-play {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+.buildystrap-video-module .video-container .video-overlay__contents a.video-play svg {
+  width: 3rem;
+  height: 4rem;
+  margin-right: -0.75rem;
+}
+.buildystrap-video-module .video-container .video-overlay__contents a.video-play svg * {
+  fill: var(--bs-primary);
+}
+.buildystrap-video-module.is-playing:after {
+  visibility: hidden;
+  opacity: 0;
+}
+.buildystrap-video-module.is-playing .video-container .video-overlay:before {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.buildystrap-video-module.is-playing .video-container .video-overlay__contents {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }

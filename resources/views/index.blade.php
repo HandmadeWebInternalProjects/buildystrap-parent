@@ -6,18 +6,11 @@
 		$container = get_theme_mod( 'understrap_container_type' );
 	@endphp
 
-	@if(is_front_page() && is_home())
-		{!! get_template_part( 'resources/views/global-templates/hero' ) !!}
-	@endif
-
 	<div class="wrapper" id="index-wrapper">
 
 		<div class="{{ esc_attr( $container ) }}" id="content" tabindex="-1">
 
 			<div class="row">
-
-				<!-- Do the left sidebar check and opens the primary div -->
-				{!! get_template_part( 'resources/views/global-templates/left-sidebar-check' ) !!}
 
 				<main class="site-main" id="main">
 
@@ -41,9 +34,6 @@
 
 				<!-- The pagination component -->
 				{!! understrap_pagination() !!}
-
-				<!-- Do the right sidebar check -->
-				{!! get_template_part( 'resources/views/global-templates/right-sidebar-check' ) !!}
 
 			</div><!-- .row -->
 

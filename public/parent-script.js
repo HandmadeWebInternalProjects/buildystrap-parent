@@ -1,31 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./resources/js/frontend.js":
-/*!**********************************!*\
-  !*** ./resources/js/frontend.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _skip_link_focus_fix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./skip-link-focus-fix */ "./resources/js/skip-link-focus-fix.js");
-/* harmony import */ var _skip_link_focus_fix__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_skip_link_focus_fix__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lightbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lightbox */ "./resources/js/lightbox.js");
-// import './bootstrap';
-
- // On DOM Content Loaded
-
-document.addEventListener('DOMContentLoaded', function () {
-  (0,_lightbox__WEBPACK_IMPORTED_MODULE_1__["default"])();
-});
-
-/***/ }),
-
-/***/ "./resources/js/lightbox.js":
-/*!**********************************!*\
-  !*** ./resources/js/lightbox.js ***!
-  \**********************************/
+/***/ "./resources/js/components/lightbox.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/lightbox.js ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -40,7 +19,6 @@ __webpack_require__.r(__webpack_exports__);
   var galleries = document.querySelectorAll('.gallery-lightbox');
   galleries.forEach(function (gallery) {
     var uuid = gallery.getAttribute('data-uuid');
-    console.log('.gallery-lightbox[data-uuid="' + uuid + '"] a.lightbox-trigger');
     var lightbox = glightbox__WEBPACK_IMPORTED_MODULE_0___default()({
       selector: '.gallery-lightbox[data-uuid="' + uuid + '"] a.lightbox-trigger',
       touchNavigation: true,
@@ -48,6 +26,64 @@ __webpack_require__.r(__webpack_exports__);
     });
   });
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/videos.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/videos.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+  var videoOverlays = document.querySelectorAll('.video-overlay');
+  videoOverlays.forEach(function (videoOverlay) {
+    var playButton = videoOverlay.querySelector('.video-play');
+    playButton.addEventListener('click', function (e) {
+      e.preventDefault();
+      var parent = e.target.closest('.buildystrap-video-module'),
+          iframe = parent.querySelector('.video-overlay iframe');
+      parent.classList.add('is-playing');
+      iframe.src += '&autoplay=1';
+
+      if (iframe.classList.contains('vimeo-iframe')) {
+        var data = {
+          method: 'play'
+        };
+        iframe.contentWindow.postMessage(JSON.stringify(data), '*');
+      }
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/frontend.js":
+/*!**********************************!*\
+  !*** ./resources/js/frontend.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _skip_link_focus_fix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./skip-link-focus-fix */ "./resources/js/skip-link-focus-fix.js");
+/* harmony import */ var _skip_link_focus_fix__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_skip_link_focus_fix__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_lightbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/lightbox */ "./resources/js/components/lightbox.js");
+/* harmony import */ var _components_videos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/videos */ "./resources/js/components/videos.js");
+// import './bootstrap';
+
+
+ // On DOM Content Loaded
+
+document.addEventListener('DOMContentLoaded', function () {
+  (0,_components_lightbox__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_components_videos__WEBPACK_IMPORTED_MODULE_2__["default"])();
+});
 
 /***/ }),
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: No header.
+ * Template Name: No header
  */
 
 use Buildystrap\Theme;

@@ -102,7 +102,7 @@ if (have_rows('buildystrap_typography_additional_fonts', 'option')):
         $fontFamily = get_sub_field('value');
         ?>
 
-        --font-<?= \Buildystrap\Str::slug(the_sub_field('label')); ?>: <?php
+        --font-<?= \Buildystrap\Str::slug($fontFamily); ?>: <?php
         echo $fontFamily; ?>;
 
 
