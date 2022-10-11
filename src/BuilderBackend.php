@@ -30,6 +30,12 @@ class BuilderBackend
       add_filter('script_loader_tag', [static::class, 'admin_add_type_attribute'], 10, 3);
 
       do_action('buildy::builder-backend::boot');
+
+      if (get_option('blog_public') === '0') {
+        add_action('admin_notices', [static::class, 'search_engine_notice'], 1);
+        add_action('wp_head', [static::class, 'nofollow_meta'], 1);
+        add_action('login_enqueue_scripts', [static::class, 'nofollow_meta'], 1);
+      }
     }
   }
 
@@ -183,5 +189,26 @@ class BuilderBackend
     }
 
     return 'html'; // HTML / Text tab in TinyMCE
+  }
+
+  public static function search_engine_notice()
+  {
+    if (get_option('blog_public') === '0') {
+      $notice_class = 'notice notice-error';
+      $notice_message = '<h2 style="color: red; margin-top: 0; padding-top: 0;" class="blink-2">Search Engine Visibility is disabled!</h2>';
+      $notice_message .= 'Please enable it <a href="' . site_url() . '/wp-admin/options-reading.php">here</a>';
+      $notice_message .= '<style> .blink-2 { animation: blinker 2s linear infinite; } @keyframes blinker { 50% { opacity: 0; } }</style>';
+      $notice_message = __($notice_message);
+
+      printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($notice_class), $notice_message);
+
+      unset($notice_class);
+      unset($notice_message);
+    }
+  }
+
+  public static function nofollow_meta()
+  {
+    echo "<meta name='robots' content='noindex,nofollow' />\n";
   }
 }
