@@ -11,7 +11,7 @@
 	<!-- ******************* The Navbar Area ******************* -->
 	<header id="wrapper-navbar" class="sticky-top <?= acf_active() ? 'bg-' . get_field('buildystrap_header_background_colour', 'option') : '' ?>">
 
-		<a class="skip-link sr-only sr-only-focusable" href="#content">{!! esc_html_e( 'Skip to content', 'buildystrap' ) !!}</a>
+		<a class="skip-link visually-hidden visually-hidden-focusable" href="#content">{!! esc_html_e( 'Skip to content', 'buildystrap' ) !!}</a>
 
 		{!! get_template_part( 'resources/views/global-templates/navbar', $navbar_type) !!}
 
