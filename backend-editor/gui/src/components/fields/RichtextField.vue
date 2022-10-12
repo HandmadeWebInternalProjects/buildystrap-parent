@@ -109,6 +109,12 @@ const initObj = reactive({
       styles: { textTransform: "capitalize" },
       classes: "text-captialize",
     },
+    {
+      title: "Intro Text",
+      inline: "span",
+      styles: { fontSize: "1.2em" },
+      classes: "text-intro",
+    },
   ],
   relative_urls: false,
   remove_script_host: false,
@@ -229,6 +235,9 @@ const initObj = reactive({
 .mce-toolbar .mce-btn-group .mce-btn:active:not(.mce-btn-has-text),
 .qt-dfw.active:not(.mce-btn-has-text) {
   background: #666;
+}
+.mce-menu .mce-menu-item.mce-active.mce-menu-item-preview {
+  background: #EEE;
 }
 .mce-panel .mce-btn.mce-btn-has-text button,
 .mce-panel .mce-btn.mce-btn-has-text button:hover {

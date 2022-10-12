@@ -491,12 +491,23 @@ trait HtmlStyleBuilder
 
     /** Typography Font Size */
     foreach ($this->getInlineAttribute('typography.font-size', []) as $breakpoint => $value) {
-      $this->html_classes[] = match ($breakpoint) {
-        'xs' => "fs-{$value}",
-        default => "fs-{$breakpoint}-{$value}"
-      };
-    }
+      $is_taggable = !in_array($value, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
 
+      if (!$is_taggable) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "fs-{$value}",
+          default => "fs-{$breakpoint}-{$value}"
+        };
+      } else {
+        if (!in_array("fs-taggable", $this->html_classes)) {
+          $this->html_classes[] = "fs-taggable";
+        }
+        $this->inline_styles[] = match ($breakpoint) {
+          'xs' => "--font-size: {$value};",
+          default => "--font-size-{$breakpoint}: {$value};"
+        };
+      }
+    }
 
     /** Typography Line Height */
     foreach ($this->getInlineAttribute('typography.line-height', []) as $breakpoint => $value) {

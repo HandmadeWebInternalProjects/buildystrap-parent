@@ -78,11 +78,10 @@ watch(fields, (newValue) => {
               handle="weight"
               :config="{
                 label: 'Weight',
-                options: ['light', 'normal', 'bold'],
+                options: ['100', '200', '300', 'normal', '500', '600', 'bold', '800', '900'],
                 placeholder: 'Default',
                 responsive: true,
                 popover: 'Change the font weight of the header tag',
-                taggable: true,
               }"
               v-model="fields.weight[bp]" />
           </div>
