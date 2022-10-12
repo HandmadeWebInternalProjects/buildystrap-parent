@@ -74,6 +74,7 @@ onUnmounted(() => {
     <div class="input-group">
       <span class="input-group-text">
         <font-awesome-icon
+          @click="openLinkBrowser"
           :icon="['fas', 'link']"
           :title="link.url"
           width="25"
@@ -93,6 +94,7 @@ onUnmounted(() => {
       }}</span>
       <span v-if="link.target === '_blank'" class="input-group-text">
         <font-awesome-icon
+          @click="openLinkBrowser"
           :icon="['fas', 'arrow-up-right-from-square']"
           title="Open link in new tab"
           width="25"

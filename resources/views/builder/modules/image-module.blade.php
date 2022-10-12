@@ -23,7 +23,7 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
         @php $alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ?? null; @endphp
         <a href="{!! wp_get_attachment_image_url($image_id, 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
       @endif
-          {!! wp_get_attachment_image($image_id, 'full', '', ["class" => "rounded object-{$object_fit}", "style" => trim("$width $max_width $height $max_height")]) !!}
+          {!! wp_get_attachment_image($image_id, 'full', '', ["class" => "object-{$object_fit}", "style" => trim("$width $max_width $height $max_height")]) !!}
       @if($lightbox_enabled)
         </a>
       @endif

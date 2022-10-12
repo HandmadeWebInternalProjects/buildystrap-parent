@@ -6,6 +6,10 @@ import "vue-select/dist/vue-select.css"
 
 const props = defineProps({
   ...commonProps,
+  reduce: {
+    type: Function,
+    default: (option: any) => option?.value || option?.label,
+  },
   loading: { type: Boolean, default: false },
 })
 
@@ -34,7 +38,7 @@ const options = normaliseOptions(config.value.options) || []
       :loading="props.loading"
       :multiple="config?.multiple"
       :taggable="config?.taggable"
-      :reduce="(option: any) => option?.value || option?.label"
+      :reduce="reduce"
       v-model="selected"
       :name="handle"
       :disabled="config.disabled || false"

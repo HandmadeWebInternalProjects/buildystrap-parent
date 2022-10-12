@@ -3,6 +3,7 @@
 namespace Buildystrap\Traits;
 
 use Buildystrap\Builder\Extends\Module;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -48,9 +49,27 @@ trait HtmlStyleBuilder
 
   protected function generateClasses(): void
   {
-    if ($styles = $this->getInlineAttribute('module_styles', null)) {
-      $this->html_classes[] = implode(' ', $styles);
+
+    if (function_exists('get_field')) {
+      if ($selected_module_styles = $this->getInlineAttribute('module_styles', null)) {
+        $moduleStyles = collect(get_field('buildystrap_module_styles', 'option')['modules']);
+        $styles = collect($moduleStyles->where('module_name', $this->type())->pluck('styles')->first());
+
+        if ($styles->isNotEmpty()) {
+          $style_classes = $styles->reduce(
+            function ($carry, $item) use ($selected_module_styles) {
+              if (stripos(implode(' ', $selected_module_styles), $item['label']) !== false)
+                $carry = array_merge($carry, explode(' ', $item['value']));
+              return $carry;
+            },
+            []
+          );
+
+          $this->html_classes[] = implode(' ', array_unique($style_classes));
+        }
+      }
     }
+
 
     /** Position */
     foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {

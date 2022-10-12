@@ -13,8 +13,6 @@ const { handle, config, uuid, modelValue } = toRefs(props)
 const value = ref(modelValue?.value || {})
 
 watch(value.value, (newValue) => {
-  // console.log({ newValue })
-
   update(newValue)
 })
 
@@ -66,8 +64,17 @@ const styles = computed(() => {
   <bs-card :label="config.label">
     <template v-slot:body>
       <field-group>
-        <text-field class="g-col-12" handle="text" v-model="value['text']" :config="{ label: 'Title' }" />
-        <link-field class="g-col-12" handle="url" v-model="value['url']" :uuid="uuid" :config="{ label: 'URL', hideTitle: true }" />
+        <text-field
+          class="g-col-12"
+          handle="text"
+          v-model="value['text']"
+          :config="{ label: 'Title' }" />
+        <link-field
+          class="g-col-12"
+          handle="url"
+          v-model="value['url']"
+          :uuid="uuid"
+          :config="{ label: 'URL', hideTitle: true }" />
         <select-field
           class="g-col-12 w-100"
           handle="button-color"
@@ -77,7 +84,7 @@ const styles = computed(() => {
             taggable: true,
           }"
           v-model="value['color']" />
-        <div class="g-col-12 grid gap-4" style="--bs-columns: 2;">
+        <div class="g-col-12 grid gap-4" style="--bs-columns: 2">
           <select-field
             class=""
             handle="style"
@@ -120,9 +127,6 @@ const styles = computed(() => {
       </field-group>
     </template>
   </bs-card>
-    
-
 </template>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
