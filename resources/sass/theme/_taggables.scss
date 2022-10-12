@@ -49,3 +49,6 @@
 .font-family-taggable {
   @include responsive-inline-helper(font-family, --font-family);
 }
+.fs-taggable {
+  @include responsive-inline-helper(font-size, --font-size);
+}

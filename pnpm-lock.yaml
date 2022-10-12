@@ -3,12 +3,16 @@ lockfileVersion: 5.4
 specifiers:
   '@popperjs/core': ^2.11.5
   bootstrap: 5.2.0
+  glightbox: ^3.2.0
   laravel-mix: ^6.0.47
   postcss: ^8.4.14
   resolve-url-loader: ^5.0.0
   sass: ^1.52.2
   sass-loader: ^13.0.0
   webpack: ^5.73.0
+
+dependencies:
+  glightbox: 3.2.0
 
 devDependencies:
   '@popperjs/core': 2.11.5
@@ -2958,6 +2962,10 @@ packages:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
     dev: true
+
+  /glightbox/3.2.0:
+    resolution: {integrity: sha512-iit1xYixqL4YVL+I2YJLfMeyJwvLi6FE6kY3qNKeZHEJgRIz80QU8Rm7YCyw1wOTgXvmNDnXGVhHOHRCwnDltQ==}
+    dev: false
 
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
