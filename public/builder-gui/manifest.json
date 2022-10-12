@@ -1,6 +1,10 @@
 {
   "src/main.ts": {
+<<<<<<< Updated upstream
     "file": "assets/main.d0ed7dc7.js",
+=======
+    "file": "assets/main.5628607c.js",
+>>>>>>> Stashed changes
     "src": "src/main.ts",
     "isEntry": true,
     "css": [
