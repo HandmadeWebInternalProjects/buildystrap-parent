@@ -4,7 +4,7 @@ import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderOptions } from "@/composables/useBuilderOptions"
 import { useBreakpoints } from "../../composables/useBreakpoints"
 
-const { getThemeColours, getFontSize } = useBuilderOptions()
+const { getFontSize } = useBuilderOptions()
 const { bp } = useBreakpoints("global")
 
 const props = defineProps({ ...commonProps })
@@ -78,7 +78,17 @@ watch(fields, (newValue) => {
               handle="weight"
               :config="{
                 label: 'Weight',
-                options: ['100', '200', '300', 'normal', '500', '600', 'bold', '800', '900'],
+                options: [
+                  '100',
+                  '200',
+                  '300',
+                  'normal',
+                  '500',
+                  '600',
+                  'bold',
+                  '800',
+                  '900',
+                ],
                 placeholder: 'Default',
                 responsive: true,
                 popover: 'Change the font weight of the header tag',
@@ -86,13 +96,12 @@ watch(fields, (newValue) => {
               v-model="fields.weight[bp]" />
           </div>
           <div class="d-flex gap-3">
-            <select-field
+            <color-select-field
               class="flex-grow-1 flex-basis-0"
               @mouseover.ctrl="forceDelete('color')"
               handle="colour"
               :config="{
                 label: 'Colour',
-                options: getThemeColours(),
                 popover: 'Change the colour of this heading tag',
                 placeholder: 'Default',
                 responsive: true,

@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { toRefs, ref, computed, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
-import { useBuilderOptions } from "@/composables/useBuilderOptions"
 
-const { getThemeColours } = useBuilderOptions()
 const props = defineProps({ ...commonProps })
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
@@ -75,24 +73,21 @@ const styles = computed(() => {
           v-model="value['url']"
           :uuid="uuid"
           :config="{ label: 'URL', hideTitle: true }" />
-        <select-field
+        <color-select-field
           class="g-col-12 w-100"
           handle="button-color"
           :config="{
             label: 'Text Color',
-            options: getThemeColours(),
             taggable: true,
           }"
           v-model="value['color']" />
         <div class="g-col-12 grid gap-4" style="--bs-columns: 2">
-          <select-field
-            class=""
+          <color-select-field
             handle="style"
             v-model="value['style']"
             :key="styles"
             :config="{
               label: 'Background Colour',
-              options: styles,
             }" />
           <select-field
             class=""
