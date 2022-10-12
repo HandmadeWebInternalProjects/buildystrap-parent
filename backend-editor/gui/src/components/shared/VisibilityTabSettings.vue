@@ -27,8 +27,9 @@
               },
             ],
             label: false,
+            readOnly: true
           }"
-          v-model="visibility" />
+          v-model="visibility" /> 
       </template>
     </bs-card>
   </div>
