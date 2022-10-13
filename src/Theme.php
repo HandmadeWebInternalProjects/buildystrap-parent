@@ -94,7 +94,7 @@ class Theme
             wp_enqueue_script('defaults', get_template_directory_uri() . '/public/defaults.js', [], '', true);
         }
 
-        wp_enqueue_style('hmw-theme-options', get_stylesheet_directory_uri() . '/public/hmw-theme-options.css', []);
+        wp_enqueue_style('hmw-theme-options', get_template_directory_uri() . '/public/hmw-theme-options.css', []);
 
         // Font / Line Awesome
         if (bs_get_field('buildystrap_typography_enable_font_awesome', 'option')) {

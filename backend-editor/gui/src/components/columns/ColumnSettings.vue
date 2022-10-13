@@ -3,7 +3,7 @@
     type="button"
     class="btn btn-sm"
     :class="
-      [`btn g-col-${columnSizes?.lg}`,
+      [`btn g-col-sm-${columnSizes?.sm || 'auto'} g-col-md-${columnSizes?.md || 'auto'} g-col-lg-${columnSizes?.lg || 'auto'} g-col-xl-${columnSizes?.xl || 'auto'}`,
       isOpen ? 'bg-orange-500 text-white' : 'border-orange-500 text-orange-500']
     "
     @click="toggleItem(uuid)">

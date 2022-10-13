@@ -40,7 +40,7 @@ class ThemeOptions
     echo sprintf('--bs-default-grid-system: %s;', get_field('buildystrap_structure_default_grid_system', 'option'));
     echo sprintf('--bs-col-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
     // echo sprintf('--bs-gutter: %s;', get_field('buildystrap_structure_column_gap', 'option'));
-    // echo sprintf('--bs-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
+    echo sprintf('--bs-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
     echo sprintf('--bs-row-gap: %s;', get_field('buildystrap_structure_row_gap', 'option'));
     echo sprintf('--bs-module-gap: %s;', get_field('buildystrap_structure_module_gap', 'option'));
     echo sprintf('--bs-section-padding: %s;', get_field('buildystrap_structure_section_padding', 'option'));
@@ -153,7 +153,7 @@ class ThemeOptions
 
         echo ".btn.btn-{$colorName} {
               --bs-btn-color: var(--bs-white);
-              --bs-btn-bg: var(--bs-<?= $colorName ?>);
+              --bs-btn-bg: var(--bs-$colorName);
               --bs-btn-hover-bg: var(--bs-btn-bg);
               --bs-btn-border-color: var(--bs-btn-bg);
               --bs-btn-hover-border-color: var(--bs-btn-bg);
@@ -161,7 +161,7 @@ class ThemeOptions
               --bs-btn-active-bg: var(--bs-btn-bg);
               --bs-btn-active-border-color: var(--bs-btn-bg);
               --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-              --bs-btn-focus-shadow-rgb: var(--bs-<?= $colorName ?>-rgb);
+              --bs-btn-focus-shadow-rgb: var(--bs-$colorName-rgb);
               --bs-btn-disabled-bg: #d5d5d5;
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
@@ -169,14 +169,14 @@ class ThemeOptions
         echo ".btn.btn-outline-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: transparent;
-              --bs-btn-hover-bg: var(--bs-<?= $colorName ?>);
-              --bs-btn-border-color: var(--bs-<?= $colorName ?>);
-              --bs-btn-hover-border-color: var(--bs-<?= $colorName ?>);
+              --bs-btn-hover-bg: var(--bs-$colorName);
+              --bs-btn-border-color: var(--bs-$colorName);
+              --bs-btn-hover-border-color: var(--bs-$colorName);
               --bs-btn-active-color: var(--bs-white);
-              --bs-btn-active-bg: var(--bs-<?= $colorName ?>);
-              --bs-btn-active-border-color: var(--bs-<?= $colorName ?>);
+              --bs-btn-active-bg: var(--bs-$colorName);
+              --bs-btn-active-border-color: var(--bs-$colorName);
               --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-              --bs-btn-focus-shadow-rgb: var(--bs-<?= $colorName ?>-rgb);
+              --bs-btn-focus-shadow-rgb: var(--bs-$colorName-rgb);
               --bs-btn-disabled-bg: #d5d5d5;
               --bs-btn-disabled-border-color: #d5d5d5;
               }";

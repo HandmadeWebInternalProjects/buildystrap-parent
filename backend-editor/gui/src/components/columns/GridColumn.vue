@@ -10,13 +10,13 @@ const props = defineProps({
 const drag = ref(false)
 const modules = ref(props.component?.modules)
 const toggleModuleSelection = ref(false)
-const colSize: number = ref(props.component?.config?.columnSizes?.lg)
+const colSizes = ref(props.component?.config?.columnSizes)
 </script>
 
 <template>
   <div
     class="border border-dashed border-300 border-2 rounded w-full d-flex flex-column p-3 justify-content-center gap-3"
-    :class="[`g-col-${colSize}`]">
+    :class="[`g-col-sm-${colSizes?.sm || 'auto'} g-col-md-${colSizes?.md || 'auto'} g-col-lg-${colSizes?.lg || 'auto'} g-col-xl-${colSizes?.xl || 'auto'}`]">
     <draggable
       :list="modules"
       group="modules"
