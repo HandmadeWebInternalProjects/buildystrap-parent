@@ -6,12 +6,7 @@ use Buildystrap\ThemeOptions;
 /******* Variables */
 :root {
 <?php
-ThemeOptions::generateStructureVars();
 ThemeOptions::generateColorVars();
 ThemeOptions::generateTypographyVars();
 ?>
 }
-
-/******* Utils */
-<?php
-ThemeOptions::generateColorUtils();
