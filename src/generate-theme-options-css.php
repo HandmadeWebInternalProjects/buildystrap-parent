@@ -1,5 +1,8 @@
 <?php
 
+/* This file is used to generate css for the frontend based on the 
+settings that are chosen in buildystrap > settings page */
+
 use Buildystrap\ThemeOptions;
 ?>
 

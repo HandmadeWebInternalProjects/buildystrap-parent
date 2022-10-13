@@ -48,10 +48,10 @@ const options = normaliseOptions(getThemeColours()) || []
       :disabled="config.disabled || false"
       :placeholder="placeholder || config.placeholder"
       :options="options">
-      <template v-slot:option="option">
+      <template v-slot:option="option: any">
         <div class="d-flex align-items-center gap-2">
           <span :class="[`bg-${option.label}`, 'color-label-icon']"></span>
-          {{ option.label }}
+          {{ option?.label ?? "" }}
         </div>
       </template>
     </v-select>

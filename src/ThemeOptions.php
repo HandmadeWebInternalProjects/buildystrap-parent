@@ -1,7 +1,7 @@
 <?php
 
 namespace Buildystrap;
-// Generate branding css
+
 use Buildystrap\Str;
 
 class ThemeOptions
@@ -130,30 +130,28 @@ class ThemeOptions
 
   public static function generateColorUtils()
   {
-    if (!function_exists('get_field')) {
+    if (!function_exists('get_field') && !function_exists('get_theme_colors')) {
       return;
     }
-    if (function_exists('get_theme_colors')) :
+    $colors = get_theme_colors();
 
-      $colors = get_theme_colors();
+    if (isset($colors)) :
 
-      if (isset($colors)) :
+      // loop through the rows of data
+      foreach ($colors as $color) :
+        $colorName = sanitize_text_field($color['label']);
 
-        // loop through the rows of data
-        foreach ($colors as $color) :
-          $colorName = sanitize_text_field($color['label']);
+        if (!$color['value']) {
+          continue;
+        }
 
-          if (!$color['value']) {
-            continue;
-          }
+        echo sprintf('.border-%1$s { border-color: var(--bs-%1$s) !important; }', $colorName);
+        echo sprintf('.bg-%1$s, .bg-%1$s:hover { background-color: var(--bs-%1$s) !important; }', $colorName);
+        echo sprintf('.text-%1$s, .text-%1$s:visited, .text-%1$s:hover { color: var(--bs-%1$s) !important; }', $colorName);
 
-          echo sprintf('.border-%s { border-color: var(--bs-%s) !important; }', $colorName, $colorName);
-          echo sprintf('.bg-%1$s, .bg-%1$s:hover { background-color: var(--bs-%s) !important; }', $colorName, $colorName);
-          echo sprintf('.text-%1$s, .text-%1$s:visited, .text-%1$s:hover { color: var(--bs-%s) !important; }', $colorName, $colorName);
+        /* Buttons */
 
-          /* Buttons */
-
-          echo ".btn.btn-{$colorName} {
+        echo ".btn.btn-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: var(--bs-<?= $colorName ?>);
               --bs-btn-hover-bg: var(--bs-btn-bg);
@@ -168,7 +166,7 @@ class ThemeOptions
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
 
-          echo ".btn.btn-outline-{$colorName} {
+        echo ".btn.btn-outline-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: transparent;
               --bs-btn-hover-bg: var(--bs-<?= $colorName ?>);
@@ -183,8 +181,7 @@ class ThemeOptions
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
 
-        endforeach;
-      endif;
+      endforeach;
     endif;
 
     sprintf('.text-link { color: var(--bs-link-color) !important; }');
