@@ -13,3 +13,7 @@ ThemeOptions::generateColorVars();
 ThemeOptions::generateTypographyVars();
 ?>
 }
+
+/******* Utils */
+<?php
+ThemeOptions::generateColorUtils();
