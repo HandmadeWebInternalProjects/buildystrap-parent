@@ -26,18 +26,19 @@ class ButtonField extends Field
 
   public function __toString(): string
   {
-    $text = $this->value()->get('text', '');
-    $url = $this->value()->get('url', []) ?? [];
+    $text = $this->value()->get('text', '') ?? '';
+    $bg_colour = $this->value()->get('style', 'btn-primary') ? "btn-{$this->value()->get('style', 'btn-primary')}" : 'btn-primary';
+    $size = $this->value()->get('size', null) ?? null;
+    $color = $this->value()->get('color', null) ? "text-{$this->value()->get('color', null)}" : null;
     $class = collect([])
-      ->push($this->button_class)
-      ->push($this->value()->get('style', 'btn-primary'))
-      ->push($this->value()->get('size', ''))
+      ->push('btn')
+      ->push($bg_colour)
+      ->push($size)
+      ->push($color)
       ->filter()
       ->implode(' ');
+    $url = $this->value()->get('url', []) ?? [];
 
-    $button_colour = $this->value()->get('color', '');
-    $style = $button_colour ? "--bs-btn-color: var(--bs-{$button_colour})" : '';
-
-    return sprintf('<a href="%s" class="btn %s" style="%s">%s</a>', $url['url'] ?? '#', $class, $style, __($text, 'buildystrap'));
+    return sprintf('<a href="%s" class="%s">%s</a>', $url['url'] ?? '#', $class, __($text, 'buildystrap'));
   }
 }

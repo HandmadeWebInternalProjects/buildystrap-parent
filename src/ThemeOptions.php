@@ -151,7 +151,7 @@ class ThemeOptions
 
         /* Buttons */
 
-        echo "#app .btn.btn-{$colorName} {
+        echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: var(--bs-$colorName);
               --bs-btn-hover-bg: var(--bs-btn-bg);
@@ -166,7 +166,7 @@ class ThemeOptions
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
 
-        echo "#app .btn.btn-outline-{$colorName} {
+        echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: transparent;
               --bs-btn-hover-bg: var(--bs-$colorName);

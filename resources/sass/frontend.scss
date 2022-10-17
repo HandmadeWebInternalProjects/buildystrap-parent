@@ -450,6 +450,13 @@ $utilities: map-merge(
       responsive: true,
       values: normal bold,
     ),
+    "object-position": (
+      property: object-position,
+      class: object-position,
+      responsive: true,
+      values: left left-top left-bottom right right-top right-bottom center
+        center-top center-bottom,
+    ),
   )
 );
 
