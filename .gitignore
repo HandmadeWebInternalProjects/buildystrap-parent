@@ -9,3 +9,6 @@ node_modules/
 mix-manifest.json
 
 .php-cs-fixer.cache
+
+public/hmw-theme-admin-options.css
+public/hmw-theme-options.css

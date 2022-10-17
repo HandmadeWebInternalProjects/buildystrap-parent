@@ -1,4 +1,34 @@
-
 /******* Variables */
 :root {
---bs-primary: #f68122;--bs-primary-rgb: 246,129,34;--bs-secondary: #3a61a0;--bs-secondary-rgb: 58,97,160;--bs-tertiary: #61c48c;--bs-tertiary-rgb: 97,196,140;--bs-success: #198754;--bs-success-rgb: 25,135,84;--bs-danger: #dc3545;--bs-danger-rgb: 220,53,69;--bs-warning: #ffc107;--bs-warning-rgb: 255,193,7;--bs-info: #0dcaf0;--bs-info-rgb: 13,202,240;--bs-light: #8c9aa5;--bs-light-rgb: 140,154,165;--bs-dark: #41464b;--bs-dark-rgb: 65,70,75;--bs-yellow: #ffae17;--bs-yellow-rgb: 255,174,23;--bs-dark-gray: #666666;--bs-dark-gray-rgb: 102,102,102;--bs-navy: #111d46;--bs-navy-rgb: 17,29,70;--bs-link-color: var(--color-black);--color-text-body: var(--color-black);--color-text-headings: var(--color-black);--font-main: Source Sans Pro;--font-headings: "Sweet Sans Pro";--font-Sweet Sans Pro Hairline: Sweet Sans Pro Hairline;--font-Sweet Sans Pro Hairline Italic: Sweet Sans Pro Hairline Italic;--font-Sweet Sans Pro Extra Thin: Sweet Sans Pro Extra Thin;--font-Sweet Sans Pro Extra Thin Italic: Sweet Sans Pro Extra Thin Italic;}
+  --bs-primary: #055d72;
+  --bs-primary-rgb: 5, 93, 114;
+  --bs-secondary: #50daac;
+  --bs-secondary-rgb: 80, 218, 172;
+  --bs-tertiary: #f6b13c;
+  --bs-tertiary-rgb: 246, 177, 60;
+  --bs-success: #50daac;
+  --bs-success-rgb: 80, 218, 172;
+  --bs-danger: #dc3545;
+  --bs-danger-rgb: 220, 53, 69;
+  --bs-warning: #f6b13c;
+  --bs-warning-rgb: 246, 177, 60;
+  --bs-info: #0dcaf0;
+  --bs-info-rgb: 13, 202, 240;
+  --bs-light: #f1f0eb;
+  --bs-light-rgb: 241, 240, 235;
+  --bs-dark: #212529;
+  --bs-dark-rgb: 33, 37, 41;
+  --bs-tang: #fb7434;
+  --bs-tang-rgb: 251, 116, 52;
+  --bs-aqua: #48aaad;
+  --bs-aqua-rgb: 72, 170, 173;
+  --bs-iceberg: #4daac9;
+  --bs-iceberg-rgb: 77, 170, 201;
+  --bs-white: #fff;
+  --bs-white-rgb: 255, 255, 255;
+  --bs-link-color: var(--bs-danger);
+  --color-text-body: var(--color-black);
+  --color-text-headings: var(--color-black);
+  --font-main: Poppins;
+  --font-headings: "Poppins";
+}

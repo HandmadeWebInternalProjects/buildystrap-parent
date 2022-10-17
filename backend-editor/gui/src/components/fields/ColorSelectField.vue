@@ -25,11 +25,13 @@ const selected = computed({
     return modelValue?.value
   },
   set(newVal) {
+    console.log({ newVal })
     update(newVal)
   },
 })
 
-const options = normaliseOptions(getThemeColours()) || []
+const options =
+  normaliseOptions(config.value?.options ?? getThemeColours()) || []
 </script>
 <template>
   <div class="select-field position-relative">
@@ -42,16 +44,20 @@ const options = normaliseOptions(getThemeColours()) || []
       :loading="props.loading"
       :multiple="config?.multiple"
       :taggable="config?.taggable"
-      :reduce="reduce"
+      :reduce="(option: any) => option?.value || option?.label"
       v-model="selected"
       :name="handle"
       :disabled="config.disabled || false"
       :placeholder="placeholder || config.placeholder"
       :options="options">
-      <template v-slot:option="option">
+      <template v-slot:option="option: any">
         <div class="d-flex align-items-center gap-2">
-          <span :class="[`bg-${option.label}`, 'color-label-icon']"></span>
-          {{ option.label }}
+          <span
+            :class="[
+              `btn-${option.label}`,
+              'btn color-label-icon rounded-circle p-0',
+            ]"></span>
+          {{ option?.label ?? "" }}
         </div>
       </template>
     </v-select>
