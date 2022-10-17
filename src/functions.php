@@ -24,36 +24,39 @@ add_action('init', [Theme::class, 'boot']);
 new ThemeOptions();
 
 /* Custom Logo */
-function custom_logo($url = null)
+function custom_logo($url = null, $svg = null)
 {
   $custom_logo = acf_active() ? get_field('buildystrap_company_details_site_logo', 'option') : null;
   if (!acf_active() || empty($custom_logo)) { ?>
 
     <?php
     if (is_front_page() && is_home()) : ?>
-
-      <h1 class="navbar-brand"><a rel="home" href="<?php
-                                                    echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php
-                                                                                                                          bloginfo('name'); ?></a></h1>
-
+      <h1 class="navbar-brand"><a rel="home" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a></h1>
     <?php
     else : ?>
-
-      <a class="navbar-brand" rel="home" href="<?php
-                                                echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php
-                                                                                                                      bloginfo('name'); ?></a>
-
+      <a class="navbar-brand" rel="home" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
     <?php
     endif; ?>
 
 <?php
   } else {
     echo sprintf(
-      '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
-      isset($url) ? $url : home_url('/'),
-      $custom_logo['url'],
-      $custom_logo['alt']
+      '<a class="navbar-brand" href="%s">',
+      isset($url) ? $url : home_url('/')
     );
+
+    if (isset($svg) && $svg) {
+      echo get_svg_url($custom_logo['url']);
+    } else {
+      echo sprintf(
+        '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+        isset($url) ? $url : home_url('/'),
+        $custom_logo['url'],
+        $custom_logo['alt']
+      );
+    }
+
+    echo '</a>';
   }
 }
 
