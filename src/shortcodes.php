@@ -33,7 +33,7 @@ if (!function_exists('company_phone_shortcode')) {
       <span><?php esc_attr_e($atts['text'] ?: $company_phone, 'buildystrap-child'); ?></span>
     </a>
 
-    <?php
+  <?php
     return ob_get_clean();
   }
   add_shortcode('company-phone', 'company_phone_shortcode');
@@ -80,7 +80,7 @@ if (!function_exists('company_email_shortcode')) {
       <?php endif; ?>
       <span><?php echo esc_attr_e($atts['text'] ?: $company_email, 'hmw-starter-child'); ?></span>
     </a>
-    <?php
+  <?php
     return ob_get_clean();
   }
   add_shortcode('company-email', 'company_email_shortcode');
@@ -115,7 +115,7 @@ if (!function_exists('company_address_shortcode')) {
         <?php echo $address; ?>
       </div>
     </address>
-    
+
     <?php
     return ob_get_clean();
   }
@@ -135,7 +135,7 @@ if (!function_exists('company_abn_shortcode')) {
 
     $company_abn = get_field('company_abn', 'option');
 
-    if( $company_abn ) { ?>
+    if ($company_abn) { ?>
       <span class="company-abn">ABN <?php echo $company_abn; ?></span>
     <?php }
 
@@ -273,8 +273,50 @@ if (!function_exists('share_post_shortcode')) {
           <li class="email fas fa-envelope"><a href="mailto:?&body=<?php echo get_permalink(); ?>"></a></li>
         </ul>
       </div>
-<?php }
+  <?php }
     return ob_get_clean();
   }
   add_shortcode('share-post', 'share_post_shortcode');
 }
+
+add_shortcode('sitewide-message', function ($atts) {
+  if (is_admin() && !function_exists('get_field')) {
+    return null;
+  }
+
+  $atts = shortcode_atts([
+    "icon" => 'fas fa-times'
+  ], $atts);
+
+  $bg_colour = get_field('buildystrap_sitewide_message_bg_colour', 'option') ?? '';
+  $text_colour = get_field('buildystrap_sitewide_message_text_colour', 'option') ?? '';
+
+
+
+  $classes = collect([
+    $bg_colour ? "bg-{$bg_colour}" : null,
+    $text_colour ? "text-{$text_colour}" : null
+  ])->filter()->implode(' ');
+
+  ob_start();
+  ?>
+
+  <?php if (get_field('buildystrap_sitewide_message_content', 'option')) { ?>
+    <div id="sitewide-message-bar" role="dialog" aria-describedby="dialog-description" class="sitewide-message <?= $classes ?>" style="background: <?= $bg_colour; ?>; color: <?= $text_colour; ?>;">
+      <div class="container position-relative py-2">
+        <div class="row">
+          <div class="col">
+            <div id="dialog-description" class="sitewide-message__content">
+              <?php echo get_field('buildystrap_sitewide_message_content', 'option'); ?>
+            </div>
+          </div>
+        </div>
+        <i tabindex="6" class="position-absolute cursor-pointer top-2 end-0 <?= $atts['icon']; ?> bar-exit"></i>
+      </div>
+    </div>
+  <?php } ?>
+
+<?php
+
+  return ob_get_clean();
+});

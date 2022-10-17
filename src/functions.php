@@ -57,6 +57,12 @@ function custom_logo($url = null)
   }
 }
 
+add_action('wp_body_open', function () {
+  if (function_exists('get_field') && !is_admin() && (get_field('buildystrap_sitewide_message_enable_sitewide_message', 'option') == true) && !isset($_COOKIE["sitewide_message"])) {
+    echo apply_shortcodes('[sitewide-message]');
+  }
+});
+
 
 // Populate colour options
 // Add the global colour options to all of these fields
@@ -65,6 +71,8 @@ if (!function_exists('add_site_color_choices')) {
   add_filter('acf/load_field/key=field_62ce5cbe77fbf', 'add_site_color_choices');
   add_filter('acf/load_field/key=field_62ce5cd577fc0', 'add_site_color_choices');
   add_filter('acf/load_field/key=field_62ce5d0577fc1', 'add_site_color_choices');
+  add_filter('acf/load_field/key=field_62ce556144f02', 'add_site_color_choices');
+  add_filter('acf/load_field/key=field_62ce558644f03', 'add_site_color_choices');
 
   function add_site_color_choices($field)
   {
