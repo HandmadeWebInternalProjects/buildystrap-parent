@@ -5,7 +5,7 @@ const props = defineProps({ ...commonProps })
 
 const { handle, config, modelValue } = toRefs(props)
 
-const value = ref(modelValue?.value || {})
+const value = ref(modelValue?.value || { height: "auto" })
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
@@ -36,7 +36,7 @@ watch(value.value, (newValue) => {
             placeholder: 'Default',
           }"
           v-model="value['object_fit']" />
-          <select-field
+        <select-field
           class="flex-grow-1 flex-basis-0"
           handle="object_position"
           :config="{
@@ -52,7 +52,8 @@ watch(value.value, (newValue) => {
               { value: 'center-top', label: 'Center Top' },
               { value: 'center-bottom', label: 'Center Bottom' },
             ],
-            popover: 'Choose how the image should be positioned within the container.',
+            popover:
+              'Choose how the image should be positioned within the container.',
             placeholder: 'Default',
           }"
           v-model="value['object_position']" />

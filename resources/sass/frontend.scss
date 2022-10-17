@@ -59,15 +59,15 @@ $width: (
   66: 66.66%,
   75: 75%,
   100: 100%,
-  100vw: 100vw, 
+  100vw: 100vw,
 );
 
 $height: (
   auto: auto,
   0: 0,
   100: 100%,
-  50vh: 50vh,          
-  100vh: 100vh,  
+  50vh: 50vh,
+  100vh: 100vh,
 );
 
 $utilities: map-merge(
@@ -96,37 +96,41 @@ $utilities: map-merge(
       property: top,
       class: top,
       responsive: true,
-      values: map-merge(
-        map-get(map-get($utilities, "top"), "values"),
-        $box-model-sizing,
-      ),
+      values:
+        map-merge(
+          map-get(map-get($utilities, "top"), "values"),
+          $box-model-sizing
+        ),
     ),
     "bottom": (
       property: bottom,
       class: bottom,
       responsive: true,
-      values: map-merge(
-        map-get(map-get($utilities, "bottom"), "values"),
-        $box-model-sizing,
-      ),
+      values:
+        map-merge(
+          map-get(map-get($utilities, "bottom"), "values"),
+          $box-model-sizing
+        ),
     ),
     "start": (
       property: left,
       class: start,
       responsive: true,
-      values: map-merge(
-        map-get(map-get($utilities, "start"), "values"),
-        $box-model-sizing,
-      ),
+      values:
+        map-merge(
+          map-get(map-get($utilities, "start"), "values"),
+          $box-model-sizing
+        ),
     ),
     "end": (
       property: right,
       class: end,
       responsive: true,
-      values: map-merge(
-        map-get(map-get($utilities, "end"), "values"),
-        $box-model-sizing,
-      ),
+      values:
+        map-merge(
+          map-get(map-get($utilities, "end"), "values"),
+          $box-model-sizing
+        ),
     ),
     "grid-template-rows": (
       property: grid-template-rows,
@@ -144,25 +148,13 @@ $utilities: map-merge(
       property: order,
       class: order,
       responsive: true,
-      values: map-merge(
-        $order,
-        (
-          -1: -1,
-          99: 99,
-          999: 999,
-          9999: 9999,
-        ),
-      ),
+      values: map-merge($order, (-1: -1, 99: 99, 999: 999, 9999: 9999)),
     ),
     "min-width": (
       property: min-width,
       class: min-w,
       responsive: true,
-      values: 
-        map-merge(
-          map-get(map-get($utilities, "width"), "values"),
-          $width
-        ),
+      values: map-merge(map-get(map-get($utilities, "width"), "values"), $width),
     ),
     "width":
       map-merge(
@@ -170,31 +162,21 @@ $utilities: map-merge(
         (
           responsive: true,
           values:
-            map-merge(
-              map-get(map-get($utilities, "width"), "values"),
-              $width
-            ),
+            map-merge(map-get(map-get($utilities, "width"), "values"), $width),
         )
       ),
     "max-width": (
       property: max-width,
       class: max-w,
       responsive: true,
-      values: 
-        map-merge(
-          map-get(map-get($utilities, "width"), "values"),
-          $width
-        ),
+      values: map-merge(map-get(map-get($utilities, "width"), "values"), $width),
     ),
     "min-height": (
       property: min-height,
       class: min-h,
       responsive: true,
       values:
-        map-merge(
-          map-get(map-get($utilities, "height"), "values"),
-          $height
-        ),
+        map-merge(map-get(map-get($utilities, "height"), "values"), $height),
     ),
     "height":
       map-merge(
@@ -202,10 +184,7 @@ $utilities: map-merge(
         (
           responsive: true,
           values:
-            map-merge(
-              map-get(map-get($utilities, "height"), "values"),
-              $height
-            ),
+            map-merge(map-get(map-get($utilities, "height"), "values"), $height),
         )
       ),
     "max-height": (
@@ -213,10 +192,7 @@ $utilities: map-merge(
       class: max-h,
       responsive: true,
       values:
-        map-merge(
-          map-get(map-get($utilities, "height"), "values"),
-          $height
-        ),
+        map-merge(map-get(map-get($utilities, "height"), "values"), $height),
     ),
     "margin":
       map-merge(
@@ -228,7 +204,7 @@ $utilities: map-merge(
               $box-model-sizing,
               (
                 auto: auto,
-              ),
+              )
             ),
         )
       ),
@@ -242,7 +218,7 @@ $utilities: map-merge(
               $box-model-sizing,
               (
                 auto: auto,
-              ),
+              )
             ),
         )
       ),
@@ -256,7 +232,7 @@ $utilities: map-merge(
               $box-model-sizing,
               (
                 auto: auto,
-              ),
+              )
             ),
         )
       ),
@@ -270,7 +246,7 @@ $utilities: map-merge(
               $box-model-sizing,
               (
                 auto: auto,
-              ),
+              )
             ),
         )
       ),
@@ -284,7 +260,7 @@ $utilities: map-merge(
               $box-model-sizing,
               (
                 auto: auto,
-              ),
+              )
             ),
         )
       ),
@@ -298,7 +274,7 @@ $utilities: map-merge(
               $box-model-sizing,
               (
                 auto: auto,
-              ),
+              )
             ),
         )
       ),
@@ -355,7 +331,7 @@ $utilities: map-merge(
         map-get($utilities, "gap"),
         (
           responsive: true,
-          values: $box-model-sizing
+          values: $box-model-sizing,
         )
       ),
     "column-gap": (
@@ -381,13 +357,15 @@ $utilities: map-merge(
       property: background-color,
       class: bg,
       local-vars: (
-        "bg-opacity": 1
+        "bg-opacity": 1,
       ),
       responsive: true,
       values:
         map-merge(
           $utilities-bg-colors,
-          (tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity))),
+          (
+            tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity)),
+          )
         ),
     ),
     "background-size": (
@@ -441,15 +419,26 @@ $utilities: map-merge(
       property: color,
       class: text,
       local-vars: (
-        "text-opacity": 1
+        "text-opacity": 1,
       ),
       responsive: true,
       values:
         map-merge(
           map-get(map-get($utilities, "color"), "values"),
-          (tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity))),
+          (
+            tertiary: rgba(var(--bs-tertiary-rgb), var(--bs-text-opacity)),
+          )
         ),
-    ), 
+    ),
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      values: auto default none context-menu help pointer progress wait cell
+        crosshair text vertical-text alias copy move no-drop not-allowed
+        e-resize n-resize ne-resize nw-resize s-resize se-resize sw-resize
+        w-resize ew-resize ns-resize nesw-resize nwse-resize col-resize
+        row-resize all-scroll zoom-in zoom-out grab grabbing,
+    ),
     "font-family": (
       property: font-family,
       class: font-family,
@@ -484,3 +473,4 @@ $utilities: map-merge(
 
 // Components
 @import "components/videos";
+@import "components/sitewide-message";
