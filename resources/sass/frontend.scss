@@ -23,7 +23,8 @@ $box-model-sizing: ();
   $box-model-sizing: map-merge(
     $box-model-sizing,
     (
-      $i: #{$i}rem,
+      #{$i}: #{$i}rem,
+      #{$i}\.5: calc(#{$i}rem + 0.5rem),
     )
   );
 }
