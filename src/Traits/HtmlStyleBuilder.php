@@ -53,7 +53,8 @@ trait HtmlStyleBuilder
     if (function_exists('get_field')) {
       if ($selected_module_styles = $this->getInlineAttribute('module_styles', null)) {
         $moduleStyles = collect(get_field('buildystrap_module_styles', 'option')['modules']);
-        $styles = collect($moduleStyles->where('module_name', $this->type())->pluck('styles')->first());
+        $sharedStyles = collect(get_field('buildystrap_module_styles', 'option')['shared']);
+        $styles = collect($moduleStyles->where('module_name', $this->type())->pluck('styles')->first())->merge($sharedStyles);
 
         if ($styles->isNotEmpty()) {
           $style_classes = $styles->reduce(
