@@ -343,7 +343,7 @@ $utilities: map-merge(
     ),
     "row-gap": (
       css-var: true,
-      css-variable-name: row-gap,
+      property: row-gap,
       class: gy,
       values: $box-model-sizing,
     ),
@@ -462,10 +462,10 @@ $utilities: map-merge(
 );
 
 [class*="gx-"] {
-  column-gap: var(--bs-col-gap);
+  column-gap: var(--bs-gx) !important;
 }
 [class*="gy-"] {
-  row-gap: var(--bs-row-gap);
+  row-gap: var(--bs-gy) !important;
 }
 
 @import "bootstrap/scss/utilities/api";
