@@ -3,6 +3,7 @@
   $style = $button['style'] ?? 'btn-primary';
   $size = $button['size'] ?? null;
   $color = $button['color'] ?? null;
+  $target = $button['target'] ?? null;
   $class = collect([])
     ->push('btn')
     ->push($style)
@@ -13,4 +14,4 @@
   $url = $button['url']['url'] ?? '#';
 @endphp
 
-<a href="{{ $url }}" class="{{ $class }}" {{ $style }}>{!! __($text, 'buildystrap') !!}</a>
+<a href="{{ $url }}" @isset($target) target="{{ $target }}" @endisset class="{{ $class }}" {{ $style }}>{!! __($text, 'buildystrap') !!}</a>

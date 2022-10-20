@@ -28,6 +28,7 @@ class ButtonField extends Field
   {
     $text = $this->value()->get('text', '');
     $url = $this->value()->get('url', []) ?? [];
+    $target = $button['target'] ?? 'self';
     $class = collect([])
       ->push($this->button_class)
       ->push($this->value()->get('style', 'btn-primary'))
@@ -38,6 +39,6 @@ class ButtonField extends Field
     $button_colour = $this->value()->get('color', '');
     $style = $button_colour ? "--bs-btn-color: var(--bs-{$button_colour})" : '';
 
-    return sprintf('<a href="%s" class="btn %s" style="%s">%s</a>', $url['url'] ?? '#', $class, $style, __($text, 'buildystrap'));
+    return sprintf('<a href="%s" target="%s" class="btn %s" style="%s">%s</a>', $url['url'] ?? '#', $target, $class, $style, __($text, 'buildystrap'));
   }
 }
