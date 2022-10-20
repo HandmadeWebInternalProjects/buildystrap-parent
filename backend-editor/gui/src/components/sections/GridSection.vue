@@ -59,7 +59,7 @@ const handleDrop = (to: any, from: any, el: any) => {
           <module-base
             v-else
             :component="element"
-            :columns="rows"
+            :parent-array="rows"
             :component-index="index" />
         </template>
       </draggable>
