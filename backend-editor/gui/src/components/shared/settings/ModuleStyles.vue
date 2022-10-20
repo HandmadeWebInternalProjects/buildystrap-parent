@@ -8,6 +8,7 @@
         label: false,
         options: moduleStyles,
         multiple: true,
+        popover: 'Module Name: ' + component?.type
       }"
       :reduce="(option: any) => option.label"
       label="value"
