@@ -215,6 +215,20 @@ if (acf_active()) {
   }
 }
 
+
+// Get SVG URL
+if (!function_exists('get_svg_url')) {
+  function get_svg_url($url)
+  {
+    if (file_exists(str_replace(get_site_url(), ABSPATH, $url))) {
+      $url = str_replace(get_site_url(), ABSPATH, $url);
+      return file_get_contents($url);
+    }
+    return null;
+  }
+}
+
+
 if (!function_exists('hex2rgb')) {
   function hex2rgb($color)
   {
@@ -250,6 +264,7 @@ if (!function_exists('hex2rgb')) {
     return $output;
   }
 }
+
 
 if (!function_exists('rgbToHsl')) {
   function rgbToHsl($rgb)
@@ -302,6 +317,7 @@ if (!function_exists('rgbToHsl')) {
   }
 }
 
+
 if (!function_exists('is_taggable')) {
   function is_taggable($property, $value)
   {
@@ -309,6 +325,7 @@ if (!function_exists('is_taggable')) {
     return !in_array($value, $options);
   }
 }
+
 
 if (!function_exists('hmw_woocommerce_cart_link')) {
   /**

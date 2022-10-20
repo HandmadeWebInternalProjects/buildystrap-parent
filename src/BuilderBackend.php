@@ -97,6 +97,8 @@ class BuilderBackend
         false,
         true
       );
+
+      wp_enqueue_style('hmw-theme-admin-options', get_template_directory_uri() . '/public/hmw-theme-admin-options.css', []);
     }
   }
 
@@ -154,8 +156,12 @@ class BuilderBackend
     $default_options = [];
 
     if (Builder::isEnabled() && class_exists('ACF')) {
+      $file = @file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json');
+      if ($file === false) {
+        return [];
+      }
       $json_data = json_decode(
-        file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json'),
+        $file,
         true
       );
       $default_options = $json_data;

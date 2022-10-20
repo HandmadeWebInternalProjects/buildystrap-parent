@@ -494,3 +494,9 @@ img.wp-oembed {
     background-size: 1900px 20px;
   }
 }
+
+blockquote {
+  border-left: 2px solid #666;
+  margin-left: 30px;
+  padding-left: 10px;
+}

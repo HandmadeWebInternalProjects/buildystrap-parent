@@ -1,6 +1,6 @@
 <?php
 
-/* This file is used to generate css for the frontend based on the 
+/* This file is used to generate css for the builder GUI based on the 
 settings that are chosen in buildystrap > settings page */
 
 use Buildystrap\ThemeOptions;
@@ -9,7 +9,6 @@ use Buildystrap\ThemeOptions;
 /******* Variables */
 :root {
 <?php
-ThemeOptions::generateStructureVars();
 ThemeOptions::generateColorVars();
 ThemeOptions::generateTypographyVars();
 ?>

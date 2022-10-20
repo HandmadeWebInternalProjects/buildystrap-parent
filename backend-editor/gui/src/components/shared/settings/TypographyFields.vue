@@ -4,7 +4,7 @@ import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
 import { useBuilderOptions } from "@/composables/useBuilderOptions"
 
-const { getThemeColours, getTypography, getFontSize } = useBuilderOptions()
+const { getTypography, getFontSize } = useBuilderOptions()
 
 const props = defineProps({
   config: {
@@ -40,13 +40,12 @@ watch(typography, (val: any) => {
 
 <template>
   <field-group>
-    <select-field
+    <color-select-field
       class="g-col-12 w-100"
       handle="text-colour"
       :placeholder="responsivePlaceholder(typography, 'color', bp)"
       :config="{
         label: 'Text Colour',
-        options: getThemeColours(),
       }"
       v-model="typography.color[bp]" />
     <div class="g-col-12 d-flex gap-3">

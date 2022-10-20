@@ -24,6 +24,7 @@ use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
 use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\CodeModule;
+use Buildystrap\Builder\Modules\DividerModule;
 use Buildystrap\Builder\Modules\GalleryModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ImageModule;
@@ -78,6 +79,7 @@ class Builder
     'card-module' => CardModule::class,
     'text-module' => TextModule::class,
     'code-module' => CodeModule::class,
+    'divider-module' => DividerModule::class,
     'post-grid-module' => PostGridModule::class,
     'gallery-module' => GalleryModule::class,
     'image-module' => ImageModule::class,

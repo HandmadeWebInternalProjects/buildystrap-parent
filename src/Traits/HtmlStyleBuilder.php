@@ -3,6 +3,7 @@
 namespace Buildystrap\Traits;
 
 use Buildystrap\Builder\Extends\Module;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -48,9 +49,28 @@ trait HtmlStyleBuilder
 
   protected function generateClasses(): void
   {
-    if ($styles = $this->getInlineAttribute('module_styles', null)) {
-      $this->html_classes[] = implode(' ', $styles);
+
+    if (function_exists('get_field')) {
+      if ($selected_module_styles = $this->getInlineAttribute('module_styles', null)) {
+        $moduleStyles = collect(get_field('buildystrap_module_styles', 'option')['modules']);
+        $sharedStyles = collect(get_field('buildystrap_module_styles', 'option')['shared']);
+        $styles = collect($moduleStyles->where('module_name', $this->type())->pluck('styles')->first())->merge($sharedStyles);
+
+        if ($styles->isNotEmpty()) {
+          $style_classes = $styles->reduce(
+            function ($carry, $item) use ($selected_module_styles) {
+              if (stripos(implode(' ', $selected_module_styles), $item['label']) !== false)
+                $carry = array_merge($carry, explode(' ', $item['value']));
+              return $carry;
+            },
+            []
+          );
+
+          $this->html_classes[] = implode(' ', array_unique($style_classes));
+        }
+      }
     }
+
 
     /** Position */
     foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {
@@ -472,12 +492,23 @@ trait HtmlStyleBuilder
 
     /** Typography Font Size */
     foreach ($this->getInlineAttribute('typography.font-size', []) as $breakpoint => $value) {
-      $this->html_classes[] = match ($breakpoint) {
-        'xs' => "fs-{$value}",
-        default => "fs-{$breakpoint}-{$value}"
-      };
-    }
+      $is_taggable = !in_array($value, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
 
+      if (!$is_taggable) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "fs-{$value}",
+          default => "fs-{$breakpoint}-{$value}"
+        };
+      } else {
+        if (!in_array("fs-taggable", $this->html_classes)) {
+          $this->html_classes[] = "fs-taggable";
+        }
+        $this->inline_styles[] = match ($breakpoint) {
+          'xs' => "--font-size: {$value};",
+          default => "--font-size-{$breakpoint}: {$value};"
+        };
+      }
+    }
 
     /** Typography Line Height */
     foreach ($this->getInlineAttribute('typography.line-height', []) as $breakpoint => $value) {

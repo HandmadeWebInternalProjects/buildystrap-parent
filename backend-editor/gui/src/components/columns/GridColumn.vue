@@ -10,16 +10,31 @@ const props = defineProps({
 const drag = ref(false)
 const modules = ref(props.component?.modules)
 const toggleModuleSelection = ref(false)
-const colSize: number = ref(props.component?.config?.columnSizes?.lg)
+const colSizes = ref(props.component?.config?.columnSizes)
+
+const handleDrop = (to: any, from: any, el: any) => {
+  const validTypes = ["-module", "divider-module"]
+  const type = el._underlying_vm_?.type || false
+
+  // check if validTypes contains the string 'module'
+  return validTypes.filter((el) => type.includes(el)).length > 0
+}
 </script>
 
 <template>
   <div
     class="border border-dashed border-300 border-2 rounded w-full d-flex flex-column p-3 justify-content-center gap-3"
-    :class="[`g-col-${colSize}`]">
+    :class="[
+      `g-col-sm-${colSizes?.sm || 'auto'} g-col-md-${
+        colSizes?.md || 'auto'
+      } g-col-lg-${colSizes?.lg || 'auto'} g-col-xl-${colSizes?.xl || 'auto'}`,
+    ]">
     <draggable
       :list="modules"
-      group="modules"
+      :group="{
+        name: 'modules',
+        put: handleDrop,
+      }"
       item-key="uuid"
       class="section-draggable h-100 d-flex flex-grow flex-column gap-3 group"
       :component-data="{

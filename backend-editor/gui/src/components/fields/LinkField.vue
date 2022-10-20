@@ -18,14 +18,13 @@ const link = ref(
 )
 
 const openLinkBrowser = () => {
-
   window.jQuery(document).on("wplink-open", () => {
     const url = document.querySelector<HTMLInputElement>("#wp-link-url")
     const title = document.querySelector<HTMLInputElement>("#wp-link-text")
     const target = document.querySelector<HTMLInputElement>("#wp-link-target")
 
-    if( config.value?.hideTitle === true ) {
-      title?.closest('.wp-link-text-field')?.classList.add('d-none')
+    if (config.value?.hideTitle === true) {
+      title?.closest(".wp-link-text-field")?.classList.add("d-none")
     }
 
     url && (url.value = link.value?.url ?? "")
@@ -45,20 +44,19 @@ const openLinkBrowser = () => {
         : "",
     }
 
-    document.querySelector<HTMLInputElement>("#wp-link-text")?.closest('.wp-link-text-field')?.classList.remove('d-none')
+    document
+      .querySelector<HTMLInputElement>("#wp-link-text")
+      ?.closest(".wp-link-text-field")
+      ?.classList.remove("d-none")
 
     link.value = linkData
 
     // Emit to parent
     update(linkData)
-
     window.jQuery(document).off("wplink-open")
     window.jQuery(document).off("wplink-close")
   })
 }
-
-onMounted(() => {
-})
 
 onUnmounted(() => {
   window.jQuery(document).off("wplink-open")
@@ -73,9 +71,10 @@ onUnmounted(() => {
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config?.popover" />
     <input type="text" :id="`hidden-${uuid}`" class="d-none" />
-    <div @click="openLinkBrowser" class="input-group">
+    <div class="input-group">
       <span class="input-group-text">
         <font-awesome-icon
+          @click="openLinkBrowser"
           :icon="['fas', 'link']"
           :title="link.url"
           width="25"
@@ -85,13 +84,17 @@ onUnmounted(() => {
         </font-awesome-icon>
       </span>
       <input
+        @focus="openLinkBrowser"
         type="text"
         v-model="link.url"
         class="form-control"
         aria-label="url" />
-      <span v-if="link.title && !config?.hideTitle" class="input-group-text">{{ link.title }}</span>
+      <span v-if="link.title && !config?.hideTitle" class="input-group-text">{{
+        link.title
+      }}</span>
       <span v-if="link.target === '_blank'" class="input-group-text">
         <font-awesome-icon
+          @click="openLinkBrowser"
           :icon="['fas', 'arrow-up-right-from-square']"
           title="Open link in new tab"
           width="25"
@@ -105,13 +108,12 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
-  .link-field {
-
-    .input-group * {
-      font-size: 14px !important;
-    }
+.link-field {
+  .input-group * {
+    font-size: 14px !important;
   }
-  .wp-link-text-field.d-none {
-    display: none !important;
-  }
+}
+.wp-link-text-field.d-none {
+  display: none !important;
+}
 </style>

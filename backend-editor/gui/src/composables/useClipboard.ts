@@ -56,6 +56,7 @@ export const useClipboard = (component: any) => {
       const newModule: { type: string } = JSON.parse(clipboardText)
       if (isValidPasteLocation.value) {
         cb(newModule)
+        emptyClipboard()
       } else {
         alert(`Can only paste ${newModule.type} with other ${newModule.type}s'`)
       }

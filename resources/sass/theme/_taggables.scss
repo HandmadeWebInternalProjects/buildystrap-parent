@@ -11,10 +11,10 @@
   @include responsive-inline-helper(margin-bottom, --mb);
 }
 .me-taggable {
-  @include responsive-inline-helper(margin-end, --me);
+  @include responsive-inline-helper(margin-right, --me);
 }
 .ms-taggable {
-  @include responsive-inline-helper(margin-start, --ms);
+  @include responsive-inline-helper(margin-left, --ms);
 }
 .pt-taggable {
   @include responsive-inline-helper(padding-top, --pt);
@@ -23,10 +23,10 @@
   @include responsive-inline-helper(padding-bottom, --pb);
 }
 .pe-taggable {
-  @include responsive-inline-helper(padding-end, --pe);
+  @include responsive-inline-helper(padding-right, --pe);
 }
 .ps-taggable {
-  @include responsive-inline-helper(padding-start, --ps);
+  @include responsive-inline-helper(padding-left, --ps);
 }
 .min-width-taggable {
   @include responsive-inline-helper(min-width, --min-width);
@@ -48,4 +48,7 @@
 }
 .font-family-taggable {
   @include responsive-inline-helper(font-family, --font-family);
+}
+.fs-taggable {
+  @include responsive-inline-helper(font-size, --font-size);
 }

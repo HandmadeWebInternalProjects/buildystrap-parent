@@ -8,13 +8,24 @@
         label: false,
         options: moduleStyles,
         multiple: true,
+        popover: 'Module Name: ' + component?.type
       }"
+      :reduce="(option: any) => option.label"
+      label="value"
       v-model="value" />
-      <div v-else>
-        <p class="text-muted mb-0">No module styles found.</p>
-        <p class="text-muted mb-0">You can add module styles under <a @click.prevent="setLocalStorage" href="" target="_blank">Buildystrap Settings</a>.</p>
-        <p class="text-muted mb-0">Use "<strong>{{ component?.type }}</strong>" as the Module Name.</p>
-      </div>
+    <div v-else>
+      <p class="text-muted mb-0">No module styles found.</p>
+      <p class="text-muted mb-0">
+        You can add module styles under
+        <a @click.prevent="setLocalStorage" href="" target="_blank"
+          >Buildystrap Settings</a
+        >.
+      </p>
+      <p class="text-muted mb-0">
+        Use "<strong>{{ component?.type }}</strong
+        >" as the Module Name.
+      </p>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -22,6 +33,7 @@ import { computed, inject } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { storeToRefs } from "pinia"
 import { useBuilderStore } from "@/stores/builder"
+import { stringify } from "uuid"
 
 const { getModuleStyles } = storeToRefs(useBuilderStore())
 
@@ -67,17 +79,20 @@ const moduleStyles = computed((): any => {
   return combined_styles ? combined_styles : null
 })
 
+console.log({ moduleStyles: moduleStyles.value })
+
 const value = computed({
   get() {
     return Object.keys(props?.modelValue).length ? props?.modelValue : null
   },
   set(val) {
+    console.log({ val })
     update(val)
   },
 })
 
 const setLocalStorage = () => {
-  localStorage.setItem("acf", JSON.stringify({'tabs-options' : [6]}))
+  localStorage.setItem("acf", JSON.stringify({ "tabs-options": [6] }))
   window.open("/wp-admin/admin.php?page=buildystrap-settings", "_blank")
 }
 </script>

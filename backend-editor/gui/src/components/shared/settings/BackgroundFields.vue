@@ -2,9 +2,6 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
-import { useBuilderOptions } from "@/composables/useBuilderOptions"
-
-const { getThemeColours } = useBuilderOptions()
 
 const props = defineProps({
   config: {
@@ -58,13 +55,12 @@ watch(background, (val: any) => {
 
 <template>
   <field-group>
-    <select-field
+    <color-select-field
       class="g-col-12 w-100"
       handle="backgroundColor"
       :placeholder="responsivePlaceholder(background, 'color', bp)"
       :config="{
         label: 'Background Color',
-        options: getThemeColours(),
       }"
       v-model="background.color[bp]" />
     <media-field
