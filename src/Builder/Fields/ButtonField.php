@@ -40,6 +40,6 @@ class ButtonField extends Field
       ->implode(' ');
     $url = $this->value()->get('url', []) ?? [];
 
-    return sprintf('<a href="%s" class="%s">%s</a>', $url['url'] ?? '#', $class, __($text, 'buildystrap'));
+    return sprintf('<a href="%s" target="%s" class="%s">%s</a>', $url['url'] ?? '#', $target, $class, __($text, 'buildystrap'));
   }
 }

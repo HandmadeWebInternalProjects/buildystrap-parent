@@ -103,7 +103,7 @@ const styles = computed(() => {
               handle="disabled"
               v-model="value['disabled']"
               :config="{ label: 'Disabled' }" />
-              <toggle-field
+            <toggle-field
               handle="target"
               v-model="value['target']"
               :config="{ label: 'Open in new tab?' }" />

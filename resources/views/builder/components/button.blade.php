@@ -14,4 +14,4 @@
   $url = $button['url']['url'] ?? '#';
 @endphp
 
-<a href="{{ $url }}" @isset($target) target="{{ $target }}" @endisset class="{{ $class }}" {{ $style }}>{!! __($text, 'buildystrap') !!}</a>
+<a href="{{ $url }}" @isset($target) target="{{ $target }}" @endisset class="{{ $class }}">{!! __($text, 'buildystrap') !!}</a>
