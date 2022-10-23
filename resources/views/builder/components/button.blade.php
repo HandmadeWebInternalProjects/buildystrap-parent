@@ -3,7 +3,7 @@
   $bg_colour = $button['style'] ? "btn-{$button['style']}" : 'btn-primary';
   $size = $button['size'] ?? null;
   $color = $button['color'] ? "text-{$button['color']}" : null;
-  $target = $button['target'] ?? null;
+  $target = ($button['target'] ?? null) && $button['target'] ? '_blank' : null;
   $class = collect([])
     ->push('btn')
     ->push($bg_colour)
