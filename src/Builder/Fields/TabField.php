@@ -21,7 +21,7 @@ class TabField extends Field
     {
         return
             sprintf(
-                "<ul class='nav nav-tabs' id='myTab' role='tablist'>%s</ul>",
+                '<ul class=\'nav nav-tabs\' id=\'myTab\' role=\'tablist\'>%s</ul>',
                 collect($this->value())->map(function ($el, $i) {
                     $title = $el['title'] ?? '';
                     $id = Str::slug($title);
@@ -36,12 +36,12 @@ class TabField extends Field
                 type='button' 
                 role='tab' 
                 aria-controls='{$id}-tab-pane' 
-                aria-selected='true'>" . esc_html__($title, 'buildystrap') . "</button>
-              </li>";
+                aria-selected='true'>" . esc_html__($title, 'buildystrap') . '</button>
+              </li>';
                 })->implode(' ')
             ) .
             sprintf(
-                "<div class='tab-content' id='myTabContent'>%s</div>",
+                '<div class=\'tab-content\' id=\'myTabContent\'>%s</div>',
                 collect($this->value())->map(function ($el, $i) {
                     $title = $el['title'] ?? '';
                     $content = $el['content'] ?? '';
@@ -52,7 +52,7 @@ class TabField extends Field
             id='{$id}-tab-pane' 
             role='tabpanel' 
             aria-labelledby='{$id}-tab' 
-            tabindex='0'>" . __($content, 'buildystrap') . "</div>";
+            tabindex='0'>" . __($content, 'buildystrap') . '</div>';
                 })->implode(' ')
             );
     }

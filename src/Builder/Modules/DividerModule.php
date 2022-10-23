@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class DividerModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-paragraph',
       'fields' => [
         'height' => [
@@ -19,5 +19,5 @@ class DividerModule extends Module
         ],
       ],
     ];
-  }
+    }
 }
