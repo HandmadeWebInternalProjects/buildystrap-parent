@@ -12,8 +12,8 @@ defined('ABSPATH') || exit;
 $uid               = wp_unique_id('s-'); // The search form specific unique ID for the input.
 
 $aria_label = '';
-if (isset($args['aria_label']) && !empty($args['aria_label'])) {
-  $aria_label = 'aria-label="' . esc_attr($args['aria_label']) . '"';
+if (isset($args['aria_label']) && ! empty($args['aria_label'])) {
+    $aria_label = 'aria-label="' . esc_attr($args['aria_label']) . '"';
 }
 ?>
 

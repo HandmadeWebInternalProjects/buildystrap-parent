@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class AccordionModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-equals',
       'fields' => [
         'accordion' => [
@@ -33,5 +33,5 @@ class AccordionModule extends Module
         ],
       ],
     ];
-  }
+    }
 }

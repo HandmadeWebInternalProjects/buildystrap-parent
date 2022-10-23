@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class PostGridModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-paragraph',
       'fields' => [
         'post_type' => [
@@ -56,5 +56,5 @@ class PostGridModule extends Module
         ],
       ],
     ];
-  }
+    }
 }

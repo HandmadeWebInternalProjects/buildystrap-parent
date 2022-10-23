@@ -48,7 +48,7 @@ const handleDrop = (to: any, from: any, el: any) => {
         <div>
           <module-base
             :component="element"
-            :columns="modules"
+            :parent-array="modules"
             :component-index="index" />
         </div>
       </template>

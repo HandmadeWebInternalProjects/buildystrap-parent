@@ -9,20 +9,20 @@ use function sprintf;
 
 class ButtonField extends Field
 {
-  protected string $title_class = '';
-  protected string $button_class = '';
+    protected string $title_class = '';
+    protected string $button_class = '';
 
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'config' => [],
     ];
-  }
+    }
 
-  public function augment(): void
-  {
-    $this->value = collect((array) $this->raw);
-  }
+    public function augment(): void
+    {
+        $this->value = collect((array) $this->raw);
+    }
 
   public function __toString(): string
   {
@@ -38,8 +38,8 @@ class ButtonField extends Field
       ->push($color)
       ->filter()
       ->implode(' ');
-    $url = $this->value()->get('url', []) ?? [];
+        $url = $this->value()->get('url', []) ?? [];
 
-    return sprintf('<a href="%s" target="%s" class="%s">%s</a>', $url['url'] ?? '#', $target, $class, __($text, 'buildystrap'));
-  }
+        return sprintf('<a href="%s" target="%s" class="%s">%s</a>', $url['url'] ?? '#', $target, $class, __($text, 'buildystrap'));
+    }
 }
