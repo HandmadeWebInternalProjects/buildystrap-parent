@@ -1,5 +1,8 @@
 <?php
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
 $rules = [
     '@PSR12' => true,
     'array_syntax' => ['syntax' => 'short'],
@@ -13,4 +16,6 @@ $rules = [
     'single_quote' => ['strings_containing_single_quote_chars' => true],
 ];
 
-return (new PhpCsFixer\Config())->setRules($rules);
+$finder = (new Finder())->exclude(['resources', 'vendor'])->in(__DIR__);
+
+return (new Config())->setFinder($finder)->setRules($rules);
