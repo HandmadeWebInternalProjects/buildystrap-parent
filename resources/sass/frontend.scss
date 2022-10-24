@@ -452,6 +452,12 @@ $utilities: map-merge(
       responsive: true,
       values: normal bold,
     ),
+    "heading-size": (
+      property: font-size,
+      class: h,
+      responsive: true,
+      values: h1 h2 h3 h4 h5 h6 
+    ),
     "object-position": (
       property: object-position,
       class: object-position,

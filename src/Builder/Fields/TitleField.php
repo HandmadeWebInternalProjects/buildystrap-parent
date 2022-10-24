@@ -34,7 +34,7 @@ class TitleField extends Field
     public function __toString(): string
     {
         $level = $this->value()->get('level');
-        $level = ! empty($level) ? $level : 'h3';
+        $level = !empty($level) ? $level : 'h3';
         $text = $this->value()->get('text', '');
         $size = [];
         $size_vars = [];
@@ -43,14 +43,14 @@ class TitleField extends Field
 
         foreach ($this->value()->get('size', []) as $breakpoint => $value) {
             if ($value) {
-                $is_taggable = ! in_array($value, range(1, 6));
-                if ( ! $is_taggable) {
+                $is_taggable = !in_array($value, range(1, 6));
+                if (!$is_taggable) {
                     $size[] = match ($breakpoint) {
-                        'xs' => "fs-{$value}",
-                        default => "fs-{$breakpoint}-{$value}"
+                        'xs' => "h{$value}",
+                        default => "h-{$breakpoint}-{$value}"
                     };
                 } else {
-                    if ( ! str_contains($this->title_class, 'fs-taggable')) {
+                    if (!str_contains($this->title_class, 'fs-taggable')) {
                         $this->title_class .= ' fs-taggable';
                     }
                     $size_vars[] = match ($breakpoint) {

@@ -22,15 +22,15 @@ trait HtmlStyleBuilder
     public function getClasses(string $classes = ''): Collection
     {
         $classes = collect([
-      $this instanceof Module ? 'buildystrap-module' : null,
-      'buildystrap-' . $this->type(),
-      $classes,
-    ]);
+            $this instanceof Module ? 'buildystrap-module' : null,
+            'buildystrap-' . $this->type(),
+            $classes,
+        ]);
 
         return $classes
-      ->merge($this->html_classes)
-      ->push($this->getAttribute('class', ''))
-      ->filter();
+            ->merge($this->html_classes)
+            ->push($this->getAttribute('class', ''))
+            ->filter();
         //->map(fn ($class) => Str::lower($class));
     }
 
@@ -42,8 +42,8 @@ trait HtmlStyleBuilder
     public function getInlineStyles(string $inlineStyles = ''): Collection
     {
         return collect($this->inline_styles)
-      ->push($inlineStyles)
-      ->filter();
+            ->push($inlineStyles)
+            ->filter();
         //->map(fn ($style) => Str::lower($style));
     }
 
@@ -58,11 +58,11 @@ trait HtmlStyleBuilder
                 if ($styles->isNotEmpty()) {
                     $style_classes = $styles->reduce(
                         function ($carry, $item) use ($selected_module_styles) {
-                if (stripos(implode(' ', $selected_module_styles), $item['label']) !== false) {
-                    $carry = array_merge($carry, explode(' ', $item['value']));
-                }
-                return $carry;
-            },
+                            if (stripos(implode(' ', $selected_module_styles), $item['label']) !== false) {
+                                $carry = array_merge($carry, explode(' ', $item['value']));
+                            }
+                            return $carry;
+                        },
                         []
                     );
 
@@ -76,7 +76,7 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('display.position', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "position-{$value}",
-        default => "position-{$breakpoint}-{$value}"
+                default => "position-{$breakpoint}-{$value}"
             };
         }
 
@@ -85,16 +85,16 @@ trait HtmlStyleBuilder
             foreach ($items as $breakpoint => $value) {
                 $pos = match ($position) {
                     'top' => 'top',
-          'bottom' => 'bottom',
-          'left' => 'start',
-          'right' => 'end',
-          default => ''
+                    'bottom' => 'bottom',
+                    'left' => 'start',
+                    'right' => 'end',
+                    default => ''
                 };
 
-                if ( ! empty($pos)) {
+                if (!empty($pos)) {
                     $this->html_classes[] = match ($breakpoint) {
                         'xs' => "{$pos}-{$value}",
-            default => "{$pos}-{$breakpoint}-{$value}"
+                        default => "{$pos}-{$breakpoint}-{$value}"
                     };
                 }
             }
@@ -104,63 +104,63 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('display.property', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "d-{$value}",
-        default => "d-{$breakpoint}-{$value}"
+                default => "d-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.flex-direction', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "flex-{$value}",
-        default => "flex-{$breakpoint}-{$value}"
+                default => "flex-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.flex-wrap', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "flex-{$value}",
-        default => "flex-{$breakpoint}-{$value}"
+                default => "flex-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.justify-content', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "justify-content-{$value}",
-        default => "justify-content-{$breakpoint}-{$value}"
+                default => "justify-content-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.align-items', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "align-items-{$value}",
-        default => "align-items-{$breakpoint}-{$value}"
+                default => "align-items-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.align-self', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "align-self-{$value}",
-        default => "align-self-{$breakpoint}-{$value}"
+                default => "align-self-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.align-content', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "align-content-{$value}",
-        default => "align-content-{$breakpoint}-{$value}"
+                default => "align-content-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.grid-template-rows', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "grid-template-rows-{$value}",
-        default => "grid-template-rows-{$breakpoint}-{$value}"
+                default => "grid-template-rows-{$breakpoint}-{$value}"
             };
         }
 
         foreach ($this->getInlineAttribute('display.grid-template-columns', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "grid-template-columns-{$value}",
-        default => "grid-template-columns-{$breakpoint}-{$value}"
+                default => "grid-template-columns-{$breakpoint}-{$value}"
             };
         }
 
@@ -168,18 +168,18 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('box_model_sizing', $value);
 
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "gx-{$value}",
-          default => "gx-{$breakpoint}-{$value}"
+                    default => "gx-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('gx-taggable', $this->html_classes)) {
+                if (!in_array('gx-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'gx-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--gx: {$value};",
-          default => "--gx-{$breakpoint}: {$value};"
+                    default => "--gx-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -192,18 +192,18 @@ trait HtmlStyleBuilder
 
             $is_taggable = is_taggable('box_model_sizing', $value);
 
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "gy-{$value}",
-          default => "gy-{$breakpoint}-{$value}"
+                    default => "gy-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('gy-taggable', $this->html_classes)) {
+                if (!in_array('gy-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'gy-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--gy: {$value};",
-          default => "--gy-{$breakpoint}: {$value};"
+                    default => "--gy-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -212,25 +212,25 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('display.order', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "order-{$value}",
-        default => "order-{$breakpoint}-{$value}"
+                default => "order-{$breakpoint}-{$value}"
             };
         }
 
         /** Min Width */
         foreach ($this->getInlineAttribute('sizing.minWidth', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('width', $value);
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "min-w-{$value}",
-          default => "min-w-{$breakpoint}-{$value}"
+                    default => "min-w-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('min-width-taggable', $this->html_classes)) {
+                if (!in_array('min-width-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'min-width-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--min-width: {$value};",
-          default => "--min-width-{$breakpoint}: {$value};"
+                    default => "--min-width-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -238,18 +238,18 @@ trait HtmlStyleBuilder
         /** Width */
         foreach ($this->getInlineAttribute('sizing.width', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('width', $value);
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "w-{$value}",
-          default => "w-{$breakpoint}-{$value}"
+                    default => "w-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('width-taggable', $this->html_classes)) {
+                if (!in_array('width-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'width-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--width: {$value};",
-          default => "--width-{$breakpoint}: {$value};"
+                    default => "--width-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -257,18 +257,18 @@ trait HtmlStyleBuilder
         /** Max Width */
         foreach ($this->getInlineAttribute('sizing.maxWidth', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('width', $value);
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "max-w-{$value}",
-          default => "w-{$breakpoint}-{$value}"
+                    default => "w-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('max-width-taggable', $this->html_classes)) {
+                if (!in_array('max-width-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'max-width-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--max-width: {$value};",
-          default => "--max-width-{$breakpoint}: {$value};"
+                    default => "--max-width-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -276,18 +276,18 @@ trait HtmlStyleBuilder
         /** Min Height */
         foreach ($this->getInlineAttribute('sizing.minHeight', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('height', $value);
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "min-h-{$value}",
-          default => "min-h-{$breakpoint}-{$value}"
+                    default => "min-h-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('min-height-taggable', $this->html_classes)) {
+                if (!in_array('min-height-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'min-height-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--min-height: {$value};",
-          default => "--min-height-{$breakpoint}: {$value};"
+                    default => "--min-height-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -295,18 +295,18 @@ trait HtmlStyleBuilder
         /** Height */
         foreach ($this->getInlineAttribute('sizing.height', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('height', $value);
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "h-{$value}",
-          default => "h-{$breakpoint}-{$value}"
+                    default => "h-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('height-taggable', $this->html_classes)) {
+                if (!in_array('height-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'height-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--height: {$value};",
-          default => "--height-{$breakpoint}: {$value};"
+                    default => "--height-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -314,18 +314,18 @@ trait HtmlStyleBuilder
         /** Max Height */
         foreach ($this->getInlineAttribute('sizing.maxHeight', []) as $breakpoint => $value) {
             $is_taggable = is_taggable('height', $value);
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "max-h-{$value}",
-          default => "max-h-{$breakpoint}-{$value}"
+                    default => "max-h-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('max-height-taggable', $this->html_classes)) {
+                if (!in_array('max-height-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'max-height-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--max-height: {$value};",
-          default => "--max-height-{$breakpoint}: {$value};"
+                    default => "--max-height-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -335,27 +335,27 @@ trait HtmlStyleBuilder
             foreach ($items as $breakpoint => $value) {
                 $pos = match ($position) {
                     'top' => 'mt',
-          'bottom' => 'mb',
-          'left' => 'ms',
-          'right' => 'me',
-          default => ''
+                    'bottom' => 'mb',
+                    'left' => 'ms',
+                    'right' => 'me',
+                    default => ''
                 };
 
-                if ( ! empty($pos)) {
+                if (!empty($pos)) {
                     $is_taggable = is_taggable('box_model_sizing', $value);
 
-                    if ( ! $is_taggable) {
+                    if (!$is_taggable) {
                         $this->html_classes[] = match ($breakpoint) {
                             'xs' => "{$pos}-{$value}",
-              default => "{$pos}-{$breakpoint}-{$value}"
+                            default => "{$pos}-{$breakpoint}-{$value}"
                         };
                     } else {
-                        if ( ! in_array("${pos}-taggable", $this->html_classes)) {
+                        if (!in_array("${pos}-taggable", $this->html_classes)) {
                             $this->html_classes[] = "${pos}-taggable";
                         }
                         $this->inline_styles[] = match ($breakpoint) {
                             'xs' => "--{$pos}: {$value};",
-              default => "--{$pos}-{$breakpoint}: {$value};"
+                            default => "--{$pos}-{$breakpoint}: {$value};"
                         };
                     }
                 }
@@ -367,27 +367,27 @@ trait HtmlStyleBuilder
             foreach ($items as $breakpoint => $value) {
                 $pos = match ($position) {
                     'top' => 'pt',
-          'bottom' => 'pb',
-          'left' => 'ps',
-          'right' => 'pe',
-          default => ''
+                    'bottom' => 'pb',
+                    'left' => 'ps',
+                    'right' => 'pe',
+                    default => ''
                 };
 
-                if ( ! empty($pos)) {
+                if (!empty($pos)) {
                     $is_taggable = is_taggable('box_model_sizing', $value);
 
-                    if ( ! $is_taggable) {
+                    if (!$is_taggable) {
                         $this->html_classes[] = match ($breakpoint) {
                             'xs' => "{$pos}-{$value}",
-              default => "{$pos}-{$breakpoint}-{$value}"
+                            default => "{$pos}-{$breakpoint}-{$value}"
                         };
                     } else {
-                        if ( ! in_array("${pos}-taggable", $this->html_classes)) {
+                        if (!in_array("${pos}-taggable", $this->html_classes)) {
                             $this->html_classes[] = "${pos}-taggable";
                         }
                         $this->inline_styles[] = match ($breakpoint) {
                             'xs' => "--{$pos}: {$value};",
-              default => "--{$pos}-{$breakpoint}: {$value};"
+                            default => "--{$pos}-{$breakpoint}: {$value};"
                         };
                     }
                 }
@@ -395,18 +395,18 @@ trait HtmlStyleBuilder
         }
 
         // If background separate_element is true, we won't add styles, we'll make a separate div in the view
-        if ( ! $this->getInlineAttribute('background.separate_element', [])) {
+        if (!$this->getInlineAttribute('background.separate_element', [])) {
             /** Background Image URL */
             foreach ($this->getInlineAttribute('background.image.id', []) as $breakpoint => $value) {
                 $imageUrl = collect($value)
-          ->take(1)
-          ->map(fn ($image) => wp_get_attachment_url($image['id']))
-          ->first();
+                    ->take(1)
+                    ->map(fn ($image) => wp_get_attachment_url($image['id']))
+                    ->first();
 
-                if ( ! empty($imageUrl)) {
+                if (!empty($imageUrl)) {
                     $this->inline_styles[] = match ($breakpoint) {
                         'xs' => "--bg-image-url: url('{$imageUrl}');",
-            default => "--bg-image-url-{$breakpoint}: url('{$imageUrl}');"
+                        default => "--bg-image-url-{$breakpoint}: url('{$imageUrl}');"
                     };
                 }
             }
@@ -415,7 +415,7 @@ trait HtmlStyleBuilder
             foreach ($this->getInlineAttribute('background.image.size', []) as $breakpoint => $value) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "bg-{$value}",
-          default => "bg-{$breakpoint}-{$value}"
+                    default => "bg-{$breakpoint}-{$value}"
                 };
             }
 
@@ -423,7 +423,7 @@ trait HtmlStyleBuilder
             foreach ($this->getInlineAttribute('background.image.position', []) as $breakpoint => $value) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "bg-{$value}",
-          default => "bg-{$breakpoint}-{$value}"
+                    default => "bg-{$breakpoint}-{$value}"
                 };
             }
 
@@ -431,7 +431,7 @@ trait HtmlStyleBuilder
             foreach ($this->getInlineAttribute('background.image.repeat', []) as $breakpoint => $value) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "bg-{$value}",
-          default => "bg-{$breakpoint}-{$value}"
+                    default => "bg-{$breakpoint}-{$value}"
                 };
             }
 
@@ -439,7 +439,7 @@ trait HtmlStyleBuilder
             foreach ($this->getInlineAttribute('background.color', []) as $breakpoint => $value) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "bg-{$value}",
-          default => "bg-{$breakpoint}-{$value}"
+                    default => "bg-{$breakpoint}-{$value}"
                 };
             }
 
@@ -447,7 +447,7 @@ trait HtmlStyleBuilder
             foreach ($this->getInlineAttribute('background.image.blend-mode', []) as $breakpoint => $value) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "bg-blend-{$value}",
-          default => "bg-blend-{$breakpoint}-{$value}"
+                    default => "bg-blend-{$breakpoint}-{$value}"
                 };
             }
         }
@@ -456,26 +456,26 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('typography.color', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "text-{$value}",
-        default => "text-{$breakpoint}-{$value}"
+                default => "text-{$breakpoint}-{$value}"
             };
         }
 
         /** Typography Font Family */
         foreach ($this->getInlineAttribute('typography.font-family', []) as $breakpoint => $value) {
-            $is_taggable = ! in_array($value, ['serif', 'sans-serif']);
+            $is_taggable = !in_array($value, ['serif', 'sans-serif']);
 
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "font-family-{$value}",
-          default => "font-family-{$breakpoint}-{$value}"
+                    default => "font-family-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('font-family-taggable', $this->html_classes)) {
+                if (!in_array('font-family-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'font-family-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--font-family: {$value};",
-          default => "--font-family-{$breakpoint}: {$value};"
+                    default => "--font-family-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -484,26 +484,26 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('typography.font-weight', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "font-{$value}",
-        default => "font-{$breakpoint}-{$value}"
+                default => "font-{$breakpoint}-{$value}"
             };
         }
 
         /** Typography Font Size */
         foreach ($this->getInlineAttribute('typography.font-size', []) as $breakpoint => $value) {
-            $is_taggable = ! in_array($value, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
+            $is_taggable = !in_array($value, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
 
-            if ( ! $is_taggable) {
+            if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
-                    'xs' => "fs-{$value}",
-          default => "fs-{$breakpoint}-{$value}"
+                    'xs' => "h{$value}",
+                    default => "h-{$breakpoint}-{$value}"
                 };
             } else {
-                if ( ! in_array('fs-taggable', $this->html_classes)) {
+                if (!in_array('fs-taggable', $this->html_classes)) {
                     $this->html_classes[] = 'fs-taggable';
                 }
                 $this->inline_styles[] = match ($breakpoint) {
                     'xs' => "--font-size: {$value};",
-          default => "--font-size-{$breakpoint}: {$value};"
+                    default => "--font-size-{$breakpoint}: {$value};"
                 };
             }
         }
@@ -512,7 +512,7 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('typography.line-height', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "lh-{$value}",
-        default => "lh-{$breakpoint}-{$value}"
+                default => "lh-{$breakpoint}-{$value}"
             };
         }
 
@@ -521,7 +521,7 @@ trait HtmlStyleBuilder
         foreach ($this->getInlineAttribute('typography.text-align', []) as $breakpoint => $value) {
             $this->html_classes[] = match ($breakpoint) {
                 'xs' => "text-{$value}",
-        default => "text-{$breakpoint}-{$value}"
+                default => "text-{$breakpoint}-{$value}"
             };
         }
     }
