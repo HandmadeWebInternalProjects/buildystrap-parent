@@ -1,8 +1,8 @@
 @php
   $text = $button['text'] ?? '';
-  $bg_colour = $button['style'] ? "btn-{$button['style']}" : 'btn-primary';
+  $bg_colour = isset($button['style']) ? "btn-{$button['style']}" : 'btn-primary';
   $size = $button['size'] ?? null;
-  $color = $button['color'] ? "text-{$button['color']}" : null;
+  $color = isset($button['color']) ? "text-{$button['color']}" : null;
   $class = collect([])
     ->push('btn')
     ->push($bg_colour)

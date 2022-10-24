@@ -6,6 +6,14 @@
   @include responsive-inline-helper(background-image, --bg-image-url);
 }
 
+.buildystrap-container {
+  > .buildystrap-section {
+    > .buildystrap-row {
+      --bs-gap: 0;
+    }
+  }
+}
+
 .buildystrap-section {
   position: relative;
   padding: 2rem 0;
