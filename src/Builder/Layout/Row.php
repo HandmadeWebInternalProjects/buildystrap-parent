@@ -4,7 +4,6 @@ namespace Buildystrap\Builder\Layout;
 
 use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Str;
-use Illuminate\Support\Collection;
 
 use function get_field;
 use function view;

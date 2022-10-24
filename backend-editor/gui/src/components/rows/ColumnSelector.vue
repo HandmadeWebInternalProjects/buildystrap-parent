@@ -42,12 +42,14 @@ const changeLayout = (layout: string) => {
     let newCol = createModule("Column", {})
 
     // If we are divisible by 2, set the md breakpoint to 6 (translates to col-md-6)
-    if (layoutArr.length % 2 === 0) {
-      newCol.config.columnSizes.md = 6
+    if (layoutArr.length > 3) {
+      newCol.config.columnSizes.md = 12 / Math.ceil(layoutArr.length / 2)
+      // Set the lg size to selected value
+      newCol.config.columnSizes.lg = col
+    } else {
+      newCol.config.columnSizes.md = col
+      newCol.config.columnSizes.lg = ""
     }
-
-    // Set the lg size to seleted value
-    newCol.config.columnSizes.lg = col
 
     // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
     newLayout.push(newCol)

@@ -7,7 +7,7 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  columns: {
+  parentArray: {
     type: Array,
     required: true,
   },
@@ -24,7 +24,7 @@ const props = defineProps({
 const component = ref(props.component)
 provide("component", component)
 
-const columns = ref(props.columns)
+const parentArray = ref(props.parentArray)
 const componentIndex = computed((): number => props.componentIndex)
 
 const updateAdminLabel = (val: string) => {
@@ -54,7 +54,7 @@ const isGlobalModule = computed((): boolean => {
         class="justify-content-center text-white"
         direction="row"
         :component="component"
-        :value="columns"
+        :value="parentArray"
         :index="componentIndex"
         :custom-settings="{ add: false, ...customSettings }" />
     </div>
@@ -66,7 +66,7 @@ const isGlobalModule = computed((): boolean => {
   font-size: 14px;
 
   &:focus-visible {
-    outline: 1px dashed rgba(255,255,255,0.5);
+    outline: 1px dashed rgba(255, 255, 255, 0.5);
   }
 }
 </style>

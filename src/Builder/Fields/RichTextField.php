@@ -12,9 +12,9 @@ class RichTextField extends Field
             'config' => [],
         ];
     }
-      public function augment(): void
-      {
-          parent::augment();
-          $this->value = apply_shortcodes($this->value);
-      }
+    public function augment(): void
+    {
+        parent::augment();
+        $this->value = apply_shortcodes($this->value);
+    }
 }
