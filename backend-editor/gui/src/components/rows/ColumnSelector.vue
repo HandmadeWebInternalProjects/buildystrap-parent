@@ -48,7 +48,6 @@ const changeLayout = (layout: string) => {
       newCol.config.columnSizes.lg = col
     } else {
       newCol.config.columnSizes.md = col
-      newCol.config.columnSizes.lg = ""
     }
 
     // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12

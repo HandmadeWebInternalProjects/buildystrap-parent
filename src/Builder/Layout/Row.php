@@ -41,7 +41,7 @@ class Row extends Layout
 
         // Check if the row has an override for flex / grid specifically
         $hasClassOverride = parent::getClasses()->filter(function ($class) {
-            return Str::contains($class, ['-flex', '-grid', '-inline', '-block', '-none']);
+            return Str::contains($class, ['-grid', '-inline', '-block', '-none']);
         })->isNotEmpty();
 
         // If it does, don't add the default flex / grid classes

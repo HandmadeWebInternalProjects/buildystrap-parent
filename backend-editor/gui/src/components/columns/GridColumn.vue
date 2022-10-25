@@ -13,7 +13,7 @@ const toggleModuleSelection = ref(false)
 const colSizes = ref(props.component?.config?.columnSizes)
 
 const handleDrop = (to: any, from: any, el: any) => {
-  const validTypes = ["-module", "divider-module"]
+  const validTypes = ["-module", "divider-module", "row"]
   const type = el._underlying_vm_?.type || false
 
   // check if validTypes contains the string 'module'
@@ -25,7 +25,7 @@ const handleDrop = (to: any, from: any, el: any) => {
   <div
     class="border border-dashed border-300 border-2 rounded w-full d-flex flex-column p-3 justify-content-center gap-3"
     :class="[
-      `g-col-sm-${colSizes?.sm || 'auto'} g-col-md-${
+      `g-col-12 g-col-sm-${colSizes?.sm || 'auto'} g-col-md-${
         colSizes?.md || 'auto'
       } g-col-lg-${colSizes?.lg || 'auto'} g-col-xl-${colSizes?.xl || 'auto'}`,
     ]">
@@ -45,12 +45,16 @@ const handleDrop = (to: any, from: any, el: any) => {
       @start="drag = true"
       @end="drag = false">
       <template #item="{ element, index }">
-        <div>
-          <module-base
-            :component="element"
-            :parent-array="modules"
-            :component-index="index" />
-        </div>
+        <grid-row
+          v-if="element.type === 'row'"
+          :row-index="index"
+          :parent-array="modules"
+          :component="element" />
+        <module-base
+          v-else
+          :component="element"
+          :parent-array="modules"
+          :component-index="index" />
       </template>
     </draggable>
     <button
@@ -77,9 +81,6 @@ const handleDrop = (to: any, from: any, el: any) => {
 </template>
 
 <style lang="scss">
-.sortable-ghost {
-  opacity: 0.3;
-}
 .flip-list-move {
   transition: transform 0.5s;
 }

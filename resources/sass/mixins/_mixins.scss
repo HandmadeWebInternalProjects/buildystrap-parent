@@ -7,8 +7,9 @@ $grid-breakpoints: (
   xxl: 1400px,
 ) !default;
 
-@mixin responsive-inline-helper($property, $css_var) {
+@mixin responsive-inline-helper($property, $css_var, $important: null) {
   @each $breakpoint, $val in $grid-breakpoints {
+
     @if $breakpoint == "xs" {
       #{$css_var}: "unset";
       #{$property}: var(#{$css_var});
@@ -18,11 +19,11 @@ $grid-breakpoints: (
         $prev_breakpoint: nth(map-keys($grid-breakpoints), $index - 1);
 
         @if $prev_breakpoint == "xs" {
-          #{$css_var}-#{$breakpoint}: var(#{$css_var});
+          #{$css_var}-#{$breakpoint}: var(#{$css_var}) $important;
         } @else {
-          #{$css_var}-#{$breakpoint}: var(#{$css_var}-#{$prev_breakpoint});
+          #{$css_var}-#{$breakpoint}: var(#{$css_var}-#{$prev_breakpoint}) $important;
         }
-        #{$property}: var(#{$css_var}-#{$breakpoint});
+        #{$property}: var(#{$css_var}-#{$breakpoint}) $important;
       }
     }
   }

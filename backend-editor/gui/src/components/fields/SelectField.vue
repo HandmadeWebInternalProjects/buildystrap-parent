@@ -30,7 +30,7 @@ const options = normaliseOptions(config.value.options) || []
 <template>
   <div class="select-field position-relative">
     <field-label
-      v-if="config.label !== false"
+      v-if="config.label !== false" 
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config?.popover"
       :responsive="config?.responsive" />

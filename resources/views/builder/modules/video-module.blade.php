@@ -1,6 +1,6 @@
 @php
 $video_url = $module->has('video_url') ? $module->get('video_url')->value() : null;
-$aspect_ratio = $module->has('aspect_ratio') ? $module->get('aspect_ratio')->value() : '16:9';
+$aspect_ratio = $module->has('aspect_ratio') ? $module->get('aspect_ratio')->value() : '16/9';
 
 if( ! function_exists('getVimeoVideoIdFromUrl') ) {
   function getVimeoVideoIdFromUrl($url = '') {

@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column gap-4 pb-5">
-    <bs-card label="Module Styles">
+    <bs-card label="Module Styles" :popover="`Use '${component?.type}' as the Module Name.`">
       <template v-slot:body>
         <module-styles
           breakpoint-handle="display"
@@ -52,8 +52,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, inject } from "vue"
 import { useFieldType } from "../fields/useFieldType"
+
+const component = inject<{ [key: string]: any }>("component")
 
 const props = defineProps({
   modelValue: {

@@ -22,6 +22,7 @@ class Column extends Layout
             // Global module
             $moduleType = match (true) {
                 ($module['type'] === 'global-module') => GlobalModule::class,
+                ($module['type'] === 'row') => Row::class,
                 default => Builder::getModule($module['type'])
             };
 
@@ -29,13 +30,13 @@ class Column extends Layout
 
             // Or
             // Convert Global module to the end module
-//            if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
-//                $this->modules[] = $globalModule;
-//            } else {
-//                $moduleType = Builder::getModule($module['type']);
-//
-//                $this->modules[] = new $moduleType($module);
-//            }
+            //            if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
+            //                $this->modules[] = $globalModule;
+            //            } else {
+            //                $moduleType = Builder::getModule($module['type']);
+            //
+            //                $this->modules[] = new $moduleType($module);
+            //            }
         }
     }
 
@@ -72,7 +73,7 @@ class Column extends Layout
 
 
 
-        if ( ! isset($columnSizes['xs'])) {
+        if (!isset($columnSizes['xs'])) {
             $this->html_classes['xs'] = "{$prefix}col-12";
         }
 

@@ -39,6 +39,16 @@ $order: ();
   );
 }
 
+$gaps: ();
+@for $i from 0 through 12 {
+  $gaps: map-merge(
+    $gaps,
+    (
+      #{$i}: #{$i}rem !important,
+    )
+  );
+}
+
 $grid-template: ();
 @for $i from 0 through 12 {
   $grid-template: map-merge(
@@ -336,17 +346,17 @@ $utilities: map-merge(
       ),
     "column-gap": (
       css-var: true,
-      css-variable-name: col-gap,
+      css-variable-name: gutter-x,
       class: gx,
       responsive: true,
-      values: $box-model-sizing,
+      values: $gaps,
     ),
     "row-gap": (
       css-var: true,
-      css-variable-name: row-gap,
+      css-variable-name: gutter-y,
       class: gy,
       responsive: true,
-      values: $box-model-sizing,
+      values: $gaps,
     ),
     "module-gap": (
       css-var: true,
@@ -450,7 +460,7 @@ $utilities: map-merge(
       property: font-weight,
       class: font,
       responsive: true,
-      values: normal bold,
+      values: 100 200 300 normal 500 600 bold 800 900,
     ),
     "heading-size": (
       property: font-size,
@@ -468,10 +478,10 @@ $utilities: map-merge(
   )
 );
 
-[class*="gx-"] {
+*:not(.row)[class*="gx-"] {
   column-gap: var(--bs-col-gap) !important;
 }
-[class*="gy-"] {
+*:not(.row)[class*="gy-"] {
   row-gap: var(--bs-row-gap) !important;
 }
 

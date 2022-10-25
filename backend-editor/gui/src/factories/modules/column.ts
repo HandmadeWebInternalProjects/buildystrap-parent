@@ -21,9 +21,7 @@ const Column = function (
   this.config = {
     enabled: true,
     adminLabel: ADMIN_LABEL || this.type,
-    columnSizes: {
-      lg: 12,
-    },
+    columnSizes: {},
   }
   this.modules = []
 }

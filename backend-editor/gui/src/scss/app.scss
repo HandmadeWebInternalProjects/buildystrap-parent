@@ -234,4 +234,17 @@ $utilities: map-merge(
     border-color: var(--bs-gray-400);
     // box-sizing: initial;
   }
+
+  .sortable-ghost {
+    opacity: 0.3;
+
+    > *:not(.sortable-handle),
+    .module-controls {
+      display: none !important;
+    }
+    
+    .sortable-handle:after {
+      margin-top: 0;
+    }
+  }
 }

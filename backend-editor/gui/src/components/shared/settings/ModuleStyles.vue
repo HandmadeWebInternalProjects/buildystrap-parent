@@ -8,7 +8,6 @@
         label: false,
         options: moduleStyles,
         multiple: true,
-        popover: 'Module Name: ' + component?.type
       }"
       :reduce="(option: any) => option.label"
       label="value"
@@ -79,7 +78,7 @@ const moduleStyles = computed((): any => {
   return combined_styles ? combined_styles : null
 })
 
-console.log({ moduleStyles: moduleStyles.value })
+// console.log({ moduleStyles: moduleStyles.value })
 
 const value = computed({
   get() {
