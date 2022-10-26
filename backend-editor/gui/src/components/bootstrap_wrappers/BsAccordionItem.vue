@@ -1,6 +1,7 @@
 <template lang="">
   <div class="accordion-item">
-    <h2 class="accordion-header p-0">
+    <h2 class="accordion-header d-flex p-0">
+      <div class="sortable-handle bg-purple-500"></div>
       <button
         class="accordion-button collapsed"
         type="button"
@@ -26,6 +27,7 @@
 <script lang="ts" setup>
 import { computed } from "vue"
 import { generateID } from "@/utils/id"
+import { faAlignCenter } from "@fortawesome/free-solid-svg-icons"
 const props = defineProps({
   title: String,
   uuid: String,
@@ -41,3 +43,18 @@ const removeItem = (_uuid: string) => {
   emit("remove", _uuid)
 }
 </script>
+<style lang="scss">
+#app {
+
+  .accordion-item {
+    overflow: hidden;
+
+    .accordion-header {
+
+      .sortable-handle {
+        justify-content: center;
+      }
+    }
+  }
+}
+</style>

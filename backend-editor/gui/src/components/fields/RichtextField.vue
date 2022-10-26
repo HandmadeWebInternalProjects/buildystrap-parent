@@ -4,11 +4,11 @@
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config.popover" />
-    <editor :init="initObj" v-model="content" api-key="no-api-key"></editor>
+    <editor :init="initObj" v-model="content" api-key="no-api-key" :key="uuid + incrementValue"></editor>
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, reactive, onBeforeMount } from "vue"
+import { computed, reactive, inject } from "vue"
 import { toRefs } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderStore } from "@/stores/builder"
@@ -29,6 +29,8 @@ import "../../lib/tinymce/plugins/powerpaste/js/wordimport.js"
 import "../../lib/tinymce/plugins/print/plugin.min.js"
 
 const props = defineProps({ ...commonProps })
+
+const incrementValue = inject<any>("increment-value")?.incrementValue ?? 0;
 
 const { handle, config, uuid } = toRefs(props)
 const content = computed({

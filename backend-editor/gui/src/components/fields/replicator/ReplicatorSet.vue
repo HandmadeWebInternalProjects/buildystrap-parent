@@ -1,6 +1,6 @@
 <template lang="">
   <bs-accordion-item
-    :title="`${field?.config.label ?? 'Item'} ${index + 1}`"
+    :title="`${value?.[field?.config?.preview] || 'Item ' + (index + 1)}`"
     :uuid="value._uuid"
     @remove="removeSet">
     <div>
@@ -66,7 +66,7 @@ const removeSet = () => {
 
 const value = computed({
   get() {
-    console.log(props.value)
+    // console.log(props.value)
     return props.value || {}
   },
   set(newValue) {

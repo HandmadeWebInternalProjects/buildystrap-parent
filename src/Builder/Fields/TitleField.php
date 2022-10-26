@@ -16,6 +16,16 @@ class TitleField extends Field
         return [
             'config' => [
                 'label' => 'Heading',
+                'tinymce' => [
+                    'toolbar1' => 'bold,italic,underline,styleselect',
+                    'toolbar2' => false,
+                    'height' => '40',
+                    'autoresize_min_height' => false,
+                    'resize' => false,
+                    'menubar' => false,
+                    'statusbar' => false,
+                    'forced_root_block' => false,
+                ],
             ],
         ];
     }

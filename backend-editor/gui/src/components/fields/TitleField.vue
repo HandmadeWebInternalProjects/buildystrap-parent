@@ -44,16 +44,6 @@ watch(fields, (newValue) => {
             :config="{
               ...config,
               label : false,
-              tinymce : {
-                  toolbar1 : 'bold,italic,underline,styleselect',
-                  toolbar2 : false,
-                  height : '20',
-                  autoresize_min_height : '20',
-                  resize : false,
-                  menubar : false,
-                  statusbar : false,
-                  forced_root_block : false,
-              },
             }"
             v-model="fields.text" />
           <div class="d-flex gap-4">

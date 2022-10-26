@@ -30,6 +30,8 @@ $nav-link-hover-color: $indigo-700;
 $accordion-button-active-bg: $gray-100;
 $accordion-button-active-color: $gray-800;
 $accordion-color: $indigo-700;
+$accordion-button-focus-border-color: transparent;
+$accordion-button-focus-box-shadow: transparent;
 
 $input-placeholder-color: $gray-500;
 
@@ -155,8 +157,14 @@ $utilities: map-merge(
 // Layout & components
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/popover";
+
+#app {
+  padding-top: 1rem;
+}
+
 #app,
 .buildy {
+  
   @import "bootstrap/scss/reboot";
 
   @import "bootstrap/scss/type";
@@ -238,13 +246,43 @@ $utilities: map-merge(
   .sortable-ghost {
     opacity: 0.3;
 
-    > *:not(.sortable-handle),
+    > *:not(.sortable-handle):not(.accordion-header),
     .module-controls {
       display: none !important;
     }
     
     .sortable-handle:after {
       margin-top: 0;
+    }
+  }
+
+  .sortable-handle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 20px;
+    width: 35px;
+    padding: 10px;
+    cursor: -webkit-grab;
+    cursor: grab;
+    background: $gray-600;
+  
+    &:after {
+      content: "";
+      position: relative;
+      display: block;
+      min-width: 12px;
+      height: 24px;
+      background-image: radial-gradient($gray-100 0.05rem, transparent 0);
+      background-repeat: both;
+      background-size: 6px 6px;
+    }
+    &.handle-single {
+      &:after {
+        margin-top: 0;
+      }
     }
   }
 }

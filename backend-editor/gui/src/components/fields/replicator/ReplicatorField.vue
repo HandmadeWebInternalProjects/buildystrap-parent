@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion replicator-field">
+  <bs-accordion class="replicator-field">
     <!-- <div class="d-flex gap-4 mb-3 justify-content-center">
       <span @click="collapseAll" type="button">Collapse All</span>
       <span @click="openAll" type="button">Open All</span>
@@ -7,8 +7,10 @@
     <draggable
       :list="values"
       @change="handleDragChange"
+      @end="handleDragEnd"
       group="replicator-sets"
       item-key="_uuid"
+      handle=".sortable-handle"
       class="replicator-draggable h-100 d-flex flex-grow flex-column group">
       <template #item="{ element, index }">
         <replicator-set
@@ -26,11 +28,11 @@
     <button class="btn btn-sm btn-primary mt-3" type="button" @click="addSet">
       Add {{ `${field?.config?.label ?? 'Item'}` }}
     </button>
-  </div>
+  </bs-accordion>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, toRefs, computed, onMounted } from "vue"
+import { ref, reactive, watch, toRefs, computed, onMounted, provide } from "vue"
 import { useFieldType, commonProps } from "../useFieldType"
 import { useBuilderStore } from "../../../stores/builder"
 import { generateID } from "../../../utils/id"
@@ -55,7 +57,13 @@ onMounted(() => {
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
-  // console.log(moduleType.value)
+  console.log({set : set.value})
+})
+
+const incrementValue = ref(0)
+
+provide("increment-value", {
+  incrementValue
 })
 
 const addSet = () => {
@@ -92,6 +100,10 @@ const handleDragChange = (e: { [key: string]: any }) => {
 
     updateMeta(meta.value)
   }
+}
+
+const handleDragEnd = (e: { [key: string]: any }) => {
+    incrementValue.value++
 }
 
 const collapseAll = () => {

@@ -72,18 +72,50 @@ abstract class Module
         return $this->fields;
     }
 
+    // public static function getBlueprint(): Collection
+    // {
+    //     $blueprint = static::blueprint();
+    //     $fields = $blueprint['fields'] ?? [];
+
+    //     foreach ($fields as $handle => $item) {
+    //         if ($field = Builder::getField($item['type'])) {
+    //             if( isset($item['fields']) ) {
+    //                 foreach ($item['fields'] as $sub_handle => $sub_item) {
+    //                     if ($sub_field = Builder::getField($sub_item['type'])) {
+    //                         $item['fields'][$sub_handle] = array_replace_recursive($sub_field::getBlueprint()->toArray(), $sub_item);
+    //                     }
+    //                 }
+    //             }
+    //             $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+    //         }
+    //     }
+
+    //     return collect($blueprint);
+    // }
+
     public static function getBlueprint(): Collection
     {
         $blueprint = static::blueprint();
         $fields = $blueprint['fields'] ?? [];
 
-        foreach ($fields as $handle => $item) {
-            if ($field = Builder::getField($item['type'])) {
-                $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
-            }
-        }
+        $blueprint = static::matchConfigs($blueprint, $fields);
 
         return collect($blueprint);
+    }
+
+    public static function matchConfigs($parent, $fields): array
+    {
+        foreach ($fields as $handle => $item) {
+
+            if( isset($item['fields']) ) {
+                $item = static::matchConfigs($item, $item['fields']);
+            }
+
+            if ($field = Builder::getField($item['type'])) {
+                $parent['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+            }
+        }
+        return $parent;
     }
 
     abstract protected static function blueprint(): array;

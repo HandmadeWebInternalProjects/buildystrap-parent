@@ -65,7 +65,7 @@ watch(
 <template>
   <stacks v-if="getStacks.length"></stacks>
   <div
-    class="container d-flex flex-column rounded gap-3 mt-4 mb-6 px-0 bg-white">
+    class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
       :list="builder"
@@ -128,38 +128,4 @@ watch(
 
 <style lang="scss">
 @import "./scss/app.scss";
-
-#app {
-  padding-top: 1rem;
-}
-
-.sortable-handle {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 35px;
-  padding: 10px;
-  cursor: -webkit-grab;
-  cursor: grab;
-  background: $gray-600;
-
-  &:after {
-    content: "";
-    position: relative;
-    display: block;
-    min-width: 12px;
-    height: 24px;
-    margin-top: 10px;
-    background-image: radial-gradient($gray-100 0.05rem, transparent 0);
-    background-repeat: both;
-    background-size: 6px 6px;
-  }
-  &.handle-single {
-    &:after {
-      margin-top: 0;
-    }
-  }
-}
 </style>
