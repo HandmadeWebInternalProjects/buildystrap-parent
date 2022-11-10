@@ -45,6 +45,7 @@ $gaps: ();
     $gaps,
     (
       #{$i}: #{$i}rem !important,
+      #{$i}\.5: calc(#{$i}rem + 0.5rem) !important,
     )
   );
 }
@@ -346,12 +347,26 @@ $utilities: map-merge(
       ),
     "column-gap": (
       css-var: true,
+      css-variable-name: col-gap,
+      class: gx,
+      responsive: true,
+      values: $gaps,
+    ),
+    "gx-gap": (
+      css-var: true,
       css-variable-name: gutter-x,
       class: gx,
       responsive: true,
       values: $gaps,
     ),
     "row-gap": (
+      css-var: true,
+      css-variable-name: row-gap,
+      class: gy,
+      responsive: true,
+      values: $gaps,
+    ),
+    "gy-gap": (
       css-var: true,
       css-variable-name: gutter-y,
       class: gy,
@@ -456,17 +471,24 @@ $utilities: map-merge(
       responsive: true,
       values: serif sans-serif,
     ),
+    "fs": (
+      property: font-size,
+      class: fs,
+      responsive: true,
+      values: (
+        1: $h1-font-size,
+        2: $h2-font-size,
+        3: $h3-font-size,
+        4: $h4-font-size,
+        5: $h5-font-size,
+        6: $h6-font-size,
+      )
+    ),
     "font-weight": (
       property: font-weight,
       class: font,
       responsive: true,
       values: 100 200 300 normal 500 600 bold 800 900,
-    ),
-    "heading-size": (
-      property: font-size,
-      class: h,
-      responsive: true,
-      values: h1 h2 h3 h4 h5 h6 
     ),
     "object-position": (
       property: object-position,

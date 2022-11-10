@@ -168,13 +168,13 @@ if ( ! function_exists('social_icons_shortcode')) {
 
         if (have_rows('buildystrap_company_details_social_links', 'option')) : ?>
 
-      <ul class="social-links flex items-center mb-0">
+      <ul class="social-links d-flex align-items-center gap-1 mb-0">
 
         <?php while (have_rows('buildystrap_company_details_social_links', 'option')) : the_row(); ?>
 
           <?php $icon_type = get_sub_field('icon_style') ? get_sub_field('icon_style') : 'fa'; ?>
 
-          <li class="fa-social-icon flex items-center px-1"><a href="<?php the_sub_field('link'); ?>" target="_blank" class="text-lg <?= $icon_type ?>b <?= $icon_type ?>-<?php echo strtolower(get_sub_field('icon')); ?>"></a></li>
+          <li class="fa-social-icon d-flex align-items-center"><a href="<?php the_sub_field('link'); ?>" target="_blank" class="text-decoration-none <?= $icon_type ?>b <?= $icon_type ?>-<?php echo strtolower(get_sub_field('icon')); ?>"></a></li>
 
         <?php endwhile; ?>
 

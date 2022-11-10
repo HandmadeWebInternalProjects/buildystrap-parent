@@ -4,8 +4,11 @@
   $postType = $module->has('post_type') ? $module->get('post_type')->value() : 'post';
   $taxonomy = $module->has('taxonomy') ? $module->get('taxonomy')->value() : null;
   $taxonomy_slug = isset($taxonomy['slug']) ? $taxonomy['slug'] : 'category';
-  $template_part =  $module->has('template_part') ? $module->get('template_part')->value() : 'post';
-  $args = ['post_type' => $postType, 'numberposts' => 6];
+  $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
+  $offset = $module->has('offset') ? $module->get('offset')->value() : 0;
+  $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
+  $template_part = $module->has('template_part') ? $module->get('template_part')->value() : "loop-templates/content-$postType";
+  $args = ['post_type' => $postType, 'numberposts' => $limit, 'offset' => $offset];
 
   if ($module->get('term')->value()) {
     // add tax_query to args
@@ -24,8 +27,8 @@
 @section('field_content')
   <div class="grid gap-2 gap-md-3">
     @foreach($posts as $post)
-      <div class="g-col-12 g-col-md-4">
-        @include("loop-templates.content-{$postType}", ['post' => $post])
+      <div class="g-col-12 g-col-md-{{ 12 / $columns }}">
+        @include($template_part, ['post' => $post])
       </div>
     @endforeach
   </div>

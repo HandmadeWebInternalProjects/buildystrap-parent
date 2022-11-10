@@ -16,16 +16,22 @@
 
 .buildystrap-section {
   position: relative;
+  gap: var(--bs-row-gap);
   padding: 2rem 0;
+
   @include media-breakpoint-up(lg) {
     padding: var(--bs-section-padding) 0;
+  }
+
+  > .container {
+    gap: var(--bs-row-gap);
   }
 }
 
 .buildystrap-row {
-  &.row {
-    --bs-gutter-x: var(--bs-gap);
-  }
+  --bs-gutter-x: var(--bs-col-gap);
+  --bs-gutter-y: var(--bs-col-gap);
+
   &.grid {
     --bs-columns: 1;
     gap: 0;

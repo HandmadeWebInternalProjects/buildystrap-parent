@@ -145,6 +145,30 @@
       {
         "label": "H6",
         "value": "6"
+      },
+      {
+        "label": "Display 1",
+        "value": "display-1"
+      },
+      {
+        "label": "Display 2",
+        "value": "display-2"
+      },
+      {
+        "label": "Display 3",
+        "value": "display-3"
+      },
+      {
+        "label": "Display 4",
+        "value": "display-4"
+      },
+      {
+        "label": "Display 5",
+        "value": "display-5"
+      },
+      {
+        "label": "Display 6",
+        "value": "display-6"
       }
     ]
   },
