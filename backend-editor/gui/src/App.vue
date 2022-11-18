@@ -30,6 +30,8 @@ const {
 const globalStackOpen = ref(false)
 const revealGlobalModules = ref(false)
 
+const liveToast = ref(null)
+
 const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
@@ -108,8 +110,8 @@ watch(
         v-if="hasClipboardAccess"
         type="button"
         class="btn btn-sm btn-secondary text-white mb-3 me-3"
-        @click="readFromClipboard">
-        Read from clipboard
+        @click="readFromClipboard(liveToast)">
+        Paste from clipboard
       </button>
       <button
         type="button"
@@ -152,6 +154,29 @@ watch(
         </div>
       </div>
     </buildy-stack>
+  </div>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div
+      ref="liveToast"
+      class="toast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Buildystrap</strong>
+        <small>Ready to paste</small>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Now choose where you would like to paste the module by clicking one of
+        the highlighted icons above, your module will be pasted right underneath
+        the one you choose.
+      </div>
+    </div>
   </div>
 </template>
 

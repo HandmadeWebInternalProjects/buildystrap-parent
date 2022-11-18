@@ -1,6 +1,7 @@
 import { computed, ref } from "vue"
 import { useBuilderStore } from "@/stores/builder"
 import { storeToRefs } from "pinia"
+import { Toast } from "bootstrap"
 
 export const hasClipboardAccess = computed(() => !!navigator.clipboard)
 export const hasPageInClipboard = ref(false)
@@ -15,6 +16,19 @@ export const useClipboard = (component: any) => {
       : hasPageInClipboard.value && Array.isArray(component.value)
   })
 
+  const determinPasteLocations = (context: string) => {
+    switch (true) {
+      case context.includes("module"):
+        updatePasteLocations(["module"])
+        break
+      case context.includes("section"):
+        updatePasteLocations(["section", "GlobalSection"])
+        break
+      default:
+        updatePasteLocations([context])
+    }
+  }
+
   const updateClipboard = (newClip: string, context: string) => {
     navigator.clipboard.writeText(newClip).then(
       () => {
@@ -22,16 +36,7 @@ export const useClipboard = (component: any) => {
           return updatePasteLocations([])
         }
 
-        switch (true) {
-          case context.includes("module"):
-            updatePasteLocations(["module"])
-            break
-          case context.includes("section"):
-            updatePasteLocations(["section", "GlobalSection"])
-            break
-          default:
-            updatePasteLocations([context])
-        }
+        determinPasteLocations(context)
       },
       (err) => {
         console.log(`copy failed: ${err}`)
@@ -73,7 +78,7 @@ export const useClipboard = (component: any) => {
     )
   }
 
-  const pasteFromClipboard = (cb: (newModule: any) => Promise<any>) => {
+  const pasteFromClipboard = (cb: (newModule: any) => void) => {
     navigator.clipboard.readText().then(async (clipboardText) => {
       const newModule: { type: string } = JSON.parse(clipboardText)
       if (isValidPasteLocation.value) {
@@ -117,7 +122,7 @@ export const useClipboard = (component: any) => {
     )
   }
 
-  const readFromClipboard = () => {
+  const readFromClipboard = (toastEL: any = null) => {
     navigator.clipboard
       .readText()
       .then((clipboardText) => {
@@ -132,13 +137,17 @@ export const useClipboard = (component: any) => {
         }
 
         if (newModule && newModule?.type) {
-          updatePasteLocations([newModule.type])
+          determinPasteLocations(newModule.type)
         } else {
           if (Array.isArray(newModule)) {
             hasPageInClipboard.value = true
             updatePasteLocations(["page"])
           }
           updatePasteLocations([])
+        }
+        if (toastEL !== null) {
+          const toast = new Toast(toastEL)
+          toast.show()
         }
       })
       .catch((err) => console.log(err))
