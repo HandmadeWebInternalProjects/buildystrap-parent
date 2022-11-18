@@ -1,9 +1,6 @@
 <template>
   <div
     class="module-controls d-flex text-center"
-    :class="{
-      'outline outline-2 outline-dashed outline-white': isValidPasteLocation,
-    }"
     :data-testid="`${type || component.type}-controls`">
     <ul
       :class="`list-unstyled d-flex flex-${direction} m-0 p-0 gap-2 overflow-x-auto pb-0`">
