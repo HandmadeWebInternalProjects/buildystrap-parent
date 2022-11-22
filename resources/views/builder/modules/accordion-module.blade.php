@@ -18,7 +18,7 @@
           </h2>
           <div id="buildystrap-accordion-item-collapse-{{ $slug }}-{{ $index }}" class="accordion-collapse collapse" aria-labelledby="buildystrap-accordion-item-{{ $slug }}-{{ $index }}" data-bs-parent="#accordionbuildystrap-accordion-itemExample">
             <div class="accordion-body">
-              {!! $content !!}
+              {!! do_shortcode($content) !!}
             </div>
           </div>
         </div>

@@ -7,8 +7,10 @@
   $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
   $offset = $module->has('offset') ? $module->get('offset')->value() : 0;
   $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
+  $exclude_cats = $module->has('exclude_cats') ? $module->get('exclude_cats')->value() : null;
+  $exclude_cats = $exclude_cats ? explode(',', $exclude_cats) : null;
   $template_part = $module->has('template_part') ? $module->get('template_part')->value() : "loop-templates/content-$postType";
-  $args = ['post_type' => $postType, 'numberposts' => $limit, 'offset' => $offset];
+  $args = ['post_type' => $postType, 'numberposts' => $limit, 'offset' => $offset, 'category__not_in' => $exclude_cats];
 
   if ($module->get('term')->value()) {
     // add tax_query to args

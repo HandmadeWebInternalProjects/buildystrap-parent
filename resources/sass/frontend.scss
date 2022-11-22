@@ -297,6 +297,14 @@ $utilities: map-merge(
           values: $box-model-sizing,
         )
       ),
+    "padding-x":
+      map-merge(
+        map-get($utilities, "padding-x"),
+        (
+          responsive: true,
+          values: $box-model-sizing,
+        )
+      ),
     "padding-y":
       map-merge(
         map-get($utilities, "padding-y"),
@@ -348,7 +356,7 @@ $utilities: map-merge(
     "column-gap": (
       css-var: true,
       css-variable-name: col-gap,
-      class: gx,
+      class: col-gap,
       responsive: true,
       values: $gaps,
     ),
@@ -362,7 +370,7 @@ $utilities: map-merge(
     "row-gap": (
       css-var: true,
       css-variable-name: row-gap,
-      class: gy,
+      class: row-gap,
       responsive: true,
       values: $gaps,
     ),
@@ -494,8 +502,17 @@ $utilities: map-merge(
       property: object-position,
       class: object-position,
       responsive: true,
-      values: left left-top left-bottom right right-top right-bottom center
-        center-top center-bottom,
+      values: (
+        left: left,
+        left-top: left top,
+        left-bottom: left bottom,
+        right: right,
+        right-top: right top,
+        right-bottom: right bottom,
+        center: center,
+        center-top: center top,
+        center-bottom: center bottom,
+      ),
     ),
   )
 );

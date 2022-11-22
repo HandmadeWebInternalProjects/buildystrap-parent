@@ -15,6 +15,7 @@ class AccordionModule extends Module
           'type' => 'replicator-field',
           'config' => [
             'label' => 'Accordion',
+            'preview' => 'title'
           ],
           'fields' => [
             'title' => [

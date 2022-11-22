@@ -63,7 +63,7 @@ class Row extends Layout
         }
 
         // if columns is not divisible by 12, then we can change the column count in the grid so it works
-        if (12 % $this->colCount !== 0 || $this->colCount > 12) {
+        if ($this->colCount && (12 % $this->colCount !== 0 || $this->colCount > 12)) {
             $this->inline_styles[] = "--bs-columns: {$this->colCount}";
         }
 

@@ -73,6 +73,14 @@ class PostGridModule extends Module
               'placeholder' => 3
             ],
           ],
+          'exclude_cats' => [
+            'type' => 'text-field',
+            'config' => [
+              'label' => 'Exclude Category IDs (comma separated)',
+              'class' => 'g-col-6',
+              'placeholder' => ''
+            ],
+          ],
           'template_part' => [
             'type' => 'text-field',
             'config' => [
