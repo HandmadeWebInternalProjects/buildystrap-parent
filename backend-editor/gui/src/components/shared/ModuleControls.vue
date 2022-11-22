@@ -111,12 +111,16 @@ const settings = computed((): ControlItem[] => {
           icon: isValidPasteLocation.value
             ? ["fas", "clipboard-check"]
             : ["fas", "clipboard"],
-          title: "Copy module to clipboard",
+          title: isValidPasteLocation.value
+            ? "Paste module here (after this one)"
+            : "Copy module to clipboard",
           action: isValidPasteLocation.value
             ? () => pasteFromClipboard(pasteModule)
             : copyToClipboard,
           order: 30,
-          // class: this.isValidPasteLocation ? "pulse-constant" : "",
+          class: isValidPasteLocation.value
+            ? "text-green-300 animate-pulse"
+            : "",
         }
       : {},
     delete: {
@@ -146,7 +150,7 @@ const cloneModule = (): void => {
   parentArray.value.splice(index.value + 1, 0, clone)
 }
 
-const pasteModule = (fromClipBoard: any): void => {
+const pasteModule = (fromClipBoard?: any): void => {
   recursifyID(fromClipBoard)
   parentArray.value.splice(index.value + 1, 0, fromClipBoard)
 }
@@ -155,3 +159,19 @@ const removeModule = (): void => {
   parentArray.value.splice(index.value, 1)
 }
 </script>
+
+<style>
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+</style>

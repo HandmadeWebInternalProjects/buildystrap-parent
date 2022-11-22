@@ -4,9 +4,8 @@ import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
+import { recursifyID } from "./utils/id"
 const { getGlobalSections, getGlobalModules } = storeToRefs(useBuilderStore())
-
-const { readFromClipboard } = useClipboard({})
 
 // @ts-ignore
 import {
@@ -20,8 +19,18 @@ import {
 const contentEl = document.getElementById("content")
 const builder = ref<ModuleType[]>([])
 
+const {
+  readFromClipboard,
+  hasClipboardAccess,
+  copyPageToClipboard,
+  pasteFromClipboard,
+  isValidPasteLocation,
+} = useClipboard(builder)
+
 const globalStackOpen = ref(false)
 const revealGlobalModules = ref(false)
+
+const liveToast = ref(null)
 
 const { getStacks } = useStacks()
 
@@ -47,9 +56,12 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
   console.log({ newModule })
 }
 
-onMounted(() => {
-  navigator?.clipboard ? readFromClipboard() : null
-})
+const pastePage = (fromClipBoard: any): void => {
+  recursifyID(fromClipBoard)
+  // Ask for confirmation prompt before replacing value
+
+  return (builder.value = fromClipBoard)
+}
 
 watch(
   builder,
@@ -64,8 +76,7 @@ watch(
 
 <template>
   <stacks v-if="getStacks.length"></stacks>
-  <div
-    class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
+  <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
       :list="builder"
@@ -82,6 +93,26 @@ watch(
       </template>
     </draggable>
     <div class="d-flex ms-auto">
+      <button
+        v-if="isValidPasteLocation"
+        type="button"
+        class="btn btn-sm btn-danger text-white mb-3 me-3"
+        @click="pasteFromClipboard(pastePage)">
+        Paste page from clipboard
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm btn-warning text-white mb-3 me-3"
+        @click="copyPageToClipboard">
+        Copy Page To Clipboard
+      </button>
+      <button
+        v-if="hasClipboardAccess"
+        type="button"
+        class="btn btn-sm btn-secondary text-white mb-3 me-3"
+        @click="readFromClipboard(liveToast)">
+        Paste from clipboard
+      </button>
       <button
         type="button"
         class="btn btn-sm btn-purple text-white mb-3 me-3"
@@ -123,6 +154,29 @@ watch(
         </div>
       </div>
     </buildy-stack>
+  </div>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div
+      ref="liveToast"
+      class="toast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Buildystrap</strong>
+        <small>Ready to paste</small>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Now choose where you would like to paste the module by clicking one of
+        the highlighted icons above, your module will be pasted right underneath
+        the one you choose.
+      </div>
+    </div>
   </div>
 </template>
 

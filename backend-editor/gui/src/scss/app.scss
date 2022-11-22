@@ -42,6 +42,42 @@ input::placeholder {
 $utilities: map-merge(
   $utilities,
   (
+    "outline":
+      map-merge(
+        map-get($utilities, "border"),
+        (
+          property: outline,
+          class: outline,
+          values: map-get(map-get($utilities, "border"), "values"),
+        )
+      ),
+    "outline-width":
+      map-merge(
+        map-get($utilities, "border-width"),
+        (
+          property: outline-width,
+          class: outline,
+          values: map-get(map-get($utilities, "border-width"), "values"),
+        )
+      ),
+    "outline-style": (
+      property: outline-style,
+      class: outline,
+      values: dotted dashed,
+    ),
+    "outline-color":
+      map-merge(
+        map-get($utilities, "border-color"),
+        (
+          property: outline-color,
+          class: outline,
+          values:
+            map-merge(
+              map-get(map-get($utilities, "border-color"), "values"),
+              ($all-colors)
+            ),
+        )
+      ),
     "border-color":
       map-merge(
         map-get($utilities, "border-color"),
@@ -164,7 +200,6 @@ $utilities: map-merge(
 
 #app,
 .buildy {
-  
   @import "bootstrap/scss/reboot";
 
   @import "bootstrap/scss/type";
@@ -188,7 +223,7 @@ $utilities: map-merge(
   // @import "bootstrap/scss/progress";
   // @import "bootstrap/scss/list-group";
   // @import "bootstrap/scss/close";
-  // @import "bootstrap/scss/toasts";
+  @import "bootstrap/scss/toasts";
   // @import "bootstrap/scss/modal";
   // @import "bootstrap/scss/tooltip";
 
@@ -250,7 +285,7 @@ $utilities: map-merge(
     .module-controls {
       display: none !important;
     }
-    
+
     .sortable-handle:after {
       margin-top: 0;
     }
@@ -268,7 +303,7 @@ $utilities: map-merge(
     cursor: -webkit-grab;
     cursor: grab;
     background: $gray-600;
-  
+
     &:after {
       content: "";
       position: relative;

@@ -1,16 +1,33 @@
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import { useBuilderStore } from "@/stores/builder"
 import { storeToRefs } from "pinia"
+import { Toast } from "bootstrap"
+
+export const hasClipboardAccess = computed(() => !!navigator.clipboard)
+export const hasPageInClipboard = ref(false)
 
 export const useClipboard = (component: any) => {
   const { updatePasteLocations } = useBuilderStore()
   const { getPasteLocations } = storeToRefs(useBuilderStore())
 
   const isValidPasteLocation = computed(() => {
-    return getPasteLocations.value.some((type) => {
-      return component.type.includes(type)
-    })
+    return component?.type
+      ? getPasteLocations.value.some((type) => component.type.includes(type))
+      : hasPageInClipboard.value && Array.isArray(component.value)
   })
+
+  const determinPasteLocations = (context: string) => {
+    switch (true) {
+      case context.includes("module"):
+        updatePasteLocations(["module"])
+        break
+      case context.includes("section"):
+        updatePasteLocations(["section", "GlobalSection"])
+        break
+      default:
+        updatePasteLocations([context])
+    }
+  }
 
   const updateClipboard = (newClip: string, context: string) => {
     navigator.clipboard.writeText(newClip).then(
@@ -18,16 +35,8 @@ export const useClipboard = (component: any) => {
         if (!context || typeof context !== "string") {
           return updatePasteLocations([])
         }
-        switch (true) {
-          case context.includes("module"):
-            updatePasteLocations(["module"])
-            break
-          case context.includes("section"):
-            updatePasteLocations(["section", "GlobalSection"])
-            break
-          default:
-            updatePasteLocations([context])
-        }
+
+        determinPasteLocations(context)
       },
       (err) => {
         console.log(`copy failed: ${err}`)
@@ -35,15 +44,16 @@ export const useClipboard = (component: any) => {
     )
   }
 
-  const copyToClipboard = () => {
+  const copyToClipboard = ($event, type: string = component.type) => {
     const clipboardModule = JSON.stringify(component)
-    const type = "text/plain"
-    const blob = new Blob([clipboardModule], { type })
-    const data = [new ClipboardItem({ [type]: blob })]
+    const copyType = "text/plain"
+    const blob = new Blob([clipboardModule], { type: copyType })
+    const data = [new ClipboardItem({ [copyType]: blob })]
+    hasPageInClipboard.value = false
 
     navigator.clipboard.write(data).then(
       () => {
-        updateClipboard(clipboardModule, component.type)
+        updateClipboard(clipboardModule, type)
       },
       () => {
         console.log("copy failed")
@@ -51,11 +61,28 @@ export const useClipboard = (component: any) => {
     )
   }
 
-  const pasteFromClipboard = (cb: (newModule: { type: string }) => void) => {
-    navigator.clipboard.readText().then((clipboardText) => {
+  const copyPageToClipboard = () => {
+    const clipboardModule = JSON.stringify(component.value)
+    const copyType = "text/plain"
+    const blob = new Blob([clipboardModule], { type: copyType })
+    const data = [new ClipboardItem({ [copyType]: blob })]
+
+    navigator.clipboard.write(data).then(
+      () => {
+        updateClipboard(clipboardModule, "page")
+        hasPageInClipboard.value = true
+      },
+      () => {
+        console.log("copy failed")
+      }
+    )
+  }
+
+  const pasteFromClipboard = (cb: (newModule: any) => void) => {
+    navigator.clipboard.readText().then(async (clipboardText) => {
       const newModule: { type: string } = JSON.parse(clipboardText)
       if (isValidPasteLocation.value) {
-        cb(newModule)
+        await Promise.resolve(cb(newModule))
         emptyClipboard()
       } else {
         alert(`Can only paste ${newModule.type} with other ${newModule.type}s'`)
@@ -86,6 +113,7 @@ export const useClipboard = (component: any) => {
   const emptyClipboard = () => {
     navigator.clipboard.writeText("<empty clipboard>").then(
       () => {
+        hasPageInClipboard.value = false
         updatePasteLocations([])
       },
       () => {
@@ -94,20 +122,32 @@ export const useClipboard = (component: any) => {
     )
   }
 
-  const readFromClipboard = () => {
+  const readFromClipboard = (toastEL: any = null) => {
     navigator.clipboard
       .readText()
       .then((clipboardText) => {
         if (!clipboardText) {
-          updatePasteLocations([""])
+          updatePasteLocations([])
           return
         }
+        hasPageInClipboard.value = false
         const newModule = tryParseJSON(clipboardText)
+        if (!newModule) {
+          return emptyClipboard()
+        }
 
         if (newModule && newModule?.type) {
-          updatePasteLocations([newModule.type])
+          determinPasteLocations(newModule.type)
         } else {
-          updatePasteLocations([""])
+          if (Array.isArray(newModule)) {
+            hasPageInClipboard.value = true
+            updatePasteLocations(["page"])
+          }
+          updatePasteLocations([])
+        }
+        if (toastEL !== null) {
+          const toast = new Toast(toastEL)
+          toast.show()
         }
       })
       .catch((err) => console.log(err))
@@ -117,9 +157,11 @@ export const useClipboard = (component: any) => {
     isValidPasteLocation,
     updateClipboard,
     copyToClipboard,
+    copyPageToClipboard,
     pasteFromClipboard,
     tryParseJSON,
     emptyClipboard,
     readFromClipboard,
+    hasClipboardAccess,
   }
 }
