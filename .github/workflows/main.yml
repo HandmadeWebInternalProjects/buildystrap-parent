@@ -16,16 +16,23 @@ jobs:
         with:
           node-version: "16"
 
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
       - name: Build Theme
         run: |
-          npm install
-          npm run build
+          pnpm install
+          pnpm build
 
       - name: Build GUI
         working-directory: ./backend-editor/gui
         run: |
-          npm install
-          npm run build
+          pnpm install
+          pnpm build
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
