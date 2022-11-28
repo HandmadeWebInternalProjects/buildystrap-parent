@@ -32,6 +32,8 @@ const props = defineProps({
 const readOnly = ref(props.readOnly)
 const state = computed(() => props.value)
 
+emit("input", state.value)
+
 const toggle = () => {
   if (!readOnly.value) {
     emit("input", !state.value)

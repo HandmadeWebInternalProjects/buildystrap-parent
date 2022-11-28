@@ -44,7 +44,7 @@ export const useClipboard = (component: any) => {
     )
   }
 
-  const copyToClipboard = ($event, type: string = component.type) => {
+  const copyToClipboard = ($event: any, type: string = component.type) => {
     const clipboardModule = JSON.stringify(component)
     const copyType = "text/plain"
     const blob = new Blob([clipboardModule], { type: copyType })

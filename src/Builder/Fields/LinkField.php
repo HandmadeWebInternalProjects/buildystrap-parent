@@ -8,21 +8,20 @@ class LinkField extends Field
 {
     protected static function blueprint(): array
     {
-        return [
-      'config' => [
-        'display' => 'Link Field',
-      ],
-    ];
+      return [
+        'config' => [
+          'display' => 'Link Field',
+        ],
+      ];
     }
 
     public function __toString(): string
     {
-        return $this->value();
+      return $this->value();
     }
 
     public function augment(): void
     {
-        parent::augment();
-        $this->value = apply_shortcodes($this->value);
+      $this->value = collect((array) $this->raw);
     }
 }

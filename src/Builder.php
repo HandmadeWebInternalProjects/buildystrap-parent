@@ -8,6 +8,7 @@ use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\AccordionField;
 use Buildystrap\Builder\Fields\ButtonField;
 use Buildystrap\Builder\Fields\CodeField;
+use Buildystrap\Builder\Fields\ColorSelectField;
 use Buildystrap\Builder\Fields\ImageField;
 use Buildystrap\Builder\Fields\LinkField;
 use Buildystrap\Builder\Fields\MediaField;
@@ -65,6 +66,7 @@ class Builder
     'link-field' => LinkField::class,
     'toggle-field' => ToggleField::class,
     'code-field' => CodeField::class,
+    'color-select-field' => ColorSelectField::class,
     'select-field' => SelectField::class,
     'richtext-field' => RichTextField::class,
     'title-field' => TitleField::class,
