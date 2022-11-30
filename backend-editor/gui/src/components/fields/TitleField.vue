@@ -20,6 +20,7 @@ const fields: any = reactive({
   level: props.modelValue?.level || "",
   size: props.modelValue?.size || {},
   weight: props.modelValue?.weight || {},
+  line_height: props.modelValue?.line_height || {},
   color: props.modelValue?.color || {},
   class: props.modelValue?.class || "",
 })
@@ -108,6 +109,23 @@ watch(fields, (newValue) => {
                 taggable: true,
               }"
               v-model="fields.color[bp]" />
+            <select-field
+              class="flex-grow-1 flex-basis-0"
+              @mouseover.ctrl="forceDelete('line_height')"
+              handle="line_height"
+              :config="{
+                label: 'Line Height',
+                options: [
+                  '1',
+                  'sm',
+                  'base',
+                  'lg',
+                ],
+                placeholder: 'Default',
+                responsive: true,
+                popover: 'Change the line height of the header tag',
+              }"
+              v-model="fields.line_height[bp]" />
             <text-field
               class="flex-grow-1"
               handle="class"
