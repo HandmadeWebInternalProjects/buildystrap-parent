@@ -18,147 +18,152 @@ use function view;
 
 abstract class Module
 {
-    use Attributes;
-    use Config;
-    use Augment;
-    use InlineAttributes;
-    use HtmlStyleBuilder;
+  use Attributes;
+  use Config;
+  use Augment;
+  use InlineAttributes;
+  use HtmlStyleBuilder;
 
-    protected string $uuid;
-    protected string $type;
-    protected bool $enabled;
+  protected string $uuid;
+  protected string $type;
+  protected bool $enabled;
 
-    protected Collection $fields;
-    protected Collection $values;
+  protected Collection $fields;
+  protected Collection $values;
 
-    public function __construct(array $module)
-    {
-        $this->uuid = $module['uuid'];
-        $this->enabled = $module['enabled'] ?? false;
-        $this->type = $module['type'];
+  public function __construct(array $module)
+  {
+    $this->uuid = $module['uuid'];
+    $this->enabled = $module['enabled'] ?? false;
+    $this->type = $module['type'];
 
-        $blueprintFields = static::getBlueprint()->get('fields');
+    $blueprintFields = static::getBlueprint()->get('fields');
 
-        $values = $module['values'];
+    $values = $module['values'];
 
-        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
-            if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
-                if ($field = Builder::getField($blueprintField['type'])) {
-                    return new $field($value);
-                }
-            }
-        })->filter();
-
-        if (isset($module['config']) && is_array($module['config'])) {
-            $this->config = $module['config'];
+    $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
+      if (!empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
+        if ($field = Builder::getField($blueprintField['type'])) {
+          return new $field($value);
         }
+      }
+    })->filter();
 
-        if (isset($module['attributes']) && is_array($module['attributes'])) {
-            $this->attributes = $module['attributes'];
-        }
-
-        if (isset($module['inline']) && is_array($module['inline'])) {
-            $this->inline_attributes = $module['inline'];
-        }
+    if (isset($module['config']) && is_array($module['config'])) {
+      $this->config = $module['config'];
     }
 
-    public function get(string $value, mixed $default = null): mixed
-    {
-        return optional($this->fields()->get($value, $default))->augmented();
+    if (isset($module['attributes']) && is_array($module['attributes'])) {
+      $this->attributes = $module['attributes'];
     }
 
-    public function fields(): Collection
-    {
-        return $this->fields;
+    if (isset($module['inline']) && is_array($module['inline'])) {
+      $this->inline_attributes = $module['inline'];
     }
+  }
 
-    // public static function getBlueprint(): Collection
-    // {
-    //     $blueprint = static::blueprint();
-    //     $fields = $blueprint['fields'] ?? [];
+  public function get(string $value, mixed $default = null): mixed
+  {
+    return optional($this->fields()->get($value, $default))->augmented();
+  }
 
-    //     foreach ($fields as $handle => $item) {
-    //         if ($field = Builder::getField($item['type'])) {
-    //             if( isset($item['fields']) ) {
-    //                 foreach ($item['fields'] as $sub_handle => $sub_item) {
-    //                     if ($sub_field = Builder::getField($sub_item['type'])) {
-    //                         $item['fields'][$sub_handle] = array_replace_recursive($sub_field::getBlueprint()->toArray(), $sub_item);
-    //                     }
-    //                 }
-    //             }
-    //             $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
-    //         }
-    //     }
+  private function setSelectorTab($tab)
+  {
+    $this->config['selectorTab'] = $tab;
+  }
 
-    //     return collect($blueprint);
-    // }
+  public function fields(): Collection
+  {
+    return $this->fields;
+  }
 
-    public static function getBlueprint(): Collection
-    {
-        $blueprint = static::blueprint();
-        $fields = $blueprint['fields'] ?? [];
+  // public static function getBlueprint(): Collection
+  // {
+  //     $blueprint = static::blueprint();
+  //     $fields = $blueprint['fields'] ?? [];
 
-        $blueprint = static::matchConfigs($blueprint, $fields);
+  //     foreach ($fields as $handle => $item) {
+  //         if ($field = Builder::getField($item['type'])) {
+  //             if( isset($item['fields']) ) {
+  //                 foreach ($item['fields'] as $sub_handle => $sub_item) {
+  //                     if ($sub_field = Builder::getField($sub_item['type'])) {
+  //                         $item['fields'][$sub_handle] = array_replace_recursive($sub_field::getBlueprint()->toArray(), $sub_item);
+  //                     }
+  //                 }
+  //             }
+  //             $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+  //         }
+  //     }
 
-        return collect($blueprint);
+  //     return collect($blueprint);
+  // }
+
+  public static function getBlueprint(): Collection
+  {
+    $blueprint = static::blueprint();
+    $fields = $blueprint['fields'] ?? [];
+
+    $blueprint = static::matchConfigs($blueprint, $fields);
+
+    return collect($blueprint);
+  }
+
+  public static function matchConfigs($parent, $fields): array
+  {
+    foreach ($fields as $handle => $item) {
+
+      if (isset($item['fields'])) {
+        $item = static::matchConfigs($item, $item['fields']);
+      }
+
+      if ($field = Builder::getField($item['type'])) {
+        $parent['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+      }
     }
+    return $parent;
+  }
 
-    public static function matchConfigs($parent, $fields): array
-    {
-        foreach ($fields as $handle => $item) {
+  abstract protected static function blueprint(): array;
 
-            if( isset($item['fields']) ) {
-                $item = static::matchConfigs($item, $item['fields']);
-            }
+  public function type(): string
+  {
+    return $this->type;
+  }
 
-            if ($field = Builder::getField($item['type'])) {
-                $parent['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
-            }
-        }
-        return $parent;
-    }
+  public function __toString(): string
+  {
+    return $this->augmented()->render();
+  }
 
-    abstract protected static function blueprint(): array;
+  public function render(): string
+  {
+    $this->augmentOnce();
 
-    public function type(): string
-    {
-        return $this->type;
-    }
+    $views = [
+      "builder-modules::$this->type",
+      'builder::module-not-found',
+    ];
 
-    public function __toString(): string
-    {
-        return $this->augmented()->render();
-    }
+    return view()->first($views)->with('module', $this)->render();
+  }
 
-    public function render(): string
-    {
-        $this->augmentOnce();
+  public function augment(): void
+  {
+    $this->generateClasses();
+  }
 
-        $views = [
-            "builder-modules::$this->type",
-            'builder::module-not-found',
-        ];
+  public function has(string $value): bool
+  {
+    return $this->fields()->has($value);
+  }
 
-        return view()->first($views)->with('module', $this)->render();
-    }
+  public function enabled(): bool
+  {
+    return $this->enabled;
+  }
 
-    public function augment(): void
-    {
-        $this->generateClasses();
-    }
-
-    public function has(string $value): bool
-    {
-        return $this->fields()->has($value);
-    }
-
-    public function enabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
-    }
+  public function uuid(): string
+  {
+    return $this->uuid;
+  }
 }

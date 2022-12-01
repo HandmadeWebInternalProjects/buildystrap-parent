@@ -84,7 +84,7 @@ $video_thumb = $video_thumb ? wp_get_attachment_image_url($video_thumb, 'full') 
         </iframe>
         <div class="video-overlay__contents">
           <a href="javascript:;" class="video-play">
-            <span class="sr-only">Play video</span>
+            <span class="visually-hidden">Play video</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="0.88em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 448 512"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>
           </a>
         </div>

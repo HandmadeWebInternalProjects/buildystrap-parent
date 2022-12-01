@@ -33,6 +33,8 @@ const display: any = reactive({
   "align-content": props.modelValue["align-content"] || {},
   "grid-template-rows": props.modelValue["grid-template-rows"] || {},
   "grid-template-columns": props.modelValue["grid-template-columns"] || {},
+  "combine-gaps": props.modelValue["combine-gaps"] || false,
+  gap: props.modelValue["gap"] || {},
   "column-gap": props.modelValue["column-gap"] || {},
   "row-gap": props.modelValue["row-gap"] || {},
   order: props.modelValue["order"] || {},
@@ -41,6 +43,9 @@ const display: any = reactive({
 const options = Array.from({ length: 13 }, (_, i) => i)
 
 watch(display, (val: any) => {
+  if (val?.["combine-gaps"]) {
+    display["column-gap"] = display["row-gap"] = {}
+  }
   update(filterOutEmptyValues(val))
 })
 </script>
@@ -211,27 +216,47 @@ watch(display, (val: any) => {
       </div>
     </div>
 
-    <div class="g-col-12 d-flex gap-3">
+    <div class="g-col-12">
+      <toggle-field
+        handle="combine-gaps"
+        :config="{
+          label: 'Combine Gaps',
+          description: 'Combine the row and column gaps into one value',
+        }"
+        v-model="display['combine-gaps']" />
       <select-field
         class="flex-grow-1 flex-basis-0"
-        handle="column-gap"
+        handle="gap"
+        v-if="display['combine-gaps']"
         :placeholder="responsivePlaceholder(display, 'column-gap', bp)"
         :config="{
-          label: 'Column Gap',
+          label: 'Gap',
           options,
           taggable: true,
         }"
-        v-model="display['column-gap'][bp]" />
-      <select-field
-        class="flex flex-grow-1 flex-basis-0"
-        handle="row-gap"
-        :placeholder="responsivePlaceholder(display, 'row-gap', bp)"
-        :config="{
-          label: 'Row Gap',
-          options,
-          taggable: true,
-        }"
-        v-model="display['row-gap'][bp]" />
+        v-model="display['gap'][bp]" />
+      <div class="d-flex gap-3" v-else>
+        <select-field
+          class="flex-grow-1 flex-basis-0"
+          handle="column-gap"
+          :placeholder="responsivePlaceholder(display, 'column-gap', bp)"
+          :config="{
+            label: 'Column Gap',
+            options,
+            taggable: true,
+          }"
+          v-model="display['column-gap'][bp]" />
+        <select-field
+          class="flex flex-grow-1 flex-basis-0"
+          handle="row-gap"
+          :placeholder="responsivePlaceholder(display, 'row-gap', bp)"
+          :config="{
+            label: 'Row Gap',
+            options,
+            taggable: true,
+          }"
+          v-model="display['row-gap'][bp]" />
+      </div>
     </div>
 
     <select-field
