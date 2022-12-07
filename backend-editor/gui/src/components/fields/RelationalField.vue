@@ -41,7 +41,7 @@ const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchFromEndpoint = async (endpoint: string) => {
   try {
-    const res = await fetch(endpoint)
+    const res = await fetch(`${endpoint}?per_page=100`)
     let data = await res.json()
     return data
   } catch (error: any) {
