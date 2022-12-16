@@ -165,46 +165,50 @@ trait HtmlStyleBuilder
     }
 
     /** Col Gap */
-    foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
-      $is_taggable = is_taggable('box_model_sizing', $value);
+    if (!$this->getInlineAttribute('display.combine-gaps', [])) {
+      foreach ($this->getInlineAttribute('display.column-gap', []) as $breakpoint => $value) {
+        $is_taggable = is_taggable('box_model_sizing', $value);
 
-      if (!$is_taggable) {
-        $this->html_classes[] = match ($breakpoint) {
-          'xs' => "gx-{$value}",
-          default => "gx-{$breakpoint}-{$value}"
-        };
-      } else {
-        if (!in_array('gx-taggable', $this->html_classes)) {
-          $this->html_classes[] = 'gx-taggable';
+        if (!$is_taggable) {
+          $this->html_classes[] = match ($breakpoint) {
+            'xs' => "gx-{$value}",
+            default => "gx-{$breakpoint}-{$value}"
+          };
+        } else {
+          if (!in_array('gx-taggable', $this->html_classes)) {
+            $this->html_classes[] = 'gx-taggable';
+          }
+          $this->inline_styles[] = match ($breakpoint) {
+            'xs' => "--gx: {$value};",
+            default => "--gx-{$breakpoint}: {$value};"
+          };
         }
-        $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--gx: {$value};",
-          default => "--gx-{$breakpoint}: {$value};"
-        };
       }
     }
 
     /** Row Gap */
-    foreach ($this->getInlineAttribute('display.row-gap', []) as $breakpoint => $value) {
-      // if (!in_array('row-gap', $this->html_classes)) {
-      //   $this->html_classes[] = 'row-gap';
-      // }
+    if (!$this->getInlineAttribute('display.combine-gaps', [])) {
+      foreach ($this->getInlineAttribute('display.row-gap', []) as $breakpoint => $value) {
+        // if (!in_array('row-gap', $this->html_classes)) {
+        //   $this->html_classes[] = 'row-gap';
+        // }
 
-      $is_taggable = is_taggable('box_model_sizing', $value);
+        $is_taggable = is_taggable('box_model_sizing', $value);
 
-      if (!$is_taggable) {
-        $this->html_classes[] = match ($breakpoint) {
-          'xs' => "gy-{$value}",
-          default => "gy-{$breakpoint}-{$value}"
-        };
-      } else {
-        if (!in_array('gy-taggable', $this->html_classes)) {
-          $this->html_classes[] = 'gy-taggable';
+        if (!$is_taggable) {
+          $this->html_classes[] = match ($breakpoint) {
+            'xs' => "gy-{$value}",
+            default => "gy-{$breakpoint}-{$value}"
+          };
+        } else {
+          if (!in_array('gy-taggable', $this->html_classes)) {
+            $this->html_classes[] = 'gy-taggable';
+          }
+          $this->inline_styles[] = match ($breakpoint) {
+            'xs' => "--gy: {$value};",
+            default => "--gy-{$breakpoint}: {$value};"
+          };
         }
-        $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--gy: {$value};",
-          default => "--gy-{$breakpoint}: {$value};"
-        };
       }
     }
 

@@ -1,12 +1,16 @@
 @php
+  $hasType = isset($button['type']) && $button['type'] !== 'custom';
+
   $text = $button['text'] ?? '';
-  $bg_colour = isset($button['style']) ? "btn-{$button['style']}" : 'btn-primary';
+  $type = $hasType ? $button['type'] : 'btn-primary';
   $size = isset($button['size']) ?? null;
-  $color = isset($button['color']) ? "text-{$button['color']}" : null;
+  $bg_colour = isset($button['style']) && !$hasType ? "btn-{$button['style']}" : '';
+  $color = isset($button['color']) && !$hasType ? "text-{$button['color']}" : null;
   $target = isset($button['target']) && $button['target'] ? '_blank' : null;
   $class = collect([])
     ->push('btn')
     ->push($bg_colour)
+    ->push($type)
     ->push($size)
     ->push($color)
     ->filter()

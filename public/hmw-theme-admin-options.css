@@ -1,7 +1,7 @@
 
 /******* Variables */
 :root {
---bs-primary: #055d72;--bs-primary-rgb: 5,93,114;--bs-secondary: #fb7434;--bs-secondary-rgb: 251,116,52;--bs-tertiary: #50daac;--bs-tertiary-rgb: 80,218,172;--bs-success: #48aaad;--bs-success-rgb: 72,170,173;--bs-danger: #dc3545;--bs-danger-rgb: 220,53,69;--bs-warning: #f6b13c;--bs-warning-rgb: 246,177,60;--bs-info: #4daac9;--bs-info-rgb: 77,170,201;--bs-light: #f1f0eb;--bs-light-rgb: 241,240,235;--bs-dark: #212529;--bs-dark-rgb: 33,37,41;--bs-link-color: var(--bs-danger);--color-text-body: var(--color-black);--color-text-headings: var(--color-black);--font-main: Poppins;--font-headings: "Poppins";}
+--bs-primary: #055d72;--bs-primary-rgb: 5,93,114;--bs-secondary: #fb7434;--bs-secondary-rgb: 251,116,52;--bs-tertiary: #50daac;--bs-tertiary-rgb: 80,218,172;--bs-success: #48aaad;--bs-success-rgb: 72,170,173;--bs-danger: #dc3545;--bs-danger-rgb: 220,53,69;--bs-warning: #f6b13c;--bs-warning-rgb: 246,177,60;--bs-info: #4daac9;--bs-info-rgb: 77,170,201;--bs-light: #f1f0eb;--bs-light-rgb: 241,240,235;--bs-dark: #212529;--bs-dark-rgb: 33,37,41;--bs-link-color: var(--bs-primary);--color-text-body: var(--color-black);--color-text-headings: var(--bs-primary);--font-main: Gotham;--font-headings: "Gotham";}
 
 /******* Utils */
 .border-primary { border-color: var(--bs-primary) !important; }.bg-primary, .bg-primary:hover { background-color: var(--bs-primary) !important; }.text-primary, .text-primary:visited, .text-primary:hover { color: var(--bs-primary) !important; }#app .btn.btn-primary, .btn.btn-primary {

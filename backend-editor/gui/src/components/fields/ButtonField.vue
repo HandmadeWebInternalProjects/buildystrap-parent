@@ -15,14 +15,22 @@ const { config, uuid, modelValue } = toRefs(props)
 const value = ref(modelValue?.value || {})
 
 watch(value.value, (newValue) => {
+  if (newValue["type"] && newValue["type"] !== "custom") {
+    delete newValue["style"]
+    delete newValue["color"]
+  }
   update(newValue)
 })
 
 const btnStyles = getThemeColours()
 
 const sizes = {
-  Small: "btn-sm",
-  Large: "btn-lg",
+  ...(config.value?.sizes || {}),
+}
+
+const types = {
+  Custom: "custom",
+  ...(config.value?.types || {}),
 }
 
 const updateStyleValue = (property: string, action: boolean) => {
@@ -68,15 +76,31 @@ const styles = computed(() => {
           v-model="value['url']"
           :uuid="uuid"
           :config="{ label: 'URL', hideTitle: true }" />
-        <color-select-field
-          class="g-col-12 w-100"
-          handle="button-color"
+        <text-field
+          class="g-col-12"
+          handle="class"
+          v-model="value['class']"
+          :config="{ label: 'Button Class' }" />
+        <select-field
+          class="g-col-12"
+          handle="type"
+          v-model="value['type']"
           :config="{
-            label: 'Text Color',
-            taggable: true,
-          }"
-          v-model="value['color']" />
-        <div class="g-col-12 grid gap-4" style="--bs-columns: 2">
+            label: 'Button Type',
+            options: types,
+          }" />
+
+        <div
+          v-if="!value?.['type'] || value?.['type'] === 'custom'"
+          class="g-col-12 grid gap-4"
+          style="--bs-columns: 2">
+          <color-select-field
+            handle="button-color"
+            :config="{
+              label: 'Text Color',
+              taggable: true,
+            }"
+            v-model="value['color']" />
           <color-select-field
             handle="style"
             v-model="value['style']"
@@ -85,14 +109,14 @@ const styles = computed(() => {
               label: 'Background Colour',
               options: styles,
             }" />
-          <select-field
-            class=""
-            handle="size"
-            v-model="value['size']"
-            :config="{
-              options: sizes,
-            }" />
         </div>
+        <select-field
+          class="g-col-12"
+          handle="size"
+          v-model="value['size']"
+          :config="{
+            options: sizes,
+          }" />
         <div class="g-col-12 d-flex justify-content-between align-items-center">
           <div class="d-flex gap-4">
             <toggle-field
@@ -111,7 +135,7 @@ const styles = computed(() => {
           <button
             type="button"
             class="preview-btn btn"
-            :class="[`btn-${value['style']}`, value['size']]"
+            :class="[`btn-${value['style']}`, value['size'], value['type']]"
             :style="{
               '--bs-btn-color': `var(--bs-${value['color']})`,
             }"

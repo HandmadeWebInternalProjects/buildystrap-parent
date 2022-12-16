@@ -37,5 +37,5 @@ export const findNestedObject = (
     }
   }
 
-  return null
+  return {}
 }

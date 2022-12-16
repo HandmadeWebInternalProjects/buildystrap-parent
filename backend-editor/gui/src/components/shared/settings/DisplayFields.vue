@@ -44,7 +44,12 @@ const options = Array.from({ length: 13 }, (_, i) => i)
 
 watch(display, (val: any) => {
   if (val?.["combine-gaps"]) {
-    display["column-gap"] = display["row-gap"] = {}
+    if (val?.["row-gap"]) {
+      val["row-gap"] = val["gap"]
+    }
+    if (val?.["column-gap"]) {
+      val["column-gap"] = val["gap"]
+    }
   }
   update(filterOutEmptyValues(val))
 })
@@ -228,7 +233,7 @@ watch(display, (val: any) => {
         class="flex-grow-1 flex-basis-0"
         handle="gap"
         v-if="display['combine-gaps']"
-        :placeholder="responsivePlaceholder(display, 'column-gap', bp)"
+        :placeholder="responsivePlaceholder(display, 'gap', bp)"
         :config="{
           label: 'Gap',
           options,
