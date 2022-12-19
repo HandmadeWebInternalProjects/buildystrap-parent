@@ -41,7 +41,7 @@
           role='tabpanel' 
           aria-labelledby='{{ $slug }}-tab' 
           tabindex='0'>
-            {!! $content !!}
+            {!! apply_shortcodes($content) !!}
         </div>
       </div>
     @endforeach

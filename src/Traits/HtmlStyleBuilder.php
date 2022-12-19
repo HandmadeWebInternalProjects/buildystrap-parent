@@ -260,7 +260,7 @@ trait HtmlStyleBuilder
             if (!$is_taggable) {
                 $this->html_classes[] = match ($breakpoint) {
                     'xs' => "max-w-{$value}",
-                    default => "w-{$breakpoint}-{$value}"
+                    default => "max-w-{$breakpoint}-{$value}"
                 };
             } else {
                 if (!in_array('max-width-taggable', $this->html_classes)) {
