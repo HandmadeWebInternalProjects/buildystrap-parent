@@ -279,17 +279,23 @@ trait HtmlStyleBuilder
       }
     }
 
-    /** Max Width */
-    foreach ($this->getInlineAttribute('sizing.maxWidth', []) as $breakpoint => $value) {
-      $is_taggable = is_taggable('width', $value);
-      if (!$is_taggable) {
-        $this->html_classes[] = match ($breakpoint) {
-          'xs' => "max-w-{$value}",
-          default => "w-{$breakpoint}-{$value}"
-        };
-      } else {
-        if (!in_array('max-width-taggable', $this->html_classes)) {
-          $this->html_classes[] = 'max-width-taggable';
+        /** Max Width */
+        foreach ($this->getInlineAttribute('sizing.maxWidth', []) as $breakpoint => $value) {
+            $is_taggable = is_taggable('width', $value);
+            if (!$is_taggable) {
+                $this->html_classes[] = match ($breakpoint) {
+                    'xs' => "max-w-{$value}",
+                    default => "max-w-{$breakpoint}-{$value}"
+                };
+            } else {
+                if (!in_array('max-width-taggable', $this->html_classes)) {
+                    $this->html_classes[] = 'max-width-taggable';
+                }
+                $this->inline_styles[] = match ($breakpoint) {
+                    'xs' => "--max-width: {$value} !important;",
+                    default => "--max-width-{$breakpoint}: {$value} !important;"
+                };
+            }
         }
         $this->inline_styles[] = match ($breakpoint) {
           'xs' => "--max-width: {$value} !important;",

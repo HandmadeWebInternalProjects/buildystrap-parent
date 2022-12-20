@@ -15,6 +15,7 @@ class TabModule extends Module
                     'type' => 'replicator-field',
                     'config' => [
                         'label' => 'Tab',
+                        'preview' => 'title',
                     ],
                     'fields' => [
                         'title' => [

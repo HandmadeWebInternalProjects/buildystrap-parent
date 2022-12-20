@@ -11,8 +11,11 @@ class ColorSelectField extends Field
     return [];
   }
 
-  public function __toString(): string
-  {
-    return $this->value();
-  }
+    public function __toString(): string
+    {
+        if($this->value() === null || $this->value() === '') {
+            return '';
+        }
+        return $this->value();
+    }
 }
