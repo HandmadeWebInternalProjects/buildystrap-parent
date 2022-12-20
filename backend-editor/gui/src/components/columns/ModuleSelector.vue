@@ -1,29 +1,21 @@
 <template>
   <div class="h-full bg-white overflow-auto pt-0">
     <ul class="nav nav-pills border-bottom" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
+      <li
+        v-for="(tab, i) in tabs"
+        :key="`module-tab-${tab.name}`"
+        class="nav-item"
+        role="presentation">
         <button
-          class="nav-link active"
-          data-bs-toggle="tab"
-          data-bs-target="#regular-module-tab"
-          type="button"
-          role="tab"
-          aria-controls="regular-module"
-          aria-selected="true">
-          Regular Modules
-        </button>
-      </li>
-      <li v-if="!disableGlobals" class="nav-item" role="presentation">
-        <button
-          @click="openGlobalsTab"
           class="nav-link"
+          :class="{ active: i === 0 }"
           data-bs-toggle="tab"
-          data-bs-target="#global-module-tab"
+          :data-bs-target="`#${tab.name}-tab`"
           type="button"
           role="tab"
-          aria-controls="global-module"
-          aria-selected="false">
-          Global Modules
+          :aria-controls="tab.name"
+          aria-selected="true">
+          {{ tab.title }}
         </button>
       </li>
     </ul>
@@ -31,24 +23,28 @@
     <!-- Tab panes -->
     <div class="tab-content card mt-4 p-4 rounded">
       <div
-        class="tab-pane active"
-        id="regular-module-tab"
+        v-for="(tab, i) in tabs"
+        :key="`module-tab-${tab.name}`"
+        class="tab-pane"
+        :class="{ active: i === 0 }"
+        :id="`${tab.name}-tab`"
         role="tabpanel"
-        aria-labelledby="regular-module-tab"
+        :aria-labelledby="`${tab.name}-tab`"
         tabindex="0">
-        <ul class="m-0 p-0 d-flex flex-column">
+        <ul v-if="tab?.conditions || true" class="m-0 p-0 d-flex flex-column">
           <li
             class="p-1"
-            v-for="(field, key) in getModuleBlueprints"
-            :key="key">
+            v-for="(field, key) in tab.modules"
+            :key="field?.title || key">
             <div
               class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
-              @click="addField(field, key)"
+              @click="tab?.callback(field, key)"
               style="
                 transform: perspective(1px) translateZ(0);
                 backface-visibility: hidden;
               ">
               <font-awesome-icon
+                v-if="field.icon"
                 :icon="field?.icon"
                 width="15"
                 height="15"
@@ -56,19 +52,19 @@
                 aria-controls="offcanvasRight"
                 class="flex cursor-pointer pulse"></font-awesome-icon>
               <span class="block pl-2">
-                {{ slugToStr(key) }}
+                {{ field?.title ? field.title : slugToStr(key) }}
               </span>
             </div>
           </li>
         </ul>
       </div>
-      <div
+      <!-- <div
         class="tab-pane"
         id="global-module-tab"
         role="tabpanel"
         aria-labelledby="global-module-tab"
         tabindex="0">
-        <span v-if="!disableGlobals && globalsVisible">
+        <span v-if="">
           <ul class="m-0 p-0 d-flex flex-column">
             <li class="p-1" v-for="field in getGlobalModules" :key="field.id">
               <div
@@ -85,13 +81,13 @@
             </li>
           </ul>
         </span>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { storeToRefs } from "pinia"
 import { createModule } from "../../factories/modules/moduleFactory"
 import type { ModuleType } from "../../factories/modules/moduleFactory"
@@ -100,6 +96,63 @@ import { slugToStr } from "../../utils/helpers"
 
 const { setGlobals } = useBuilderStore()
 const { getModuleBlueprints, getGlobalModules } = storeToRefs(useBuilderStore())
+
+const regularModules = computed(() => {
+  const test = Object.entries(getModuleBlueprints.value).reduce(
+    (acc: any, [key, value]) => {
+      if (
+        value?.config?.selectorTab === "regular" ||
+        !value?.config?.selectorTab
+      ) {
+        acc[key] = value
+      }
+      return acc
+    },
+    {}
+  )
+  console.log({ test })
+  return test
+})
+
+const customModules = computed(() => {
+  return Object.entries(getModuleBlueprints.value).reduce(
+    (acc: any, [key, value]) => {
+      if (value?.config?.selectorTab === "custom") {
+        acc[key] = value
+      }
+      return acc
+    },
+    {}
+  )
+})
+
+const tabs = [
+  {
+    name: "regular-module",
+    title: "Regular Modules",
+    modules: regularModules.value,
+    callback: (field: any, key: string | number) => {
+      addField(field, key)
+    },
+  },
+  {
+    name: "custom-module",
+    title: "Custom Modules",
+    callback: (field: any, key: string | number) => {
+      addField(field, key)
+    },
+    modules: customModules.value,
+  },
+  {
+    name: "global-module",
+    title: "Global Modules",
+    conditions: "!disableGlobals && globalsVisible",
+    callback: (field: any, key?: string | number) => {
+      addGlobalModule(field)
+    },
+    modules: getGlobalModules.value,
+  },
+]
 
 const props = defineProps({
   parentArray: {

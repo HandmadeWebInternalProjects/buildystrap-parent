@@ -1,7 +1,11 @@
 
 /******* Variables */
 :root {
+<<<<<<< HEAD
 --bs-default-grid-system: flex;--bs-col-gap: 4rem;--bs-gap: 4rem;--bs-row-gap: 3rem;--bs-module-gap: 3rem;--bs-section-padding: 4rem;--bs-row-padding: 4rem;--bs-primary: #f68122;--bs-primary-rgb: 246,129,34;--bs-secondary: #3a61a0;--bs-secondary-rgb: 58,97,160;--bs-tertiary: #61c48c;--bs-tertiary-rgb: 97,196,140;--bs-success: #198754;--bs-success-rgb: 25,135,84;--bs-danger: #dc3545;--bs-danger-rgb: 220,53,69;--bs-warning: #ffc107;--bs-warning-rgb: 255,193,7;--bs-info: #0dcaf0;--bs-info-rgb: 13,202,240;--bs-light: #f8f8f8;--bs-light-rgb: 248,248,248;--bs-dark: #41464b;--bs-dark-rgb: 65,70,75;--bs-yellow: #ffae17;--bs-yellow-rgb: 255,174,23;--bs-mid-gray: #999999;--bs-mid-gray-rgb: 153,153,153;--bs-dark-gray: #666666;--bs-dark-gray-rgb: 102,102,102;--bs-navy: #111d46;--bs-navy-rgb: 17,29,70;--bs-dark-navy: #41464b;--bs-dark-navy-rgb: 65,70,75;--bs-teal: #01e1e4;--bs-teal-rgb: 1,225,228;--bs-sea-blue: #3fbaca;--bs-sea-blue-rgb: 63,186,202;--bs-white: #ffffff;--bs-white-rgb: 255,255,255;--bs-black: #000000;--bs-black-rgb: 0,0,0;--bs-gradient-blue-dark: #0f1b61;--bs-gradient-blue-dark-rgb: 15,27,97;--bs-gradient-blue-light: #00abe8;--bs-gradient-blue-light-rgb: 0,171,232;--bs-gradient-orange-light: #ec9f05;--bs-gradient-orange-light-rgb: 236,159,5;--bs-gradient-orange-dark: #ef6247;--bs-gradient-orange-dark-rgb: 239,98,71;--bs-link-color: var(--color-black);--color-text-body: var(--bs-dark-gray);--color-text-headings: var(--bs-navy);--font-main: Source Sans Pro;--font-headings: "Sweet Sans Pro";--font-Sweet Sans Pro Hairline: Sweet Sans Pro Hairline;--font-Sweet Sans Pro Hairline Italic: Sweet Sans Pro Hairline Italic;--font-Sweet Sans Pro Extra Thin: Sweet Sans Pro Extra Thin;--font-Sweet Sans Pro Extra Thin Italic: Sweet Sans Pro Extra Thin Italic;}
+=======
+--bs-default-grid-system: grid;--bs-col-gap: 5rem;--bs-gap: 5rem;--bs-row-gap: 3rem;--bs-module-gap: 3rem;--bs-section-padding: 3rem;--bs-row-padding: 3rem;--bs-primary: #055d72;--bs-primary-rgb: 5,93,114;--bs-secondary: #fb7434;--bs-secondary-rgb: 251,116,52;--bs-tertiary: #50daac;--bs-tertiary-rgb: 80,218,172;--bs-success: #48aaad;--bs-success-rgb: 72,170,173;--bs-danger: #dc3545;--bs-danger-rgb: 220,53,69;--bs-warning: #f6b13c;--bs-warning-rgb: 246,177,60;--bs-info: #4daac9;--bs-info-rgb: 77,170,201;--bs-light: #f1f0eb;--bs-light-rgb: 241,240,235;--bs-dark: #212529;--bs-dark-rgb: 33,37,41;--bs-link-color: var(--bs-primary);--color-text-body: var(--color-black);--color-text-headings: var(--bs-primary);--font-main: Gotham;--font-headings: "Gotham";}
+>>>>>>> temp
 
 /******* Utils */
 .border-primary { border-color: var(--bs-primary) !important; }.bg-primary, .bg-primary:hover { background-color: var(--bs-primary) !important; }.text-primary, .text-primary:visited, .text-primary:hover { color: var(--bs-primary) !important; }#app .btn.btn-primary, .btn.btn-primary {
@@ -238,6 +242,7 @@
               --bs-btn-focus-shadow-rgb: var(--bs-dark-rgb);
               --bs-btn-disabled-bg: #d5d5d5;
               --bs-btn-disabled-border-color: #d5d5d5;
+<<<<<<< HEAD
               }.border-yellow { border-color: var(--bs-yellow) !important; }.bg-yellow, .bg-yellow:hover { background-color: var(--bs-yellow) !important; }.text-yellow, .text-yellow:visited, .text-yellow:hover { color: var(--bs-yellow) !important; }#app .btn.btn-yellow, .btn.btn-yellow {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: var(--bs-yellow);
@@ -576,4 +581,6 @@
               --bs-btn-focus-shadow-rgb: var(--bs-gradient-orange-dark-rgb);
               --bs-btn-disabled-bg: #d5d5d5;
               --bs-btn-disabled-border-color: #d5d5d5;
+=======
+>>>>>>> temp
               }

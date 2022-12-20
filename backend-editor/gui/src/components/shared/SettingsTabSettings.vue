@@ -60,6 +60,15 @@ const moduleId = computed({
   },
 })
 
+const dataAtts = computed({
+  get() {
+    return attributes.value.dataAtts || []
+  },
+  set(val: any) {
+    attributes.value = Object.assign(attributes.value, { dataAtts: val })
+  },
+})
+
 const moduleClass = computed({
   get() {
     console.log(attributes)

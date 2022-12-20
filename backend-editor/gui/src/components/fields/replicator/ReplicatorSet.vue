@@ -1,6 +1,8 @@
 <template lang="">
   <bs-accordion-item
-    :title="`${value?.[field?.config?.preview] || 'Item ' + (index + 1)}`"
+    :title="`${
+      value?.[field?.config?.preview] || `${handle || 'Item'} ${index + 1}`
+    }`"
     :uuid="value._uuid"
     @remove="removeSet">
     <div>
@@ -24,6 +26,9 @@ import { ref, computed } from "vue"
 const props = defineProps({
   config: {
     type: Object,
+  },
+  handle: {
+    type: String,
   },
   index: {
     type: Number,

@@ -22,10 +22,7 @@ $box-model-sizing: ();
 @for $i from 0 through 12 {
   $box-model-sizing: map-merge(
     $box-model-sizing,
-    (
-      #{$i}: #{$i}rem,
-      #{$i}\.5: calc(#{$i}rem + 0.5rem),
-    )
+    (#{$i}: #{$i}rem, #{$i}\.5: calc(#{$i}rem + 0.5rem))
   );
 }
 
@@ -43,10 +40,7 @@ $gaps: ();
 @for $i from 0 through 12 {
   $gaps: map-merge(
     $gaps,
-    (
-      #{$i}: #{$i}rem !important,
-      #{$i}\.5: calc(#{$i}rem + 0.5rem) !important,
-    )
+    (#{$i}: #{$i}rem !important, #{$i}\.5: calc(#{$i}rem + 0.5rem) !important)
   );
 }
 
@@ -63,6 +57,7 @@ $grid-template: ();
 $width: (
   none: none,
   auto: auto,
+  fit: fit-content,
   0: 0,
   25: 25%,
   33: 33.33%,
@@ -490,7 +485,7 @@ $utilities: map-merge(
         4: $h4-font-size,
         5: $h5-font-size,
         6: $h6-font-size,
-      )
+      ),
     ),
     "font-weight": (
       property: font-weight,
@@ -517,11 +512,12 @@ $utilities: map-merge(
   )
 );
 
-*:not(.row)[class*="gx-"] {
-  column-gap: var(--bs-col-gap) !important;
+.grid[class*="gx-"] {
+  column-gap: var(--bs-gutter-x, var(--bs-col-gap));
 }
-*:not(.row)[class*="gy-"] {
-  row-gap: var(--bs-row-gap) !important;
+
+.grid[class*="gy-"] {
+  row-gap: var(--bs-gutter-y, var(--bs-row-gap));
 }
 
 @import "bootstrap/scss/utilities/api";

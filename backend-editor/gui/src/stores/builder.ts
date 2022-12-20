@@ -40,9 +40,22 @@ export const useBuilderStore = defineStore({
     getPasteLocations: (state) => state.pasteLocations,
   },
   actions: {
+    sortBlueprintsAlpha() {
+      this.config.moduleBlueprints = Object.keys(this.config.moduleBlueprints)
+        .sort()
+        .reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: this.config.moduleBlueprints[key],
+          }),
+          {}
+        )
+    },
     setConfig(config: BuildyConfig) {
       this.config = { ...config }
-      console.log({ config: this.config })
+      if (this.config?.moduleBlueprints) {
+        this.sortBlueprintsAlpha()
+      }
     },
     setGlobals(globals: { [key: string]: any }, type: string) {
       this.config.globalModules[type] = Object.assign({}, { ...globals })
