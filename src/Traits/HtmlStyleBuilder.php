@@ -388,6 +388,7 @@ trait HtmlStyleBuilder
     }
 
     /** Padding */
+    // var_dump($this->getInlineAttribute('padding', []));
     foreach ($this->getInlineAttribute('padding', []) as $position => $items) {
       foreach ($items as $breakpoint => $value) {
         $pos = match ($position) {

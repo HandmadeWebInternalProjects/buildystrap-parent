@@ -67,11 +67,6 @@ abstract class Module
     return optional($this->fields()->get($value, $default))->augmented();
   }
 
-  private function setSelectorTab($tab)
-  {
-    $this->config['selectorTab'] = $tab;
-  }
-
   public function fields(): Collection
   {
     return $this->fields;
