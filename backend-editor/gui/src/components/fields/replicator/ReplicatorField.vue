@@ -42,7 +42,10 @@ import { useFieldType, commonProps } from "../useFieldType"
 import { useBuilderStore } from "../../../stores/builder"
 import { generateID } from "../../../utils/id"
 import { findNestedObject } from "../../../utils/objects"
-const props = defineProps({ ...commonProps })
+const props = defineProps({
+  fields: { type: Object, default: () => ({}) },
+  ...commonProps,
+})
 
 const { getModuleBlueprintForType } = useBuilderStore()
 
@@ -50,17 +53,32 @@ const { handle, moduleType } = toRefs(props)
 
 const values = ref(props.modelValue ? props.modelValue : [])
 
-const set: any = computed(() => getModuleBlueprintForType(moduleType.value))
+const set: any = computed(() => {
+  if (Object.keys(props?.fields).length) {
+    return {
+      [handle?.value !== undefined ? handle.value : "default"]: {
+        handle: handle?.value,
+        fields: props.fields,
+      },
+    }
+  }
+  return getModuleBlueprintForType(moduleType.value)
+})
+
 const field = reactive<any>({ fields: {} })
 
 const meta = ref(values.value.map(() => ({ collapsed: false })))
 
 onMounted(() => {
-  Object.assign(field, findNestedObject(set.value, handle?.value))
+  const findSet = findNestedObject(set.value, handle?.value)
+  Object.assign(field, findSet || {})
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
-  console.log({ set: set.value })
+  console.log({
+    set: findNestedObject(set.value, handle?.value),
+    handle: handle?.value,
+  })
 })
 
 const incrementValue = ref(0)

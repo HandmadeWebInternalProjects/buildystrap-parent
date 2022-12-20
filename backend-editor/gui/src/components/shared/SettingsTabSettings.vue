@@ -22,6 +22,35 @@
           v-model="moduleClass" />
       </template>
     </bs-card>
+    <bs-card label="Data Attributes">
+      <template v-slot:body>
+        <replicator-field
+          handle="data-atts"
+          :fields="{
+            key: {
+              handle: 'key',
+              type: 'text-field',
+              config: {
+                label: 'Key',
+                placeholder: 'Enter the key for the data attribute',
+              },
+            },
+            value: {
+              handle: 'value',
+              type: 'text-field',
+              config: {
+                label: 'Value',
+                placeholder: 'Enter the value for the data attribute',
+              },
+            },
+          }"
+          :config="{
+            label: false,
+            placeholder: 'Enter the data attributes for the module',
+          }"
+          v-model="dataAtts" />
+      </template>
+    </bs-card>
   </div>
 </template>
 <script setup lang="ts">
