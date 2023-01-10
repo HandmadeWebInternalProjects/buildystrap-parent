@@ -39,11 +39,6 @@ function custom_logo($url = null, $svg = null)
 
 <?php
   } else {
-    echo sprintf(
-      '<a class="navbar-brand" href="%s">',
-      isset($url) ? $url : home_url('/')
-    );
-
     if (isset($svg) && $svg) {
       echo get_svg_url($custom_logo['url']);
     } else {
@@ -54,8 +49,6 @@ function custom_logo($url = null, $svg = null)
         $custom_logo['alt']
       );
     }
-
-    echo '</a>';
   }
 }
 
