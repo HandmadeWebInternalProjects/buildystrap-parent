@@ -1,4 +1,8 @@
 <template>
+  <field-label
+    v-if="config.label !== false"
+    :label="config?.label !== undefined ? config.label : handle"
+    :popover="config?.popover" />
   <bs-accordion class="replicator-field">
     <!-- <div class="d-flex gap-4 mb-3 justify-content-center">
       <span @click="collapseAll" type="button">Collapse All</span>
@@ -15,6 +19,7 @@
       <template #item="{ element, index }">
         <replicator-set
           v-if="Object.keys(field.fields).length"
+          :handle="handle"
           :field="field"
           :value="element"
           :index="index"
@@ -26,7 +31,7 @@
       </template>
     </draggable>
     <button class="btn btn-sm btn-primary mt-3" type="button" @click="addSet">
-      Add {{ `${field?.config?.label ?? 'Item'}` }}
+      Add {{ `${field?.config?.label ?? "Item"}` }}
     </button>
   </bs-accordion>
 </template>
@@ -37,33 +42,49 @@ import { useFieldType, commonProps } from "../useFieldType"
 import { useBuilderStore } from "../../../stores/builder"
 import { generateID } from "../../../utils/id"
 import { findNestedObject } from "../../../utils/objects"
-const props = defineProps({ ...commonProps })
+const props = defineProps({
+  fields: { type: Object, default: () => ({}) },
+  ...commonProps,
+})
 
 const { getModuleBlueprintForType } = useBuilderStore()
 
 const { handle, moduleType } = toRefs(props)
 
-const values = ref(
-  props.modelValue ? props.modelValue : [{ _uuid: generateID() }]
-)
+const values = ref(props.modelValue ? props.modelValue : [])
 
-const set: any = computed(() => getModuleBlueprintForType(moduleType.value))
+const set: any = computed(() => {
+  if (Object.keys(props?.fields).length) {
+    return {
+      [handle?.value !== undefined ? handle.value : "default"]: {
+        handle: handle?.value,
+        fields: props.fields,
+      },
+    }
+  }
+  return getModuleBlueprintForType(moduleType.value)
+})
+
 const field = reactive<any>({ fields: {} })
 
 const meta = ref(values.value.map(() => ({ collapsed: false })))
 
 onMounted(() => {
-  Object.assign(field, findNestedObject(set.value, handle?.value))
+  const findSet = findNestedObject(set.value, handle?.value)
+  Object.assign(field, findSet || {})
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
-  console.log({set : set.value})
+  console.log({
+    set: findNestedObject(set.value, handle?.value),
+    handle: handle?.value,
+  })
 })
 
 const incrementValue = ref(0)
 
 provide("increment-value", {
-  incrementValue
+  incrementValue,
 })
 
 const addSet = () => {
@@ -103,7 +124,7 @@ const handleDragChange = (e: { [key: string]: any }) => {
 }
 
 const handleDragEnd = (e: { [key: string]: any }) => {
-    incrementValue.value++
+  incrementValue.value++
 }
 
 const collapseAll = () => {

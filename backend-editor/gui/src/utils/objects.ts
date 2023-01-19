@@ -18,7 +18,7 @@ export const findNestedObject = (
   if (isObject(object)) {
     const entries = Object.entries(object)
 
-    for (let i = 0; i < entries.length; i += 1) {
+    for (let i = 0; i < entries.length; i++) {
       const [objectKey, objectValue]: [objectKey: string, objectValue: any] =
         entries[i]
 

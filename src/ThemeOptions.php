@@ -4,20 +4,20 @@ namespace Buildystrap;
 
 class ThemeOptions
 {
-    public function __construct()
-    {
-        if (function_exists('get_field')) {
-            add_action('acf/save_post', [$this, 'save_theme_css_settings'], 20);
-        }
+  public function __construct()
+  {
+    if (function_exists('get_field')) {
+      add_action('acf/save_post', [$this, 'save_theme_css_settings'], 20);
     }
+  }
 
-    public function save_theme_css_settings()
-    {
-        $screen = get_current_screen();
-        if (Str::contains($screen->id, ['site-options', 'buildystrap-settings'])) {
-            $template_dir = get_template_directory();
+  public function save_theme_css_settings()
+  {
+    $screen = get_current_screen();
+    if (Str::contains($screen->id, ['site-options', 'buildystrap-settings'])) {
+      $template_dir = get_template_directory();
 
-            ob_start(); // Capture all output into buffer
+      ob_start(); // Capture all output into buffer
       require $template_dir . '/src/generate-theme-options-css.php'; // Grab the custom style php file
       $theme_css = ob_get_clean(); // Store output in a variable, then flush the buffer
 
@@ -27,91 +27,94 @@ class ThemeOptions
 
       file_put_contents($template_dir . '/public/hmw-theme-options.css', $theme_css, LOCK_EX); // Save it as a css file
       file_put_contents($template_dir . '/public/hmw-theme-admin-options.css', $admin_css, LOCK_EX); // Save it as a css file
-        }
     }
+  }
 
-    public static function generateStructureVars()
-    {
-        if ( ! function_exists('get_field')) {
-            return;
-        }
-        echo sprintf('--bs-default-grid-system: %s;', get_field('buildystrap_structure_default_grid_system', 'option'));
-        echo sprintf('--bs-col-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
-        // echo sprintf('--bs-gutter: %s;', get_field('buildystrap_structure_column_gap', 'option'));
-        echo sprintf('--bs-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
-        echo sprintf('--bs-row-gap: %s;', get_field('buildystrap_structure_row_gap', 'option'));
-        echo sprintf('--bs-module-gap: %s;', get_field('buildystrap_structure_module_gap', 'option'));
-        echo sprintf('--bs-section-padding: %s;', get_field('buildystrap_structure_section_padding', 'option'));
-        echo sprintf('--bs-row-padding: %s;', get_field('buildystrap_structure_row_padding', 'option'));
+  public static function generateStructureVars()
+  {
+    if (!function_exists('get_field')) {
+      return;
     }
+    echo sprintf('--bs-default-grid-system: %s;', get_field('buildystrap_structure_default_grid_system', 'option'));
+    echo sprintf('--bs-col-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
+    // echo sprintf('--bs-gutter: %s;', get_field('buildystrap_structure_column_gap', 'option'));
+    echo sprintf('--bs-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
+    echo sprintf('--bs-row-gap: %s;', get_field('buildystrap_structure_row_gap', 'option'));
+    echo sprintf('--bs-module-gap: %s;', get_field('buildystrap_structure_module_gap', 'option'));
+    echo sprintf('--bs-section-padding: %s;', get_field('buildystrap_structure_section_padding', 'option'));
+    echo sprintf('--bs-row-padding: %s;', get_field('buildystrap_structure_row_padding', 'option'));
+  }
 
-    public static function generateColorVars()
-    {
-        if ( ! function_exists('get_field')) {
-            return;
-        }
-        // check if the repeater field has rows of data
-        if (function_exists('get_theme_colors')) :
+  public static function generateColorVars()
+  {
+    if (!function_exists('get_field')) {
+      return;
+    }
+    // check if the repeater field has rows of data
+    if (function_exists('get_theme_colors')) :
       $colors = get_theme_colors();
-        if (isset($colors)) :
+      if (isset($colors)) :
         // loop through the rows of data
         foreach ($colors as $color) :
-          if ( ! $color['value']) {
-              continue;
+          if (!$color['value']) {
+            continue;
           }
-        $rgb = hex2rgb(sanitize_hex_color($color['value']));
-        echo sprintf('--bs-%s: %s;', sanitize_text_field($color['label']), sanitize_hex_color($color['value']));
-        echo sprintf('--bs-%s-rgb: %s;', sanitize_text_field($color['label']), $rgb);
+          $rgb = hex2rgb(sanitize_hex_color($color['value']));
+          echo sprintf('--bs-%s: %s;', sanitize_text_field($color['label']), sanitize_hex_color($color['value']));
+          echo sprintf('--bs-%s-rgb: %s;', sanitize_text_field($color['label']), $rgb);
         endforeach;
-        endif;
-        endif;
+      endif;
+    endif;
 
-        $colour_text_link = get_field('buildystrap_theme_colours_link_colour', 'option');
-        if ($colour_text_link && $colour_text_link !== 'None') :
-      echo sprintf('--bs-link-color: var(--bs-%s);', $colour_text_link); else :
+    $colour_text_link = get_field('buildystrap_theme_colours_link_colour', 'option');
+    if ($colour_text_link && $colour_text_link !== 'None') :
+      echo sprintf('--bs-link-color: var(--bs-%s);', $colour_text_link);
+    else :
       echo sprintf('--bs-link-color: var(--color-black);');
-        endif;
+    endif;
 
 
-        $colour_text_body = get_field('buildystrap_theme_colours_text_colour_body', 'option');
+    $colour_text_body = get_field('buildystrap_theme_colours_text_colour_body', 'option');
 
-        if (isset($colour_text_body['label']) && $colour_text_body['label'] !== 'None') :
-      echo sprintf('--color-text-body: var(--bs-%s);', $colour_text_body['label']); else :
+    if (isset($colour_text_body['label']) && $colour_text_body['label'] !== 'None') :
+      echo sprintf('--color-text-body: var(--bs-%s);', $colour_text_body['label']);
+    else :
       echo sprintf('--color-text-body: var(--color-black);');
-        endif;
+    endif;
 
 
-        $colour_text_headings = get_field('buildystrap_theme_colours_text_colour_headings', 'option');
+    $colour_text_headings = get_field('buildystrap_theme_colours_text_colour_headings', 'option');
 
-        if (isset($colour_text_headings['label']) && $colour_text_headings['label'] !== 'None') :
-      echo sprintf('--color-text-headings: var(--bs-%s);', $colour_text_headings['label']); else :
+    if (isset($colour_text_headings['label']) && $colour_text_headings['label'] !== 'None') :
+      echo sprintf('--color-text-headings: var(--bs-%s);', $colour_text_headings['label']);
+    else :
       echo sprintf('--color-text-headings: var(--color-black);');
-        endif;
+    endif;
+  }
+
+  public static function generateTypographyVars()
+  {
+    if (!function_exists('get_field')) {
+      return;
     }
+    $font_main = get_field('buildystrap_typography_body_font', 'option');
+    $font_headings = get_field('buildystrap_typography_heading_font', 'option');
+    $font_buttons = get_field('buildystrap_typography_font_buttons', 'option');
 
-    public static function generateTypographyVars()
-    {
-        if ( ! function_exists('get_field')) {
-            return;
-        }
-        $font_main = get_field('buildystrap_typography_body_font', 'option');
-        $font_headings = get_field('buildystrap_typography_heading_font', 'option');
-        $font_buttons = get_field('buildystrap_typography_font_buttons', 'option');
-
-        if (isset($font_main) && $font_main['value']) :
+    if (isset($font_main) && $font_main['value']) :
       echo sprintf('--font-main: %s;', $font_main['value']);
-        endif;
+    endif;
 
-        if (isset($font_headings) && $font_headings['value']) :
+    if (isset($font_headings) && $font_headings['value']) :
       echo sprintf('--font-headings: "%s";', $font_headings['value']);
-        endif;
+    endif;
 
-        if (isset($font_buttons)) :
+    if (isset($font_buttons)) :
       echo sprintf('--font-buttons: %s;', $font_buttons['value']);
-        endif;
+    endif;
 
-        // check if the repeater field has rows of data
-        if (have_rows('buildystrap_typography_additional_fonts', 'option')) :
+    // check if the repeater field has rows of data
+    if (have_rows('buildystrap_typography_additional_fonts', 'option')) :
 
       // loop through the rows of data
       while (have_rows('buildystrap_typography_additional_fonts', 'option')) : the_row();
@@ -119,25 +122,25 @@ class ThemeOptions
         $fontFamily = get_sub_field('value');
         echo sprintf('--font-%s: %s;', get_sub_field('label'), $fontFamily);
 
-        endwhile;
-        endif;
+      endwhile;
+    endif;
+  }
+
+  public static function generateColorUtils()
+  {
+    if (!function_exists('get_field') && !function_exists('get_theme_colors')) {
+      return;
     }
+    $colors = get_theme_colors();
 
-    public static function generateColorUtils()
-    {
-        if ( ! function_exists('get_field') && ! function_exists('get_theme_colors')) {
-            return;
-        }
-        $colors = get_theme_colors();
-
-        if (isset($colors)) :
+    if (isset($colors)) :
 
       // loop through the rows of data
       foreach ($colors as $color) :
         $colorName = sanitize_text_field($color['label']);
 
-        if ( ! $color['value']) {
-            continue;
+        if (!$color['value']) {
+          continue;
         }
 
         echo sprintf('.border-%1$s { border-color: var(--bs-%1$s) !important; }', $colorName);
@@ -176,9 +179,9 @@ class ThemeOptions
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
 
-        endforeach;
-        endif;
+      endforeach;
+    endif;
 
-        sprintf('.text-link { color: var(--bs-link-color) !important; }');
-    }
+    sprintf('.text-link { color: var(--bs-link-color) !important; }');
+  }
 }

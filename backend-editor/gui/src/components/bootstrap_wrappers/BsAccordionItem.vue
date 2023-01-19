@@ -45,12 +45,8 @@ const removeItem = (_uuid: string) => {
 </script>
 <style lang="scss">
 #app {
-
   .accordion-item {
-    overflow: hidden;
-
     .accordion-header {
-
       .sortable-handle {
         justify-content: center;
       }
