@@ -138,6 +138,13 @@ if (!function_exists('has_flourishes')) {
   }
 }
 
+if (!function_exists('has_divider')) {
+  function has_divider($module)
+  {
+    return !!stripos(($module->classes() ?? ""), 'divider-') !== false;
+  }
+}
+
 
 
 if (!function_exists('acf_active')) {
@@ -149,7 +156,7 @@ if (!function_exists('acf_active')) {
 
 
 if (!function_exists('bs_has_field')) {
-  function bs_has_field(string $field, int $id, string $default = ''): string
+  function bs_has_field(string $field, int | string $id, string $default = ''): bool
   {
     if (acf_active() && $check = get_field($field, $id)) {
       return true;
@@ -160,7 +167,7 @@ if (!function_exists('bs_has_field')) {
 
 
 if (!function_exists('bs_get_field')) {
-  function bs_get_field(string $field, int | string $id, string $default = ''): string
+  function bs_get_field(string $field, int | string $id, string $default = ''): mixed
   {
     if (acf_active() && get_field($field, $id)) {
       return get_field($field, $id);
@@ -234,6 +241,28 @@ if (!function_exists('get_svg_url')) {
   }
 }
 
+/**
+ * Lightens/darkens a given colour (hex format), returning the altered colour in hex format.
+ * */
+function color_luminance(string $hex, $percent)
+{
+  // validate hex string
+  $hex = preg_replace('/[^0-9a-f]/i', '', $hex);
+  $new_hex = '#';
+
+  if (strlen($hex) < 6) {
+    $hex = $hex[0] + $hex[0] + $hex[1] + $hex[1] + $hex[2] + $hex[2];
+  }
+
+  // convert to decimal and change luminosity
+  for ($i = 0; $i < 3; $i++) {
+    $dec = hexdec(substr($hex, $i * 2, 2));
+    $dec = min(max(0, $dec + $dec * $percent), 255);
+    $new_hex .= str_pad(dechex($dec), 2, 0, STR_PAD_LEFT);
+  }
+
+  return $new_hex;
+}
 
 if (!function_exists('hex2rgb')) {
   function hex2rgb($color)
