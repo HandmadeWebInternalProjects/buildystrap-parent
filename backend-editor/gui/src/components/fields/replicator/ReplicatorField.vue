@@ -58,6 +58,7 @@ const set: any = computed(() => {
     return {
       [handle?.value !== undefined ? handle.value : "default"]: {
         handle: handle?.value,
+        config: props?.config,
         fields: props.fields,
       },
     }
