@@ -46,7 +46,7 @@
           }"
           :config="{
             label: false,
-            placeholder: 'Enter the data attributes for the module',
+            preview: 'key',
           }"
           v-model="dataAtts" />
       </template>
