@@ -155,7 +155,7 @@ class BuilderBackend
     {
         $default_options = [];
 
-        if (Builder::isEnabled() && class_exists('ACF')) {
+        if (class_exists('ACF')) {
             $file = @file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json');
             if ($file === false) {
                 return [];
@@ -174,7 +174,7 @@ class BuilderBackend
     {
         $acf_options = [];
 
-        if (Builder::isEnabled() && class_exists('ACF')) {
+        if (class_exists('ACF')) {
             $acf_options['theme_colours'] = get_field('buildystrap_theme_colours_included', 'option') ?? [];
             $acf_options['additional_colours'] = get_field(
                 'buildystrap_theme_colours_additional_colours',
