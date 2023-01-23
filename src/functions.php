@@ -39,23 +39,20 @@ function custom_logo($url = null, $svg = null)
 
 <?php
   } else {
-    echo sprintf(
-      '<a class="navbar-brand" href="%s">',
-      isset($url) ? $url : home_url('/')
-    );
-
     if (isset($svg) && $svg) {
-      echo get_svg_url($custom_logo['url']);
+      echo sprintf(
+        '<a class="navbar-brand" href="%s">%s</a>',
+        esc_url(isset($url) ? $url : home_url('/')),
+        get_svg_url($custom_logo['url'])
+      );
     } else {
       echo sprintf(
         '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
-        isset($url) ? $url : home_url('/'),
+        esc_url(isset($url) ? $url : home_url('/')),
         $custom_logo['url'],
         $custom_logo['alt']
       );
     }
-
-    echo '</a>';
   }
 }
 

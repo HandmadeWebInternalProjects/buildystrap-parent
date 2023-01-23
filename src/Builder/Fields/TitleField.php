@@ -50,6 +50,7 @@ class TitleField extends Field
         $size_vars = [];
         $color = [];
         $weight = [];
+        $line_height = [];
 
         foreach ($this->value()->get('size', []) as $breakpoint => $value) {
             if ($value) {
@@ -99,11 +100,21 @@ class TitleField extends Field
             }
         }
 
+        foreach ($this->value()->get('line_height', []) as $breakpoint => $value) {
+            if ($value) {
+                $line_height[] = match ($breakpoint) {
+                    'xs' => "lh-{$value}",
+                    default => "lh-{$breakpoint}-{$value}"
+                };
+            }
+        }
+
         $class = collect([])
             ->push($this->value()->get('class', ''))
             ->push($this->title_class)
             ->merge($color)
             ->merge($weight)
+            ->merge($line_height)
             ->merge($size)
             ->filter()
             ->implode(' ');

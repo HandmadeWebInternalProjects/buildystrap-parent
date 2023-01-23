@@ -13,6 +13,7 @@ class ThemeOptions
 
   public function save_theme_css_settings()
   {
+    if (!is_admin()) return null;
     $screen = get_current_screen();
     if (Str::contains($screen->id, ['site-options', 'buildystrap-settings'])) {
       $template_dir = get_template_directory();

@@ -28,7 +28,11 @@ const depends_on = computed(() => {
   if (!config.value?.depends_on) return null
   let deps = config.value?.depends_on
   if (deps && deps.includes(".")) {
-    return getDeep(values?.value, deps)
+    return deps.split(".")?.reduce((acc: any, curr: any) => {
+      if (Array.isArray(acc)) return acc.map((el) => el[curr])
+      if (acc?.[curr]) return acc[curr]
+      return null
+    }, values?.value)
   }
   return values?.value?.[config.value?.depends_on]
 })
@@ -41,9 +45,8 @@ const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchFromEndpoint = async (endpoint: string) => {
   try {
-    const res = await fetch(endpoint)
-    let data = await res.json()
-    return data
+    const res = await fetch(`${endpoint}?per_page=100`)
+    return await res.json()
   } catch (error: any) {
     throw new Error(error)
   }
@@ -57,6 +60,10 @@ const fetchFromDataType = async () => {
     let data = await res.json()
     data = Object.values(data).filter((el: any) => {
       let key = depends_on.value
+
+      if (Array.isArray(key)) {
+        return el.types.some((el: string) => key.includes(el))
+      }
       return el.types.includes(key)
     })
     return data
@@ -80,13 +87,22 @@ const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
 
 const mapEntries = async () => {
   loading.value = true
-  let mappedEntries
+  let mappedEntries: any = null
 
   if (config.value?.depends_on) {
     if (depends_on.value) {
       if (data_type === "endpoint") {
-        if (depends_on.value) console.log({ dependsOn: depends_on.value })
-        mappedEntries = await fetchFromEndpoint(depends_on.value)
+        if (Array.isArray(depends_on.value)) {
+          mappedEntries = await Promise.all(
+            depends_on.value.map((endpoint: string) =>
+              fetchFromEndpoint(endpoint)
+            )
+          )
+
+          mappedEntries = mappedEntries.flat()
+        } else if (typeof depends_on.value === "string") {
+          mappedEntries = await fetchFromEndpoint(depends_on.value)
+        }
       } else {
         mappedEntries = await fetchFromDataType()
       }

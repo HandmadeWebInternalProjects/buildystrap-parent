@@ -1,4 +1,4 @@
-@extends(extendable_layout())
+@extends('layouts.search')
 
 @section('content')
 

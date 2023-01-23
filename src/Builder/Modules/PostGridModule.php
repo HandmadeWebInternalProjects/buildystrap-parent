@@ -52,7 +52,7 @@ class PostGridModule extends Module
           'limit' => [
             'type' => 'text-field',
             'config' => [
-              'label' => 'Limit',
+              'label' => 'Limit / Posts Per Page',
               'class' => 'g-col-6',
               'placeholder' => 6
             ],
@@ -65,20 +65,51 @@ class PostGridModule extends Module
               'placeholder' => 0
             ],
           ],
-          'columns' => [
-            'type' => 'text-field',
-            'config' => [
-              'label' => 'Columns',
-              'class' => 'g-col-6',
-              'placeholder' => 3
-            ],
-          ],
           'exclude_cats' => [
             'type' => 'text-field',
             'config' => [
               'label' => 'Exclude Category IDs (comma separated)',
               'class' => 'g-col-6',
               'placeholder' => ''
+            ],
+          ],
+          'exclude_posts' => [
+            'type' => 'text-field',
+            'config' => [
+              'label' => 'Exclude Post IDs (comma separated)',
+              'class' => 'g-col-6',
+              'placeholder' => ''
+            ],
+          ],
+          'orderby' => [
+            'type' => 'text-field',
+            'config' => [
+              'label' => 'Orderby',
+              'class' => 'g-col-6',
+              'placeholder' => 'menu_order date'
+            ],
+          ],
+          'order' => [
+            'type' => 'text-field',
+            'config' => [
+              'label' => 'Order',
+              'class' => 'g-col-6',
+              'placeholder' => 'DESC'
+            ],
+          ],
+          'enable_pagination' => [
+            'type' => 'toggle-field',
+            'config' => [
+                'label' => 'Enable Pagination?',
+                'class' => 'g-col-12',
+            ],
+          ],
+          'columns' => [
+            'type' => 'text-field',
+            'config' => [
+              'label' => 'Columns',
+              'class' => 'g-col-6',
+              'placeholder' => 3
             ],
           ],
           'template_part' => [
