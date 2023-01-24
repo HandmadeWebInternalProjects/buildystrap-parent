@@ -186,7 +186,7 @@ if (!function_exists('social_icons_shortcode')) {
 
             <?php $icon_type = get_sub_field('icon_style') ? get_sub_field('icon_style') : 'fa'; ?>
 
-            <li class="<?= $icon_type ?>-social-icon d-flex align-items-center"><a href="<?php the_sub_field('link'); ?>" target="_blank" class="text-decoration-none <?= $icon_type ?>b <?= $icon_type ?>-<?php echo strtolower(get_sub_field('icon')); ?>"></a></li>
+            <li class="<?= $icon_type ?>-social-icon d-flex align-items-center"><a href="<?php the_sub_field('url'); ?>" target="_blank" class="text-decoration-none <?= $icon_type ?>b <?= $icon_type ?>-<?php echo strtolower(get_sub_field('icon')); ?>"></a></li>
 
           <?php endwhile; ?>
 
