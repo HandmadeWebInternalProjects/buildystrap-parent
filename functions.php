@@ -45,3 +45,26 @@ require __DIR__ . '/src/functions.php';
 
 // Load shortcodes
 require __DIR__ . '/src/shortcodes.php';
+
+// Temporarily fix Gravity Forms Merge Tags not displaying
+add_action('admin_footer', function () {
+    ?>
+    <script>
+    gform.addFilter( 'gform_merge_tags', 'MaybeAddSaveLinkMergeTag' );
+    function MaybeAddSaveLinkMergeTag( mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option ) {
+        var event = document.getElementById( 'event' )?.value;
+        if ( event === 'form_saved' || event === 'form_save_email_requested' ) {
+            mergeTags['other'].tags.push( {
+                tag:  '{save_link}',
+                label: <?php echo json_encode( esc_html__( 'Save & Continue Link', 'gravityforms' ) ); ?>
+            } );
+            mergeTags['other'].tags.push( {
+                tag:   '{save_token}',
+                label: <?php echo json_encode( esc_html__( 'Save & Continue Token', 'gravityforms' ) ); ?>
+            } );
+        }
+        return mergeTags;
+    }
+    </script>
+    <?php
+});
