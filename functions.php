@@ -50,7 +50,7 @@ require __DIR__ . '/src/shortcodes.php';
 add_action('admin_footer', function () {
     ?>
     <script>
-    gform.addFilter( 'gform_merge_tags', 'MaybeAddSaveLinkMergeTag' );
+    gform?.addFilter( 'gform_merge_tags', 'MaybeAddSaveLinkMergeTag' );
     function MaybeAddSaveLinkMergeTag( mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option ) {
         var event = document.getElementById( 'event' )?.value;
         if ( event === 'form_saved' || event === 'form_save_email_requested' ) {
