@@ -121,7 +121,7 @@ watch(
       </button>
       <button
         type="button"
-        class="btn btn-sm btn-primary mb-3 me-3"
+        class="btn btn-sm bg-indigo-500 text-white mb-3 me-3"
         @click="addSection()">
         Add Section
       </button>

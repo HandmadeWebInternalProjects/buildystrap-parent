@@ -24,8 +24,6 @@ import "../../lib/tinymce/plugins/spellchecker/plugin.min.js"
 import "../../lib/tinymce/plugins/searchreplace/plugin.min.js"
 import "../../lib/tinymce/plugins/table/plugin.min.js"
 import "../../lib/tinymce/plugins/wordcount/plugin.min.js"
-import "../../lib/tinymce/plugins/powerpaste/plugin.js"
-import "../../lib/tinymce/plugins/powerpaste/js/wordimport.js"
 import "../../lib/tinymce/plugins/print/plugin.min.js"
 
 const props = defineProps({ ...commonProps })
@@ -131,7 +129,7 @@ const initObj = reactive({
     "font-family font-size font-weight font-style text-decoration text-transform",
   tabfocus_elements: ":prev,:next",
   plugins:
-    "advlist anchor autolink autoresize charmap code contextmenu fullscreen hr lists media powerpaste print tabfocus spellchecker searchreplace table textcolor wordcount wordpress wpeditimage wpgallery wplink wpdialogs wpview",
+    "advlist anchor autolink autoresize charmap code contextmenu fullscreen hr lists media print tabfocus spellchecker searchreplace table textcolor wordcount wordpress wpeditimage wpgallery wplink wpdialogs wpview",
   resize: "vertical",
   menubar: true,
   indent: false,
@@ -142,9 +140,6 @@ const initObj = reactive({
   toolbar3: "",
   toolbar4: "",
   contextmenu: "copy paste pastetext | link image",
-  powerpaste_allow_local_images: true,
-  powerpaste_word_import: "clean",
-  powerpaste_html_import: "clean",
   paste_retain_style_properties: "",
   body_class: "id post-type-post post-status-publish post-format-standard",
   wpeditimage_disable_captions: false,

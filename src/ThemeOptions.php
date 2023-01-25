@@ -17,6 +17,7 @@ class ThemeOptions
     $screen = get_current_screen();
     if (Str::contains($screen->id, ['site-options', 'buildystrap-settings'])) {
       $template_dir = get_template_directory();
+      $current_theme_dir = get_stylesheet_directory();
 
       ob_start(); // Capture all output into buffer
       require $template_dir . '/src/generate-theme-options-css.php'; // Grab the custom style php file
@@ -26,8 +27,8 @@ class ThemeOptions
       require $template_dir . '/src/generate-theme-options-admin-css.php'; // Grab the custom style php file
       $admin_css = ob_get_clean(); // Store output in a variable, then flush the buffer
 
-      file_put_contents($template_dir . '/public/hmw-theme-options.css', $theme_css, LOCK_EX); // Save it as a css file
-      file_put_contents($template_dir . '/public/hmw-theme-admin-options.css', $admin_css, LOCK_EX); // Save it as a css file
+      file_put_contents($current_theme_dir . '/public/hmw-theme-options.css', $theme_css); // Save it as a css file
+      file_put_contents($current_theme_dir . '/public/hmw-theme-admin-options.css', $admin_css); // Save it as a css file
     }
   }
 

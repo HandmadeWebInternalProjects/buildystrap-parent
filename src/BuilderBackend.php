@@ -98,7 +98,7 @@ class BuilderBackend
         true
       );
 
-      wp_enqueue_style('hmw-theme-admin-options', get_template_directory_uri() . '/public/hmw-theme-admin-options.css', []);
+      wp_enqueue_style('hmw-theme-admin-options', get_stylesheet_directory_uri() . '/public/hmw-theme-admin-options.css', []);
     }
   }
 

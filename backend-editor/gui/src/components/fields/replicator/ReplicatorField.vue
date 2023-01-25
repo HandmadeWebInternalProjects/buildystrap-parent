@@ -30,7 +30,7 @@
           @input="updateSet" />
       </template>
     </draggable>
-    <button class="btn btn-sm btn-primary mt-3" type="button" @click="addSet">
+    <button class="btn btn-sm bg-indigo-500 text-white mt-3" type="button" @click="addSet">
       Add {{ `${field?.config?.label ?? "Item"}` }}
     </button>
   </bs-accordion>

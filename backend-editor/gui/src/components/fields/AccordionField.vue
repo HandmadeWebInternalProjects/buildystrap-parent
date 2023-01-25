@@ -69,7 +69,7 @@ const values = computed({
     <button
       @click="addItem"
       type="button"
-      class="btn btn-sm btn-primary bg-indigo-500">
+      class="btn btn-sm bg-indigo-500 text-white">
       Add item
     </button>
   </div>
