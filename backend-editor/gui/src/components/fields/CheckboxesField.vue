@@ -63,7 +63,7 @@ onMounted(() => {
           :disabled="isReadOnly"
           v-model="selected" />
         <label
-          class="checkbox-label btn btn-sm btn-primary"
+          class="checkbox-label btn btn-sm bg-indigo-500 text-white"
           :for="`${handle}_${uuid}_[${option.value}]`">
           {{ option.label || option.value }}
         </label>
