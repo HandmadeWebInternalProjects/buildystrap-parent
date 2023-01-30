@@ -1,7 +1,7 @@
 <template lang="">
   <bs-accordion-item
     :title="`${
-      value?.[field?.config?.preview] || `${handle || 'Item'} ${index + 1}`
+      value?.[field?.config?.preview] || `Item ${index + 1}`
     }`"
     :uuid="value._uuid"
     @remove="removeSet">

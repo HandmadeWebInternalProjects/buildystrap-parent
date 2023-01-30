@@ -19,7 +19,7 @@ class AccordionModule extends Module
           ],
           'fields' => [
             'title' => [
-              'type' => 'text-field',
+              'type' => 'title-field',
               'config' => [
                 'label' => 'Title',
               ],
