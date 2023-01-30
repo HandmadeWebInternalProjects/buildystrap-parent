@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-items-center gap-1">
-    <label class="text-600 d-flex gap-1 align-items-center position-relative"
+    <label class="text-600 text-capitalize d-flex gap-1 align-items-center position-relative"
       >{{ props.label }}
       <div
         class="label-responsive d-flex align-items-center"

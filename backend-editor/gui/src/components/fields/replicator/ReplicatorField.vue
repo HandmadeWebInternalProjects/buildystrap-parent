@@ -30,7 +30,7 @@
           @input="updateSet" />
       </template>
     </draggable>
-    <button class="btn btn-sm bg-indigo-500 text-white mt-3" type="button" @click="addSet">
+    <button class="btn btn-sm btn-primary mt-3" type="button" @click="addSet">
       Add {{ `${field?.config?.label ?? "Item"}` }}
     </button>
   </bs-accordion>
@@ -76,10 +76,10 @@ onMounted(() => {
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
-  console.log({
-    set: findNestedObject(set.value, handle?.value),
-    handle: handle?.value,
-  })
+  // console.log({
+  //   set: findNestedObject(set.value, handle?.value),
+  //   handle: handle?.value,
+  // })
 })
 
 const incrementValue = ref(0)
