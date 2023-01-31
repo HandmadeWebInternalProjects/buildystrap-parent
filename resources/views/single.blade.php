@@ -19,9 +19,13 @@
 
 					<?php
                     while (have_posts()) {
-                        the_post();
-                        get_template_part('resources/views/loop-templates/content', 'single');
-                        understrap_post_nav();
+                        the_post(); 
+						?>
+						
+						@include('loop-templates/content-single');
+                        
+						<?php
+						understrap_post_nav();
 
                         // If comments are open or we have at least one comment, load up the comment template.
                         if (comments_open() || get_comments_number()) {
