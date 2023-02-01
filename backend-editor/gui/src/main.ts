@@ -7,13 +7,6 @@ import { useBuilderStore, type BuildyConfig } from "./stores/builder"
 
 import "bootstrap"
 
-// const popoverTriggerList = document.querySelectorAll(
-//   '[data-bs-toggle="popover"]'
-// )
-// const popoverList = [...popoverTriggerList].map((popoverTriggerEl) =>
-//   createPopper(popoverTriggerEl, { placement: "right", trigger: "focus" })
-// )
-
 declare global {
   interface Window {
     app: any
