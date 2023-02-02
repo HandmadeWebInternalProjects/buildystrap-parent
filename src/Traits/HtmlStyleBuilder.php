@@ -58,8 +58,10 @@ trait HtmlStyleBuilder
         if ($styles->isNotEmpty()) {
           $style_classes = $styles->reduce(
             function ($carry, $item) use ($selected_module_styles) {
-              if (stripos(implode(' ', $selected_module_styles), $item['label']) !== false) {
-                $carry = array_merge($carry, explode(' ', $item['value']));
+              if ($item !== false) {
+                if (stripos(implode(' ', $selected_module_styles), $item['label']) !== false) {
+                  $carry = array_merge($carry, explode(' ', $item['value']));
+                }
               }
               return $carry;
             },

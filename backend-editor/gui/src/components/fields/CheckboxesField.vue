@@ -2,7 +2,6 @@
 import { useFieldType, commonProps } from "./useFieldType"
 import { generateID } from "@/utils/id"
 import { ref, watch, toRefs, onMounted } from "vue"
-import * as bootstrap from "bootstrap"
 
 const props = defineProps({
   ...commonProps,
@@ -26,19 +25,6 @@ const selected = ref<string[]>(modelValue?.value ?? [])
 
 watch(selected, (value) => {
   update(value)
-})
-
-onMounted(() => {
-  const popoverTriggerList: any = document.querySelectorAll(
-    '[data-bs-toggle="popover"]'
-  )
-  const popoverList: any = [...popoverTriggerList].map(
-    (popoverTriggerEl) =>
-      new bootstrap.Popover(popoverTriggerEl, {
-        placement: "right",
-        trigger: "focus",
-      })
-  )
 })
 </script>
 
