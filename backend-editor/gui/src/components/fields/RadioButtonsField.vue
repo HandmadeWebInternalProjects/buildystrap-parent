@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useFieldType, commonProps } from "./useFieldType"
-import { toRefs } from "vue"
+import { onMounted, toRefs } from "vue"
 
 const props = defineProps(commonProps)
 
@@ -12,6 +12,12 @@ const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update, normaliseOptions } = useFieldType(emit)
 
 const options = normaliseOptions(config.value.options) || []
+
+onMounted(() => {
+  if (config?.value?.default && !modelValue?.value) {
+    update(config.value.default)
+  }
+})
 </script>
 
 <template>
@@ -34,7 +40,7 @@ const options = normaliseOptions(config.value.options) || []
           :disabled="isReadOnly"
           :checked="modelValue == option.value" />
         <label
-          :class="config?.label_class || 'btn'"
+          :class="config?.label_class || 'btn btn-sm'"
           :for="`${option.value}-${handle}-${uuid}`"
           >{{ option.label || option.value }}</label
         >

@@ -12,6 +12,7 @@ use Buildystrap\Builder\Fields\ColorSelectField;
 use Buildystrap\Builder\Fields\ImageField;
 use Buildystrap\Builder\Fields\LinkField;
 use Buildystrap\Builder\Fields\MediaField;
+use Buildystrap\Builder\Fields\RadioButtonsField;
 use Buildystrap\Builder\Fields\RelationalField;
 use Buildystrap\Builder\Fields\ReplicatorField;
 use Buildystrap\Builder\Fields\RichTextField;
@@ -73,6 +74,7 @@ class Builder
     'button-field' => ButtonField::class,
     'media-field' => MediaField::class,
     'image-field' => ImageField::class,
+    'radio-buttons-field' => RadioButtonsField::class,
     'relational-field' => RelationalField::class,
     'replicator-field' => ReplicatorField::class,
   ];

@@ -59,10 +59,12 @@ class ThemeOptions
         // loop through the rows of data
         foreach ($colors as $color) :
           if (!$color['value']) {
+            echo sprintf('--bs-%1$s: %1$s;', sanitize_text_field($color['label']));
             continue;
           }
           $rgb = hex2rgb(sanitize_hex_color($color['value']));
           echo sprintf('--bs-%s: %s;', sanitize_text_field($color['label']), sanitize_hex_color($color['value']));
+          echo sprintf('--bs-hover-%s: %s;', sanitize_text_field($color['label']), color_luminance(sanitize_hex_color($color['value']), -0.1));
           echo sprintf('--bs-%s-rgb: %s;', sanitize_text_field($color['label']), $rgb);
         endforeach;
       endif;
@@ -141,20 +143,16 @@ class ThemeOptions
       foreach ($colors as $color) :
         $colorName = sanitize_text_field($color['label']);
 
-        if (!$color['value']) {
-          continue;
-        }
-
         echo sprintf('.border-%1$s { border-color: var(--bs-%1$s) !important; }', $colorName);
         echo sprintf('.bg-%1$s, .bg-%1$s:hover { background-color: var(--bs-%1$s) !important; }', $colorName);
         echo sprintf('.text-%1$s, .text-%1$s:visited, .text-%1$s:hover { color: var(--bs-%1$s) !important; }', $colorName);
 
         /* Buttons */
 
-        echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName} {
+        echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: var(--bs-$colorName);
-              --bs-btn-hover-bg: var(--bs-btn-bg);
+              --bs-btn-hover-bg: var(--bs-hover-$colorName);
               --bs-btn-border-color: var(--bs-btn-bg);
               --bs-btn-hover-border-color: var(--bs-btn-bg);
               --bs-btn-active-color: var(--bs-white);
