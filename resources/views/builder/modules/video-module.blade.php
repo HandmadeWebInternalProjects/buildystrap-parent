@@ -1,6 +1,7 @@
 @php
 $video_url = $module->has('video_url') ? $module->get('video_url')->value() : null;
 $aspect_ratio = $module->has('aspect_ratio') ? $module->get('aspect_ratio')->value() : '16/9';
+$params = $module->has('params') ? $module->get('params')->value() : '';
 
 if( ! function_exists('getVimeoVideoIdFromUrl') ) {
   function getVimeoVideoIdFromUrl($url = '') {
@@ -73,8 +74,8 @@ $video_thumb = $video_thumb ? wp_get_attachment_image_url($video_thumb, 'full') 
       <div class="video-overlay rounded" style="@if (!empty($video_thumb)) {{ "background-image: url( $video_thumb );" }} @endif"> 
         <iframe
           class="video-iframe video-iframe--{{ $video_type }} rounded"
-          data-src="{!! $embed_url !!}"
-          src="{!! $embed_url !!}"
+          data-src='{!! "$embed_url&$params" !!}'
+          src='{!! "$embed_url&$params" !!}'
           width="100%"
           height="auto"
           frameborder="0"
@@ -85,7 +86,7 @@ $video_thumb = $video_thumb ? wp_get_attachment_image_url($video_thumb, 'full') 
         <div class="video-overlay__contents">
           <a href="javascript:;" class="video-play">
             <span class="visually-hidden">Play video</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="0.88em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 448 512"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>
+            {!! wp_get_attachment_image(924, 'full', false, ['class' => 'text-white']) !!}
           </a>
         </div>
       </div>

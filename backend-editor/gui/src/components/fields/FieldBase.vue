@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showField()" :class="`${field.config?.class ?? 'g-col-12'}`">
+  <div v-if="showField" :class="`${field.config?.class ?? 'g-col-12'}`" ref="root">
     <component
       :type="field.type"
       :module-type="moduleType"
@@ -21,9 +21,10 @@
 <script lang="ts" setup>
 import Validator from "../../field-conditions/Validator"
 import { useFieldType, commonProps } from "./useFieldType"
-import { computed } from "vue"
-
+import { computed, ref, watch, nextTick } from "vue"
+import { Popover } from "bootstrap"
 import { useBreakpoints } from "../../composables/useBreakpoints"
+
 const { bp } = useBreakpoints("global")
 
 const props = defineProps({
@@ -41,6 +42,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const root = ref<HTMLElement | null>(null)
 
 const emit = defineEmits(["updateMeta", "update:modelValue"])
 
@@ -71,15 +74,29 @@ const fieldValue = computed({
   },
 })
 
-const showField = () => {
+const showField = computed(() => {
   if (!props.field.config) return true
   const validator = new Validator(props?.field?.config, value.value, {}, "base")
   return validator.passesConditions()
-}
+})
 
 const updateMeta = (meta: any) => {
   emit("updateMeta", meta)
 }
+
+watch(showField, async (val) => {
+  if (val) {
+    await nextTick()
+    const popoverTriggerList: any = root?.value && root.value.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList: any = [...popoverTriggerList].map(
+      (popoverTriggerEl) =>
+        new Popover(popoverTriggerEl, {
+          placement: "right",
+          trigger: "focus",
+        })
+    )
+  }
+})
 </script>
 
 <style></style>

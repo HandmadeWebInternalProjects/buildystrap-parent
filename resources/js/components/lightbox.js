@@ -1,4 +1,5 @@
 import GLightbox from 'glightbox';
+window.GLightbox = GLightbox;
 
 export default function () {
 

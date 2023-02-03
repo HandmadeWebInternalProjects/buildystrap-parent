@@ -300,6 +300,23 @@ if (!function_exists('hex2rgb')) {
   }
 }
 
+if (!function_exists('rgbaToRgb')) {
+  function rgbaToRgb($rgba)
+  {
+    $rgba = explode(',', $rgba);
+    $r = $rgba[0];
+    $g = $rgba[1];
+    $b = $rgba[2];
+    $a = $rgba[3];
+
+    $r = round($r * (1 - $a) + 255 * $a);
+    $g = round($g * (1 - $a) + 255 * $a);
+    $b = round($b * (1 - $a) + 255 * $a);
+
+    return "$r, $g, $b";
+  }
+}
+
 
 if (!function_exists('rgbToHsl')) {
   function rgbToHsl($rgb)

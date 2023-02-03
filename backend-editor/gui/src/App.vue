@@ -5,6 +5,7 @@ import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
 import { recursifyID } from "./utils/id"
+
 const { getGlobalSections, getGlobalModules } = storeToRefs(useBuilderStore())
 
 // @ts-ignore
