@@ -98,11 +98,10 @@ const { setGlobals } = useBuilderStore()
 const { getModuleBlueprints, getGlobalModules } = storeToRefs(useBuilderStore())
 
 const regularModules = computed(() => {
-  const test = Object.entries(getModuleBlueprints.value).reduce(
+  return Object.entries(getModuleBlueprints.value).reduce(
     (acc: any, [key, value]) => {
       if (
-        value?.config?.selectorTab === "regular" ||
-        !value?.config?.selectorTab
+        value?.config?.selectorTab === "regular"
       ) {
         acc[key] = value
       }
@@ -110,14 +109,13 @@ const regularModules = computed(() => {
     },
     {}
   )
-  console.log({ test })
-  return test
 })
 
 const customModules = computed(() => {
   return Object.entries(getModuleBlueprints.value).reduce(
     (acc: any, [key, value]) => {
-      if (value?.config?.selectorTab === "custom") {
+      if (value?.config?.selectorTab !== "regular" ||
+        !value?.config?.selectorTab) {
         acc[key] = value
       }
       return acc

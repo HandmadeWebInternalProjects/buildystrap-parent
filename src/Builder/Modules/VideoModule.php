@@ -49,6 +49,9 @@ class VideoModule extends Module
           ],
         ],
       ],
+      'config' => [
+        'selectorTab' => 'regular'
+      ]
     ];
   }
 }

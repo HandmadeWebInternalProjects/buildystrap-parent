@@ -71,6 +71,9 @@ class CardModule extends Module
             ],
           ]
         ],
+      ],
+      'config' => [
+        'selectorTab' => 'regular'
       ]
     ];
   }

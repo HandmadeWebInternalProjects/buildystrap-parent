@@ -33,6 +33,9 @@ class AccordionModule extends Module
           ]
         ],
       ],
+      'config' => [
+        'selectorTab' => 'regular'
+      ]
     ];
   }
 }
