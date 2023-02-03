@@ -27,7 +27,8 @@ class BuilderBackend
       add_action('admin_enqueue_scripts', [static::class, 'admin_enqueue_scripts'], PHP_INT_MAX);
       add_action('edit_form_after_editor', [static::class, 'admin_edit_form_after_editor'], PHP_INT_MAX);
       add_filter('wp_default_editor', [static::class, 'admin_wp_default_editor'], PHP_INT_MAX);
-      add_filter('script_loader_tag', [static::class, 'admin_add_type_attribute'], 10, 3);
+      add_filter('script_loader_tag', [static::class, 'admin_module_attribute'], 10, 3);
+      add_filter('script_loader_tag', [static::class, 'admin_defer_attribute'], 10, 3);
 
       do_action('buildy::builder-backend::boot');
 
@@ -82,7 +83,7 @@ class BuilderBackend
         }
       }
 
-      foreach (Builder::getBackendScripts() as $handle => $script) {
+      foreach ($backendScripts = Builder::getBackendScripts() as $handle => $script) {
         wp_enqueue_script("buildy-module:$handle", $script, ['buildy-editor'], false, false);
       }
 
@@ -90,22 +91,44 @@ class BuilderBackend
         wp_enqueue_style("buildy-module:$handle", $style, ['buildy-editor']);
       }
 
-      wp_enqueue_script(
-        'buildy-boot',
-        get_template_directory_uri() . '/resources/js/buildy-boot.js',
-        ['buildy-editor'],
-        false,
-        true
-      );
+
+      if (count($backendScripts)) {
+        wp_enqueue_script(
+          'buildy-boot-module',
+          get_template_directory_uri() . '/resources/js/buildy-boot.js',
+          ["buildy-module:" . array_key_last($backendScripts)],
+          false,
+          true
+        );
+      } else {
+        wp_enqueue_script(
+          'buildy-boot-module',
+          get_template_directory_uri() . '/resources/js/buildy-boot.js',
+          ['buildy-editor'],
+          false,
+          true
+        );
+      }
+
+      // dd(array_key_last($backendScripts));
 
       wp_enqueue_style('hmw-theme-admin-options', get_stylesheet_directory_uri() . '/public/hmw-theme-admin-options.css', []);
     }
   }
 
-  public static function admin_add_type_attribute($tag, $handle, $src)
+  public static function admin_module_attribute($tag, $handle, $src)
   {
-    if (str_contains($handle, 'buildy')) {
-      return '<script type="module" defer src="' . esc_url($src) . '"></script>';
+    if (str_contains($handle, '-editor')) {
+      return '<script type="module" src="' . esc_url($src) . '"></script>';
+    }
+
+    return $tag;
+  }
+
+  public static function admin_defer_attribute($tag, $handle, $src)
+  {
+    if (str_contains($handle, '-module')) {
+      return '<script defer src="' . esc_url($src) . '"></script>';
     }
 
     return $tag;
