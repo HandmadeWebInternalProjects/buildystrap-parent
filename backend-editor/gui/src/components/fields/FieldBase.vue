@@ -1,5 +1,8 @@
 <template>
-  <div v-if="showField" :class="`${field.config?.class ?? 'g-col-12'}`" ref="root">
+  <div
+    v-if="showField"
+    :class="`${field.config?.class ?? 'g-col-12'}`"
+    ref="root">
     <component
       :type="field.type"
       :module-type="moduleType"
@@ -87,7 +90,8 @@ const updateMeta = (meta: any) => {
 watch(showField, async (val) => {
   if (val) {
     await nextTick()
-    const popoverTriggerList: any = root?.value && root.value.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverTriggerList: any =
+      root?.value && root.value.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList: any = [...popoverTriggerList].map(
       (popoverTriggerEl) =>
         new Popover(popoverTriggerEl, {

@@ -82,18 +82,25 @@ class BuilderBackend
         }
       }
 
-      foreach (Builder::getBackendScripts() as $handle => $script) {
-        wp_enqueue_script("buildy-module:$handle", $script, ['buildy-editor'], false, false);
+      foreach ($backendScripts = Builder::getBackendScripts() as $handle => $script) {
+        wp_enqueue_script("buildy-module:$handle", $script, ['buildy-editor'], false, true);
       }
 
       foreach (Builder::getBackendStyles() as $handle => $style) {
         wp_enqueue_style("buildy-module:$handle", $style, ['buildy-editor']);
       }
 
+      $booterDependancy = 'buildy-editor';
+
+      if (count($backendScripts)) {
+        // Load the booter script after the last backend script (plugin)
+        $booterDependancy = "buildy-module:" . array_key_last($backendScripts);
+      }
+
       wp_enqueue_script(
-        'buildy-boot',
+        'buildy-boot-module',
         get_template_directory_uri() . '/resources/js/buildy-boot.js',
-        ['buildy-editor'],
+        [$booterDependancy],
         false,
         true
       );
