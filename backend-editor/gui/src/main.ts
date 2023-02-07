@@ -6,7 +6,7 @@ import GlobalModuleBuilder from "./GlobalModuleBuilder.vue"
 import { useBuilderStore, type BuildyConfig } from "./stores/builder"
 
 import * as Vue from "vue"
-window.Vue = Vue
+window.Vue = <any>Vue
 
 import "bootstrap"
 
