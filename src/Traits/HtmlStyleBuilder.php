@@ -220,16 +220,16 @@ trait HtmlStyleBuilder
 
         if (!$is_taggable) {
           $this->html_classes[] = match ($breakpoint) {
-            'xs' => "gap-{$value}",
-            default => "gap-{$breakpoint}-{$value}"
+            'xs' => "gx-{$value} gy-{$value}",
+            default => "gx-{$breakpoint}-{$value} gy-{$breakpoint}-{$value}"
           };
         } else {
           if (!in_array('gap-taggable', $this->html_classes)) {
             $this->html_classes[] = 'gap-taggable';
           }
           $this->inline_styles[] = match ($breakpoint) {
-            'xs' => "--gap: {$value};",
-            default => "--gap-{$breakpoint}: {$value};"
+            'xs' => "--gx: {$value}; --gy: {$value};",
+            default => "--gx-{$breakpoint}: {$value}; --gx-{$breakpoint}: {$value};"
           };
         }
       }
