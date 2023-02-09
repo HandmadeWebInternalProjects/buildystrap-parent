@@ -66,12 +66,19 @@ add_action('wp_body_open', function () {
 // Populate colour options
 // Add the global colour options to all of these fields
 if (!function_exists('add_site_color_choices')) {
-  add_filter('acf/load_field/key=field_62eb52287454c', 'add_site_color_choices');
-  add_filter('acf/load_field/key=field_62ce5cbe77fbf', 'add_site_color_choices');
-  add_filter('acf/load_field/key=field_62ce5cd577fc0', 'add_site_color_choices');
-  add_filter('acf/load_field/key=field_62ce5d0577fc1', 'add_site_color_choices');
-  add_filter('acf/load_field/key=field_62ce556144f02', 'add_site_color_choices');
-  add_filter('acf/load_field/key=field_62ce558644f03', 'add_site_color_choices');
+
+  $fields = apply_filters('acf-theme-colour-fields', [
+    'field_62eb52287454c',
+    'field_62ce5cbe77fbf',
+    'field_62ce5cd577fc0',
+    'field_62ce5d0577fc1',
+    'field_62ce556144f02',
+    'field_62ce558644f03',
+  ]);
+
+  foreach ($fields as $field) {
+    add_filter("acf/load_field/key={$field}", 'add_site_color_choices');
+  }
 
   function add_site_color_choices($field)
   {
