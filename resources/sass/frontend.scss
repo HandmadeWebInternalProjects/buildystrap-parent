@@ -512,11 +512,11 @@ $utilities: map-merge(
   )
 );
 
-.grid[class*="gx-"] {
+[class*="gx-"] {
   column-gap: var(--bs-gutter-x, var(--bs-col-gap));
 }
 
-.grid[class*="gy-"] {
+[class*="gy-"] {
   row-gap: var(--bs-gutter-y, var(--bs-row-gap));
 }
 

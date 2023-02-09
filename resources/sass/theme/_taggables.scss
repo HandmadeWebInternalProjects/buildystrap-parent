@@ -1,8 +1,8 @@
 .gx-taggable {
-  @include responsive-inline-helper(column-gap, --gx);
+  @include responsive-inline-helper(--bs-col-gap, --gx);
 }
 .gy-taggable {
-  @include responsive-inline-helper(row-gap, --gy);
+  @include responsive-inline-helper(--bs-row-gap, --gy);
 }
 .mt-taggable {
   @include responsive-inline-helper(margin-top, --mt);

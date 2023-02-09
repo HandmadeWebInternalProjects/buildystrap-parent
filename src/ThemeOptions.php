@@ -40,7 +40,7 @@ class ThemeOptions
     echo sprintf('--bs-default-grid-system: %s;', get_field('buildystrap_structure_default_grid_system', 'option'));
     echo sprintf('--bs-col-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
     // echo sprintf('--bs-gutter: %s;', get_field('buildystrap_structure_column_gap', 'option'));
-    echo sprintf('--bs-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
+    // echo sprintf('--bs-gap: %s;', get_field('buildystrap_structure_column_gap', 'option'));
     echo sprintf('--bs-row-gap: %s;', get_field('buildystrap_structure_row_gap', 'option'));
     echo sprintf('--bs-module-gap: %s;', get_field('buildystrap_structure_module_gap', 'option'));
     echo sprintf('--bs-section-padding: %s;', get_field('buildystrap_structure_section_padding', 'option'));
