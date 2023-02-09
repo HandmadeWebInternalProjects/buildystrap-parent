@@ -36,7 +36,7 @@ trait HtmlStyleBuilder
 
   public function inlineStyles(string $inlineStyles = ''): string
   {
-    return $this->getInlineStyles($inlineStyles)->implode(' ');
+    return $this->getInlineStyles($inlineStyles)->push($inlineStyles)->implode(' ');
   }
 
   public function getInlineStyles(string $inlineStyles = ''): Collection
