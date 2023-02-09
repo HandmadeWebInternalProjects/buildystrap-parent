@@ -608,7 +608,7 @@ if (function_exists('acf_add_local_field_group')) :
           ],
           [
             'key' => 'field_62eb495fab606',
-            'label' => 'included',
+            'label' => 'Included Colours',
             'name' => 'included',
             'type' => 'group',
             'instructions' => '',
