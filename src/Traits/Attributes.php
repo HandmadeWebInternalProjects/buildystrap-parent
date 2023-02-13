@@ -28,8 +28,8 @@ trait Attributes
 
     // Use reduce and array_merge to flatten the array
     return $this->getAttribute('dataAtts') ? collect($this->getAttribute('dataAtts'))->reduce(function ($carry, $item) {
-      $key = $item['key'] ?? '';
-      $value = $item['value'] ?? '';
+      $key = str_replace('"', "", $item['key'] ?? '');
+      $value = str_replace('"', "", $item['value'] ?? '');
       return array_merge($carry, ["data-$key" => $value]);
     }, []) : [];
   }
