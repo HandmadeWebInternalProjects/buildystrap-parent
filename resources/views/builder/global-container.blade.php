@@ -3,7 +3,7 @@
         'id' => $wrapper->getAttribute('id'),
         'class' => $wrapper->classes(),
         'style' => $wrapper->inlineStyles(),
-    ])->filter()
+    ])->merge($wrapper->getDataAttributes())->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');
 @endphp

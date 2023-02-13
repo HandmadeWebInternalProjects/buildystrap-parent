@@ -3,7 +3,7 @@
         'id' => $section->getAttribute('id'),
         'class' => $section->classes(),
         'style' => $section->inlineStyles(),
-    ])->push($section->dataAtts())->filter()
+    ])->merge($section->getDataAttributes())->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');
     
