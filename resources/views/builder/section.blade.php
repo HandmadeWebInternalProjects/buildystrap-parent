@@ -3,9 +3,10 @@
         'id' => $section->getAttribute('id'),
         'class' => $section->classes(),
         'style' => $section->inlineStyles(),
-    ])->filter()
+    ])->push($section->dataAtts())->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');
+    
 @endphp
 
 <div {!! $attrs !!}>
