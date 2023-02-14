@@ -4,7 +4,7 @@
         'class' => $module->classes( ! empty($class) ? $class : ''),
         'data-uuid' => ! empty($uuid) ? $uuid : '',
         'style' => $module->inlineStyles($style ?? ''),
-    ])->filter()
+    ])->merge($module->getDataAttributes())->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');
 @endphp
