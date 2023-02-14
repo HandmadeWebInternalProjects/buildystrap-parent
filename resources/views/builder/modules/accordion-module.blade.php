@@ -7,6 +7,7 @@
       @php
           $title = $value['title'] ?? '';
           $content = $value['content'] ?? '';
+          $cta = $value['cta'] ?? '';
           $slug = \Str::slug($title)
       @endphp
       @if($title && $content)
@@ -16,10 +17,15 @@
               {{ $title }}
             </button>
           </h2>
-          <div id="buildystrap-accordion-item-collapse-{{ $slug }}-{{ $index }}" class="accordion-collapse collapse" aria-labelledby="buildystrap-accordion-item-{{ $slug }}-{{ $index }}" data-bs-parent="#accordionbuildystrap-accordion-itemExample">
+          <div id="buildystrap-accordion-item-collapse-{{ $slug }}-{{ $index }}" class="accordion-collapse collapse gap-3" aria-labelledby="buildystrap-accordion-item-{{ $slug }}-{{ $index }}" data-bs-parent="#accordionbuildystrap-accordion-itemExample">
             <div class="accordion-body">
               {!! do_shortcode($content) !!}
             </div>
+            @if ($cta->value()->get('text') && $cta->value()->get('url'))
+              <div class="accordion-footer">
+                {!! $cta !!}
+              </div>
+            @endif
           </div>
         </div>
       @endif
