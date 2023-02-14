@@ -109,7 +109,7 @@ class PostGridModule extends Module
           'config' => [
             'label' => 'Columns',
             'class' => 'g-col-6',
-            'placeholder' => 3
+            'responsive' => true
           ],
         ],
         'template_part' => [

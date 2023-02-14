@@ -60,8 +60,8 @@ class TitleField extends Field
                 if ($is_heading || $is_display) {
                     if ($is_heading) {
                         $size[] = match ($breakpoint) {
-                            'xs' => "fs-{$value}",
-                            default => "fs-{$breakpoint}-{$value}"
+                            'xs' => "h{$value}",
+                            default => "h{$breakpoint}-{$value}"
                         };
                     }
                     if ($is_display) {

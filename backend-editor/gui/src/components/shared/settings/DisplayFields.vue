@@ -43,14 +43,6 @@ const display: any = reactive({
 const options = Array.from({ length: 13 }, (_, i) => i)
 
 watch(display, (val: any) => {
-  if (val?.["combine-gaps"]) {
-    if (val?.["row-gap"]) {
-      val["row-gap"] = val["gap"]
-    }
-    if (val?.["column-gap"]) {
-      val["column-gap"] = val["gap"]
-    }
-  }
   update(filterOutEmptyValues(val))
 })
 </script>
@@ -98,7 +90,7 @@ watch(display, (val: any) => {
 
     <div
       class="g-col-12 d-flex flex-column gap-3"
-      v-if="display.property[bp] === 'flex'">
+      v-if="display.property[bp] === 'flex' || responsivePlaceholder(display, 'property', bp) == 'flex'">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
@@ -194,7 +186,7 @@ watch(display, (val: any) => {
       </div>
     </div>
 
-    <div v-if="display.property[bp] === 'grid'" class="g-col-12">
+    <div v-if="display.property[bp] === 'grid' || responsivePlaceholder(display, 'property', bp) == 'grid'" class="g-col-12">
       <div class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"

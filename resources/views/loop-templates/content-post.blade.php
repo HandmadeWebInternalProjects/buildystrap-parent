@@ -32,7 +32,7 @@
         </a>
       @endif
       
-      <h3 class='entry-title fs-2 mb-1'><a class='text-decoration-none' href='<?= $post_link ?>'>{{ get_the_title($post->ID); }}</a></h3>
+      <h3 class='entry-title h2 mb-1'><a class='text-decoration-none' href='<?= $post_link ?>'>{{ get_the_title($post->ID); }}</a></h3>
 
     </header><!-- .entry-header -->
 

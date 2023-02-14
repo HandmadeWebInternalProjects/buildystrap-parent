@@ -36,7 +36,7 @@ trait HtmlStyleBuilder
 
   public function inlineStyles(string $inlineStyles = ''): string
   {
-    return $this->getInlineStyles($inlineStyles)->push($inlineStyles)->implode(' ');
+    return $this->getInlineStyles($inlineStyles)->implode(' ');
   }
 
   public function getInlineStyles(string $inlineStyles = ''): Collection
@@ -525,8 +525,8 @@ trait HtmlStyleBuilder
       if ($is_heading || $is_display) {
         if ($is_heading) {
           $this->html_classes[] = match ($breakpoint) {
-            'xs' => "h-{$value}",
-            default => "h-{$breakpoint}-{$value}"
+            'xs' => "h{$value}",
+            default => "h{$breakpoint}-{$value}"
           };
         }
         if ($is_display) {

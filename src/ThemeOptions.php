@@ -63,12 +63,9 @@ class ThemeOptions
             continue;
           }
           $rgb = hex2rgb(sanitize_hex_color($color['value']));
-          $label = sanitize_text_field($color['label']);
-          $value = sanitize_hex_color($color['value']);
-          $darker_value = color_luminance($value, -0.1);
-          echo sprintf('--bs-%2$s: %1$s;', "var(--{$label}-theme, $value)", $label);
-          echo sprintf('--bs-%2$s-hover: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
-          echo sprintf('--bs-%s-rgb: %s;', $label, $rgb);
+          echo sprintf('--bs-%s: %s;', sanitize_text_field($color['label']), sanitize_hex_color($color['value']));
+          echo sprintf('--bs-hover-%s: %s;', sanitize_text_field($color['label']), color_luminance(sanitize_hex_color($color['value']), -0.1));
+          echo sprintf('--bs-%s-rgb: %s;', sanitize_text_field($color['label']), $rgb);
         endforeach;
       endif;
     endif;
@@ -76,8 +73,11 @@ class ThemeOptions
     $colour_text_link = get_field('buildystrap_theme_colours_link_colour', 'option');
     if ($colour_text_link && $colour_text_link !== 'None') :
       echo sprintf('--bs-link-color: var(--bs-%s);', $colour_text_link);
+      echo sprintf('--bs-link-color-rgb: var(--bs-%s-rgb);', $colour_text_link);
     else :
-      echo sprintf('--bs-link-color: var(--color-black);');
+      echo sprintf('--bs-link-color: var(--bs-black);');
+      echo sprintf('--bs-link-color-rgb: var(--bs-black-rgb);');
+
     endif;
 
 
@@ -86,7 +86,7 @@ class ThemeOptions
     if (isset($colour_text_body['label']) && $colour_text_body['label'] !== 'None') :
       echo sprintf('--color-text-body: var(--bs-%s);', $colour_text_body['label']);
     else :
-      echo sprintf('--color-text-body: var(--color-black);');
+      echo sprintf('--color-text-body: var(--bs-black);');
     endif;
 
 
@@ -95,7 +95,7 @@ class ThemeOptions
     if (isset($colour_text_headings['label']) && $colour_text_headings['label'] !== 'None') :
       echo sprintf('--color-text-headings: var(--bs-%s);', $colour_text_headings['label']);
     else :
-      echo sprintf('--color-text-headings: var(--color-black);');
+      echo sprintf('--color-text-headings: var(--bs-black);');
     endif;
   }
 
@@ -146,16 +146,16 @@ class ThemeOptions
       foreach ($colors as $color) :
         $colorName = sanitize_text_field($color['label']);
 
-        echo sprintf('.border-%1$s { border-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
-        echo sprintf('.bg-%1$s, .bg-%1$s:hover { background-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
-        echo sprintf('.text-%1$s, .text-%1$s:visited, .text-%1$s:hover { color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
+        echo sprintf('.border-%1$s { border-color: var(--bs-%1$s) !important; }', $colorName);
+        echo sprintf('.bg-%1$s, .bg-%1$s:hover { background-color: var(--bs-%1$s) !important; }', $colorName);
+        echo sprintf('.text-%1$s, .text-%1$s:visited, .text-%1$s:hover { color: var(--bs-%1$s) !important; }', $colorName);
 
         /* Buttons */
 
         echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-bg: var(--bs-$colorName);
-              --bs-btn-hover-bg: var(--bs-$colorName-hover);
+              --bs-btn-hover-bg: var(--bs-hover-$colorName);
               --bs-btn-border-color: var(--bs-btn-bg);
               --bs-btn-hover-border-color: var(--bs-btn-bg);
               --bs-btn-active-color: var(--bs-white);

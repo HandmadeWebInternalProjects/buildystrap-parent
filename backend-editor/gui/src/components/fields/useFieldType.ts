@@ -109,7 +109,7 @@ export const useFieldType = (emit: any): FieldTypeInterface => {
 
     breakpoints.forEach((bp, i) => {
       if (i > currentBPIndex) return
-      if (values[key][bp] !== undefined) {
+      if (values[key][bp]) {
         return (placeholder = values[key][bp])
       }
     })

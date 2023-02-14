@@ -14,7 +14,8 @@ const { update } = useFieldType(emit)
     <field-label
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
-      :popover="config?.popover" />
+      :popover="config?.popover"
+      :responsive="config?.responsive" />
     <input
       class="w-100"
       :handle="handle"

@@ -24,6 +24,8 @@ class TextField extends Field
     public function augment(): void
     {
         parent::augment();
-        $this->value = apply_shortcodes($this->value);
+        if (is_string($this->value)) {
+            $this->value = apply_shortcodes($this->value);
+        }        
     }
 }

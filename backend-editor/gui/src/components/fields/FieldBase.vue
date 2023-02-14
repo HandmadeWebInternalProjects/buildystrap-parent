@@ -69,11 +69,14 @@ const fieldValue = computed({
       : value.value[props.handle]
   },
   set(val) {
-    props.field.config?.responsive
-      ? ((value.value[props.handle]
-          ? value.value[props.handle]
-          : (value.value[props.handle] = {}))[bp.value] = val)
-      : (value.value[props.handle] = val)
+    if (props.field.config && props.field.config.responsive) {
+      if (!value.value[props.handle] || typeof value.value[props.handle] === 'string') {
+        value.value[props.handle] = {};
+      }
+      value.value[props.handle][bp.value] = val;
+    } else {
+      value.value[props.handle] = val;
+    }
   },
 })
 
