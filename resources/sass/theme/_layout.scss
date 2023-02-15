@@ -1,4 +1,10 @@
-:where(.buildystrap-module, .buildystrap-section, .buildystrap-row, .buildystrap-column, .buildystrap-bg-element) {
+:where(
+    .buildystrap-module,
+    .buildystrap-section,
+    .buildystrap-row,
+    .buildystrap-column,
+    .buildystrap-bg-element
+  ) {
   @include responsive-inline-helper(background-image, --bg-image-url);
 }
 
@@ -31,11 +37,13 @@
     justify-content: space-between;
   }
   &:where(.grid) {
+    --bs-gutter-x: 0;
     --bs-columns: 1;
     --bs-gap: 0;
-  
+
     @include media-breakpoint-up(lg) {
       --bs-gap: var(--bs-col-gap);
+      --bs-gutter-x: var(--bs-col-gap);
       --bs-columns: 12;
     }
   }
