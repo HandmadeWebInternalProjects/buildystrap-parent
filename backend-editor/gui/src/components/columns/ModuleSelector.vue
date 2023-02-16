@@ -43,14 +43,12 @@
                 transform: perspective(1px) translateZ(0);
                 backface-visibility: hidden;
               ">
-              <font-awesome-icon
+              <i
                 v-if="field.icon"
-                :icon="field?.icon"
-                width="15"
-                height="15"
-                fill="currentColor"
-                aria-controls="offcanvasRight"
-                class="flex cursor-pointer pulse"></font-awesome-icon>
+                class="inline-flex w-10 cursor-pointer pulse"
+                :class="[field.icon]"
+                style="width: 1rem"
+                aria-controls="offcanvasRight"></i>
               <span class="block pl-2">
                 {{ field?.title ? field.title : slugToStr(key) }}
               </span>

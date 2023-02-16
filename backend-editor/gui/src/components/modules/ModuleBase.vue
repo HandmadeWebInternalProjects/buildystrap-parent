@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { ref, computed, provide } from "vue"
 import { slugToStr } from "../../utils/helpers"
+import { useBuilderStore } from "../../stores/builder"
+
+const { getModuleBlueprintForType } = useBuilderStore()
 
 const props = defineProps({
   component: {
@@ -31,6 +34,9 @@ const updateAdminLabel = (val: string) => {
   component.value.config.adminLabel = val
 }
 
+// To get the icon
+const blueprint = getModuleBlueprintForType(component.value.type)
+
 const isGlobalModule = computed((): boolean => {
   return component.value.type.includes("global")
 })
@@ -48,7 +54,8 @@ const isGlobalModule = computed((): boolean => {
         contenteditable="true"
         @blur="updateAdminLabel($el.innerText)"
         class="module-title flex-grow-1 p-1 me-2 text-nowrap overflow-hidden rounded-1"
-        >{{ component?.config?.adminLabel || slugToStr(component.type) }}</span
+        ><i class="me-2" :class="[blueprint?.icon]"></i>
+        {{ component?.config?.adminLabel || slugToStr(component.type) }}</span
       >
       <module-controls
         class="justify-content-center text-white"

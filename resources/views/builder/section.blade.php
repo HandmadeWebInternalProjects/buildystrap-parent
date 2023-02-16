@@ -1,8 +1,8 @@
 @php
     $attrs = collect([
         'id' => $section->getAttribute('id'),
-        'class' => $section->classes(),
-        'style' => $section->inlineStyles(),
+        'class' => apply_filters('section-classes', $section->classes()),
+        'style' => apply_filters('section-styles', $section),
     ])->merge($section->getDataAttributes())->filter()
     ->map(fn($val, $key) => sprintf('%s="%s"', $key, $val))
     ->implode(' ');

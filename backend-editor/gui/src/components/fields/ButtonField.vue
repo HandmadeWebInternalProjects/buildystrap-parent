@@ -12,7 +12,7 @@ const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
 const { config, uuid, modelValue } = toRefs(props)
-const value = ref(modelValue?.value || {})
+const value = ref(modelValue?.value || { type: "custom" })
 
 watch(value.value, (newValue) => {
   if (newValue["type"] && newValue["type"] !== "custom") {

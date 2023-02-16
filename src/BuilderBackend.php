@@ -64,6 +64,9 @@ class BuilderBackend
     // }, 50);
     // wp_deregister_style( 'editor-buttons' );
 
+    wp_enqueue_style('font-awesome-icons', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css', []);
+
+
     if ($manifest->has($jsEntryFile)) {
       // Load jQuery in the header rather than footer.
       // wp_dequeue_script('jquery');
