@@ -9,7 +9,7 @@ class SliderModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-magic-wand-sparkles',
+      'icon' => 'fa-solid fa-photo-film',
       'fields' => [
         'slides' => [
           'type' => 'replicator-field',

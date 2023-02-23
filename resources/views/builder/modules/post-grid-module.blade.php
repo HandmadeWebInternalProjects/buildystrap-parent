@@ -7,20 +7,22 @@
   $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
   $offset_start = $module->has('offset') ? $module->get('offset')->value() : 0;
   $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
-  $column_str = '';
+  $column_class = $module->has('column_class') ? $module->get('column_class')->value() : "";
+  $column_str = [];
   if (is_array($columns)) {
     foreach ($columns as $breakpoint => $value) {
         $value = $value ? 12 / $value : '';
         if ($value) {
-          $column_str = match ($breakpoint) {
+          $column_str[] = match ($breakpoint) {
               'xs' => "g-col-{$value}",
               default => "g-col-{$breakpoint}-{$value}"
           };
         }
     }
   } else {
-    $column_str = "g-col-md-{$columns}";
+    $column_str[] = "g-col-12 g-col-md-{$columns}";
   }
+  $column_str = implode(' ', $column_str);
   $exclude_cats = $module->has('exclude_cats') ? $module->get('exclude_cats')->value() : null;
   $exclude_cats = $exclude_cats ? explode(',', $exclude_cats) : null;
   $exclude_posts = $module->has('exclude_posts') ? $module->get('exclude_posts')->value() : null;
@@ -104,7 +106,7 @@
     <div class="grid gap-2 gap-md-3">
       @while ($query->have_posts()) 
         @php $query->the_post(); global $post; @endphp
-        <div class="g-col-12 {{ $column_str }}">
+        <div class="{{ $column_str }} {{ $column_class }}">
           @include($template_part, ['post' => $post])
         </div>
       @endwhile

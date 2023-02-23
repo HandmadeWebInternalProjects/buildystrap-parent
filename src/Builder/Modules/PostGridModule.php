@@ -9,7 +9,7 @@ class PostGridModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-paragraph',
+      'icon' => 'fa-solid fa-grip',
       'fields' => [
         'post_type' => [
           'type' => 'relational-field',
@@ -110,6 +110,13 @@ class PostGridModule extends Module
             'label' => 'Columns',
             'class' => 'g-col-6',
             'responsive' => true
+          ],
+        ],
+        'column_class' => [
+          'type' => 'text-field',
+          'config' => [
+            'label' => 'Column Classes',
+            'class' => 'g-col-6'
           ],
         ],
         'template_part' => [

@@ -46,7 +46,7 @@ class AccordionModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-equals',
+      'icon' => 'fa-solid fa-chevron-down',
       'fields' => [
         'accordion' => [
           'type' => 'replicator-field',

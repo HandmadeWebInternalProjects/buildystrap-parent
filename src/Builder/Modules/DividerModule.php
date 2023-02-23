@@ -9,7 +9,7 @@ class DividerModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-paragraph',
+      'icon' => 'fa-solid fa-minus',
       'fields' => [
         'height' => [
           'config' => [

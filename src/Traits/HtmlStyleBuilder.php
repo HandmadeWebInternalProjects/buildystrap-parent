@@ -256,8 +256,8 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'min-width-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--min-width: {$value} !important;",
-          default => "--min-width-{$breakpoint}: {$value} !important;"
+          'xs' => "--min-width: {$value}",
+          default => "--min-width-{$breakpoint}: {$value}"
         };
       }
     }
@@ -275,8 +275,8 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'width-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--width: {$value} !important;",
-          default => "--width-{$breakpoint}: {$value} !important;"
+          'xs' => "--width: {$value}",
+          default => "--width-{$breakpoint}: {$value}"
         };
       }
     }
@@ -294,8 +294,8 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'max-width-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--max-width: {$value} !important;",
-          default => "--max-width-{$breakpoint}: {$value} !important;"
+          'xs' => "--max-width: {$value}",
+          default => "--max-width-{$breakpoint}: {$value}"
         };
       }
     }
@@ -314,8 +314,8 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'min-height-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--min-height: {$value} !important;",
-          default => "--min-height-{$breakpoint}: {$value} !important;"
+          'xs' => "--min-height: {$value};",
+          default => "--min-height-{$breakpoint}: {$value};"
         };
       }
     }
@@ -333,8 +333,8 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'height-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--height: {$value} !important;",
-          default => "--height-{$breakpoint}: {$value} !important;"
+          'xs' => "--height: {$value};",
+          default => "--height-{$breakpoint}: {$value};"
         };
       }
     }
@@ -352,8 +352,8 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'max-height-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--max-height: {$value} !important;",
-          default => "--max-height-{$breakpoint}: {$value} !important;"
+          'xs' => "--max-height: {$value};",
+          default => "--max-height-{$breakpoint}: {$value};"
         };
       }
     }
