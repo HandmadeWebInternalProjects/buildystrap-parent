@@ -1,10 +1,6 @@
 {
   "src/main.ts": {
-<<<<<<< HEAD
     "file": "assets/main.b6736885.js",
-=======
-    "file": "assets/main.383388ac.js",
->>>>>>> main
     "src": "src/main.ts",
     "isEntry": true,
     "css": [
