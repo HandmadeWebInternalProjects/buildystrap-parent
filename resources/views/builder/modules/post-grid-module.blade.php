@@ -107,7 +107,7 @@
       @while ($query->have_posts()) 
         @php $query->the_post(); global $post; @endphp
         <div class="{{ $column_str }} {{ $column_class }}">
-          @include($template_part, ['post' => $post])
+          @include($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug])
         </div>
       @endwhile
       @if ($enable_pagination)

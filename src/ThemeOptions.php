@@ -161,8 +161,9 @@ class ThemeOptions
 
         echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
               --bs-btn-color: var(--bs-white);
+              --bs-btn-hover-color: var(--bs-white);
               --bs-btn-bg: var(--theme-$colorName, var(--bs-$colorName));
-              --bs-btn-hover-bg: var(--theme-$colorName, var(--bs-hover-$colorName));
+              --bs-btn-hover-bg: var(--theme-$colorName, var(--bs-$colorName-hover));
               --bs-btn-border-color: var(--bs-btn-bg);
               --bs-btn-hover-border-color: var(--bs-btn-bg);
               --bs-btn-active-color: var(--bs-white);
