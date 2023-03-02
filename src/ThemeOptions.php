@@ -67,7 +67,7 @@ class ThemeOptions
           $value = sanitize_hex_color($color['value']);
           $darker_value = color_luminance($value, -0.1);
           echo sprintf('--bs-%2$s: %1$s;', "var(--{$label}-theme, $value)", $label);
-          echo sprintf('--bs-%2$s-hover: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
+          echo sprintf('--bs-hover-%2$s: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
           echo sprintf('--bs-%s-rgb: %s;', $label, $rgb);
         endforeach;
       endif;
@@ -76,6 +76,7 @@ class ThemeOptions
     $colour_text_link = get_field('buildystrap_theme_colours_link_colour', 'option');
     if ($colour_text_link && $colour_text_link !== 'None') :
       echo sprintf('--bs-link-color: var(--bs-%s);', $colour_text_link);
+      echo sprintf('--bs-link-color-rgb: var(--bs-%s-rgb);', $colour_text_link);
     else :
       echo sprintf('--bs-link-color: var(--color-black);');
     endif;
