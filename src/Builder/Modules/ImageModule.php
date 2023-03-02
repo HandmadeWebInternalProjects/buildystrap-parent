@@ -9,7 +9,7 @@ class ImageModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-images',
+      'icon' => 'fa-solid fa-image',
       'fields' => [
         'image' => [
           'type' => 'image-field',

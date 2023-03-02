@@ -62,10 +62,19 @@ class ThemeOptions
             echo sprintf('--bs-%1$s: %1$s;', sanitize_text_field($color['label']));
             continue;
           }
-          $rgb = hex2rgb(sanitize_hex_color($color['value']));
           $label = sanitize_text_field($color['label']);
-          $value = sanitize_hex_color($color['value']);
-          $darker_value = color_luminance($value, -0.1);
+          // check if IS hex
+          if (preg_match('/^#[a-f0-9]{6}$/i', $color['value'])) {
+            $value = sanitize_hex_color($color['value']);
+
+            $rgb = hex2rgb(sanitize_hex_color($color['value']));
+            echo sprintf('--bs-%s-rgb: %s;', $label, $rgb);
+
+            $darker_value = color_luminance($value, -0.1);
+            echo sprintf('--bs-%2$s-hover: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
+          } else {
+            $value = sanitize_text_field($color['value']);
+          }
           echo sprintf('--bs-%2$s: %1$s;', "var(--{$label}-theme, $value)", $label);
           echo sprintf('--bs-hover-%2$s: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
           echo sprintf('--bs-%s-rgb: %s;', $label, $rgb);
@@ -148,15 +157,16 @@ class ThemeOptions
         $colorName = sanitize_text_field($color['label']);
 
         echo sprintf('.border-%1$s { border-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
-        echo sprintf('.bg-%1$s, .bg-%1$s:hover { background-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
-        echo sprintf('.text-%1$s, .text-%1$s:visited, .text-%1$s:hover { color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
+        echo sprintf('.bg-%1$s, .bg-%1$s-hover:hover { background-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
+        echo sprintf('.text-%1$s, .text-%1$s-visited:visited, .text-%1$s-hover:hover { color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
 
         /* Buttons */
 
         echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
               --bs-btn-color: var(--bs-white);
+              --bs-btn-hover-color: var(--bs-white);
               --bs-btn-bg: var(--theme-$colorName, var(--bs-$colorName));
-              --bs-btn-hover-bg: var(--theme-$colorName, var(--bs-hover-$colorName));
+              --bs-btn-hover-bg: var(--theme-$colorName, var(--bs-$colorName-hover));
               --bs-btn-border-color: var(--bs-btn-bg);
               --bs-btn-hover-border-color: var(--bs-btn-bg);
               --bs-btn-active-color: var(--bs-white);

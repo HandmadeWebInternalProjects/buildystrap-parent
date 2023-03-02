@@ -3,7 +3,7 @@
 
   $text = $button['text'] ?? '';
   $type = $hasType ? $button['type'] : 'btn-primary';
-  $size = isset($button['size']) ?? null;
+  $size = isset($button['size']) ? $button['size'] : null;
   $bg_colour = isset($button['style']) && !$hasType ? "btn-{$button['style']}" : '';
   $color = isset($button['color']) && !$hasType ? "text-{$button['color']}" : null;
   $target = isset($button['target']) && $button['target'] ? '_blank' : null;

@@ -9,7 +9,7 @@ class TabModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-equals',
+      'icon' => 'fa-solid fa-folder',
       'fields' => [
         'tabs' => [
           'type' => 'replicator-field',

@@ -9,7 +9,7 @@ class CardModule extends Module
   protected static function blueprint(): array
   {
     return [
-      'icon' => 'fa-solid fa-anchor',
+      'icon' => 'fa-regular fa-address-card',
       'fields' => [
         'title' => [
           'type' => 'title-field',
