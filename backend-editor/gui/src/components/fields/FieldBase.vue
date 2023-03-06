@@ -57,7 +57,6 @@ const value = computed({
     return props?.modelValue || {}
   },
   set(val) {
-    console.log({ val })
     update(val)
   },
 })
@@ -70,12 +69,15 @@ const fieldValue = computed({
   },
   set(val) {
     if (props.field.config && props.field.config.responsive) {
-      if (!value.value[props.handle] || typeof value.value[props.handle] === 'string') {
-        value.value[props.handle] = {};
+      if (
+        !value.value[props.handle] ||
+        typeof value.value[props.handle] === "string"
+      ) {
+        value.value[props.handle] = {}
       }
-      value.value[props.handle][bp.value] = val;
+      value.value[props.handle][bp.value] = val
     } else {
-      value.value[props.handle] = val;
+      value.value[props.handle] = val
     }
   },
 })

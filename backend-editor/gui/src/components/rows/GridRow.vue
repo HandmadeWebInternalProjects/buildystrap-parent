@@ -25,7 +25,7 @@ const rowIndex = computed(() => props.rowIndex)
 <template>
   <div
     class="bg-100 shadow-sm border-teal-200 d-flex rounded"
-    :style="`--bs-columns: ${row?.config?.columnCount || 12}`">
+    :style="`--bs-columns: ${row?.config?.columnCount?.md || 12}`">
     <div
       class="sortable-handle absolute top-0 left-0 h-full bg-orange-500 rounded-start">
       <module-controls

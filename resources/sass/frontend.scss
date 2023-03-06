@@ -108,6 +108,16 @@ $utilities: map-merge(
           $box-model-sizing
         ),
     ),
+    "right": (
+      property: right,
+      class: right,
+      responsive: true,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "top"), "values"),
+          $box-model-sizing
+        ),
+    ),
     "bottom": (
       property: bottom,
       class: bottom,
@@ -115,6 +125,16 @@ $utilities: map-merge(
       values:
         map-merge(
           map-get(map-get($utilities, "bottom"), "values"),
+          $box-model-sizing
+        ),
+    ),
+    "left": (
+      property: left,
+      class: left,
+      responsive: true,
+      values:
+        map-merge(
+          map-get(map-get($utilities, "top"), "values"),
           $box-model-sizing
         ),
     ),

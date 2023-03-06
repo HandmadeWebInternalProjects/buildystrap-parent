@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <bs-tabs>
     <bs-tab :active="true" name="content">
       <field-group>
