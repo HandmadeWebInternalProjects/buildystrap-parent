@@ -71,6 +71,13 @@ class CardModule extends Module
             ],
           ]
         ],
+        'button_group_class' => [
+          'type' => 'text-field',
+          'config' => [
+            'label' => 'Button Group Class',
+            'class' => 'g-col-12',
+          ],
+        ],
       ],
       'config' => [
         'selectorTab' => 'regular'

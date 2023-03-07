@@ -179,7 +179,7 @@ class ThemeOptions
               }";
 
         echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
-              --bs-btn-color: var(--bs-white);
+              --bs-btn-color: var(--bs-{$colorName});
               --bs-btn-bg: transparent;
               --bs-btn-hover-bg: var(--bs-$colorName);
               --bs-btn-border-color: var(--theme-$colorName, var(--bs-$colorName));

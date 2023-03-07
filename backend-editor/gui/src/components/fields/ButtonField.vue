@@ -28,20 +28,39 @@ const sizes = {
   ...(config.value?.sizes || {}),
 }
 
-const types = {
-  Custom: "custom",
-  ...(config.value?.types || {}),
+const spliceColorValues = (property: string, style: string) => {
+  let parts: string[] = style.split("-")
+  if (parts.includes(property)) return style
+  parts.splice(1, 0, property)
+  return parts.join("-")
+}
+
+const unSpliceColorvalues = (property: string, style: string) => {
+  let parts = style.split("-")
+  parts.splice(1, 1)
+  return parts.join("-")
 }
 
 const updateStyleValue = (property: string, action: boolean) => {
   let style = value?.value?.["style"] || false
+  let type = value?.value?.["type"] || false
 
-  if (!style) return
+  if (!style && !type) return
 
   if (action) {
-    value.value["style"] = `${property}-${style}`
+    if (style) {
+      value.value["style"] = spliceColorValues(property, style)
+    }
+    if (type) {
+      value.value["type"] = spliceColorValues(property, type)
+    }
   } else {
-    value.value["style"] = style.replace(`${property}-`, "")
+    if (style) {
+      value.value["style"] = unSpliceColorvalues(property, style)
+    }
+    if (type) {
+      value.value["type"] = unSpliceColorvalues(property, type)
+    }
   }
 }
 
@@ -53,11 +72,27 @@ watch(outlined, () => {
   updateStyleValue("outline", outlined.value)
 })
 
-const styles = computed(() => {
+const types = computed(() => {
+  let types = { ...(config.value?.types ?? {}) }
+  let processedTypes: any = Object.values(types).reduce(
+    (acc: any, curr: any) => {
+      const curr_processed = spliceColorValues("outline", curr)
+      acc[curr_processed] = curr_processed
+      return acc
+    },
+    {}
+  )
   if (outlined.value) {
-    return btnStyles.map((value) => `outline-${value}`)
+    return {
+      Custom: "custom",
+      ...processedTypes,
+    }
   }
-  return btnStyles
+
+  return {
+    Custom: "custom",
+    ...(config.value?.types || {}),
+  }
 })
 </script>
 
@@ -84,6 +119,7 @@ const styles = computed(() => {
         <select-field
           class="g-col-12"
           handle="type"
+          :key="types"
           v-model="value['type']"
           :config="{
             label: 'Button Type',
@@ -104,10 +140,9 @@ const styles = computed(() => {
           <color-select-field
             handle="style"
             v-model="value['style']"
-            :key="styles"
             :config="{
               label: 'Background Colour',
-              options: styles,
+              options: btnStyles,
             }" />
         </div>
         <select-field
