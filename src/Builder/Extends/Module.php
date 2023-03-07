@@ -72,6 +72,37 @@ abstract class Module
     return $this->fields;
   }
 
+  public function recursifyFieldTypes($values): Collection
+  {
+    $blueprintFields = static::getBlueprint()->get('fields');
+
+    return collect($values)->map(function ($value, $handle) use ($blueprintFields) {
+      if (!empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
+        if ($field = Builder::getField($blueprintField['type'])) {
+          $fieldValue = $value;
+
+          if (is_array($fieldValue)) {
+            $fieldValue = collect($fieldValue)->map(function ($subField) use ($blueprintFields, $handle) {
+              if (is_array($subField)) {
+                foreach ($subField as $subHandle => $subValue) {
+                  if (
+                    isset($blueprintFields[$handle]['fields'][$subHandle]['type']) &&
+                    $subFieldType = Builder::getField($blueprintFields[$handle]['fields'][$subHandle]['type'])
+                  ) {
+
+                    $subField[$subHandle] = new $subFieldType($subValue);
+                  }
+                }
+              }
+              return $subField;
+            })->toArray();
+          }
+          return new $field($fieldValue);
+        }
+      }
+    })->filter();
+  }
+
   // public static function getBlueprint(): Collection
   // {
   //     $blueprint = static::blueprint();

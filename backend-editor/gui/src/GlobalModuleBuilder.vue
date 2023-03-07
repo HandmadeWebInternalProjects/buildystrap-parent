@@ -34,7 +34,8 @@ watch(
         :component="builder[0]"
         :columns="builder"
         :component-index="0"
-        :custom-settings="{ clone: false }" />
+        :custom-settings="{ clone: false }"
+        :parent-array="builder" />
       <button
         v-else
         @click="toggleModuleSelection = !toggleModuleSelection"

@@ -1,6 +1,7 @@
 @php
   $direction = $module->get('image_placement') ?? 'flex-column';
   $card_classes = collect(['card', $direction])->filter()->implode(' ');
+  $button_group_class = $module->get('button_group_class') ?? null;
 @endphp
 
 @extends('builder::module-base', ['class' => $card_classes])
@@ -25,9 +26,11 @@
       @endif
       
       @if($module->has('button_groups'))
-        @foreach($module->get('button_groups')->value() as $button_group)
-          @component('builder.components.button', ['button' => $button_group['button']]) @endcomponent
-        @endforeach
+        <div class="button-group {{ $button_group_class }}">
+          @foreach($module->get('button_groups')->value() as $button_group)
+            @component('builder.components.button', ['button' => $button_group['button']]) @endcomponent
+          @endforeach
+        </div>
       @endif
   </div>
 
