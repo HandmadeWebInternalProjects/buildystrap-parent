@@ -71,12 +71,12 @@ class ThemeOptions
             echo sprintf('--bs-%s-rgb: %s;', $label, $rgb);
 
             $darker_value = color_luminance($value, -0.1);
-            echo sprintf('--bs-%2$s-hover: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
+            echo sprintf('--bs-%2$s-hover: %1$s;', "var(--theme-{$label}-hover, $darker_value)", $label);
           } else {
             $value = sanitize_text_field($color['value']);
           }
-          echo sprintf('--bs-%2$s: %1$s;', "var(--{$label}-theme, $value)", $label);
-          echo sprintf('--bs-hover-%2$s: %1$s;', "var(--{$label}-theme-hover, $darker_value)", $label);
+          echo sprintf('--bs-%2$s: %1$s;', "var(--theme-{$label}, $value)", $label);
+          echo sprintf('--bs-hover-%2$s: %1$s;', "var(--theme-{$label}-hover, $darker_value)", $label);
           echo sprintf('--bs-%s-rgb: %s;', $label, $rgb);
         endforeach;
       endif;

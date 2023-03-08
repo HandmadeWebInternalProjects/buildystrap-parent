@@ -18,7 +18,7 @@
 
     <div class="card-body">
       @if($module->has('title'))
-        {!! $module->get('title')->titleClass('card-title') !!}
+        {{ $module->get('title')->titleClass('card-title') }}
       @endif
       
       @if($module->has('body'))
