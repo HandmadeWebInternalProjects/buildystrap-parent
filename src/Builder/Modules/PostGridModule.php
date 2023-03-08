@@ -126,6 +126,12 @@ class PostGridModule extends Module
             'placeholder' => 'loop-templates/content',
           ],
         ],
+        'template_class' => [
+          'type' => 'text-field',
+          'config' => [
+            'label' => 'Template Classes',
+          ],
+        ],
       ],
       'config' => [
         'selectorTab' => 'regular'

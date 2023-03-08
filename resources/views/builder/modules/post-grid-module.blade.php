@@ -8,6 +8,7 @@
   $offset_start = $module->has('offset') ? $module->get('offset')->value() : 0;
   $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
   $column_class = $module->has('column_class') ? $module->get('column_class')->value() : "";
+  $template_class = $module->has('template_class') ? $module->get('template_class')->value() : "";
   $column_str = [];
   if (is_array($columns)) {
     foreach ($columns as $breakpoint => $value) {
@@ -107,7 +108,7 @@
       @while ($query->have_posts()) 
         @php $query->the_post(); global $post; @endphp
         <div class="{{ $column_str }} {{ $column_class }}">
-          @include($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug])
+          @include($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])
         </div>
       @endwhile
       @if ($enable_pagination)
