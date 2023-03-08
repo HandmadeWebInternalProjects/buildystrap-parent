@@ -1,5 +1,9 @@
 == Changelog ==
 
+=== 4.1.10 ===
+
+- Add template_class option to postgrid module
+
 === 4.1.9 ===
 
 - Fix primary-theme-hover order for class
