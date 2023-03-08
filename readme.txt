@@ -1,5 +1,12 @@
 == Changelog ==
 
+=== 4.1.9 ===
+
+- Fix primary-theme-hover order for class
+- Remove HTML from titleField toString method
+- Add toHtml method on titlefield that renders the builder.components.title file so it's only in one place.
+- Update references from {!! !!} to {{ }} to use the new toHtml method
+
 === 4.1.7 - 4.1.8 ===
 
 - Fix button outlines (mostly)
