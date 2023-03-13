@@ -14,7 +14,7 @@
       :placeholder="
         config?.responsive && responsivePlaceholder(value, handle, bp)
       "
-      :values="value"
+      :values="parent_values || value"
       v-model="fieldValue"
       :is="field.type"
       @update-meta="updateMeta" />
@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import Validator from "../../field-conditions/Validator"
 import { useFieldType, commonProps } from "./useFieldType"
-import { computed, ref, watch, nextTick } from "vue"
+import { computed, ref, inject, watch, nextTick } from "vue"
 import { Popover } from "bootstrap"
 import { useBreakpoints } from "../../composables/useBreakpoints"
 
@@ -45,6 +45,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+// Inject "parent_values" from a replicator set if exists
+const parent_values = inject("parent_values", ref(false))
 
 const root = ref<HTMLElement | null>(null)
 

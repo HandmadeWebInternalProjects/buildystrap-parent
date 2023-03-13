@@ -45,6 +45,7 @@ import { findNestedObject } from "../../../utils/objects"
 const props = defineProps({
   fields: { type: Object, default: () => ({}) },
   ...commonProps,
+  values: { type: Object, default: () => ({}) },
 })
 
 const { getModuleBlueprintForType } = useBuilderStore()
@@ -88,6 +89,9 @@ provide("increment-value", {
   incrementValue,
 })
 
+if (props?.values) {
+  provide("parent_values", props?.values)
+}
 const addSet = () => {
   values.value.push({ _uuid: generateID() })
   meta.value.push({ collapsed: false })
