@@ -16,13 +16,13 @@ const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
 const fields: any = reactive({
-  text: props.modelValue?.text || "",
-  level: props.modelValue?.level || "",
-  size: props.modelValue?.size || {},
-  weight: props.modelValue?.weight || {},
-  line_height: props.modelValue?.line_height || {},
-  color: props.modelValue?.color || {},
-  class: props.modelValue?.class || "",
+  text: props.modelValue?.text || ref(""),
+  level: props.modelValue?.level || ref(""),
+  size: props.modelValue?.size || reactive({}),
+  weight: props.modelValue?.weight || reactive({}),
+  line_height: props.modelValue?.line_height || reactive({}),
+  color: props.modelValue?.color || reactive({}),
+  class: props.modelValue?.class || ref(""),
 })
 
 const forceDelete = (val: any, resetVal: any = {}) => {
@@ -44,7 +44,7 @@ watch(fields, (newValue) => {
             handle="text"
             :config="{
               ...config,
-              label : false,
+              label: false,
             }"
             v-model="fields.text" />
           <div class="d-flex gap-4">
@@ -115,12 +115,7 @@ watch(fields, (newValue) => {
               handle="line_height"
               :config="{
                 label: 'Line Height',
-                options: [
-                  '1',
-                  'sm',
-                  'base',
-                  'lg',
-                ],
+                options: ['1', 'sm', 'base', 'lg'],
                 placeholder: 'Default',
                 responsive: true,
                 popover: 'Change the line height of the header tag',

@@ -19,10 +19,12 @@ export const useBuilderStore = defineStore({
   id: "builder",
   state: () => ({
     config: <BuildyConfig>{},
+    content: [] as any[],
     pasteLocations: <string[]>[],
     registeredComponents: {},
   }),
   getters: {
+    getBuilderContent: (state) => state.content,
     getRegisteredComponents: (state): { [key: string]: any } => {
       return state.registeredComponents
     },
@@ -40,6 +42,10 @@ export const useBuilderStore = defineStore({
     getPasteLocations: (state) => state.pasteLocations,
   },
   actions: {
+    setBuilderContent(payload: any) {
+      //replace this.content array with payload in a reactive way
+      this.content = [...payload]
+    },
     sortBlueprintsAlpha() {
       this.config.moduleBlueprints = Object.keys(this.config.moduleBlueprints)
         .sort()

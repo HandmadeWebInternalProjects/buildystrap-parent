@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue"
+import { ref, watch } from "vue"
 import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
 import { recursifyID } from "./utils/id"
 
-const { getGlobalSections, getGlobalModules } = storeToRefs(useBuilderStore())
+const { getGlobalSections, getGlobalModules, getBuilderContent } = storeToRefs(
+  useBuilderStore()
+)
+
+const { setBuilderContent } = useBuilderStore()
 
 // @ts-ignore
 import {
@@ -18,7 +22,6 @@ import {
 } from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
-const builder = ref<ModuleType[]>([])
 
 const {
   readFromClipboard,
@@ -26,7 +29,7 @@ const {
   copyPageToClipboard,
   pasteFromClipboard,
   isValidPasteLocation,
-} = useClipboard(builder)
+} = useClipboard(getBuilderContent)
 
 const globalStackOpen = ref(false)
 const revealGlobalModules = ref(false)
@@ -36,12 +39,13 @@ const liveToast = ref(null)
 const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
-  builder.value = JSON.parse(contentEl.innerText)
+  const content = JSON.parse(contentEl.innerText)
+  setBuilderContent(content)
 }
 
 const addSection = () => {
   const newModule = createModule("Section", {})
-  builder.value.push(newModule)
+  getBuilderContent.value.push(newModule)
 }
 
 const addGlobalSection = (globalSection: { id: number; title: string }) => {
@@ -53,19 +57,18 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
     TYPE,
     VALUE,
   })
-  builder.value.push(newModule)
-  console.log({ newModule })
+  getBuilderContent.value.push(newModule)
 }
 
 const pastePage = (fromClipBoard: any): void => {
   recursifyID(fromClipBoard)
   // Ask for confirmation prompt before replacing value
 
-  return (builder.value = fromClipBoard)
+  return (getBuilderContent.value = fromClipBoard)
 }
 
 watch(
-  builder,
+  getBuilderContent,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
   },
@@ -80,7 +83,8 @@ watch(
   <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
-      :list="builder"
+      :list="getBuilderContent"
+      :key="getBuilderContent"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
@@ -89,7 +93,7 @@ watch(
         <component
           :is="`grid-${element.type}`"
           :section-index="index"
-          :parent-array="builder"
+          :parent-array="getBuilderContent"
           :component="element" />
       </template>
     </draggable>
