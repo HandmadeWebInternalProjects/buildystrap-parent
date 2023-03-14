@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@babel/core': ^7.21.0
   '@popperjs/core': ^2.11.5
   bootstrap: 5.2.0
   glightbox: ^3.2.0
@@ -11,13 +12,12 @@ specifiers:
   sass-loader: ^13.0.0
   webpack: ^5.73.0
 
-dependencies:
-  glightbox: 3.2.0
-
 devDependencies:
+  '@babel/core': 7.21.0
   '@popperjs/core': 2.11.6
   bootstrap: 5.2.0_@popperjs+core@2.11.6
-  laravel-mix: 6.0.49_mquw4qchulb5tpkmg3p2j6qala
+  glightbox: 3.2.0
+  laravel-mix: 6.0.49_3t3ckjz3msz5viyoct7gvfppru
   postcss: 8.4.21
   resolve-url-loader: 5.0.0
   sass: 1.59.2
@@ -2965,7 +2965,7 @@ packages:
 
   /glightbox/3.2.0:
     resolution: {integrity: sha512-iit1xYixqL4YVL+I2YJLfMeyJwvLi6FE6kY3qNKeZHEJgRIz80QU8Rm7YCyw1wOTgXvmNDnXGVhHOHRCwnDltQ==}
-    dev: false
+    dev: true
 
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -3453,11 +3453,12 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /laravel-mix/6.0.49_mquw4qchulb5tpkmg3p2j6qala:
+  /laravel-mix/6.0.49_3t3ckjz3msz5viyoct7gvfppru:
     resolution: {integrity: sha512-bBMFpFjp26XfijPvY5y9zGKud7VqlyOE0OWUcPo3vTBY5asw8LTjafAbee1dhfLz6PWNqDziz69CP78ELSpfKw==}
     engines: {node: '>=12.14.0'}
     hasBin: true
     peerDependencies:
+      '@babel/core': ^7.15.8
       postcss: ^8.3.11
       webpack: ^5.60.0
     dependencies:
