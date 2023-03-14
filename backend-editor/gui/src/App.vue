@@ -6,9 +6,7 @@ import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
 import { recursifyID } from "./utils/id"
 
-const { getGlobalSections, getGlobalModules, getBuilderContent } = storeToRefs(
-  useBuilderStore()
-)
+const { getGlobalSections, getGlobalModules } = storeToRefs(useBuilderStore())
 
 const { setBuilderContent } = useBuilderStore()
 
@@ -22,6 +20,7 @@ import {
 } from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
+const builder = ref<ModuleType[]>([])
 
 const {
   readFromClipboard,
@@ -29,7 +28,7 @@ const {
   copyPageToClipboard,
   pasteFromClipboard,
   isValidPasteLocation,
-} = useClipboard(getBuilderContent)
+} = useClipboard(builder)
 
 const globalStackOpen = ref(false)
 const revealGlobalModules = ref(false)
@@ -45,7 +44,7 @@ if (contentEl && contentEl.innerText) {
 
 const addSection = () => {
   const newModule = createModule("Section", {})
-  getBuilderContent.value.push(newModule)
+  builder.value.push(newModule)
 }
 
 const addGlobalSection = (globalSection: { id: number; title: string }) => {
@@ -57,18 +56,18 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
     TYPE,
     VALUE,
   })
-  getBuilderContent.value.push(newModule)
+  builder.value.push(newModule)
 }
 
 const pastePage = (fromClipBoard: any): void => {
   recursifyID(fromClipBoard)
   // Ask for confirmation prompt before replacing value
 
-  return (getBuilderContent.value = fromClipBoard)
+  return (builder.value = fromClipBoard)
 }
 
 watch(
-  getBuilderContent,
+  builder,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
   },
@@ -83,8 +82,8 @@ watch(
   <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
-      :list="getBuilderContent"
-      :key="getBuilderContent"
+      :list="builder"
+      :key="builder"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
@@ -93,7 +92,7 @@ watch(
         <component
           :is="`grid-${element.type}`"
           :section-index="index"
-          :parent-array="getBuilderContent"
+          :parent-array="builder"
           :component="element" />
       </template>
     </draggable>
