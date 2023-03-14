@@ -1,5 +1,12 @@
 == Changelog ==
 
+
+=== 4.1.13 ===
+
+- Add save / cancel buttons
+- Update repeater to pass parent field values to it's childen (so things like relational field can check values of things outside the repeater).
+- Some small tweaks & bug fixes to title fields
+
 === 4.1.10 ===
 
 - Add template_class option to postgrid module

@@ -9,7 +9,6 @@ use function sprintf;
 
 class TitleField extends Field
 {
-  protected string $title_class = '';
 
   protected static function blueprint(): array
   {
@@ -37,7 +36,7 @@ class TitleField extends Field
 
   public function titleClass(string $class): static
   {
-    $this->title_class = $class;
+    $this->additional_classes = $class;
     return $this;
   }
 
@@ -55,7 +54,7 @@ class TitleField extends Field
         "size" => $this->value()->get('size', []),
         "color" => $this->value()->get('color', []),
         "weight" => $this->value()->get('weight', []),
-        "class" => $this->value()->get('class', '')
+        "class" => $this->value()->get('class', '') . ' ' . ($this->additional_classes ?? ''),
       ]
     ])->render();
   }
