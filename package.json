@@ -6,6 +6,7 @@
     "build": "mix --production"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
     "@popperjs/core": "^2.11.5",
     "bootstrap": "5.2.0",
     "laravel-mix": "^6.0.47",
