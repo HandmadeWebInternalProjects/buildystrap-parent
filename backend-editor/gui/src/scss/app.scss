@@ -243,10 +243,6 @@ $utilities: map-merge(
     vertical-align: -0.125em;
   }
 
-  .stack-content {
-    overflow: auto;
-  }
-
   .btn-purple {
     --bs-btn-color: var(--bs-white);
     --bs-btn-bg: #{shade-color($purple, 20%)};
