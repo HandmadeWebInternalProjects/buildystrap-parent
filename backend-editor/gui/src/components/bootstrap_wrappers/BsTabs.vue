@@ -19,7 +19,7 @@
         </button>
       </li>
     </ul>
-    <div class="tab-content card mt-3 p-4 rounded">
+    <div class="tab-content overflow-auto card mt-3 p-4 rounded">
       <slot />
     </div>
   </div>
