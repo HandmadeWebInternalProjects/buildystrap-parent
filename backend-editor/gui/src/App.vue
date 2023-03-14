@@ -22,6 +22,7 @@ import {
 } from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
+const builder = ref<ModuleType[]>([])
 
 const {
   readFromClipboard,
@@ -29,7 +30,7 @@ const {
   copyPageToClipboard,
   pasteFromClipboard,
   isValidPasteLocation,
-} = useClipboard(getBuilderContent)
+} = useClipboard(builder)
 
 const globalStackOpen = ref(false)
 const revealGlobalModules = ref(false)
@@ -40,12 +41,13 @@ const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
   const content = JSON.parse(contentEl.innerText)
+  builder.value = content
   setBuilderContent(content)
 }
 
 const addSection = () => {
   const newModule = createModule("Section", {})
-  getBuilderContent.value.push(newModule)
+  builder.value.push(newModule)
 }
 
 const addGlobalSection = (globalSection: { id: number; title: string }) => {
@@ -57,20 +59,21 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
     TYPE,
     VALUE,
   })
-  getBuilderContent.value.push(newModule)
+  builder.value.push(newModule)
 }
 
 const pastePage = (fromClipBoard: any): void => {
   recursifyID(fromClipBoard)
   // Ask for confirmation prompt before replacing value
 
-  return (getBuilderContent.value = fromClipBoard)
+  return (builder.value = fromClipBoard)
 }
 
 watch(
-  getBuilderContent,
+  builder,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
+    setBuilderContent(newValue)
   },
   {
     deep: true,
@@ -83,8 +86,8 @@ watch(
   <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
-      :list="getBuilderContent"
-      :key="getBuilderContent"
+      :list="builder"
+      :key="builder"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
@@ -93,7 +96,7 @@ watch(
         <component
           :is="`grid-${element.type}`"
           :section-index="index"
-          :parent-array="getBuilderContent"
+          :parent-array="builder"
           :component="element" />
       </template>
     </draggable>
@@ -140,22 +143,22 @@ watch(
         @click.shift="revealGlobalModules = !revealGlobalModules"
         class="p-4 py-5">
         <h3>Global Sections</h3>
-        <div
+        <module-selection-pill-with-preview
           v-for="globalSection in getGlobalSections"
-          @click="addGlobalSection(globalSection)"
           :key="globalSection.id"
-          class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
-          {{ globalSection.title }}
-        </div>
+          @click="addGlobalSection(globalSection)"
+          :module-item="globalSection"
+          :handle="globalSection.id"
+          preview-type="image"
+          post-type="buildy-global" />
         <div class="mt-4" v-if="revealGlobalModules">
           <h5>Global Modules</h5>
-          <div
+          <module-selection-pill
             v-for="globalModule in getGlobalModules"
-            @click="addGlobalSection(globalModule)"
             :key="globalModule.id"
-            class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
-            {{ globalModule.title }}
-          </div>
+            @click="addGlobalSection(globalModule)"
+            :module-item="globalModule"
+            :handle="globalModule.id" />
         </div>
       </div>
     </buildy-stack>
