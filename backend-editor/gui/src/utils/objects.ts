@@ -10,7 +10,8 @@ export const getDeep = (obj: any, path: string | string[]) => {
 export const getDeepArray = (obj: any, path: string | string[]) => {
   path = Array.isArray(path) ? path : path.split(".").filter((path) => path)
   const data: any = path.reduce((a, b) => {
-    if (Array.isArray(a)) {
+    console.log(b, isNaN(Number(b)))
+    if (Array.isArray(a) && isNaN(Number(b))) {
       return a.map((item) => getDeep(item, b))
     }
     return a && a[b]

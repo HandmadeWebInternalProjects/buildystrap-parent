@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { toRefs, ref, computed, onMounted, watch, inject } from "vue"
+import { toRefs, ref, reactive, inject, computed, onMounted, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderStore } from "../../stores/builder"
 import { getDeep, getDeepArray } from "@/utils/objects"
@@ -33,13 +33,12 @@ const depends_on = computed(() => {
     if (index !== false && index !== undefined && index !== null) {
       deps = deps.replace("$", index)
     }
-    const findValue = getDeep(values?.value, deps)
+    let findValue = getDeepArray(values?.value, deps)
 
     // check if test is an array if it is filter out the falsy values and flatten the array
     if (Array.isArray(findValue)) {
-      return findValue.filter((el) => el).length
+      findValue = findValue.filter((el) => el)
     }
-
     return findValue
   }
   return values?.value?.[config.value?.depends_on]
@@ -52,7 +51,7 @@ const returnValue =
 const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchFromEndpoint = async (endpoint: string) => {
-  try {  
+  try {
     const res = await fetch(`${endpoint}?per_page=100`)
     return await res.json()
   } catch (error: any) {
@@ -98,16 +97,29 @@ const mapEntries = async () => {
   let mappedEntries: any = null
 
   if (config.value?.depends_on) {
-    if ( config.value?.endpoint ) {
-      mappedEntries = await fetchFromEndpoint(endpoint + depends_on.value)
+    if (config?.value?.endpoint) {
+      if (Array.isArray(depends_on.value)) {
+        mappedEntries = await Promise.all(
+          depends_on.value.map((val: string) =>
+            fetchFromEndpoint(config?.value?.endpoint + val)
+          )
+        )
+
+        mappedEntries = mappedEntries.flat()
+      } else if (typeof depends_on.value === "string") {
+        mappedEntries = await fetchFromEndpoint(
+          config?.value?.endpoint + depends_on.value
+        )
+      }
     } else if (depends_on.value) {
       if (data_type === "endpoint") {
         if (Array.isArray(depends_on.value)) {
           mappedEntries = await Promise.all(
-            depends_on.value.map((endpoint : string) =>
+            depends_on.value.map((endpoint: string) =>
               fetchFromEndpoint(endpoint)
             )
           )
+
           mappedEntries = mappedEntries.flat()
         } else if (typeof depends_on.value === "string") {
           mappedEntries = await fetchFromEndpoint(depends_on.value)
@@ -190,7 +202,6 @@ onMounted(async () => {
           multiple: config?.multiple,
           taggable: config?.taggable,
         }"
-        @input="update(($event?.target as HTMLInputElement)?.value)"
         :placeholder="config.placeholder || handle" />
     </label>
   </div>

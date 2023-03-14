@@ -447,10 +447,4 @@ if (!function_exists('get_sub_fields')) {
     return $sub_fields;
   }
 }
-
-
-add_filter('posts_where', function($where) {
-  $where = str_replace("meta_key = 'location_$", "meta_key LIKE 'location_%", $where);
-  return $where;
-});
   

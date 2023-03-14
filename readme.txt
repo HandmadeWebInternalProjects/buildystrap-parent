@@ -1,5 +1,10 @@
 == Changelog ==
 
+=== 4.1.14 ===
+- Initial major commit for Taxonomy, Term, Relation, and Meta Query items in Post Grid Module. 
+- Fixes for taggable and multiple items on Vue select items
+- Tweaks to SCSS taggables for widths and heights
+- Adjust class output for Title Field (merge issue)
 
 === 4.1.13 ===
 

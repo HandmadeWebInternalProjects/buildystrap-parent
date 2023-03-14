@@ -44,7 +44,9 @@ const options = normaliseOptions(config.value.options) || []
       :disabled="config.disabled || false"
       :placeholder="placeholder || config.placeholder"
       :default="config?.default"
-      :options="options">
+      :options="options"
+      :create-option="(item: string) => ({ label: item, value: item })"
+      >
     </v-select>
   </div>
 </template>
