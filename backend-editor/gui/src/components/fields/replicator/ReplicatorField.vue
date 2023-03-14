@@ -77,10 +77,10 @@ onMounted(() => {
   if (props?.meta) {
     props.meta.forEach((val: any, i: number) => meta.value.splice(i, 1, val))
   }
-  console.log({
-    set: findNestedObject(set.value, handle?.value),
-    handle: handle?.value,
-  })
+  // console.log({
+  //   set: findNestedObject(set.value, handle?.value),
+  //   handle: handle?.value,
+  // })
 })
 
 const incrementValue = ref(0)

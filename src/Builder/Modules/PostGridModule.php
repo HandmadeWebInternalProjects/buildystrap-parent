@@ -113,10 +113,9 @@ class PostGridModule extends Module
               'config' => [
                 'label' => 'Meta Key',
                 'class' => 'g-col-6',
-                //'depends_on' => 'post_type',
+                'depends_on' => 'post_type',
                 'data_type' => 'endpoint',
-                //'endpoint' => '/wp-json/buildy/v1/get_fields/case-studies',
-                'endpoint' => 'buildy/v1/get_fields/case-studies',
+                'endpoint' => '/wp-json/buildy/v1/get_fields/',
                 'return_values' => [
                   ['name' => 'name'],
                   ['key' => 'key']
@@ -131,13 +130,10 @@ class PostGridModule extends Module
               'config' => [
                 'label' => 'Meta Value',
                 'class' => 'g-col-6',
-                'depends_on' => 'meta_key.key',
+                'depends_on' => 'meta_query.$.meta_key.key',
                 'data_type' => 'endpoint',
                 'endpoint' => '/wp-json/buildy/v1/get_field/',
-                'return_values' => [
-                  ['key' => 'meta_key'],
-                  ['value' => 'value']
-                ],
+                'return_value' => 'value',
                 'return_label' => 'label',
                 'multiple' => true,
                 'allow_null' => true,

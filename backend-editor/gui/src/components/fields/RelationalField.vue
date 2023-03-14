@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { toRefs, ref, computed, onMounted, watch } from "vue"
+import { toRefs, ref, computed, onMounted, watch, inject } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderStore } from "../../stores/builder"
-import { getDeep } from "@/utils/objects"
+import { getDeep, getDeepArray } from "@/utils/objects"
 const props = defineProps({ ...commonProps })
 
 const { handle, config, modelValue, values } = toRefs(props)
@@ -24,17 +24,24 @@ const selected = computed({
 const loading = ref(true)
 const endpoint = config.value?.endpoint || "posts"
 
+const index = inject<any>("index", ref<boolean>(false))
+
 const depends_on = computed(() => {
   if (!config.value?.depends_on) return null
   let deps = config.value?.depends_on
   if (deps && deps.includes(".")) {
-    return deps.split(".")?.reduce((acc: any, curr: any) => {
-      if (Array.isArray(acc)) return acc.map((el) => el[curr])
-      if (acc?.[curr]) return acc[curr]
-      return null
-    }, values?.value)
+    if (index !== false && index !== undefined && index !== null) {
+      deps = deps.replace("$", index)
+    }
+    const findValue = getDeep(values?.value, deps)
+
+    // check if test is an array if it is filter out the falsy values and flatten the array
+    if (Array.isArray(findValue)) {
+      return findValue.filter((el) => el).length
+    }
+
+    return findValue
   }
-  console.log("values", values?.value)
   return values?.value?.[config.value?.depends_on]
 })
 
