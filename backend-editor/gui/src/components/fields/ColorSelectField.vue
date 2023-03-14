@@ -25,7 +25,6 @@ const selected = computed({
     return modelValue?.value
   },
   set(newVal) {
-    console.log({ newVal })
     update(newVal)
   },
 })

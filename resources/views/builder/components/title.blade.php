@@ -69,5 +69,5 @@ $style = collect([])
     ->filter()
     ->implode(' ');
 
-echo sprintf('<%s class="%s" style="%s">%s</%s>', $level, $class, $style, $text, $level);
+echo sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $level, $class, $style, $text);
 @endphp

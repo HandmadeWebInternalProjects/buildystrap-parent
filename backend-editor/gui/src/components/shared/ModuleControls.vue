@@ -10,13 +10,13 @@
         :key="component.uuid + type + i"
         :title="setting.title">
         <component
-          v-if="setting.component"
+          v-if="setting.component && setting?.isActive"
           :component="component"
+          @close="handleClose(setting)"
           :is="setting.component" />
         <font-awesome-icon
-          v-else-if="setting?.icon"
           :icon="setting.icon"
-          @click="setting.action"
+          @click="handleClick(setting, i)"
           width="15"
           height="15"
           fill="currentColor"
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue"
+import { computed, ref, reactive } from "vue"
 import { recursifyID } from "../../utils/id"
 
 import { UCFirst } from "../../utils/helpers"
@@ -78,6 +78,7 @@ const { isValidPasteLocation, pasteFromClipboard, copyToClipboard } =
 
 type ControlItem = {
   icon?: string[]
+  isActive?: boolean
   title?: string
   class?: string
   order?: number
@@ -86,54 +87,71 @@ type ControlItem = {
 }
 
 const settings = computed((): ControlItem[] => {
-  return Object.values({
-    menu: {
-      icon: ["fas", "pen-to-square"],
-      title: "Open settings modal",
-      component: "edit-module",
-      order: 10,
-    },
-    add: {
-      icon: ["fas", "plus-circle"],
-      title: "Add module right after this module",
-      action: addModule,
-      order: 20,
-    },
-    clone: {
-      icon: ["fas", "copy"],
-      title: "Clone this module",
-      action: cloneModule,
-      // condition: this.component,
-      order: 30,
-    },
-    clipboardCopy: navigator?.clipboard
-      ? {
-          icon: isValidPasteLocation.value
-            ? ["fas", "clipboard-check"]
-            : ["fas", "clipboard"],
-          title: isValidPasteLocation.value
-            ? "Paste module here (after this one)"
-            : "Copy module to clipboard",
-          action: isValidPasteLocation.value
-            ? () => pasteFromClipboard(pasteModule)
-            : copyToClipboard,
-          order: 30,
-          class: isValidPasteLocation.value
-            ? "text-green-300 animate-pulse"
-            : "",
-        }
-      : {},
-    delete: {
-      icon: ["fas", "trash"],
-      title: "Delete this module",
-      action: removeModule,
-      order: 40,
-    },
-    ...customSettings.value,
-  })
+  return reactive(
+    Object.values({
+      menu: {
+        icon: ["fas", "pen-to-square"],
+        title: "Open settings modal",
+        component: "edit-module",
+        isActive: false,
+        order: 10,
+      },
+      add: {
+        icon: ["fas", "plus-circle"],
+        title: "Add module right after this module",
+        action: addModule,
+        order: 20,
+      },
+      clone: {
+        icon: ["fas", "copy"],
+        title: "Clone this module",
+        action: cloneModule,
+        // condition: this.component,
+        order: 30,
+      },
+      clipboardCopy: navigator?.clipboard
+        ? {
+            icon: isValidPasteLocation.value
+              ? ["fas", "clipboard-check"]
+              : ["fas", "clipboard"],
+            title: isValidPasteLocation.value
+              ? "Paste module here (after this one)"
+              : "Copy module to clipboard",
+            action: isValidPasteLocation.value
+              ? () => pasteFromClipboard(pasteModule)
+              : copyToClipboard,
+            order: 30,
+            class: isValidPasteLocation.value
+              ? "text-green-300 animate-pulse"
+              : "",
+          }
+        : {},
+      delete: {
+        icon: ["fas", "trash"],
+        title: "Delete this module",
+        action: removeModule,
+        order: 40,
+      },
+      ...customSettings.value,
+    })
+  )
     .filter((el: any) => Object.hasOwnProperty.call(el, "order"))
     .sort((a: any, b: any) => a.order - b.order)
 })
+
+const handleClick = (setting: any, i: number): void => {
+  if (Object.hasOwnProperty.call(setting, "isActive")) {
+    setting.isActive = !setting.isActive
+    console.log(setting.isActive)
+  }
+  if (setting?.action) {
+    setting.action()
+  }
+}
+
+const handleClose = (setting: any): void => {
+  setting.isActive = false
+}
 
 const addModule = (): void => {
   const newModule = createModule(

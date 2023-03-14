@@ -34,6 +34,12 @@ class TitleField extends Field
     $this->value = collect((array) $this->raw);
   }
 
+  public function titleClass(string $class): static
+  {
+    $this->additional_classes = $class;
+    return $this;
+  }
+
   public function __toString()
   {
     return $this->value()->get('text', '');

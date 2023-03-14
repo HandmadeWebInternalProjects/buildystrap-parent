@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue"
-
+import { ref, computed, onMounted } from "vue"
 import { useBuilderStore } from "../../stores/builder"
+import { storeToRefs } from "pinia"
 import { slugToStr } from "../../utils/helpers"
 import type { EventInterface } from "../Events"
-const { getRegisteredComponents } = useBuilderStore()
+const { getRegisteredComponents, setBuilderContent } = useBuilderStore()
+
+const { getBuilderContent } = storeToRefs(useBuilderStore())
 
 const props = defineProps({
   component: {
@@ -17,6 +19,12 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  (event: "close", boolean: boolean): void
+}>()
+
+const settingsToggle = ref(true)
+const builderSnapshot = ref<any>(null)
 const component = ref(props.component)
 const adminLabelEl = ref<HTMLElement | null>(null)
 
@@ -49,20 +57,34 @@ const focusOnAdminLabel = () => {
   }
 }
 
-const settingsToggle = ref(false)
-const designToggle = ref(false)
+const handleClose = () => {
+  if (
+    JSON.stringify(builderSnapshot.value) !==
+    JSON.stringify(getBuilderContent.value)
+  ) {
+    if (confirm("You have unsaved changes. Are you sure you want to close?")) {
+      setBuilderContent(builderSnapshot.value)
+      settingsToggle.value = false
+      emit("close", true)
+    }
+  } else {
+    settingsToggle.value = false
+    emit("close", true)
+  }
+}
+
+const handleSave = () => {
+  settingsToggle.value = false
+  emit("close", true)
+}
+
+onMounted(() => {
+  builderSnapshot.value = JSON.parse(JSON.stringify(getBuilderContent.value))
+})
 </script>
 <template>
-  <font-awesome-icon
-    :icon="['fas', 'pen-to-square']"
-    @click="settingsToggle = true"
-    width="15"
-    height="15"
-    fill="currentColor"
-    aria-controls="offcanvasRight"
-    class="flex cursor-pointer pulse"></font-awesome-icon>
   <buildy-stack
-    @close=";(settingsToggle = false), (designToggle = false)"
+    :beforeClose="handleClose"
     v-if="settingsToggle"
     half
     name="module-settings">
@@ -92,20 +114,31 @@ const designToggle = ref(false)
       <component
         :is="`${componentToLoad}-settings`"
         :type="component.type"
+        @save="settingsToggle = false"
+        @cancel="setBuilderContent($event)"
         :component="component" />
+      <div class="d-flex gap-2 mt-4">
+        <button
+          class="btn bg-indigo-500 text-white"
+          type="button"
+          @click="handleSave">
+          Save
+        </button>
+        <button class="btn text-danger" type="button" @click="handleSave">
+          Cancel
+        </button>
+      </div>
     </div>
   </buildy-stack>
 </template>
 <style lang="scss">
 .stack-content {
-
   .tab-header {
-
     .tab-title {
       border-radius: 5px;
 
       &:focus-visible {
-        outline: 1px dashed rgba(255,255,255,0.5);
+        outline: 1px dashed rgba(255, 255, 255, 0.5);
       }
     }
     sup {
