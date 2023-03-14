@@ -22,7 +22,7 @@
   </bs-accordion-item>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from "vue"
+import { ref, computed, provide } from "vue"
 const props = defineProps({
   config: {
     type: Object,
@@ -54,6 +54,8 @@ const props = defineProps({
 })
 const fields = ref(props.field.fields)
 const meta = computed(() => props.meta)
+
+provide('index', props.index)
 
 const emit = defineEmits(["input", "updateMeta", "removeSet"])
 

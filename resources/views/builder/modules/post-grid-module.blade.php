@@ -2,8 +2,13 @@
 
 @php
   $postType = $module->has('post_type') ? $module->get('post_type')->value() : 'post';
+  $show_related = $module->has('show_related') ? $module->get('show_related')->value() : false;
   $taxonomy = $module->has('taxonomy') ? $module->get('taxonomy')->value() : null;
-  $taxonomy_slug = isset($taxonomy['slug']) ? $taxonomy['slug'] : 'category';
+  $taxonomy_slug = isset($taxonomy) ? collect($taxonomy)->pluck('slug') : null;
+  $taxonomy_term = $module->has('term') ? $module->get('term')->value() : null;
+  $taxonomy_relation = $module->has('taxonomy_relation') ? $module->get('taxonomy_relation')->value() : 'AND';
+  $term_relation = $module->has('term_relation') ? $module->get('term_relation')->value() : 'AND';
+  $meta_query = $module->has('meta_query') ? $module->get('meta_query')->value() : null;  $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
   $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
   $offset_start = $module->has('offset') ? $module->get('offset')->value() : 0;
   $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
@@ -51,26 +56,83 @@
     'order' => $order,
   ];
 
+  // Setup tax_query arguments
+  $args['tax_query'] = [
+      'relation' => $taxonomy_relation,
+  ];
+
   // Setup meta_query arguments
   $args['meta_query'] = [
       'relation' => 'AND',
   ];
 
-  // Setup tax_query arguments
-  $args['tax_query'] = [
-      'relation' => 'AND',
-  ];
-
-  // Include terms ie. taxonomies
-  if ($module->get('term')->value()) {
-    // add tax_query to args
-    $args['tax_query'][] = [
-      [
-        'taxonomy' => $taxonomy_slug,
-        'field' => 'id',
-        'terms' => collect($module->get('term')->value())->implode(','),
-      ]
+  if ($show_related) {
+    $args['tax_query'] = [
+      'relation' => 'OR',
     ];
+    $taxonomies = get_post_taxonomies(get_the_ID());
+    foreach ($taxonomies as $taxonomy) {
+      $terms = wp_get_post_terms(get_the_ID(), $taxonomy, ['fields' => 'ids']);
+      $args['tax_query'][] = [
+        'taxonomy' => $taxonomy,
+        'field' => 'term_id',
+        'terms' => $terms,
+      ];
+    }
+  } else {
+    if ($taxonomy_slug) {
+      foreach ($taxonomy_slug as $slug) {
+        $terms = $taxonomy_term ? collect($taxonomy_term)->where('taxonomy', $slug)->pluck('id') : null;
+        $args['tax_query'][] = [
+          'taxonomy' => $slug,
+          'field' => 'term_id',
+          'terms' => collect($terms)->toArray(),
+          'operator' => $term_relation,
+        ];
+      }
+    }
+    if ($meta_query) {
+      foreach ($meta_query as $meta) {
+        $meta_key = $meta['meta_key'];
+        $meta_value = $meta['meta_value'];
+
+        if (!is_array($meta_value)) {
+          $meta_value = [$meta_value];
+        }
+
+        $field = get_field_object($meta_key['key']);  
+
+        $field['parent_name'] = '';
+        if ($field['parent'] ?? false) {
+            // This needs work. Repeaters won't work currently. 
+            $parent = acf_get_field($field['parent']);
+            if ($field['type'] === 'repeater') {
+              $meta_parent = $parent ? $parent['name'] . '_$_' : '';
+            } else {
+              $meta_parent = $parent ? $parent['name'] . '_' : '';
+            }
+            $meta_key['name'] = $meta_parent . $meta_key['name'];
+        }
+
+        foreach ($meta_value as $value) {
+          // This needs work. Repeaters won't work currently. 
+          if (strpos($meta_key['name'], '$') !== false) {
+            $args['meta_query'][] = [
+              'key' => $meta_key['name'],
+              'value' => '"'. $value .'"',
+              'compare' => 'LIKE',
+            ];
+          } else {
+            $args['meta_query'][] = [
+              'key' => $meta_key['name'],
+              'value' => $value,
+              'compare' => 'LIKE',
+            ];
+          }
+        }      
+      }
+    }
+    //dd($args['meta_query']);
   }
 
   // Include categories

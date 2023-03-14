@@ -21,6 +21,12 @@ class PostGridModule extends Module
             'allow_null' => true,
           ],
         ],
+        'show_related' => [
+          'type' => 'toggle-field',
+          'config' => [
+            'label' => 'Show Related?',
+          ],
+        ],
         'taxonomy' => [
           'type' => 'relational-field',
           'config' => [
@@ -33,7 +39,11 @@ class PostGridModule extends Module
               ['terms_link' => '_links.wp:items.0.href']
             ],
             'return_label' => 'slug',
+            'multiple' => true,
             'allow_null' => true,
+            'if' => [
+              'show_related' => 'equals false',
+            ],
           ],
         ],
         'term' => [
@@ -43,10 +53,93 @@ class PostGridModule extends Module
             'class' => 'g-col-6',
             'depends_on' => 'taxonomy.terms_link',
             'data_type' => 'endpoint',
-            'return_value' => ['id', 'taxonomy'],
-            'return_label' => ['slug', 'taxonomy'],
+            'return_values' => [
+              ['id' => 'id'],
+              ['taxonomy' => 'taxonomy'],
+            ],
+            'return_label' => 'slug',
             'multiple' => true,
             'allow_null' => true,
+            'if' => [
+              'show_related' => 'equals false',
+            ],
+          ],
+        ],
+        'taxonomy_relation' => [
+          'type' => 'select-field',
+          'config' => [
+            'label' => 'Taxonomy Relation',
+            'class' => 'g-col-6',
+            'options' => [
+              'AND' => 'AND',
+              'OR' => 'OR',
+            ],
+            'placeholder' => 'AND',
+            'if' => [
+              'show_related' => 'equals false',
+            ],
+          ],
+        ],
+        'term_relation' => [
+          'type' => 'select-field',
+          'config' => [
+            'label' => 'Term Relation',
+            'class' => 'g-col-6',
+            'options' => [
+              'IN' => 'IN',
+              'NOT IN' => 'NOT IN',
+              'AND' => 'AND',
+              'EXISTS' => 'EXISTS',
+              'NOT EXISTS' => 'NOT EXISTS',
+            ],
+            'placeholder' => 'AND',
+            'if' => [
+              'show_related' => 'equals false',
+            ],
+          ],
+        ],
+        'meta_query' => [
+          'type' => 'replicator-field',
+          'config' => [
+            'label' => 'Meta Query',
+            'class' => 'g-col-12',
+            'if' => [
+              'show_related' => 'equals false',
+            ],
+          ],
+          'fields' => [
+            'meta_key' => [
+              'type' => 'relational-field',
+              'config' => [
+                'label' => 'Meta Key',
+                'class' => 'g-col-6',
+                'depends_on' => 'post_type',
+                'data_type' => 'endpoint',
+                'endpoint' => '/wp-json/buildy/v1/get_fields/',
+                'return_values' => [
+                  ['name' => 'name'],
+                  ['key' => 'key']
+                ],
+                'return_label' => 'label',
+                'multiple' => false,
+                'allow_null' => true,
+              ],
+            ],
+            'meta_value' => [
+              'type' => 'relational-field',
+              'config' => [
+                'label' => 'Meta Value',
+                'class' => 'g-col-6',
+                'depends_on' => 'meta_query.$.meta_key.key',
+                'data_type' => 'endpoint',
+                'endpoint' => '/wp-json/buildy/v1/get_field/',
+                'return_value' => 'value',
+                'return_label' => 'label',
+                'multiple' => true,
+                'allow_null' => true,
+                'taggable' => true,
+              ],
+            ],
           ],
         ],
         'limit' => [

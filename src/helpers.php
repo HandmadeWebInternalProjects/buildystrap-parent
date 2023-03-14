@@ -399,8 +399,6 @@ if (!function_exists('hmw_woocommerce_cart_link')) {
   }
 }
 
-
-
 if (!function_exists('hmw_woocommerce_header_cart')) {
   /**
    * Display Header Cart.
@@ -428,3 +426,25 @@ if (!function_exists('hmw_woocommerce_header_cart')) {
 <?php
   }
 }
+
+if (!function_exists('get_sub_fields')) {
+  function get_sub_fields($fields, $parent_label = '') {
+    $sub_fields = [];
+    foreach ($fields as $field) {
+      // Remove repeater fields for now - Needs work!
+      if ($field['type'] == 'repeater') {
+        continue;
+      }
+      if ($field['type'] == 'group' || $field['type'] == 'repeater') {
+          $field['label'] = $field['label'];
+          $nested_fields = get_sub_fields($field['sub_fields'], $field['label']);
+          $sub_fields = array_merge($sub_fields, $nested_fields);
+      } else {
+        $field['label'] = $parent_label ? $parent_label . ' - ' . $field['label'] : $field['label'];
+        $sub_fields[] = $field;
+      }
+    }
+    return $sub_fields;
+  }
+}
+  

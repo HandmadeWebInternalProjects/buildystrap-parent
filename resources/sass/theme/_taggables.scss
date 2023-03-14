@@ -29,22 +29,22 @@
   @include responsive-inline-helper(padding-left, --ps);
 }
 .min-width-taggable {
-  @include responsive-inline-helper(min-width, --min-width);
+  @include responsive-inline-helper(min-width, --min-width, !important);
 }
 .width-taggable {
-  @include responsive-inline-helper(width, --width);
+  @include responsive-inline-helper(width, --width, !important);
 }
 .max-width-taggable {
-  @include responsive-inline-helper(max-width, --max-width);
+  @include responsive-inline-helper(max-width, --max-width, !important);
 }
 .min-height-taggable {
-  @include responsive-inline-helper(min-height, --min-height);
+  @include responsive-inline-helper(min-height, --min-height, !important);
 }
 .height-taggable {
-  @include responsive-inline-helper(height, --height);
+  @include responsive-inline-helper(height, --height, !important);
 }
 .max-height-taggable {
-  @include responsive-inline-helper(max-height, --max-height);
+  @include responsive-inline-helper(max-height, --max-height, !important);
 }
 .font-family-taggable {
   @include responsive-inline-helper(font-family, --font-family);
