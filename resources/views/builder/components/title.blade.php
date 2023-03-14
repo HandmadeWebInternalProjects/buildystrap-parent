@@ -6,7 +6,7 @@ $size = [];
 $size_vars = [];
 $color = [];
 $weight = [];
-$class = $title['title_class'] ?? '';
+$class = $title['class'] ?? '';
 
 foreach ($title['size'] as $breakpoint => $value) {
     if ($value) {
@@ -57,7 +57,6 @@ foreach ($title['weight'] as $breakpoint => $value) {
 }
 
 $class = collect([])
-    ->push($title['class'])
     ->push($class)
     ->merge($color)
     ->merge($weight)

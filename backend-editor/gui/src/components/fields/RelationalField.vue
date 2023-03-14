@@ -44,7 +44,7 @@ const returnValue =
 const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchFromEndpoint = async (endpoint: string) => {
-  try {
+  try {  
     const res = await fetch(`${endpoint}?per_page=100`)
     return await res.json()
   } catch (error: any) {
@@ -90,15 +90,16 @@ const mapEntries = async () => {
   let mappedEntries: any = null
 
   if (config.value?.depends_on) {
-    if (depends_on.value) {
+    if ( config.value?.endpoint ) {
+      mappedEntries = await fetchFromEndpoint(endpoint + depends_on.value)
+    } else if (depends_on.value) {
       if (data_type === "endpoint") {
         if (Array.isArray(depends_on.value)) {
           mappedEntries = await Promise.all(
-            depends_on.value.map((endpoint: string) =>
+            depends_on.value.map((endpoint : string) =>
               fetchFromEndpoint(endpoint)
             )
           )
-
           mappedEntries = mappedEntries.flat()
         } else if (typeof depends_on.value === "string") {
           mappedEntries = await fetchFromEndpoint(depends_on.value)
