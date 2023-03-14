@@ -34,6 +34,7 @@ const depends_on = computed(() => {
       return null
     }, values?.value)
   }
+  console.log("values", values?.value)
   return values?.value?.[config.value?.depends_on]
 })
 
@@ -124,8 +125,16 @@ const mapEntries = async () => {
 
   entries.value = mappedEntries.map((entry: any) => {
     const payload: { label: any; value: any } = {
-      label: getDeep(entry, returnLabel),
+      label: "",
       value: "",
+    }
+
+    if (Array.isArray(returnLabel)) {
+      payload.label = returnLabel
+        .map((key: string) => getDeep(entry, key))
+        .join(" ")
+    } else {
+      payload["label"] = getDeep(entry, returnLabel)
     }
 
     if (Array.isArray(returnValue)) {
