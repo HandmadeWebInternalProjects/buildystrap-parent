@@ -106,6 +106,7 @@ class PostGridModule extends Module
             'if' => [
               'show_related' => 'equals false',
             ],
+            'popover' => 'Experimental: Automatically calculates based off the selected post type and taxonomies.'
           ],
           'fields' => [
             'meta_key' => [
