@@ -9,6 +9,10 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  (event: "close", boolean: boolean): void
+}>()
+
 const row = ref(props.component)
 
 const layouts = [
@@ -120,20 +124,17 @@ const gridConversion = (string: string) => {
   return array
 }
 
-const selectorToggle = ref(false)
+const selectorToggle = ref(true)
+
+const handleClose = () => {
+  selectorToggle.value = false
+  emit("close", true)
+}
 </script>
 
 <template>
-  <font-awesome-icon
-    :icon="['fas', 'columns']"
-    @click="selectorToggle = true"
-    width="15"
-    height="15"
-    fill="currentColor"
-    aria-controls="offcanvasRight"
-    class="flex cursor-pointer pulse"></font-awesome-icon>
   <buildy-stack
-    @close="selectorToggle = false"
+    @close="handleClose"
     v-if="selectorToggle"
     half
     name="column-selector">

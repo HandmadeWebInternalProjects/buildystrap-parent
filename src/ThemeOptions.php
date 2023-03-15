@@ -179,9 +179,9 @@ class ThemeOptions
               }";
 
         echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
-              --bs-btn-color: var(--bs-{$colorName});
+              --bs-btn-color: var(--theme-$colorName, var(--bs-$colorName));
               --bs-btn-bg: transparent;
-              --bs-btn-hover-bg: var(--bs-$colorName);
+              --bs-btn-hover-bg: var(--theme-$colorName, var(--bs-$colorName));
               --bs-btn-border-color: var(--theme-$colorName, var(--bs-$colorName));
               --bs-btn-hover-border-color: var(--theme-$colorName, var(--bs-hover-$colorName));
               --bs-btn-active-color: var(--bs-white);

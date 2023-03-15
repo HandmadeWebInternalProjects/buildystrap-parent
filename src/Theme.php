@@ -2,6 +2,7 @@
 
 namespace Buildystrap;
 
+use CreateRenderModulePage;
 use WP_Upgrader;
 
 use function add_action;
@@ -66,6 +67,9 @@ class Theme
 
       do_action('buildystrap::theme::boot');
     }
+
+    // call the include rewrite pages method
+    static::include_rewrite_pages();
   }
 
   /**
@@ -172,6 +176,12 @@ class Theme
 
     // clear-compiled
     static::clear_compiled();
+  }
+
+  public static function include_rewrite_pages(): void
+  {
+    require_once(get_template_directory() . '/src/generate-render-module-page.php');
+    new CreateRenderModulePage();
   }
 
   public static function view_clear(): void

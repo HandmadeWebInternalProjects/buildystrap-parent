@@ -19,18 +19,15 @@ class BuilderCPT
     /**
      * Post Type: Buildystrap Globals.
      */
-
-    $labels = [
-      'name' => __('Buildystrap Global Sections', 'buildystrap'),
-      'singular_name' => __('Buildystrap Global Section', 'buildystrap'),
-      'menu_name' => __('Global Sections', 'buildystrap'),
-      'add_new_item' => __('Add new Global Section', 'buildystrap'),
-      'edit_item' => __('Edit Global Section', 'buildystrap'),
-    ];
-
-    $args = [
+    register_post_type('buildy-global', [
       'label' => __('Global Sections', 'buildystrap'),
-      'labels' => $labels,
+      'labels' => [
+        'name' => __('Buildystrap Global Sections', 'buildystrap'),
+        'singular_name' => __('Buildystrap Global Section', 'buildystrap'),
+        'menu_name' => __('Global Sections', 'buildystrap'),
+        'add_new_item' => __('Add new Global Section', 'buildystrap'),
+        'edit_item' => __('Edit Global Section', 'buildystrap'),
+      ],
       'description' => '',
       'public' => false,
       'publicly_queryable' => false,
@@ -52,25 +49,54 @@ class BuilderCPT
       'query_var' => true,
       'supports' => ['page-attributes', 'title', 'editor', 'revisions', 'thumbnail'],
       'show_in_graphql' => false,
-    ];
+    ]);
 
-    register_post_type('buildy-global', $args);
+    register_post_type('buildy-library', [
+      'label' => __('Library', 'buildystrap'),
+      'labels' => [
+        'name' => __('Buildystrap Library Sections', 'buildystrap'),
+        'singular_name' => __('Buildystrap Library Section', 'buildystrap'),
+        'menu_name' => __('Library Sections', 'buildystrap'),
+        'add_new_item' => __('Add new Library Section', 'buildystrap'),
+        'edit_item' => __('Edit Library Section', 'buildystrap'),
+      ],
+      'description' => 'Add repeatable sections to the library that you want to use as a template to start from',
+      'public' => true,
+      'publicly_queryable' => true,
+      'show_ui' => true,
+      'show_in_rest' => true,
+      'rest_base' => '',
+      'rest_controller_class' => 'WP_REST_Posts_Controller',
+      'rest_namespace' => 'wp/v2',
+      'has_archive' => true,
+      'show_in_menu' => false,
+      'show_in_nav_menus' => false,
+      'delete_with_user' => false,
+      'exclude_from_search' => true,
+      'capability_type' => 'page',
+      'map_meta_cap' => true,
+      'hierarchical' => true,
+      'can_export' => true,
+      'with_front' => true,
+      'rewrite' => true,
+      'query_var' => true,
+      'supports' => ['page-attributes', 'title', 'editor', 'revisions', 'thumbnail'],
+      'show_in_graphql' => false,
+    ]);
 
     /**
      * Post Type: Buildystrap Global Modules.
      */
 
-    $labels = [
-      'name' => __('Buildystrap Global Modules', 'buildystrap'),
-      'singular_name' => __('Buildystrap Global Module', 'buildystrap'),
-      'menu_name' => __('Global Modules', 'buildystrap'),
-      'add_new_item' => __('Add new Global Module', 'buildystrap'),
-      'edit_item' => __('Edit Global Module', 'buildystrap'),
-    ];
-
-    $args = [
+    register_post_type('buildy-global-module', [
       'label' => __('Global Modules', 'buildystrap'),
-      'labels' => $labels,
+      'labels' => [
+        'name' => __('Buildystrap Global Modules', 'buildystrap'),
+        'singular_name' => __('Buildystrap Global Module', 'buildystrap'),
+        'menu_name' => __('Global Modules', 'buildystrap'),
+        'add_new_item' => __('Add new Global Module', 'buildystrap'),
+        'edit_item' => __('Edit Global Module', 'buildystrap'),
+      ],
       'description' => '',
       'public' => false,
       'publicly_queryable' => false,
@@ -92,9 +118,7 @@ class BuilderCPT
       'query_var' => true,
       'supports' => ['page-attributes', 'title', 'editor', 'revisions'],
       'show_in_graphql' => false,
-    ];
-
-    register_post_type('buildy-global-module', $args);
+    ]);
   }
 
   public static function register_menu(): void
@@ -119,6 +143,13 @@ class BuilderCPT
       'Global Sections',
       'edit_pages',
       '/edit.php?post_type=buildy-global'
+    );
+    add_submenu_page(
+      'buildystrap',
+      'Buildystrap Library',
+      'Library Sections',
+      'edit_pages',
+      '/edit.php?post_type=buildy-library'
     );
     add_submenu_page(
       'buildystrap',

@@ -159,6 +159,7 @@ class BuilderBackend
       'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
       'moduleBlueprints' => Builder::moduleBlueprints(),
       'globalSections' => Builder::getGlobals(),
+      'librarySections' => Builder::getLibrarySections(),
       'globalModules' => Builder::getGlobalModules(),
       'moduleStyles' => Builder::getModuleStyles(),
       // 'registered_image_sizes' => static::get_all_image_sizes(),

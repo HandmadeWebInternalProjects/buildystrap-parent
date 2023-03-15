@@ -6,6 +6,6 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 
   {{-- An entry point to inject styles into the head tag --}}
-  @stack('bs-head')
 	{!! wp_head() !!}
+  @stack('bs-head')
 </head>

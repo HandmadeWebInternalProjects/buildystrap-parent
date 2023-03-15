@@ -4,9 +4,10 @@ import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
+import { fetchPost, fetchLibraryPost } from "@/services/post"
 import { recursifyID } from "./utils/id"
 
-const { getGlobalSections, getGlobalModules, getBuilderContent } = storeToRefs(
+const { getGlobalSections, getGlobalModules, getLibrarySections } = storeToRefs(
   useBuilderStore()
 )
 
@@ -33,6 +34,7 @@ const {
 } = useClipboard(builder)
 
 const globalStackOpen = ref(false)
+const libraryStackOpen = ref(false)
 const revealGlobalModules = ref(false)
 
 const liveToast = ref(null)
@@ -60,6 +62,20 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
     VALUE,
   })
   builder.value.push(newModule)
+}
+
+const addLibrarySection = async (librarySection: {
+  id: string
+  title: string
+}) => {
+  const { data } = await fetchLibraryPost(librarySection.id)
+
+  const postContent = JSON.parse(data.post_content)
+
+  postContent.forEach((section: any) => {
+    recursifyID(section)
+    builder.value.push(section)
+  })
 }
 
 const pastePage = (fromClipBoard: any): void => {
@@ -129,12 +145,19 @@ watch(
       </button>
       <button
         type="button"
+        class="btn btn-sm btn-purple text-white mb-3 me-3"
+        @click="libraryStackOpen = true">
+        Get from Library
+      </button>
+      <button
+        type="button"
         class="btn btn-sm bg-indigo-500 text-white mb-3 me-3"
         @click="addSection()">
         Add Section
       </button>
     </div>
     <buildy-stack
+      class="overflow-visible"
       @close="globalStackOpen = false"
       v-if="globalStackOpen"
       half
@@ -149,7 +172,7 @@ watch(
           @click="addGlobalSection(globalSection)"
           :module-item="globalSection"
           :handle="globalSection.id"
-          preview-type="image"
+          preview-type="html"
           post-type="buildy-global" />
         <div class="mt-4" v-if="revealGlobalModules">
           <h5>Global Modules</h5>
@@ -160,6 +183,26 @@ watch(
             :module-item="globalModule"
             :handle="globalModule.id" />
         </div>
+      </div>
+    </buildy-stack>
+    <buildy-stack
+      class="overflow-visible"
+      @close="libraryStackOpen = false"
+      v-if="getLibrarySections.length && libraryStackOpen"
+      half
+      name="module-selector">
+      <div
+        @click.shift="revealGlobalModules = !revealGlobalModules"
+        class="p-4 py-5">
+        <h3>Library Sections</h3>
+        <module-selection-pill-with-preview
+          v-for="librarySection in getLibrarySections"
+          @click="addLibrarySection(librarySection)"
+          :key="librarySection.id"
+          :module-item="librarySection"
+          :handle="librarySection.id"
+          preview-type="html"
+          post-type="buildy-library" />
       </div>
     </buildy-stack>
   </div>

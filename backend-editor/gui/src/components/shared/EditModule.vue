@@ -62,7 +62,7 @@ const handleClose = () => {
     JSON.stringify(builderSnapshot.value) !==
     JSON.stringify(getBuilderContent.value)
   ) {
-    if (confirm("You have unsaved changes. Are you sure you want to close?")) {
+    if (confirm("You have unsaved changes. Save or cancel?")) {
       setBuilderContent(builderSnapshot.value)
       settingsToggle.value = false
       emit("close", true)

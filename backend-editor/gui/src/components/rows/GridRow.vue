@@ -36,9 +36,11 @@ const rowIndex = computed(() => props.rowIndex)
         :component="row"
         :custom-settings="{
           colSelector: {
+            icon: ['fas', 'columns'],
             title: 'Change Columns',
             order: 15,
             component: 'column-selector',
+            isActive: false,
           },
         }"
         :value="parentArray"

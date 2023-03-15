@@ -1,6 +1,6 @@
 @include('partials.header')
 
-@if(Buildystrap\Builder::isEnabled())
+  @if(Buildystrap\Builder::isEnabled())
   <div class="buildystrap-container">
     {!! the_content() !!}
   </div>

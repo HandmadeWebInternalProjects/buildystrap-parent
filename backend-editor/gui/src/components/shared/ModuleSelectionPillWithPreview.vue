@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
 import { usePost } from "@/composables/usePost"
 
 const props = defineProps({
@@ -15,26 +15,15 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  previewType: {
-    type: String,
-    default: "html",
-  },
 })
-const { post, featuredImageURL, renderPostModule } = usePost(
-  props?.moduleItem?.id,
-  props.postType
-)
-
-const html = ref(null)
-
-onMounted(async () => {
-  if (props.previewType === "html") {
-    html.value = await renderPostModule()
-  }
-})
+const { post } = usePost(props?.moduleItem?.id, props.postType)
+const loadIframe = ref(false)
 
 const showPreviewDialog = ref<HTMLDialogElement | null>(null)
 const openPreview = () => {
+  if (!loadIframe.value) {
+    loadIframe.value = true
+  }
   showPreviewDialog?.value?.show()
 }
 const closePreview = () => {
@@ -43,18 +32,14 @@ const closePreview = () => {
 </script>
 
 <template>
-  <div class="position-relative">
-    <dialog
-      v-if="previewType === 'html'"
-      class="preview-dialog"
-      ref="showPreviewDialog">
-      <span v-html="html" />
-    </dialog>
-    <dialog
-      v-else-if="featuredImageURL"
-      class="preview-dialog"
-      ref="showPreviewDialog">
-      <img :src="featuredImageURL" />
+  <div v-if="post" class="position-relative">
+    <dialog class="preview-dialog" ref="showPreviewDialog">
+      <iframe
+        v-if="loadIframe"
+        width="1000"
+        loading="lazy"
+        height="300"
+        :src="`https://playgroup.local/builder/render-module-previews/?id=${post.id}`" />
     </dialog>
     <module-selection-pill
       :module-item="moduleItem"
@@ -74,8 +59,9 @@ const closePreview = () => {
   max-width: 30rem;
   padding: 0;
   border-radius: var(--bs-border-radius-lg);
-  img {
-    width: 100%;
+  overflow: hidden;
+  iframe {
+    // width: 100%;
     object-fit: contain;
   }
 }

@@ -12,6 +12,7 @@ export type BuildyConfig = {
   builder_options: { [key: string]: any }
   moduleStyles: { [key: string]: any }
   globalSections: { [key: string]: any }
+  librarySections: { [key: string]: any }
   globalModules: { [key: string]: any }
 }
 
@@ -34,9 +35,10 @@ export const useBuilderStore = defineStore({
     getModuleBlueprints: (state): { [key: string]: any } =>
       state.config.moduleBlueprints,
     getModuleStyles: (state) => state.config?.moduleStyles,
-    getGlobalSections: (state) => state.config?.globalSections,
+    getGlobalSections: (state) => state.config?.globalSections ?? [],
+    getLibrarySections: (state) => state.config?.librarySections ?? [],
     getGlobalModules: (state): { [key: string]: any } =>
-      state.config?.globalModules,
+      state.config?.globalModules ?? [],
     getBuilderConfig: (state) => state.config,
     getBuilderOptions: (state) => state.config.builder_options,
     getPasteLocations: (state) => state.pasteLocations,

@@ -39,79 +39,85 @@ class BuilderApi
 
     // register rest route to render a page html by an ID passed in the request
 
-        register_rest_route('buildy/v1', '/get_image_sizes', [
-            'methods' => 'GET',
-            'callback' => [static::class, 'get_image_sizes'],
-            'permission_callback' => '__return_true',
-        ]);
-        
-        register_rest_route('buildy/v1', '/get_fields/(?P<post_type>[A-Za-z0-9_-]+)', [
-            'methods' => 'GET',
-            'callback' => function ($request) {
-                $post_type = $request->get_param('post_type');
-                if ( ! function_exists('acf_get_field_groups')) {
-                    return new WP_REST_Response('ACF is not installed or activated.', 404);
-                }
+    register_rest_route('buildy/v1', '/get_image_sizes', [
+      'methods' => 'GET',
+      'callback' => [static::class, 'get_image_sizes'],
+      'permission_callback' => '__return_true',
+    ]);
 
-                $field_groups = acf_get_field_groups(array('post_type' => $post_type));
-                $fields = [];
-                foreach ($field_groups as $field_group) {
-                    $group_fields = acf_get_fields($field_group['key']);
-                    $fields = array_merge($fields, get_sub_fields($group_fields));
-                    // Remove repeater fields - needs work!
-                    $fields = array_filter($fields, function ($field) {
-                        return $field['type'] !== 'repeater';
-                    });
-                }
+    register_rest_route('buildy/v1', '/get_fields/(?P<post_type>[A-Za-z0-9_-]+)', [
+      'methods' => 'GET',
+      'callback' => function ($request) {
+        $post_type = $request->get_param('post_type');
+        if (!function_exists('acf_get_field_groups')) {
+          return new WP_REST_Response('ACF is not installed or activated.', 404);
+        }
 
-                return new WP_REST_Response($fields, 200);
-            },
-        ]);
+        $field_groups = acf_get_field_groups(array('post_type' => $post_type));
+        $fields = [];
+        foreach ($field_groups as $field_group) {
+          $group_fields = acf_get_fields($field_group['key']);
+          $fields = array_merge($fields, get_sub_fields($group_fields));
+          // Remove repeater fields - needs work!
+          $fields = array_filter($fields, function ($field) {
+            return $field['type'] !== 'repeater';
+          });
+        }
 
-        register_rest_route('buildy/v1', '/get_field/(?P<meta_key>[A-Za-z0-9_,-]+)', [
-            'methods' => 'GET',
-            'callback' => function ($request) {
-                $meta_key = $request->get_param('meta_key');
-                if ( ! function_exists('acf_get_field_groups')) {
-                    return new WP_REST_Response('ACF is not installed or activated.', 404);
-                }
-                $meta_key = explode(',', $meta_key);
-                $choices = [];
+        return new WP_REST_Response($fields, 200);
+      },
+    ]);
 
-                foreach ($meta_key as $key) {
-                    $field = get_field_object($key);  
-                    $field['parent_name'] = '';
-                    if ($field['parent'] ?? false) {
-                        // This needs work. Repeaters won't work currently. 
-                        $parent = acf_get_field($field['parent']);
-                        if ($field['type'] === 'repeater') {
-                            $field['parent_name'] = $parent ? $parent['name'] . '_$_' : '';
-                        } elseif ($field['type'] === 'group') {
-                            $field['parent_name'] = $parent ? $parent['name'] . '_' : '';
-                        }
-                    }
+    register_rest_route('buildy/v1', '/get_field/(?P<meta_key>[A-Za-z0-9_,-]+)', [
+      'methods' => 'GET',
+      'callback' => function ($request) {
+        $meta_key = $request->get_param('meta_key');
+        if (!function_exists('acf_get_field_groups')) {
+          return new WP_REST_Response('ACF is not installed or activated.', 404);
+        }
+        $meta_key = explode(',', $meta_key);
+        $choices = [];
 
-                    if (empty($field['choices'])) {
-                        continue;
-                    }
-                    $choices[] = array_map(function ($key, $value) use ($field) {
-                        return [
-                            'meta_key' => $field['parent_name'] . $field['name'],
-                            'value' => $key,
-                            'label' => $value . ' - ' . $field['label'],
-                        ];
-                    }, array_keys($field['choices']), $field['choices']);  
-                }
+        foreach ($meta_key as $key) {
+          $field = get_field_object($key);
+          $field['parent_name'] = '';
+          if ($field['parent'] ?? false) {
+            // This needs work. Repeaters won't work currently. 
+            $parent = acf_get_field($field['parent']);
+            if ($field['type'] === 'repeater') {
+              $field['parent_name'] = $parent ? $parent['name'] . '_$_' : '';
+            } elseif ($field['type'] === 'group') {
+              $field['parent_name'] = $parent ? $parent['name'] . '_' : '';
+            }
+          }
 
-                $choices = array_merge(...$choices);        
+          if (empty($field['choices'])) {
+            continue;
+          }
+          $choices[] = array_map(function ($key, $value) use ($field) {
+            return [
+              'meta_key' => $field['parent_name'] . $field['name'],
+              'value' => $key,
+              'label' => $value . ' - ' . $field['label'],
+            ];
+          }, array_keys($field['choices']), $field['choices']);
+        }
 
-                return new WP_REST_Response($choices, 200);
-            },
-        ]);
-    }
+        $choices = array_merge(...$choices);
+
+        return new WP_REST_Response($choices, 200);
+      },
+    ]);
+
     register_rest_route('buildy/v1', '/render_module/(?P<id>\d+)', [
       'methods' => 'GET',
       'callback' => [static::class, 'render_module'],
+      'permission_callback' => '__return_true',
+    ]);
+
+    register_rest_route('buildy/v1', '/fetch-library-post/(?P<id>\d+)', [
+      'methods' => 'GET',
+      'callback' => [static::class, 'fetch_library_post'],
       'permission_callback' => '__return_true',
     ]);
 
@@ -120,6 +126,18 @@ class BuilderApi
       'methods' => 'GET',
       'callback' => [static::class, 'get_image_sizes'],
       'permission_callback' => '__return_true',
+    ]);
+  }
+
+  public static function fetch_library_post($request): WP_Error|WP_REST_Response
+  {
+    $id = $request->get_param('id');
+
+    $post = get_post($id);
+
+    return new WP_REST_Response([
+      'status' => 200,
+      'data' => $post,
     ]);
   }
 

@@ -27,7 +27,11 @@
         @mouseout="mouseOutHitArea" />
 
       <transition name="stack-slide">
-        <div ref="stackContent" class="stack-content shadow-lg" v-if="visible">
+        <div
+          ref="stackContent"
+          class="stack-content overflow-y-scroll overflow-x-visible shadow-lg"
+          :class="attrs?.['class']"
+          v-if="visible">
           <slot name="default" :depth="depth" :close="close" />
         </div>
       </transition>
@@ -39,6 +43,7 @@
 import {
   ref,
   toRefs,
+  useAttrs,
   computed,
   onBeforeMount,
   onMounted,
@@ -47,6 +52,8 @@ import {
 } from "vue"
 import type { Ref } from "vue"
 import { useStacks } from "./useStacks"
+
+const attrs = useAttrs()
 
 // as inline type
 const emit = defineEmits(["close"])
