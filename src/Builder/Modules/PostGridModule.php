@@ -38,6 +38,7 @@ class PostGridModule extends Module
               ['slug' => 'slug'],
               ['terms_link' => '_links.wp:items.0.href']
             ],
+            'multiple' => true,
             'return_label' => 'slug',
             'multiple' => true,
             'allow_null' => true,

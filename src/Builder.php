@@ -245,6 +245,26 @@ class Builder
     return collect($globals ?? []);
   }
 
+  public static function getLibrarySections(): Collection
+  {
+    global $wpdb;
+
+    $query = $wpdb->prepare(
+      "SELECT 
+                `ID` AS `id`, 
+                `post_title` AS `title` 
+            FROM `{$wpdb->prefix}posts` 
+            WHERE 
+                `post_type` = 'buildy-library' 
+                AND 
+                    `post_status` = 'publish'"
+    );
+
+    $sections = $wpdb->get_results($query);
+
+    return collect($sections ?? []);
+  }
+
   public static function getGlobal(int $post_id, $wrapper = null): ?Container
   {
     global $wpdb;
@@ -398,7 +418,7 @@ class Builder
 
       if ($screen->base === 'post') {
         // Buildy globals are always enabled
-        if (in_array($screen->post_type, ['buildy-global', 'buildy-global-module'])) {
+        if (in_array($screen->post_type, ['buildy-global', 'buildy-library', 'buildy-global-module'])) {
           return true;
         }
 
@@ -415,7 +435,7 @@ class Builder
 
   public static function enabledTypes(): array
   {
-    $defaults = ['page'];
+    $defaults = ['page', 'buildy-library'];
 
     return array_merge($defaults, config('builder.enabled_post_types', []));
   }

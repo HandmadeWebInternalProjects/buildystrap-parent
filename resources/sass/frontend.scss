@@ -158,6 +158,20 @@ $utilities: map-merge(
           $box-model-sizing
         ),
     ),
+    "box-shadow": (
+      property: box-shadow,
+      class: shadow,
+      responsive: false,
+      values: (
+        sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075),
+        md: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.175),
+        lg: 0 1rem 3rem rgba(0, 0, 0, 0.2),
+        xl: 0 1.5rem 5rem rgba(0, 0, 0, 0.25),
+        2xl: 0 2rem 8rem rgba(0, 0, 0, 0.3),
+        inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06),
+        outline: 0 0 0 3px rgba(66, 153, 225, 0.5),
+      ),
+    ),
     "grid-template-rows": (
       property: grid-template-rows,
       class: grid-template-rows,

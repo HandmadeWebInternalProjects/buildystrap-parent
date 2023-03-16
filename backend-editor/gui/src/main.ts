@@ -10,11 +10,25 @@ window.Vue = <any>Vue
 
 import "bootstrap"
 
+interface BuildystrapVars {
+  ajax_url: string
+  nonce: string
+  rest_url: string
+  rest_nonce: string
+  site_url: string
+  theme_url: string
+  admin_url: string
+  post_id: number
+  post_type: string
+  is_admin: boolean
+}
+
 declare global {
   interface Window {
     app: any
     Buildy: BuildyInterface
     builderContent?: string
+    buildystrap: BuildystrapVars
     wp?: any
     tinymce?: any
     jQuery: any
@@ -111,7 +125,7 @@ library.add(
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)
 
 const bundledComponents = import.meta.globEager("./components/**/*.vue")
-Object.entries(bundledComponents).forEach(([path, m]) => {
+Object.entries(bundledComponents).forEach(([path, m]: any) => {
   const name =
     path
       ?.split("/")

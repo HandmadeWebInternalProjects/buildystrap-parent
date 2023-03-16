@@ -20,6 +20,7 @@ export default defineConfig({
   // },
   build: {
     outDir: "../../public/builder-gui",
+    sourcemap: true,
     emptyOutDir: true,
     manifest: true,
     rollupOptions: {

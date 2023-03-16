@@ -1,4 +1,5 @@
 import { defineStore } from "pinia"
+import { ref, computed } from "vue"
 
 export type BuildyConfig = {
   site_url: string
@@ -12,65 +13,101 @@ export type BuildyConfig = {
   builder_options: { [key: string]: any }
   moduleStyles: { [key: string]: any }
   globalSections: { [key: string]: any }
+  librarySections: { [key: string]: any }
   globalModules: { [key: string]: any }
 }
 
-export const useBuilderStore = defineStore({
-  id: "builder",
-  state: () => ({
-    config: <BuildyConfig>{},
-    content: [] as any[],
-    pasteLocations: <string[]>[],
-    registeredComponents: {},
-  }),
-  getters: {
-    getBuilderContent: (state) => state.content,
-    getRegisteredComponents: (state): { [key: string]: any } => {
-      return state.registeredComponents
-    },
-    getModuleBlueprintForType: (state) => (type: string) => {
-      return state.config.moduleBlueprints[type]
-    },
-    getModuleBlueprints: (state): { [key: string]: any } =>
-      state.config.moduleBlueprints,
-    getModuleStyles: (state) => state.config?.moduleStyles,
-    getGlobalSections: (state) => state.config?.globalSections,
-    getGlobalModules: (state): { [key: string]: any } =>
-      state.config?.globalModules,
-    getBuilderConfig: (state) => state.config,
-    getBuilderOptions: (state) => state.config.builder_options,
-    getPasteLocations: (state) => state.pasteLocations,
-  },
-  actions: {
-    setBuilderContent(payload: any) {
-      //replace this.content array with payload in a reactive way
-      this.content = [...payload]
-    },
-    sortBlueprintsAlpha() {
-      this.config.moduleBlueprints = Object.keys(this.config.moduleBlueprints)
-        .sort()
-        .reduce(
-          (acc, key) => ({
-            ...acc,
-            [key]: this.config.moduleBlueprints[key],
-          }),
-          {}
-        )
-    },
-    setConfig(config: BuildyConfig) {
-      this.config = { ...config }
-      if (this.config?.moduleBlueprints) {
-        this.sortBlueprintsAlpha()
-      }
-    },
-    setGlobals(globals: { [key: string]: any }, type: string) {
-      this.config.globalModules[type] = Object.assign({}, { ...globals })
-    },
-    setRegisteredComponents(payload: { [key: string]: any }) {
-      this.registeredComponents = { ...payload }
-    },
-    updatePasteLocations(payload: string[]) {
-      this.pasteLocations = payload
-    },
-  },
+export const useBuilderStore = defineStore("builder", () => {
+  const builderConfig = ref<BuildyConfig>({
+    site_url: "",
+    theme_url: "",
+    rest_endpoint: "",
+    moduleBlueprints: {},
+    post_type: "",
+    post_id: 0,
+    is_admin: false,
+    is_global_module: false,
+    builder_options: {},
+    moduleStyles: {},
+    globalSections: {},
+    librarySections: {},
+    globalModules: {},
+  })
+  const builderContent = ref<any[]>([])
+  const pasteLocations = ref<string[]>([])
+  const registeredComponents = ref<{ [key: string]: any }>({})
+
+  const getModuleBlueprintForType = computed(
+    () => (type: string) => builderConfig?.value?.moduleBlueprints[type]
+  )
+  const getModuleBlueprints = computed(
+    () => builderConfig?.value?.moduleBlueprints
+  )
+  const getModuleStyles = computed(() => builderConfig?.value?.moduleStyles)
+  const getGlobalSections = computed(
+    () => builderConfig?.value?.globalSections ?? []
+  )
+  const getLibrarySections = computed(
+    () => builderConfig?.value?.librarySections ?? []
+  )
+  const getGlobalModules = computed(
+    () => builderConfig?.value?.globalModules ?? []
+  )
+  const getBuilderOptions = computed(
+    () => builderConfig?.value?.builder_options
+  )
+
+  function setBuilderContent(payload: any) {
+    console.log("setBuilderContent", payload)
+    //replace this.content array with payload in a reactive way
+    builderContent.value = [...payload]
+  }
+
+  function sortBlueprintsAlpha() {
+    builderConfig.value.moduleBlueprints = Object.keys(
+      builderConfig.value.moduleBlueprints
+    )
+      .sort()
+      .reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: builderConfig.value.moduleBlueprints[key],
+        }),
+        {}
+      )
+  }
+  function setConfig(config: BuildyConfig) {
+    builderConfig.value = { ...config }
+    if (builderConfig.value?.moduleBlueprints) {
+      sortBlueprintsAlpha()
+    }
+  }
+  function setGlobals(globals: { [key: string]: any }, type: string) {
+    builderConfig.value.globalModules[type] = Object.assign({}, { ...globals })
+  }
+  function setRegisteredComponents(payload: { [key: string]: any }) {
+    registeredComponents.value = { ...payload }
+  }
+  function updatePasteLocations(payload: string[]) {
+    pasteLocations.value = payload
+  }
+
+  return {
+    builderConfig,
+    builderContent,
+    pasteLocations,
+    registeredComponents,
+    getModuleBlueprintForType,
+    getModuleBlueprints,
+    getModuleStyles,
+    getGlobalSections,
+    getLibrarySections,
+    getGlobalModules,
+    getBuilderOptions,
+    setBuilderContent,
+    setConfig,
+    setGlobals,
+    setRegisteredComponents,
+    updatePasteLocations,
+  }
 })

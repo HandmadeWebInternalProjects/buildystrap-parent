@@ -4,7 +4,11 @@
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config.popover" />
-    <editor :init="initObj" v-model="content" api-key="no-api-key" :key="uuid + incrementValue"></editor>
+    <editor
+      :init="initObj"
+      v-model="content"
+      api-key="no-api-key"
+      :key="uuid + incrementValue"></editor>
   </div>
 </template>
 <script lang="ts" setup>
@@ -28,7 +32,7 @@ import "../../lib/tinymce/plugins/print/plugin.min.js"
 
 const props = defineProps({ ...commonProps })
 
-const incrementValue = inject<any>("increment-value")?.incrementValue ?? 0;
+const incrementValue = inject<any>("increment-value")?.incrementValue ?? 0
 
 const { handle, config, uuid } = toRefs(props)
 const content = computed({
@@ -40,8 +44,8 @@ const content = computed({
   },
 })
 
-const { getBuilderConfig } = useBuilderStore()
-const { theme_url } = getBuilderConfig
+const { builderConfig } = useBuilderStore()
+const { theme_url } = builderConfig
 const { tinymce: tinyMCEConfig } = config.value || {}
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
@@ -234,7 +238,7 @@ const initObj = reactive({
   background: #666;
 }
 .mce-menu .mce-menu-item.mce-active.mce-menu-item-preview {
-  background: #EEE;
+  background: #eee;
 }
 .mce-panel .mce-btn.mce-btn-has-text button,
 .mce-panel .mce-btn.mce-btn-has-text button:hover {
@@ -278,6 +282,6 @@ div.mce-statusbar .mce-container-body .mce-path-item {
 }
 .mce-menubtn button,
 .mce-listbox button {
-    min-height: 30px;
+  min-height: 30px;
 }
 </style>

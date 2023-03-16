@@ -8,11 +8,11 @@ export const hasPageInClipboard = ref(false)
 
 export const useClipboard = (component: any) => {
   const { updatePasteLocations } = useBuilderStore()
-  const { getPasteLocations } = storeToRefs(useBuilderStore())
+  const { pasteLocations } = storeToRefs(useBuilderStore())
 
   const isValidPasteLocation = computed(() => {
     return component?.type
-      ? getPasteLocations.value.some((type) => component.type.includes(type))
+      ? pasteLocations.value.some((type) => component.type.includes(type))
       : hasPageInClipboard.value && Array.isArray(component.value)
   })
 

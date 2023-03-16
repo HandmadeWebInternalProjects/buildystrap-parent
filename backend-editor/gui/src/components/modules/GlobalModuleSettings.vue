@@ -22,7 +22,7 @@
 
         <a
           target="_blank"
-          :href="`${getBuilderConfig.site_url}/wp-admin/post.php?post=${component.global_id}&action=edit&classic-editor`"
+          :href="`${builderConfig.site_url}/wp-admin/post.php?post=${component.global_id}&action=edit&classic-editor`"
           >Edit {{ config.adminLabel }}</a
         >
       </field-group>
@@ -49,7 +49,7 @@ const props = defineProps({
 
 const config = ref(props?.component?.config || {})
 
-const { getBuilderConfig } = useBuilderStore()
+const { builderConfig } = useBuilderStore()
 
 onMounted(async (): Promise<void> => {
   // If we need to fetch this particular global modules data in the future

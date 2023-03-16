@@ -34,25 +34,12 @@
         <ul v-if="tab?.conditions || true" class="m-0 p-0 d-flex flex-column">
           <li
             class="p-1"
-            v-for="(field, key) in tab.modules"
-            :key="field?.title || key">
-            <div
-              class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm"
-              @click="tab?.callback(field, key)"
-              style="
-                transform: perspective(1px) translateZ(0);
-                backface-visibility: hidden;
-              ">
-              <i
-                v-if="field.icon"
-                class="inline-flex w-10 cursor-pointer pulse"
-                :class="[field.icon]"
-                style="width: 1rem"
-                aria-controls="offcanvasRight"></i>
-              <span class="block pl-2">
-                {{ field?.title ? field.title : slugToStr(key) }}
-              </span>
-            </div>
+            v-for="(moduleItem, key) in tab.modules"
+            :key="moduleItem?.title || key">
+            <module-selection-pill
+              @click="tab?.callback(moduleItem, key)"
+              :module-item="moduleItem"
+              :handle="key" />
           </li>
         </ul>
       </div>
@@ -90,7 +77,6 @@ import { storeToRefs } from "pinia"
 import { createModule } from "../../factories/modules/moduleFactory"
 import type { ModuleType } from "../../factories/modules/moduleFactory"
 import { useBuilderStore } from "../../stores/builder"
-import { slugToStr } from "../../utils/helpers"
 
 const { setGlobals } = useBuilderStore()
 const { getModuleBlueprints, getGlobalModules } = storeToRefs(useBuilderStore())

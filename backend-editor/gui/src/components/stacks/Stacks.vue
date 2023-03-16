@@ -78,6 +78,7 @@ onUnmounted(() => {
     position: relative;
     z-index: 101;
     transition: all 0.3s ease;
+    overflow: scroll visible !important;
 
     &.stack-slide-enter-active,
     &.stack-slide-leave-to {

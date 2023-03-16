@@ -6,7 +6,7 @@ import { getDeep, getDeepArray } from "@/utils/objects"
 const props = defineProps({ ...commonProps })
 
 const { handle, config, modelValue, values } = toRefs(props)
-const { getBuilderConfig } = useBuilderStore()
+const { builderConfig } = useBuilderStore()
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
@@ -62,7 +62,7 @@ const fetchFromEndpoint = async (endpoint: string) => {
 const fetchFromDataType = async () => {
   try {
     const res = await fetch(
-      `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}?per_page=100`
+      `${builderConfig.rest_endpoint}wp/v2/${data_type}?per_page=100`
     )
     let data = await res.json()
     data = Object.values(data).filter((el: any) => {
@@ -83,7 +83,7 @@ const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
   try {
     const res = await fetch(
-      `${getBuilderConfig.rest_endpoint}${endpoint}?per_page=100`
+      `${builderConfig.rest_endpoint}${endpoint}?per_page=100`
     )
     data = await res.json()
     return data

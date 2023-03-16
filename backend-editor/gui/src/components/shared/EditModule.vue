@@ -3,10 +3,9 @@ import { ref, computed, onMounted } from "vue"
 import { useBuilderStore } from "../../stores/builder"
 import { storeToRefs } from "pinia"
 import { slugToStr } from "../../utils/helpers"
-import type { EventInterface } from "../Events"
-const { getRegisteredComponents, setBuilderContent } = useBuilderStore()
+const { registeredComponents, setBuilderContent } = useBuilderStore()
 
-const { getBuilderContent } = storeToRefs(useBuilderStore())
+const { builderContent } = storeToRefs(useBuilderStore())
 
 const props = defineProps({
   component: {
@@ -23,6 +22,8 @@ const emit = defineEmits<{
   (event: "close", boolean: boolean): void
 }>()
 
+const confirm = ref<HTMLDialogElement | null>(null)
+
 const settingsToggle = ref(true)
 const builderSnapshot = ref<any>(null)
 const component = ref(props.component)
@@ -30,7 +31,7 @@ const adminLabelEl = ref<HTMLElement | null>(null)
 
 // Check if a vue component exists that provides custom settings, else use module settings (default)
 const componentToLoad = computed((): string => {
-  return getRegisteredComponents[component.value.type] ||
+  return registeredComponents[component.value.type] ||
     component.value.type === "row" ||
     component.value.type === "section" ||
     component.value.type === "global-section" ||
@@ -58,33 +59,72 @@ const focusOnAdminLabel = () => {
 }
 
 const handleClose = () => {
-  if (
-    JSON.stringify(builderSnapshot.value) !==
-    JSON.stringify(getBuilderContent.value)
-  ) {
-    if (confirm("You have unsaved changes. Are you sure you want to close?")) {
-      setBuilderContent(builderSnapshot.value)
-      settingsToggle.value = false
-      emit("close", true)
-    }
-  } else {
-    settingsToggle.value = false
-    emit("close", true)
-  }
-}
-
-const handleSave = () => {
   settingsToggle.value = false
   emit("close", true)
 }
 
+const handleCancel = () => {
+  setBuilderContent(builderSnapshot.value)
+  handleClose()
+}
+
+const checkDirty = () => {
+  if (
+    JSON.stringify(builderSnapshot.value) !==
+    JSON.stringify(builderContent.value)
+  ) {
+    confirm?.value?.showModal()
+    confirm?.value?.addEventListener(
+      "close",
+      () => {
+        const returnValue = confirm.value?.returnValue
+        switch (returnValue) {
+          case "save":
+            handleClose()
+            break
+          case "discard":
+            handleCancel()
+            break
+          case "cancel":
+            break
+        }
+      },
+      { once: true }
+    )
+  } else {
+    handleClose()
+  }
+}
+
 onMounted(() => {
-  builderSnapshot.value = JSON.parse(JSON.stringify(getBuilderContent.value))
+  builderSnapshot.value = JSON.parse(JSON.stringify(builderContent.value))
 })
 </script>
 <template>
+  <dialog
+    ref="confirm"
+    class="confirm-dialog border-0 shadow-lg rounded-3 bg-light">
+    <form method="dialog" class="p-4 d-flex flex-column align-items-center">
+      <h3 class="mb-4 text-body">Are you sure?</h3>
+      <p class="mb-4 text-body">
+        You have unsaved changes. Do you want to save them?
+      </p>
+      <div class="d-flex gap-2">
+        <button
+          class="btn bg-indigo-500 text-white"
+          value="save"
+          @click="handleClose">
+          Save
+        </button>
+        <button class="btn btn-danger" value="discard">Discard Changes</button>
+        <button class="btn btn-outline-secondary" value="cancel">
+          Continue Editing
+        </button>
+      </div>
+    </form>
+  </dialog>
   <buildy-stack
-    :beforeClose="handleClose"
+    :beforeClose="checkDirty"
     v-if="settingsToggle"
     half
     name="module-settings">
@@ -121,10 +161,10 @@ onMounted(() => {
         <button
           class="btn bg-indigo-500 text-white"
           type="button"
-          @click="handleSave">
+          @click="handleClose">
           Save
         </button>
-        <button class="btn text-danger" type="button" @click="handleSave">
+        <button class="btn text-danger" type="button" @click="handleCancel">
           Cancel
         </button>
       </div>
@@ -147,6 +187,23 @@ onMounted(() => {
   }
   .tab-content {
     padding-bottom: 32px;
+  }
+}
+
+.confirm-dialog {
+  &::backdrop {
+    animation: fadeIn 0.3s ease-in-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    // backdrop-filter: blur(5px);
   }
 }
 </style>

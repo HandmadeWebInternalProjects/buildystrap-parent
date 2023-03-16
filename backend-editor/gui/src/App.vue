@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
 import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
+import { fetchPost, fetchLibraryPost } from "@/services/post"
 import { recursifyID } from "./utils/id"
 
-const { getGlobalSections, getGlobalModules } = storeToRefs(useBuilderStore())
+const {
+  getGlobalSections,
+  getGlobalModules,
+  getLibrarySections,
+  builderContent,
+} = storeToRefs(useBuilderStore())
 
 const { setBuilderContent } = useBuilderStore()
 
@@ -28,9 +34,10 @@ const {
   copyPageToClipboard,
   pasteFromClipboard,
   isValidPasteLocation,
-} = useClipboard(builder)
+} = useClipboard(builderContent)
 
 const globalStackOpen = ref(false)
+const libraryStackOpen = ref(false)
 const revealGlobalModules = ref(false)
 
 const liveToast = ref(null)
@@ -39,12 +46,13 @@ const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
   const content = JSON.parse(contentEl.innerText)
+  builderContent.value = content
   setBuilderContent(content)
 }
 
 const addSection = () => {
   const newModule = createModule("Section", {})
-  builder.value.push(newModule)
+  builderContent.value.push(newModule)
 }
 
 const addGlobalSection = (globalSection: { id: number; title: string }) => {
@@ -56,18 +64,32 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
     TYPE,
     VALUE,
   })
-  builder.value.push(newModule)
+  builderContent.value.push(newModule)
+}
+
+const addLibrarySection = async (librarySection: {
+  id: string
+  title: string
+}) => {
+  const { data } = await fetchLibraryPost(librarySection.id)
+
+  const postContent = JSON.parse(data.post_content)
+
+  postContent.forEach((section: any) => {
+    recursifyID(section)
+    builderContent.value.push(section)
+  })
 }
 
 const pastePage = (fromClipBoard: any): void => {
   recursifyID(fromClipBoard)
   // Ask for confirmation prompt before replacing value
 
-  return (builder.value = fromClipBoard)
+  return (builderContent.value = fromClipBoard)
 }
 
 watch(
-  builder,
+  builderContent,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
   },
@@ -82,8 +104,8 @@ watch(
   <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
-      :list="builder"
-      :key="builder"
+      :list="builderContent"
+      :key="builderContent"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
@@ -92,7 +114,7 @@ watch(
         <component
           :is="`grid-${element.type}`"
           :section-index="index"
-          :parent-array="builder"
+          :parent-array="builderContent"
           :component="element" />
       </template>
     </draggable>
@@ -125,12 +147,19 @@ watch(
       </button>
       <button
         type="button"
+        class="btn btn-sm btn-purple text-white mb-3 me-3"
+        @click="libraryStackOpen = true">
+        Get from Library
+      </button>
+      <button
+        type="button"
         class="btn btn-sm bg-indigo-500 text-white mb-3 me-3"
         @click="addSection()">
         Add Section
       </button>
     </div>
     <buildy-stack
+      class="overflow-visible"
       @close="globalStackOpen = false"
       v-if="globalStackOpen"
       half
@@ -139,23 +168,43 @@ watch(
         @click.shift="revealGlobalModules = !revealGlobalModules"
         class="p-4 py-5">
         <h3>Global Sections</h3>
-        <div
+        <module-selection-pill-with-preview
           v-for="globalSection in getGlobalSections"
-          @click="addGlobalSection(globalSection)"
           :key="globalSection.id"
-          class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
-          {{ globalSection.title }}
-        </div>
+          @click="addGlobalSection(globalSection)"
+          :module-item="globalSection"
+          :handle="globalSection.id"
+          preview-type="html"
+          post-type="buildy-global" />
         <div class="mt-4" v-if="revealGlobalModules">
           <h5>Global Modules</h5>
-          <div
+          <module-selection-pill
             v-for="globalModule in getGlobalModules"
-            @click="addGlobalSection(globalModule)"
             :key="globalModule.id"
-            class="border bg-700 text-white cursor-pointer transition-all scale-md-hover w-100 px-3 py-2 d-flex gap-2 align-items-center group rounded shadow-sm">
-            {{ globalModule.title }}
-          </div>
+            @click="addGlobalSection(globalModule)"
+            :module-item="globalModule"
+            :handle="globalModule.id" />
         </div>
+      </div>
+    </buildy-stack>
+    <buildy-stack
+      class="overflow-visible"
+      @close="libraryStackOpen = false"
+      v-if="getLibrarySections.length && libraryStackOpen"
+      half
+      name="module-selector">
+      <div
+        @click.shift="revealGlobalModules = !revealGlobalModules"
+        class="p-4 py-5">
+        <h3>Library Sections</h3>
+        <module-selection-pill-with-preview
+          v-for="librarySection in getLibrarySections"
+          @click="addLibrarySection(librarySection)"
+          :key="librarySection.id"
+          :module-item="librarySection"
+          :handle="librarySection.id"
+          preview-type="html"
+          post-type="buildy-library" />
       </div>
     </buildy-stack>
   </div>

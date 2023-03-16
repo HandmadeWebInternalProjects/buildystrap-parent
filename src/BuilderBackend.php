@@ -100,13 +100,33 @@ class BuilderBackend
         $booterDependancy = "buildy-module:" . array_key_last($backendScripts);
       }
 
-      wp_enqueue_script(
+      wp_register_script(
         'buildy-boot-module',
         get_template_directory_uri() . '/resources/js/buildy-boot.js',
         [$booterDependancy],
         false,
         true
       );
+
+      // Add some variables to the booter script
+      wp_localize_script(
+        'buildy-boot-module',
+        'buildystrap',
+        [
+          'ajax_url' => admin_url('admin-ajax.php'),
+          'nonce' => wp_create_nonce('buildystrap'),
+          'rest_url' => get_rest_url(),
+          'rest_nonce' => wp_create_nonce('wp_rest'),
+          'site_url' => get_site_url(),
+          'theme_url' => get_template_directory_uri(),
+          'admin_url' => get_admin_url(),
+          'post_id' => get_the_ID(),
+          'post_type' => get_post_type(),
+          'is_admin' => current_user_can('administrator'),
+        ]
+      );
+
+      wp_enqueue_script('buildy-boot-module');
 
       wp_enqueue_style('hmw-theme-admin-options', get_stylesheet_directory_uri() . '/public/hmw-theme-admin-options.css', []);
     }
@@ -139,6 +159,7 @@ class BuilderBackend
       'admin_post_edit_url' => get_admin_url(path: 'post.php?action=edit&post='),
       'moduleBlueprints' => Builder::moduleBlueprints(),
       'globalSections' => Builder::getGlobals(),
+      'librarySections' => Builder::getLibrarySections(),
       'globalModules' => Builder::getGlobalModules(),
       'moduleStyles' => Builder::getModuleStyles(),
       // 'registered_image_sizes' => static::get_all_image_sizes(),
