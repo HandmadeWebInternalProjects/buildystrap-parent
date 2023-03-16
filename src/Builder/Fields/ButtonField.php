@@ -15,24 +15,24 @@ class ButtonField extends Field
     protected static function blueprint(): array
     {
         return [
-      'config' => [
-        'sizes' => [
-          'Small' => 'btn-sm',
-          'Large' => 'btn-lg',
-        ],
-        'types' => [
-          'Primary' => 'btn-primary',
-          'Secondary' => 'btn-secondary',
-          'Tertiary' => 'btn-tertiary',
-          'Warning' => 'btn-warning',
-          'Danger' => 'btn-danger',
-          'Success' => 'btn-success',
-          'Info' => 'btn-info',
-          'Unstyled' => 'btn-unstyled',
-          'Link' => 'btn-link',
-        ]
-      ],
-    ];
+          'config' => [
+            'sizes' => [
+              'Small' => 'btn-sm',
+              'Large' => 'btn-lg',
+            ],
+            'types' => [
+              'Primary' => 'btn-primary',
+              'Secondary' => 'btn-secondary',
+              'Tertiary' => 'btn-tertiary',
+              'Warning' => 'btn-warning',
+              'Danger' => 'btn-danger',
+              'Success' => 'btn-success',
+              'Info' => 'btn-info',
+              'Unstyled' => 'btn-unstyled',
+              'Link' => 'btn-link',
+            ]
+          ],
+        ];
     }
 
     public function augment(): void
@@ -49,13 +49,13 @@ class ButtonField extends Field
         $color = $this->value()->get('color', null) ? "text-{$this->value()->get('color', null)}" : null;
         $target = ($this->value()->get('target') ?? null) && $this->value()->get('target') ? '_blank' : '_self';
         $class = collect([])
-      ->push('btn')
-      ->push($bg_colour)
-      ->push($type)
-      ->push($size)
-      ->push($color)
-      ->filter()
-      ->implode(' ');
+          ->push('btn')
+          ->push($bg_colour)
+          ->push($type)
+          ->push($size)
+          ->push($color)
+          ->filter()
+          ->implode(' ');
         $url = $this->value()->get('url', []) ?? [];
 
         return sprintf('<a href="%s" target="%s" class="%s">%s</a>', $url['url'] ?? '#', $target, $class, __($text, 'buildystrap'));

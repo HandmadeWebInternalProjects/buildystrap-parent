@@ -9,15 +9,15 @@ class HeaderModule extends Module
     protected static function blueprint(): array
     {
         return [
-      'icon' => 'fa-solid fa-heading',
-      'fields' => [
-        'title' => [
-          'type' => 'title-field',
-        ],
-      ],
-      'config' => [
-        'selectorTab' => 'regular'
-      ]
-    ];
+          'icon' => 'fa-solid fa-heading',
+          'fields' => [
+            'title' => [
+              'type' => 'title-field',
+            ],
+          ],
+          'config' => [
+            'selectorTab' => 'regular'
+          ]
+        ];
     }
 }

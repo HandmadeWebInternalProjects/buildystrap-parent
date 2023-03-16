@@ -9,10 +9,10 @@ class LinkField extends Field
     protected static function blueprint(): array
     {
         return [
-      'config' => [
-        'display' => 'Link Field',
-      ],
-    ];
+          'config' => [
+            'display' => 'Link Field',
+          ],
+        ];
     }
 
     public function __toString(): string
@@ -23,8 +23,8 @@ class LinkField extends Field
     public function toHtml(): string
     {
         return view('builder.components.linkfield', [
-      'data' => $this->value(),
-      'class' => $this->additional_classes
-    ])->render();
+          'data' => $this->value(),
+          'class' => $this->additional_classes
+        ])->render();
     }
 }

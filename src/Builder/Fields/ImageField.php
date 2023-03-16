@@ -12,8 +12,8 @@ class ImageField extends Field
     protected static function blueprint(): array
     {
         return [
-      'config' => [],
-    ];
+          'config' => [],
+        ];
     }
 
     public function __toString(): string
@@ -23,8 +23,8 @@ class ImageField extends Field
             return false;
         }
         return collect($image)
-      ->map(fn ($item) => wp_get_attachment_image_url($item['id'], 'full'))
-      ->first();
+          ->map(fn ($item) => wp_get_attachment_image_url($item['id'], 'full'))
+          ->first();
     }
 
     public function toHtml(): string
@@ -34,7 +34,7 @@ class ImageField extends Field
             return false;
         }
         return collect($image)
-      ->map(fn ($item) => wp_get_attachment_image($item['id'], 'full'))
-      ->implode('');
+          ->map(fn ($item) => wp_get_attachment_image($item['id'], 'full'))
+          ->implode('');
     }
 }

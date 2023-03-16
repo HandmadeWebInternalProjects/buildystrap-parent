@@ -41,7 +41,7 @@ abstract class Field implements Htmlable
 
         return match (true) {
             is_string($value) => $value,
-      default => "<!-- {$this->type()} could not output value as a string -->"
+            default => "<!-- {$this->type()} could not output value as a string -->"
         };
     }
 

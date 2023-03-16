@@ -9,10 +9,10 @@ class TextAreaField extends Field
     protected static function blueprint(): array
     {
         return [
-      'config' => [
-        'display' => 'Textarea Field',
-      ],
-    ];
+          'config' => [
+            'display' => 'Textarea Field',
+          ],
+        ];
     }
 
     public function __toString(): string
