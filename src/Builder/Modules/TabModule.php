@@ -6,36 +6,36 @@ use Buildystrap\Builder\Extends\Module;
 
 class TabModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
-      'icon' => 'fa-solid fa-folder',
-      'fields' => [
-        'tabs' => [
-          'type' => 'replicator-field',
-          'config' => [
-            'label' => 'Tab',
-            'preview' => 'title',
-          ],
+    protected static function blueprint(): array
+    {
+        return [
+          'icon' => 'fa-solid fa-folder',
           'fields' => [
-            'title' => [
-              'type' => 'text-field',
+            'tabs' => [
+              'type' => 'replicator-field',
               'config' => [
-                'label' => 'Title',
+                'label' => 'Tab',
+                'preview' => 'title',
               ],
+              'fields' => [
+                'title' => [
+                  'type' => 'text-field',
+                  'config' => [
+                    'label' => 'Title',
+                  ],
+                ],
+                'content' => [
+                  'type' => 'richtext-field',
+                  'config' => [
+                    'label' => 'Content',
+                  ],
+                ],
+              ]
             ],
-            'content' => [
-              'type' => 'richtext-field',
-              'config' => [
-                'label' => 'Content',
-              ],
-            ],
+          ],
+          'config' => [
+            'selectorTab' => 'regular'
           ]
-        ],
-      ],
-      'config' => [
-        'selectorTab' => 'regular'
-      ]
-    ];
-  }
+        ];
+    }
 }

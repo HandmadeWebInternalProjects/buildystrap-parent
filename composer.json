@@ -26,7 +26,7 @@
     },
     "require": {
         "php": "^8.0",
-        "roots/acorn": "^2.0",
+        "roots/acorn": "^3.0",
         "spatie/blink": "^1.2"
     },
     "require-dev": {
@@ -50,7 +50,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "8.0"
+            "php": "8.0.2"
         }
     }
 }

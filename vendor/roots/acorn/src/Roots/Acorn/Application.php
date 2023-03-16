@@ -28,7 +28,7 @@ class Application extends FoundationApplication
      *
      * @var string
      */
-    public const VERSION = '2.0.6';
+    public const VERSION = '3.1.0';
 
     /**
      * The custom bootstrap path defined by the developer.
@@ -121,7 +121,6 @@ class Application extends FoundationApplication
             if (! isset($supported_paths[$path_type])) {
                 throw new Exception("The {$path_type} path type is not supported.");
             }
-
 
             $this->{$supported_paths[$path_type]} = $path;
         }
@@ -259,8 +258,7 @@ class Application extends FoundationApplication
                 })
                 ->merge([
                     $this->basePath(),
-                    STYLESHEETPATH,
-                    TEMPLATEPATH,
+                    dirname(WP_CONTENT_DIR, 2),
                     get_template_directory(),
                     get_stylesheet_directory(),
                 ])
@@ -269,8 +267,8 @@ class Application extends FoundationApplication
                 })
                 ->unique()
                 ->filter(function ($path) use ($files) {
-                    return $files->isFile("{$path}/vendor/composer/installed.json")
-                        && $files->isFile("{$path}/composer.json");
+                    return @$files->isFile("{$path}/vendor/composer/installed.json")
+                        && @$files->isFile("{$path}/composer.json");
                 })
                 ->all();
 
@@ -280,19 +278,8 @@ class Application extends FoundationApplication
                 $this->getCachedPackagesPath()
             );
         });
-        $this->alias(FoundationPackageManifest::class, PackageManifest::class);
-    }
 
-    /**
-     * Register all of the base service providers.
-     *
-     * @return void
-     */
-    protected function registerBaseServiceProviders()
-    {
-        $this->register(new EventServiceProvider($this));
-        $this->register(new LogServiceProvider($this));
-        // $this->register(new RoutingServiceProvider($this));
+        $this->alias(FoundationPackageManifest::class, PackageManifest::class);
     }
 
     /**
@@ -397,7 +384,12 @@ class Application extends FoundationApplication
 
         report($e);
 
-        return is_object($provider) ? $provider : new class ($this) extends ServiceProvider {}; // phpcs:ignore
+        if ($this->environment('development', 'testing', 'local')) {
+            throw $e;
+        }
+
+        return is_object($provider) ? $provider : new class ($this) extends ServiceProvider {
+        };
     }
 
     /**

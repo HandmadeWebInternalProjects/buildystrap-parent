@@ -31,27 +31,24 @@ use Symfony\Component\VarDumper\Server\Connection;
  */
 class DumpDataCollector extends DataCollector implements DataDumperInterface
 {
-    private $stopwatch;
-    private $fileLinkFormat;
-    private $dataCount = 0;
-    private $isCollected = true;
-    private $clonesCount = 0;
-    private $clonesIndex = 0;
-    private $rootRefs;
-    private $charset;
+    private $stopwatch = null;
+    private string|FileLinkFormatter|false $fileLinkFormat;
+    private int $dataCount = 0;
+    private bool $isCollected = true;
+    private int $clonesCount = 0;
+    private int $clonesIndex = 0;
+    private array $rootRefs;
+    private string $charset;
     private $requestStack;
     private $dumper;
-    private $sourceContextProvider;
+    private mixed $sourceContextProvider;
 
-    /**
-     * @param string|FileLinkFormatter|null       $fileLinkFormat
-     * @param DataDumperInterface|Connection|null $dumper
-     */
-    public function __construct(Stopwatch $stopwatch = null, $fileLinkFormat = null, string $charset = null, RequestStack $requestStack = null, $dumper = null)
+    public function __construct(Stopwatch $stopwatch = null, string|FileLinkFormatter $fileLinkFormat = null, string $charset = null, RequestStack $requestStack = null, DataDumperInterface|Connection $dumper = null)
     {
+        $fileLinkFormat = $fileLinkFormat ?: \ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
         $this->stopwatch = $stopwatch;
-        $this->fileLinkFormat = $fileLinkFormat ?: ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
-        $this->charset = $charset ?: ini_get('php.output_encoding') ?: ini_get('default_charset') ?: 'UTF-8';
+        $this->fileLinkFormat = $fileLinkFormat instanceof FileLinkFormatter && false === $fileLinkFormat->format('', 0) ? false : $fileLinkFormat;
+        $this->charset = $charset ?: \ini_get('php.output_encoding') ?: \ini_get('default_charset') ?: 'UTF-8';
         $this->requestStack = $requestStack;
         $this->dumper = $dumper;
 
@@ -232,7 +229,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
 
             $h = headers_list();
             $i = \count($h);
-            array_unshift($h, 'Content-Type: '.ini_get('default_mimetype'));
+            array_unshift($h, 'Content-Type: '.\ini_get('default_mimetype'));
             while (0 !== stripos($h[$i], 'Content-Type:')) {
                 --$i;
             }

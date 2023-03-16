@@ -85,6 +85,44 @@ trait Enqueuable
     }
 
     /**
+     * Dequeue CSS files in WordPress.
+     *
+     * @return $this
+     */
+    public function dequeueCss()
+    {
+        $this->css(function ($handle) {
+            wp_dequeue_style($handle);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Dequeue JS files in WordPress.
+     *
+     * @return $this
+     */
+    public function dequeueJs()
+    {
+        $this->js(function ($handle) {
+            wp_dequeue_script($handle);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Dequeue JS and CSS files in WordPress.
+     *
+     * @return $this
+     */
+    public function dequeue()
+    {
+        return $this->dequeueCss()->dequeueJs();
+    }
+
+    /**
      * Inline runtime.js in WordPress.
      *
      * @return $this
@@ -117,7 +155,7 @@ trait Enqueuable
      */
     public function inline($contents, $position = 'after')
     {
-        if (! $handles = array_keys($this->bundle['js'] ?? [])) {
+        if (! $handles = array_keys($this->js()->keys()->toArray())) {
             return $this;
         }
 
@@ -141,7 +179,7 @@ trait Enqueuable
      */
     public function localize($name, $object)
     {
-        if (! $handles = array_keys($this->bundle['js'] ?? [])) {
+        if (! $handles = $this->js()->keys()->toArray()) {
             return $this;
         }
 
