@@ -15,27 +15,27 @@
  * @version 2.6.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
-do_action( 'woocommerce_before_account_navigation' );
+do_action('woocommerce_before_account_navigation');
 ?>
 
 <nav class="woocommerce-MyAccount-navigation">
 	<div class="list-group">
 		<?php
-		foreach ( wc_get_account_menu_items() as $endpoint => $label ) {
-			printf(
-				'<a href="%s" class="%s">%s</a>',
-				esc_url( wc_get_account_endpoint_url( $endpoint ) ),
-				wc_get_account_menu_item_classes( $endpoint ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ok.
-				esc_html( $label )
-			);
-		}
-		?>
+        foreach (wc_get_account_menu_items() as $endpoint => $label) {
+            printf(
+                '<a href="%s" class="%s">%s</a>',
+                esc_url(wc_get_account_endpoint_url($endpoint)),
+                wc_get_account_menu_item_classes($endpoint), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ok.
+                esc_html($label)
+            );
+        }
+?>
 	</div>
 </nav>
 
 <?php
-do_action( 'woocommerce_after_account_navigation' );
+do_action('woocommerce_after_account_navigation');
