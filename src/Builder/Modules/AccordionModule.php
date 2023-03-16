@@ -15,7 +15,7 @@ class AccordionModule extends Module
 
         $values = $module['values'];
 
-        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
+        $this->fields = $this->collectionClass($values)->map(function ($value, $handle) use ($blueprintFields) {
             if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
                 if ($field = Builder::getField($blueprintField['type'])) {
                     $fieldValue = $value;
@@ -38,6 +38,8 @@ class AccordionModule extends Module
                     return new $field($fieldValue);
                 }
             }
+
+            return null;
         })->filter();
     }
 

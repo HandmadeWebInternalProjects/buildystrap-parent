@@ -5,10 +5,12 @@ namespace Buildystrap\Builder\Extends;
 use Buildystrap\Builder;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
+use Buildystrap\Traits\CollectionClass;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 
 use function array_replace_recursive;
 use function collect;
@@ -19,6 +21,7 @@ use function view;
 abstract class Module
 {
     use Attributes;
+    use CollectionClass;
     use Config;
     use Augment;
     use InlineAttributes;
@@ -28,7 +31,7 @@ abstract class Module
     protected string $type;
     protected bool $enabled;
 
-    protected Collection $fields;
+    protected Collection|LazyCollection $fields;
     protected Collection $values;
 
     public function __construct(array $module)
@@ -41,13 +44,16 @@ abstract class Module
 
         $values = $module['values'];
 
-        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
-            if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
-                if ($field = Builder::getField($blueprintField['type'])) {
-                    return new $field($value);
+        $this->fields = $this->collectionClass($values)
+            ->map(function ($value, $handle) use ($blueprintFields) {
+                if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
+                    if ($field = Builder::getField($blueprintField['type'])) {
+                        return new $field($value);
+                    }
                 }
-            }
-        })->filter();
+
+                return null;
+            })->filter();
 
         if (isset($module['config']) && is_array($module['config'])) {
             $this->config = $module['config'];
@@ -67,7 +73,7 @@ abstract class Module
         return optional($this->fields()->get($value, $default))->augmented();
     }
 
-    public function fields(): Collection
+    public function fields(): Collection|LazyCollection
     {
         return $this->fields;
     }

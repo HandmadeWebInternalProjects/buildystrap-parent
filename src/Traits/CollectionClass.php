@@ -13,6 +13,10 @@ trait CollectionClass
 {
     public function collectionClass($items = []): Collection|LazyCollection
     {
+//        $collectionClass = Collection::class;
+//        $collectionClass = LazyCollection::class;
+//        return new $collectionClass($items);
+
         $collectionClass = match (true) {
             (defined('WP_DEBUG') && WP_DEBUG) => Collection::class,
             default => LazyCollection::class
