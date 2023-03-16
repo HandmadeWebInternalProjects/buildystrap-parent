@@ -13,7 +13,7 @@ trait CollectionClass
 {
     public function collectionClass($items = []): Collection|LazyCollection
     {
-        $collectionClass = match (false) {
+        $collectionClass = match (true) {
             (defined('WP_DEBUG') && WP_DEBUG) => Collection::class,
             default => LazyCollection::class
         };

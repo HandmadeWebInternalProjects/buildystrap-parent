@@ -5,7 +5,6 @@ namespace Buildystrap\Builder\Layout;
 use Buildystrap\Builder;
 use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Builder\Modules\GlobalModule;
-
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 
@@ -23,24 +22,18 @@ class Column extends Layout
 
         $this->modules = $this->collectionClass($column['modules'] ?? [])
             ->map(function ($module) {
-                // Global module
+                // Convert Global module to the end module
+//                if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
+//                    return $globalModule;
+//                }
+
                 $moduleType = match (true) {
                     ($module['type'] === 'global-module') => GlobalModule::class,
                     ($module['type'] === 'row') => Row::class,
                     default => Builder::getModule($module['type'])
                 };
 
-                $this->modules[] = new $moduleType($module);
-
-                // Or
-                // Convert Global module to the end module
-                //            if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
-                //                $this->modules[] = $globalModule;
-                //            } else {
-                //                $moduleType = Builder::getModule($module['type']);
-                //
-                //                $this->modules[] = new $moduleType($module);
-                //            }
+                return new $moduleType($module);
             });
     }
 

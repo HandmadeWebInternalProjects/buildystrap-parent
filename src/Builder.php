@@ -217,7 +217,8 @@ class Builder
             WHERE 
                 `post_type` = 'buildy-global' 
                  AND 
-                    `post_status` = 'publish'"
+                    `post_status` = %s",
+            'publish'
         );
 
         $globals = $wpdb->get_results($query);
@@ -237,7 +238,8 @@ class Builder
             WHERE 
                 `post_type` = 'buildy-global-module' 
                 AND 
-                    `post_status` = 'publish'"
+                    `post_status` = %s",
+            'publish'
         );
 
         $globals = $wpdb->get_results($query);
@@ -280,9 +282,10 @@ class Builder
                 AND 
                     `post_type` = 'buildy-global' 
                 AND 
-                    `post_status` = 'publish' 
+                    `post_status` = %s 
             LIMIT 1",
-            $post_id
+            $post_id,
+            'publish'
         );
 
         if ($global = $wpdb->get_row($query)) {
@@ -309,9 +312,10 @@ class Builder
                 AND 
                     `post_type` = 'buildy-global-module' 
                 AND 
-                    `post_status` = 'publish' 
+                    `post_status` = %s
             LIMIT 1",
-            $post_id
+            $post_id,
+            'publish'
         );
 
         if ($global = $wpdb->get_row($query)) {
