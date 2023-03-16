@@ -125,7 +125,7 @@ library.add(
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)
 
 const bundledComponents = import.meta.globEager("./components/**/*.vue")
-Object.entries(bundledComponents).forEach(([path, m]) => {
+Object.entries(bundledComponents).forEach(([path, m]: any) => {
   const name =
     path
       ?.split("/")

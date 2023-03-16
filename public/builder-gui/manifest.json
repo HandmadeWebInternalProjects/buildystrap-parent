@@ -1,18 +1,14 @@
 {
+  "src/main.css": {
+    "file": "assets/main-0099f774.css",
+    "src": "src/main.css"
+  },
   "src/main.ts": {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    "file": "assets/main.248fc316.js",
-=======
-    "file": "assets/main.42011cd4.js",
->>>>>>> Stashed changes
-=======
-    "file": "assets/main.42011cd4.js",
->>>>>>> Stashed changes
-    "src": "src/main.ts",
-    "isEntry": true,
     "css": [
-      "assets/main.93051b99.css"
-    ]
+      "assets/main-0099f774.css"
+    ],
+    "file": "assets/main-a7495b1e.js",
+    "isEntry": true,
+    "src": "src/main.ts"
   }
 }

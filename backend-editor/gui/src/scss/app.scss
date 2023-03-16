@@ -239,6 +239,14 @@ $utilities: map-merge(
 
   @import "bootstrap/scss/utilities/api";
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: $white;
+  }
+
   .svg-inline--fa {
     vertical-align: -0.125em;
   }

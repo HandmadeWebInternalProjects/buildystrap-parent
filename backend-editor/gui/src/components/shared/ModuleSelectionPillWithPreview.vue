@@ -16,10 +16,10 @@ const props = defineProps({
     required: true,
   },
 })
-const { post } = usePost(props?.moduleItem?.id, props.postType)
+const { post }: { post: any } = usePost(props?.moduleItem?.id, props.postType)
 const loadIframe = ref(false)
 
-const showPreviewDialog = ref<HTMLDialogElement | null>(null)
+const showPreviewDialog = ref<any>(null)
 const openPreview = () => {
   if (!loadIframe.value) {
     loadIframe.value = true

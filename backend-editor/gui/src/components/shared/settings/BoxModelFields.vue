@@ -16,7 +16,7 @@
             options: getBoxModelSizing(),
             taggable: true,
           }"
-          v-model="dir[bp]" />
+          v-model="(dir as any)[bp]" />
       </li>
     </ul>
   </div>
