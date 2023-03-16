@@ -26,6 +26,13 @@ class CreateRenderModulePage
     }
 
 
+    // Adding fake sub-pages' rewrite rules
+    public function render_module_previews_rewrite_rules($rules)
+    {
+        $newrules = [];
+        $newrules['^builder/render-module-previews'] = 'index.php?my_custom_page=render-module-previews';
+        return $newrules + $rules;
+    }
 
     // Adding fake sub-pages' rewrite rules
     public function render_module_previews_rewrite_rules($rules)

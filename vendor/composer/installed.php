@@ -3,7 +3,7 @@
         'name' => 'handmadeweb/buildystrap-parent',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '7343739b66f5d46e30aaad656708f1cd6a80f564',
+        'reference' => 'fadfa3ed527c7b8b89c91850ebd8aedce76130c8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'handmadeweb/buildystrap-parent' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '7343739b66f5d46e30aaad656708f1cd6a80f564',
+            'reference' => 'fadfa3ed527c7b8b89c91850ebd8aedce76130c8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

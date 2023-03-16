@@ -177,7 +177,7 @@ class ThemeOptions
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
 
-        echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
+                echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
               --bs-btn-color: var(--theme-$colorName, var(--bs-$colorName));
               --bs-btn-bg: transparent;
               --bs-btn-hover-bg: var(--theme-$colorName, var(--bs-$colorName));
