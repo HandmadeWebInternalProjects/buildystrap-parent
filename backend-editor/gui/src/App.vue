@@ -167,7 +167,7 @@ watch(
       <div
         @click.shift="revealGlobalModules = !revealGlobalModules"
         class="p-4 py-5">
-        <h3>Global Sections</h3>
+        <h3 class="text-body">Global Sections</h3>
         <module-selection-pill-with-preview
           v-for="globalSection in getGlobalSections"
           :key="globalSection.id"
@@ -177,7 +177,7 @@ watch(
           preview-type="html"
           post-type="buildy-global" />
         <div class="mt-4" v-if="revealGlobalModules">
-          <h5>Global Modules</h5>
+          <h5 class="text-body">Global Modules</h5>
           <module-selection-pill
             v-for="globalModule in getGlobalModules"
             :key="globalModule.id"
@@ -196,7 +196,7 @@ watch(
       <div
         @click.shift="revealGlobalModules = !revealGlobalModules"
         class="p-4 py-5">
-        <h3>Library Sections</h3>
+        <h3 class="text-body">Library Sections</h3>
         <module-selection-pill-with-preview
           v-for="librarySection in getLibrarySections"
           @click="addLibrarySection(librarySection)"
