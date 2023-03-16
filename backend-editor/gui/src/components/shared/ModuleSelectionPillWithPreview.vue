@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { usePost } from "@/composables/usePost"
+import { activePreview } from "@/composables/usePreview"
 
 const props = defineProps({
   moduleItem: {
@@ -17,35 +18,63 @@ const props = defineProps({
   },
 })
 const { post }: { post: any } = usePost(props?.moduleItem?.id, props.postType)
-const loadIframe = ref(false)
-
 const showPreviewDialog = ref<any>(null)
-const openPreview = () => {
-  if (!loadIframe.value) {
-    loadIframe.value = true
+const previewWindow = ref<HTMLIFrameElement | null>(null)
+
+const scrollPreview = ($event: MouseEvent) => {
+  // Scroll the preview window iframe based on the mouse position over it
+  if (previewWindow.value) {
+    const dialog = showPreviewDialog.value
+    const dialogRect = dialog.getBoundingClientRect()
+    const dialogWidth = dialogRect.width
+    const dialogHeight = dialogRect.height
+
+    const iframe = previewWindow.value
+    const iframeRect = iframe.getBoundingClientRect()
+    const iframeWidth = iframeRect.width
+
+    const x = $event.clientX - dialogRect.left
+    const y = $event.clientY - dialogRect.top
+
+    const xPercent = x / dialogWidth / 3
+    const yPercent = y / dialogHeight / 3
+
+    const xTranslate = (iframeWidth - dialogWidth) * xPercent
+    const yTranslate =
+      yPercent *
+      ((iframe && iframe.contentWindow?.document?.body?.scrollHeight) ?? 0)
+
+    iframe.style.transform = `translate(${-xTranslate}px, ${-yTranslate}px)`
   }
-  showPreviewDialog?.value?.show()
 }
-const closePreview = () => {
-  showPreviewDialog?.value?.close()
-}
+
+watch(activePreview, (val) => {
+  if (val !== post?.value?.id) {
+    showPreviewDialog.value.close()
+  } else {
+    showPreviewDialog.value.show()
+  }
+})
 </script>
 
 <template>
   <div v-if="post" class="position-relative">
-    <dialog class="preview-dialog" ref="showPreviewDialog">
+    <dialog
+      @mouseover="scrollPreview($event)"
+      @mousemove="scrollPreview($event)"
+      class="preview-dialog"
+      ref="showPreviewDialog">
       <iframe
-        v-if="loadIframe"
-        width="1000"
+        ref="previewWindow"
+        v-show="activePreview === post.id"
         loading="lazy"
-        height="300"
-        :src="`https://playgroup.local/builder/render-module-previews/?id=${post.id}`" />
+        :src="`https://playgroup.local/builder/render-module-previews/?id=${post.id}`"
+        style="pointer-events: none" />
     </dialog>
     <module-selection-pill
       :module-item="moduleItem"
       :handle="handle"
-      @mouseenter="openPreview"
-      @mouseleave="closePreview" />
+      @mouseenter="activePreview = post.id" />
   </div>
 </template>
 
@@ -57,11 +86,13 @@ const closePreview = () => {
   transform: translateX(-102%);
   width: 100%;
   max-width: 30rem;
+  max-height: 15rem;
   padding: 0;
   border-radius: var(--bs-border-radius-lg);
   overflow: hidden;
   iframe {
-    // width: 100%;
+    width: 100vw;
+    height: 100vh;
     object-fit: contain;
   }
 }

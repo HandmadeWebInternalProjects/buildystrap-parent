@@ -6,6 +6,10 @@
     display: none;
   }
 
+  #page {
+    overflow: unset !important;
+  }
+
   html {
     margin-top: 0 !important;
     padding-top: 0 !important;
@@ -24,7 +28,7 @@ $content = Builder::renderFromContent($post->post_content)->render();
 
 @section('content')
 @if($content)
-  <div class="module-render-preview" style="width: 1400px; overflow: scroll;">
+  <div class="module-render-preview" style="transform: scale(0.5) translate(-50%, -50%);">
     {!! $content !!}
   </div>
 @endif
