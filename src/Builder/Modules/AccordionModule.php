@@ -15,7 +15,7 @@ class AccordionModule extends Module
 
         $values = $module['values'];
 
-        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
+        $this->fields = $this->collectionClass($values)->map(function ($value, $handle) use ($blueprintFields) {
             if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
                 if ($field = Builder::getField($blueprintField['type'])) {
                     $fieldValue = $value;
@@ -25,9 +25,9 @@ class AccordionModule extends Module
                             if (is_array($subField)) {
                                 foreach ($subField as $subHandle => $subValue) {
                                     if (
-                    isset($blueprintFields[$handle]['fields'][$subHandle]['type']) &&
-                    $subFieldType = Builder::getField($blueprintFields[$handle]['fields'][$subHandle]['type'])
-                  ) {
+                                        isset($blueprintFields[$handle]['fields'][$subHandle]['type']) &&
+                                        $subFieldType = Builder::getField($blueprintFields[$handle]['fields'][$subHandle]['type'])
+                                    ) {
                                         $subField[$subHandle] = new $subFieldType($subValue);
                                     }
                                 }
@@ -38,45 +38,47 @@ class AccordionModule extends Module
                     return new $field($fieldValue);
                 }
             }
+
+            return null;
         })->filter();
     }
 
     protected static function blueprint(): array
     {
         return [
-      'icon' => 'fa-solid fa-chevron-down',
-      'fields' => [
-        'accordion' => [
-          'type' => 'replicator-field',
-          'config' => [
-            'label' => 'Accordion',
-            'preview' => 'title'
-          ],
+          'icon' => 'fa-solid fa-chevron-down',
           'fields' => [
-            'title' => [
-              'type' => 'text-field',
+            'accordion' => [
+              'type' => 'replicator-field',
               'config' => [
-                'label' => 'Title',
+                'label' => 'Accordion',
+                'preview' => 'title'
               ],
+              'fields' => [
+                'title' => [
+                  'type' => 'text-field',
+                  'config' => [
+                    'label' => 'Title',
+                  ],
+                ],
+                'content' => [
+                  'type' => 'richtext-field',
+                  'config' => [
+                    'label' => 'Content',
+                  ],
+                ],
+                'cta' => [
+                  'type' => 'button-field',
+                  'config' => [
+                    'label' => 'CTA',
+                  ],
+                ],
+              ]
             ],
-            'content' => [
-              'type' => 'richtext-field',
-              'config' => [
-                'label' => 'Content',
-              ],
-            ],
-            'cta' => [
-              'type' => 'button-field',
-              'config' => [
-                'label' => 'CTA',
-              ],
-            ],
+          ],
+          'config' => [
+            'selectorTab' => 'regular'
           ]
-        ],
-      ],
-      'config' => [
-        'selectorTab' => 'regular'
-      ]
-    ];
+        ];
     }
 }

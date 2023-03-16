@@ -5,26 +5,28 @@ namespace Buildystrap\Builder\Layout;
 use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Str;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
+
 use function get_field;
 use function view;
 
 class Row extends Layout
 {
-    protected array $columns = [];
+    protected Collection|LazyCollection $columns;
     protected array | int $colCount = [];
 
     public function __construct(array $row, ?Layout $parent = null)
     {
         parent::__construct($row, $parent);
 
-        foreach ($row['columns'] ?? [] as $column) {
-            $this->columns[] = new Column($column, $this);
-        }
+        $this->columns = $this->collectionClass($row['columns'])
+            ->map(fn ($column) => new Column($column, $this));
 
         $this->colCount = $this->getConfig('columnCount') ?? count($this->columns);
     }
 
-    public function columns(): array
+    public function columns(): Collection|LazyCollection
     {
         return $this->columns;
     }
@@ -59,7 +61,7 @@ class Row extends Layout
         )) {
             $class = match ($grid_defaults) {
                 'grid' => 'grid', // Grid
-        default => 'row', // Flex
+                default => 'row', // Flex
             };
         }
 

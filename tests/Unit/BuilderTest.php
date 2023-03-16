@@ -12,6 +12,8 @@ use Buildystrap\Builder\Layout\Section;
 use Buildystrap\Tests\TestCase;
 use Illuminate\Support\Collection;
 
+use Illuminate\Support\Enumerable;
+
 use function file_get_contents;
 use function method_exists;
 
@@ -32,7 +34,7 @@ class BuilderTest extends TestCase
 
         // Sections
         $this->assertTrue(method_exists($container, 'sections'));
-        $this->assertIsArray($container->sections());
+        $this->assertInstanceOf(Enumerable::class, $container->sections());
         $this->assertNotEmpty($container->sections());
 
         foreach ($container->sections() as $section) {
@@ -40,7 +42,7 @@ class BuilderTest extends TestCase
 
             // Rows
             $this->assertTrue(method_exists($section, 'rows'));
-            $this->assertIsArray($section->rows());
+            $this->assertInstanceOf(Enumerable::class, $section->rows());
             $this->assertNotEmpty($section->rows());
 
             foreach ($section->rows() as $row) {
@@ -48,7 +50,7 @@ class BuilderTest extends TestCase
 
                 // Columns
                 $this->assertTrue(method_exists($row, 'columns'));
-                $this->assertIsArray($row->columns());
+                $this->assertInstanceOf(Enumerable::class, $row->columns());
                 $this->assertNotEmpty($row->columns());
 
                 foreach ($row->columns() as $column) {
@@ -56,7 +58,7 @@ class BuilderTest extends TestCase
 
                     // Modules
                     $this->assertTrue(method_exists($column, 'modules'));
-                    $this->assertIsArray($column->modules());
+                    $this->assertInstanceOf(Enumerable::class, $column->modules());
                     $this->assertNotEmpty($column->modules());
 
                     foreach ($column->modules() as $module) {

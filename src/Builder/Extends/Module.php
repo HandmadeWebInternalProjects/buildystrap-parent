@@ -5,10 +5,12 @@ namespace Buildystrap\Builder\Extends;
 use Buildystrap\Builder;
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
+use Buildystrap\Traits\CollectionClass;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 
 use function array_replace_recursive;
 use function collect;
@@ -19,6 +21,7 @@ use function view;
 abstract class Module
 {
     use Attributes;
+    use CollectionClass;
     use Config;
     use Augment;
     use InlineAttributes;
@@ -28,7 +31,7 @@ abstract class Module
     protected string $type;
     protected bool $enabled;
 
-    protected Collection $fields;
+    protected Collection|LazyCollection $fields;
     protected Collection $values;
 
     public function __construct(array $module)
@@ -41,13 +44,16 @@ abstract class Module
 
         $values = $module['values'];
 
-        $this->fields = collect($values)->map(function ($value, $handle) use ($blueprintFields) {
-            if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
-                if ($field = Builder::getField($blueprintField['type'])) {
-                    return new $field($value);
+        $this->fields = $this->collectionClass($values)
+            ->map(function ($value, $handle) use ($blueprintFields) {
+                if ( ! empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
+                    if ($field = Builder::getField($blueprintField['type'])) {
+                        return new $field($value);
+                    }
                 }
-            }
-        })->filter();
+
+                return null;
+            })->filter();
 
         if (isset($module['config']) && is_array($module['config'])) {
             $this->config = $module['config'];
@@ -67,7 +73,7 @@ abstract class Module
         return optional($this->fields()->get($value, $default))->augmented();
     }
 
-    public function fields(): Collection
+    public function fields(): Collection|LazyCollection
     {
         return $this->fields;
     }
@@ -86,9 +92,9 @@ abstract class Module
                             if (is_array($subField)) {
                                 foreach ($subField as $subHandle => $subValue) {
                                     if (
-                    isset($blueprintFields[$handle]['fields'][$subHandle]['type']) &&
-                    $subFieldType = Builder::getField($blueprintFields[$handle]['fields'][$subHandle]['type'])
-                  ) {
+                                        isset($blueprintFields[$handle]['fields'][$subHandle]['type']) &&
+                                        $subFieldType = Builder::getField($blueprintFields[$handle]['fields'][$subHandle]['type'])
+                                    ) {
                                         $subField[$subHandle] = new $subFieldType($subValue);
                                     }
                                 }
@@ -104,23 +110,23 @@ abstract class Module
 
     // public static function getBlueprint(): Collection
     // {
-    //     $blueprint = static::blueprint();
-    //     $fields = $blueprint['fields'] ?? [];
+  //     $blueprint = static::blueprint();
+  //     $fields = $blueprint['fields'] ?? [];
 
-    //     foreach ($fields as $handle => $item) {
-    //         if ($field = Builder::getField($item['type'])) {
-    //             if( isset($item['fields']) ) {
-    //                 foreach ($item['fields'] as $sub_handle => $sub_item) {
-    //                     if ($sub_field = Builder::getField($sub_item['type'])) {
-    //                         $item['fields'][$sub_handle] = array_replace_recursive($sub_field::getBlueprint()->toArray(), $sub_item);
-    //                     }
-    //                 }
-    //             }
-    //             $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
-    //         }
-    //     }
+  //     foreach ($fields as $handle => $item) {
+  //         if ($field = Builder::getField($item['type'])) {
+  //             if( isset($item['fields']) ) {
+  //                 foreach ($item['fields'] as $sub_handle => $sub_item) {
+  //                     if ($sub_field = Builder::getField($sub_item['type'])) {
+  //                         $item['fields'][$sub_handle] = array_replace_recursive($sub_field::getBlueprint()->toArray(), $sub_item);
+  //                     }
+  //                 }
+  //             }
+  //             $blueprint['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+  //         }
+  //     }
 
-    //     return collect($blueprint);
+  //     return collect($blueprint);
     // }
 
     public static function getBlueprint(): Collection
@@ -164,9 +170,9 @@ abstract class Module
         $this->augmentOnce();
 
         $views = [
-      "builder-modules::$this->type",
-      'builder::module-not-found',
-    ];
+          "builder-modules::$this->type",
+          'builder::module-not-found',
+        ];
 
         return view()->first($views)->with('module', $this)->render();
     }
