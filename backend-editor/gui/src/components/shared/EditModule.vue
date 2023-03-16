@@ -203,7 +203,7 @@ onMounted(() => {
   to {
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.5);
-    // backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
   }
 }
 </style>
