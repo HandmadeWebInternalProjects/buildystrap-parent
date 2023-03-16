@@ -51,8 +51,9 @@ const returnValue =
 const returnLabel = config.value.return_label || "title.rendered"
 
 const fetchFromEndpoint = async (endpoint: string) => {
+  checkPerPage(endpoint)
   try {
-    const res = await fetch(`${endpoint}?per_page=100`)
+    const res = await fetch(`${endpoint}${per_page}`)
     return await res.json()
   } catch (error: any) {
     throw new Error(error)
@@ -61,8 +62,9 @@ const fetchFromEndpoint = async (endpoint: string) => {
 
 const fetchFromDataType = async () => {
   try {
+    checkPerPage(data_type)
     const res = await fetch(
-      `${builderConfig.rest_endpoint}wp/v2/${data_type}?per_page=100`
+      `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}${per_page}`
     )
     let data = await res.json()
     data = Object.values(data).filter((el: any) => {
@@ -81,9 +83,10 @@ const fetchFromDataType = async () => {
 
 const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   let data: Array<{ [key: string]: any }>
+  checkPerPage(endpoint)
   try {
     const res = await fetch(
-      `${builderConfig.rest_endpoint}${endpoint}?per_page=100`
+      `${getBuilderConfig.rest_endpoint}${endpoint}${per_page}`
     )
     data = await res.json()
     return data
@@ -172,6 +175,15 @@ const mapEntries = async () => {
   })
 
   loading.value = false
+}
+
+let per_page = ""
+const checkPerPage = (endpoint: string) => {
+  if (endpoint.includes("?")) {
+    per_page = "&per_page=100"
+  } else {
+    per_page = "?per_page=100"
+  }
 }
 
 watch(depends_on, () => {
