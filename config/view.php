@@ -1,5 +1,7 @@
 <?php
 
+use Buildystrap\View\Directives\ExampleDirective;
+
 $paths = collect([
     get_theme_file_path('/resources/views'),
     get_parent_theme_file_path('/resources/views'),
@@ -77,6 +79,6 @@ return [
     */
 
     'directives' => [
-        // 'foo'  => App\View\FooDirective::class,
+         'example'  => ExampleDirective::class,
     ],
 ];
