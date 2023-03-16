@@ -32,7 +32,11 @@ require $composer;
 | the IoC container for the system binding all of the various parts.
 |
 */
-bootloader();
+try {
+    bootloader()->boot();
+} catch (Throwable $e) {
+    wp_die('You need to install Acorn to use this theme.');
+}
 
 // Load Understrap functions
 require __DIR__ . '/understrap/functions.php';
