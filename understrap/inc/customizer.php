@@ -36,7 +36,6 @@ if ( ! function_exists('understrap_theme_customize_register')) {
      */
     function understrap_theme_customize_register($wp_customize)
     {
-
         // Theme layout settings.
         $wp_customize->add_section(
             'understrap_theme_layout_options',
@@ -57,7 +56,6 @@ if ( ! function_exists('understrap_theme_customize_register')) {
          */
         function understrap_theme_slug_sanitize_select($input, $setting)
         {
-
             // Ensure input is a slug (lowercase alphanumeric characters, dashes and underscores are allowed only).
             $input = sanitize_key($input);
 

@@ -16,7 +16,6 @@ if ( ! function_exists('understrap_custom_header_setup')) {
      */
     function understrap_custom_header_setup()
     {
-
         /**
          * Filter Understrap custom-header support arguments.
          *

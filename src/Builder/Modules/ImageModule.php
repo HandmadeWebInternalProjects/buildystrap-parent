@@ -6,34 +6,34 @@ use Buildystrap\Builder\Extends\Module;
 
 class ImageModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
-      'icon' => 'fa-solid fa-image',
-      'fields' => [
-        'image' => [
-          'type' => 'image-field',
-          'config' => [
-            'label' => false
+    protected static function blueprint(): array
+    {
+        return [
+          'icon' => 'fa-solid fa-image',
+          'fields' => [
+            'image' => [
+              'type' => 'image-field',
+              'config' => [
+                'label' => false
+              ],
+            ],
+            'enable_lightbox' => [
+              'type' => 'toggle-field',
+              'config' => [
+                'label' => 'Enable Lightbox',
+                'class' => 'g-col-12',
+              ],
+            ],
           ],
-        ],
-        'enable_lightbox' => [
-          'type' => 'toggle-field',
           'config' => [
-            'label' => 'Enable Lightbox',
-            'class' => 'g-col-12',
-          ],
-        ],
-      ],
-      'config' => [
-        'selectorTab' => 'regular'
-      ]
-    ];
-  }
+            'selectorTab' => 'regular'
+          ]
+        ];
+    }
 
-  // public function augment(): void
-  // {
+    // public function augment(): void
+    // {
   //     // Remember for modules to run
   //     parent::augment();
-  // }
+    // }
 }

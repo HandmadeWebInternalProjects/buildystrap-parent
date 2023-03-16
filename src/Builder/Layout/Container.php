@@ -3,28 +3,32 @@
 namespace Buildystrap\Builder\Layout;
 
 use Buildystrap\Traits\Augment;
+use Buildystrap\Traits\CollectionClass;
+use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 
 use function view;
 
 class Container
 {
     use Augment;
+    use CollectionClass;
 
-    protected array $sections = [];
+    protected Collection|LazyCollection $sections;
     protected $global_section_wrapper;
 
     public function __construct(array $sections, $global_section_wrapper = null)
     {
         $this->global_section_wrapper = $global_section_wrapper;
-        foreach ($sections ?? [] as $section) {
-            $this->sections[] = match (true) {
+
+        $this->sections = $this->collectionClass($sections)
+            ->map(fn ($section) => match (true) {
                 ($section['type'] === 'global-section') => new GlobalSection($section),
                 default => new Section($section)
-            };
-        }
+            });
     }
 
-    public function sections(): array
+    public function sections(): Collection|LazyCollection
     {
         return $this->sections;
     }

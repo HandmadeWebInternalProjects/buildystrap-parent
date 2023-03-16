@@ -5,6 +5,8 @@ namespace Buildystrap\Builder\Layout;
 use Buildystrap\Builder;
 use Buildystrap\Builder\Extends\Layout;
 use Buildystrap\Builder\Modules\GlobalModule;
+use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 
 use function function_exists;
 use function get_field;
@@ -12,35 +14,30 @@ use function view;
 
 class Column extends Layout
 {
-    protected array $modules = [];
+    protected Collection|LazyCollection $modules;
 
     public function __construct(array $column, ?Layout $parent = null)
     {
         parent::__construct($column, $parent);
 
-        foreach ($column['modules'] ?? [] as $module) {
-            // Global module
-            $moduleType = match (true) {
-                ($module['type'] === 'global-module') => GlobalModule::class,
-                ($module['type'] === 'row') => Row::class,
-                default => Builder::getModule($module['type'])
-            };
+        $this->modules = $this->collectionClass($column['modules'] ?? [])
+            ->map(function ($module) {
+                // Convert Global module to the end module
+//                if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
+//                    return $globalModule;
+//                }
 
-            $this->modules[] = new $moduleType($module);
+                $moduleType = match (true) {
+                    ($module['type'] === 'global-module') => GlobalModule::class,
+                    ($module['type'] === 'row') => Row::class,
+                    default => Builder::getModule($module['type'])
+                };
 
-            // Or
-            // Convert Global module to the end module
-            //            if ($module['type'] === 'global-module' && $globalModule = Builder::getGlobalModule($module['global_id'])) {
-            //                $this->modules[] = $globalModule;
-            //            } else {
-            //                $moduleType = Builder::getModule($module['type']);
-            //
-            //                $this->modules[] = new $moduleType($module);
-            //            }
-        }
+                return new $moduleType($module);
+            });
     }
 
-    public function modules(): array
+    public function modules(): Collection|LazyCollection
     {
         return $this->modules;
     }
@@ -73,7 +70,7 @@ class Column extends Layout
 
 
 
-        if (!isset($columnSizes['xs'])) {
+        if ( ! isset($columnSizes['xs'])) {
             $this->html_classes['xs'] = "{$prefix}col-12";
         }
 

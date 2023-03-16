@@ -15,11 +15,7 @@ class GlobalSection extends Layout
     {
         parent::__construct($global_section, $parent);
 
-
         $this->global_id = $global_section['global_id'];
-        // if ($this->global_id != 901) {
-        //     dd($global_section);
-        // }
     }
 
     public function render(): string
