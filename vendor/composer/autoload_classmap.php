@@ -72,6 +72,7 @@ return array(
     'Buildystrap\\Cache\\AbstractBlinkCache' => $baseDir . '/src/Cache/AbstractBlinkCache.php',
     'Buildystrap\\Cache\\GlobalModuleCache' => $baseDir . '/src/Cache/GlobalModuleCache.php',
     'Buildystrap\\Cache\\GlobalSectionCache' => $baseDir . '/src/Cache/GlobalSectionCache.php',
+    'Buildystrap\\GenerateRenderModulePage' => $baseDir . '/src/GenerateRenderModulePage.php',
     'Buildystrap\\Str' => $baseDir . '/src/Str.php',
     'Buildystrap\\Theme' => $baseDir . '/src/Theme.php',
     'Buildystrap\\ThemeOptions' => $baseDir . '/src/ThemeOptions.php',

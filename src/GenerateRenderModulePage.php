@@ -1,13 +1,16 @@
 <?php
+
+namespace Buildystrap;
+
 /*
 *  Creates fake sub pages for a custom post type.
 */
 
-class CreateRenderModulePage
+class GenerateRenderModulePage
 {
-    public $sub_pages = [
-    'render-module-previews' => 'Render Module Previews',
-  ];
+    public array $sub_pages = [
+        'render-module-previews' => 'Render Module Previews',
+    ];
 
     public function __construct()
     {
@@ -27,29 +30,23 @@ class CreateRenderModulePage
 
 
     // Adding fake sub-pages' rewrite rules
-    public function render_module_previews_rewrite_rules($rules)
+    public function render_module_previews_rewrite_rules(array $rules): array
     {
         $newrules = [];
         $newrules['^builder/render-module-previews'] = 'index.php?my_custom_page=render-module-previews';
-        return $newrules + $rules;
-    }
 
-    // Adding fake sub-pages' rewrite rules
-    public function render_module_previews_rewrite_rules($rules)
-    {
-        $newrules = [];
-        $newrules['^builder/render-module-previews'] = 'index.php?my_custom_page=render-module-previews';
-        return $newrules + $rules;
+        return array_merge($newrules, $rules);
     }
 
     // Tell WordPress to accept our custom query variable
-    public function render_module_preview_query_vars($vars)
+    public function render_module_preview_query_vars(array $vars): array
     {
-        array_push($vars, 'my_custom_page');
+        $vars[] = 'my_custom_page';
+
         return $vars;
     }
 
-    public function render_module_preview_rel_canonical()
+    public function render_module_preview_rel_canonical(): void
     {
         global $current_sp, $wp_the_query;
 
@@ -72,17 +69,18 @@ class CreateRenderModulePage
     }
 
     // If using Yoast - remove the canonical link from your custom post type as we set proper canonical tags above.
-    public function render_module_preview_seo_canonical_exclude($canonical)
+    public function render_module_preview_seo_canonical_exclude($canonical): mixed
     {
         global $post;
+
         if (is_singular('render_module_previews')) {
             $canonical = false;
         }
+
         return $canonical;
     }
 
-
-    private function render_module_preview_titletag($orig_title)
+    protected function render_module_preview_titletag($orig_title): mixed
     {
         global $wp_the_query;
         $current_fp = get_query_var('fpage');
@@ -93,6 +91,7 @@ class CreateRenderModulePage
         } elseif ($current_fp == 'render-module-previews') {
             $title = $this->sub_pages['render-module-previews'];
         }
-        return $title;
+
+        return $title ?? null;
     }
 }

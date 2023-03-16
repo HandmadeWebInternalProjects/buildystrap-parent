@@ -449,6 +449,7 @@ class ComposerStaticInit3109dc24a2a4a3ccf4166170386b864b
         'Buildystrap\\Cache\\AbstractBlinkCache' => __DIR__ . '/../..' . '/src/Cache/AbstractBlinkCache.php',
         'Buildystrap\\Cache\\GlobalModuleCache' => __DIR__ . '/../..' . '/src/Cache/GlobalModuleCache.php',
         'Buildystrap\\Cache\\GlobalSectionCache' => __DIR__ . '/../..' . '/src/Cache/GlobalSectionCache.php',
+        'Buildystrap\\GenerateRenderModulePage' => __DIR__ . '/../..' . '/src/GenerateRenderModulePage.php',
         'Buildystrap\\Str' => __DIR__ . '/../..' . '/src/Str.php',
         'Buildystrap\\Theme' => __DIR__ . '/../..' . '/src/Theme.php',
         'Buildystrap\\ThemeOptions' => __DIR__ . '/../..' . '/src/ThemeOptions.php',
