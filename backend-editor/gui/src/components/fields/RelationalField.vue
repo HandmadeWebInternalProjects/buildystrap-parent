@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { toRefs, ref, reactive, inject, computed, onMounted, watch } from "vue"
+import { toRefs, ref, inject, computed, onMounted, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderStore } from "../../stores/builder"
 import { getDeep, getDeepArray } from "@/utils/objects"
@@ -64,7 +64,7 @@ const fetchFromDataType = async () => {
   try {
     checkPerPage(data_type)
     const res = await fetch(
-      `${getBuilderConfig.rest_endpoint}wp/v2/${data_type}${per_page}`
+      `${builderConfig.rest_endpoint}wp/v2/${data_type}${per_page}`
     )
     let data = await res.json()
     data = Object.values(data).filter((el: any) => {
@@ -86,7 +86,7 @@ const fetchEntries = async (): Promise<Array<{ [key: string]: any }>> => {
   checkPerPage(endpoint)
   try {
     const res = await fetch(
-      `${getBuilderConfig.rest_endpoint}${endpoint}${per_page}`
+      `${builderConfig.rest_endpoint}${endpoint}${per_page}`
     )
     data = await res.json()
     return data
