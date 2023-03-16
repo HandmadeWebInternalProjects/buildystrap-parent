@@ -17,7 +17,6 @@ defined('ABSPATH') || exit;
 add_filter('dynamic_sidebar_params', 'understrap_widget_classes');
 
 if ( ! function_exists('understrap_widget_classes')) {
-
     /**
      * Count number of visible widgets in a sidebar and add classes to widgets accordingly,
      * so widgets can be displayed one, two, three or four per row.

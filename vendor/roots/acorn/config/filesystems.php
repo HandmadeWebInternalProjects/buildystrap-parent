@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     |
     | Here you may configure as many filesystem "disks" as you wish, and you
     | may even configure multiple disks of the same driver. Defaults have
-    | been setup for each driver as an example of the required options.
+    | been set up for each driver as an example of the required values.
     |
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
@@ -32,23 +32,16 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => WP_CONTENT_DIR,
-            'url' => content_url(),
-            'visibility' => 'public',
+            'root' => storage_path('app'),
+            'throw' => false,
         ],
 
-        'wordpress' => [
+        'public' => [
             'driver' => 'local',
-            'root' => ABSPATH,
-            'url' => site_url(),
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-        ],
-
-        'theme' => [
-            'driver' => 'local',
-            'root' => get_theme_file_path(),
-            'url' => get_theme_file_uri(),
-            'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [
@@ -60,6 +53,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
         ],
 
     ],
@@ -70,13 +64,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may configure the symbolic links that will be created when the
-    | `storage:link` wp-cli command is executed. The array keys should be
+    | `storage:link` Acorn command is executed. The array keys should be
     | the locations of the links and the values should be their targets.
     |
     */
 
     'links' => [
-        // public_path('storage') => storage_path('app/public'),
+        public_path('storage') => storage_path('app/public'),
     ],
 
 ];

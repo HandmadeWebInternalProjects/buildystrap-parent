@@ -33,7 +33,7 @@ do_action('woocommerce_before_account_navigation');
                 esc_html($label)
             );
         }
-        ?>
+?>
 	</div>
 </nav>
 

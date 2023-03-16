@@ -100,7 +100,7 @@ if ( ! function_exists('getResponsiveClasses')) {
             }
             $class_list[] = match ($breakpoint) {
                 'xs' => "{$classPrefix}-{$val}",
-        default => "{$classPrefix}-{$breakpoint}-{$val}"
+                default => "{$classPrefix}-{$breakpoint}-{$val}"
             };
         }
         return implode(' ', $class_list);
@@ -186,10 +186,11 @@ if ( ! function_exists('format_phone')) {
         $formattedPhone = "{$type}:+{$cc}{$phoneURL}";
 
         if ( ! $html) :
-      return $formattedPhone; else : ?>
+            return $formattedPhone;
+            else : ?>
       <a class="formatted-phone country-code-<?= $cc ?>" href="<?= $formattedPhone; ?>"><?= esc_html__($number, 'hmw-starter-child'); ?></a>
     <?php
-    endif;
+            endif;
     }
 }
 
@@ -347,21 +348,21 @@ if ( ! function_exists('rgbToHsl')) {
             $s = $d / (1 - abs(2 * $l - 1));
 
             switch ($max) {
-        case $r:
-          $h = 60 * fmod((($g - $b) / $d), 6);
-          if ($b > $g) {
-              $h += 360;
-          }
-          break;
+                case $r:
+                    $h = 60 * fmod((($g - $b) / $d), 6);
+                    if ($b > $g) {
+                        $h += 360;
+                    }
+                    break;
 
-        case $g:
-          $h = 60 * (($b - $r) / $d + 2);
-          break;
+                case $g:
+                    $h = 60 * (($b - $r) / $d + 2);
+                    break;
 
-        case $b:
-          $h = 60 * (($r - $g) / $d + 4);
-          break;
-      }
+                case $b:
+                    $h = 60 * (($r - $g) / $d + 4);
+                    break;
+            }
         }
 
         return [round($h, 2), round($s, 2), round($l, 2)];

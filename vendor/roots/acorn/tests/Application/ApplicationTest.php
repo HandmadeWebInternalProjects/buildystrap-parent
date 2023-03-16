@@ -29,24 +29,6 @@ it('rejects invalid custom path types', function () {
     ]);
 })->throws(Exception::class);
 
-it('allows invalid public path', function () {
-    $app = new Application();
-
-    $app->usePaths([
-        'app' => $this->fixture('use_paths/app'),
-        'public' => __DIR__ . '/this/does/not/exist',
-    ]);
-})->not->throws(Exception::class);
-
-it('allows invalid lang path', function () {
-    $app = new Application();
-
-    $app->usePaths([
-        'app' => $this->fixture('use_paths/app'),
-        'lang' => __DIR__ . '/this/does/not/exist',
-    ]);
-})->not->throws(Exception::class);
-
 it('accepts an array of custom paths', function () {
     $app = new Application(temp('base_path'));
 
@@ -170,6 +152,8 @@ it('gracefully skips a provider that fails to boot', function () {
     $manifest = mock(\Roots\Acorn\PackageManifest::class);
     $app = new Application();
 
+    $app['env'] = 'not-local-dev';
+
     $app->singleton(\Illuminate\Contracts\Debug\ExceptionHandler::class, fn () => $handler);
     $app->singleton(\Illuminate\Foundation\PackageManifest::class, fn () => $manifest);
 
@@ -200,6 +184,8 @@ it('gracefully skips a provider that does not exist', function () {
     $handler = mock(\Illuminate\Contracts\Debug\ExceptionHandler::class);
     $manifest = mock(\Roots\Acorn\PackageManifest::class);
     $app = new Application();
+
+    $app['env'] = 'not-local-dev';
 
     $app->singleton(\Illuminate\Contracts\Debug\ExceptionHandler::class, fn () => $handler);
     $app->singleton(\Illuminate\Foundation\PackageManifest::class, fn () => $manifest);

@@ -353,8 +353,7 @@ if ( ! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
         public static function fallback($args)
         {
             if (current_user_can('edit_theme_options')) {
-
-        /* Get Arguments. */
+                /* Get Arguments. */
                 $container       = $args['container'];
                 $container_id    = $args['container_id'];
                 $container_class = $args['container_class'];
@@ -461,8 +460,7 @@ if ( ! class_exists('Understrap_WP_Bootstrap_Navwalker')) {
             if ( ! empty($linkmod_classes)) {
                 foreach ($linkmod_classes as $link_class) {
                     if ( ! empty($link_class)) {
-
-            // check for special class types and set a flag for them.
+                        // check for special class types and set a flag for them.
                         if ('dropdown-header' === $link_class) {
                             $linkmod_type = 'dropdown-header';
                         } elseif ('dropdown-divider' === $link_class) {

@@ -62,7 +62,7 @@ do_action('woocommerce_before_cart'); ?>
 
 						<td class="product-thumbnail">
 						<?php
-                        $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
+                                    $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
 
                     if ( ! $product_permalink) {
                         echo $thumbnail; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -82,9 +82,9 @@ do_action('woocommerce_before_cart'); ?>
                     do_action('woocommerce_after_cart_item_name', $cart_item, $cart_item_key);
 
                     // Meta data.
-                        echo wc_get_formatted_cart_item_data($cart_item); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo wc_get_formatted_cart_item_data($cart_item); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-                        // Backorder notification.
+                    // Backorder notification.
                     if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {
                         echo wp_kses_post(apply_filters('woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>', $product_id));
                     } ?>
@@ -114,19 +114,19 @@ do_action('woocommerce_before_cart'); ?>
                         }
 
                     echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        ?>
+                    ?>
 						</td>
 
 						<td class="product-subtotal" data-title="<?php esc_attr_e('Subtotal', 'woocommerce'); ?>">
 							<?php
-                                echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            ?>
+                            echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    ?>
 						</td>
 					</tr>
 					<?php
                 }
             }
-            ?>
+?>
 
 			<?php do_action('woocommerce_cart_contents'); ?>
 
@@ -165,7 +165,7 @@ do_action('woocommerce_before_cart'); ?>
          * @hooked woocommerce_cart_totals - 10
          */
         do_action('woocommerce_cart_collaterals');
-    ?>
+?>
 </div>
 
 <?php do_action('woocommerce_after_cart'); ?>

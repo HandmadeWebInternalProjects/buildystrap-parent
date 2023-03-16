@@ -11,20 +11,53 @@ class PhpAsset extends Asset
      *
      * @return mixed
      */
-    public function load($require = false, $once = false)
+    public function requireOnce()
+    {
+        $this->assertExists();
+        return require_once $this->path();
+    }
+
+    /**
+     * Get the returned value of the asset
+     *
+     * @return mixed
+     */
+    public function require()
+    {
+        $this->assertExists();
+        return require $this->path();
+    }
+
+    /**
+     * Get the returned value of the asset
+     *
+     * @return mixed
+     */
+    public function includeOnce()
+    {
+        $this->assertExists();
+        return include_once $this->path();
+    }
+
+    /**
+     * Get the returned value of the asset
+     *
+     * @return mixed
+     */
+    public function include()
+    {
+        $this->assertExists();
+        return include $this->path();
+    }
+
+    /**
+     * Assert that the asset exists.
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    protected function assertExists()
     {
         if (! $this->exists()) {
             throw new FileNotFoundException("Asset [{$this->path()}] not found.");
         }
-
-        if ($require) {
-            return $once
-                ? require_once $this->path()
-                : require $this->path();
-        }
-
-        return $once
-            ? include_once $this->path()
-            : include $this->path();
     }
 }

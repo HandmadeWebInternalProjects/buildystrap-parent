@@ -37,7 +37,7 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
                 foreach ($address as $key => $field) {
                     woocommerce_form_field($key, $field, wc_get_post_data_by_key($key, $field['value']));
                 }
-                ?>
+	    ?>
 			</div>
 
 			<?php do_action("woocommerce_after_edit_address_form_{$load_address}"); ?>

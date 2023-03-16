@@ -73,18 +73,18 @@ if ($customer_orders) : ?>
 								<?php
                                 /* translators: 1: formatted order total 2: total order items */
                                 printf(_n('%1$s for %2$s item', '%1$s for %2$s items', $item_count, 'woocommerce'), $order->get_formatted_order_total(), $item_count); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                                ?>
+							    ?>
 
 							<?php elseif ('order-actions' === $column_id) : ?>
 								<?php
-                                $actions = wc_get_account_orders_actions($order);
+							    $actions = wc_get_account_orders_actions($order);
 
-                                if ( ! empty($actions)) {
-                                    foreach ($actions as $key => $action) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-                                        echo '<a href="' . esc_url($action['url']) . '" class=""btn btn-outline-primary ' . sanitize_html_class($key) . '">' . esc_html($action['name']) . '</a>';
-                                    }
-                                }
-                                ?>
+							    if ( ! empty($actions)) {
+							        foreach ($actions as $key => $action) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+							            echo '<a href="' . esc_url($action['url']) . '" class=""btn btn-outline-primary ' . sanitize_html_class($key) . '">' . esc_html($action['name']) . '</a>';
+							        }
+							    }
+							    ?>
 							<?php endif; ?>
 						</td>
 					<?php endforeach; ?>
