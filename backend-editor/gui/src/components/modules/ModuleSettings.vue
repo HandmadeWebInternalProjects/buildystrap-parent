@@ -42,7 +42,7 @@ const props = defineProps({
     required: true,
   },
 })
-const { getModuleBlueprintForType, getBuilderConfig } = useBuilderStore()
+const { getModuleBlueprintForType, builderConfig } = useBuilderStore()
 const value = ref(props.component.values)
 
 // provide component to children
@@ -53,9 +53,7 @@ const ModuleType = computed((): any => {
 })
 
 const meta = ref(null)
-const { getPageCache, updatePageCache } = useLocalStorage(
-  getBuilderConfig.post_id
-)
+const { getPageCache, updatePageCache } = useLocalStorage(builderConfig.post_id)
 
 onBeforeMount(() => {
   const pageCache = getPageCache()

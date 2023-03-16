@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
 import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
@@ -7,9 +7,12 @@ import { useClipboard } from "./composables/useClipboard"
 import { fetchPost, fetchLibraryPost } from "@/services/post"
 import { recursifyID } from "./utils/id"
 
-const { getGlobalSections, getGlobalModules, getLibrarySections } = storeToRefs(
-  useBuilderStore()
-)
+const {
+  getGlobalSections,
+  getGlobalModules,
+  getLibrarySections,
+  builderContent,
+} = storeToRefs(useBuilderStore())
 
 const { setBuilderContent } = useBuilderStore()
 
@@ -23,7 +26,6 @@ import {
 } from "@/factories/modules/moduleFactory"
 
 const contentEl = document.getElementById("content")
-const builder = ref<ModuleType[]>([])
 
 const {
   readFromClipboard,
@@ -31,7 +33,7 @@ const {
   copyPageToClipboard,
   pasteFromClipboard,
   isValidPasteLocation,
-} = useClipboard(builder)
+} = useClipboard(builderContent)
 
 const globalStackOpen = ref(false)
 const libraryStackOpen = ref(false)
@@ -43,13 +45,13 @@ const { getStacks } = useStacks()
 
 if (contentEl && contentEl.innerText) {
   const content = JSON.parse(contentEl.innerText)
-  builder.value = content
+  builderContent.value = content
   setBuilderContent(content)
 }
 
 const addSection = () => {
   const newModule = createModule("Section", {})
-  builder.value.push(newModule)
+  builderContent.value.push(newModule)
 }
 
 const addGlobalSection = (globalSection: { id: number; title: string }) => {
@@ -61,7 +63,7 @@ const addGlobalSection = (globalSection: { id: number; title: string }) => {
     TYPE,
     VALUE,
   })
-  builder.value.push(newModule)
+  builderContent.value.push(newModule)
 }
 
 const addLibrarySection = async (librarySection: {
@@ -74,7 +76,7 @@ const addLibrarySection = async (librarySection: {
 
   postContent.forEach((section: any) => {
     recursifyID(section)
-    builder.value.push(section)
+    builderContent.value.push(section)
   })
 }
 
@@ -82,14 +84,13 @@ const pastePage = (fromClipBoard: any): void => {
   recursifyID(fromClipBoard)
   // Ask for confirmation prompt before replacing value
 
-  return (builder.value = fromClipBoard)
+  return (builderContent.value = fromClipBoard)
 }
 
 watch(
-  builder,
+  builderContent,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
-    setBuilderContent(newValue)
   },
   {
     deep: true,
@@ -102,8 +103,8 @@ watch(
   <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
     <buildy-header title="Buildystrap" />
     <draggable
-      :list="builder"
-      :key="builder"
+      :list="builderContent"
+      :key="builderContent"
       handle=".sortable-handle"
       group="sections"
       item-key="uuid"
@@ -112,7 +113,7 @@ watch(
         <component
           :is="`grid-${element.type}`"
           :section-index="index"
-          :parent-array="builder"
+          :parent-array="builderContent"
           :component="element" />
       </template>
     </draggable>
