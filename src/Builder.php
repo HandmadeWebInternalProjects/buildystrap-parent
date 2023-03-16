@@ -259,7 +259,8 @@ class Builder
             WHERE 
                 `post_type` = 'buildy-library' 
                 AND 
-                    `post_status` = 'publish'"
+                    `post_status` = %s",
+            'publish'
     );
 
     $sections = $wpdb->get_results($query);
