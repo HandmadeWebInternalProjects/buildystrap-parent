@@ -73,7 +73,7 @@ class Column extends Layout
 
 
 
-        if (!isset($columnSizes['xs'])) {
+        if ( ! isset($columnSizes['xs'])) {
             $this->html_classes['xs'] = "{$prefix}col-12";
         }
 

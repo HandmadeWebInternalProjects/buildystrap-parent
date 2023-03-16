@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class VideoModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-play',
       'fields' => [
         'video_url' => [
@@ -53,5 +53,5 @@ class VideoModule extends Module
         'selectorTab' => 'regular'
       ]
     ];
-  }
+    }
 }

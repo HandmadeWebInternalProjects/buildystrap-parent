@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class SliderModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-photo-film',
       'fields' => [
         'slides' => [
@@ -54,5 +54,5 @@ class SliderModule extends Module
         'selectorTab' => 'regular'
       ],
     ];
-  }
+    }
 }

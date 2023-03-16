@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class ImageModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-image',
       'fields' => [
         'image' => [
@@ -29,9 +29,9 @@ class ImageModule extends Module
         'selectorTab' => 'regular'
       ]
     ];
-  }
+    }
 
-  // public function augment(): void
+    // public function augment(): void
   // {
   //     // Remember for modules to run
   //     parent::augment();

@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class TabModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-folder',
       'fields' => [
         'tabs' => [
@@ -37,5 +37,5 @@ class TabModule extends Module
         'selectorTab' => 'regular'
       ]
     ];
-  }
+    }
 }

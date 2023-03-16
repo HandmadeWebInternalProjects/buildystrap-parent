@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class TextModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-paragraph',
       'fields' => [
         'text' => [
@@ -22,5 +22,5 @@ class TextModule extends Module
         'selectorTab' => 'regular'
       ]
     ];
-  }
+    }
 }

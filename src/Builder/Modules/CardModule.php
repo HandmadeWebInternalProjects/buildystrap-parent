@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class CardModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-regular fa-address-card',
       'fields' => [
         'title' => [
@@ -83,5 +83,5 @@ class CardModule extends Module
         'selectorTab' => 'regular'
       ]
     ];
-  }
+    }
 }

@@ -15,17 +15,17 @@
  * @version 3.6.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
 ?>
 <form class="woocommerce-ordering" method="get">
-	<select name="orderby" class="orderby custom-select form-select" aria-label="<?php esc_attr_e( 'Shop order', 'woocommerce' ); ?>">
-		<?php foreach ( $catalog_orderby_options as $option_id => $name ) : ?>
-			<option value="<?php echo esc_attr( $option_id ); ?>" <?php selected( $orderby, $option_id ); ?>><?php echo esc_html( $name ); ?></option>
+	<select name="orderby" class="orderby custom-select form-select" aria-label="<?php esc_attr_e('Shop order', 'woocommerce'); ?>">
+		<?php foreach ($catalog_orderby_options as $option_id => $name) : ?>
+			<option value="<?php echo esc_attr($option_id); ?>" <?php selected($orderby, $option_id); ?>><?php echo esc_html($name); ?></option>
 		<?php endforeach; ?>
 	</select>
 	<input type="hidden" name="paged" value="1" />
-	<?php wc_query_string_form_fields( null, array( 'orderby', 'submit', 'paged', 'product-page' ) ); ?>
+	<?php wc_query_string_form_fields(null, [ 'orderby', 'submit', 'paged', 'product-page' ]); ?>
 </form>

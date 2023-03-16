@@ -99,12 +99,12 @@ if ( ! function_exists('understrap_setup')) {
         add_theme_support(
             'custom-background',
             apply_filters(
-          'understrap_custom_background_args',
-          [
+                'understrap_custom_background_args',
+                [
           'default-color' => 'ffffff',
           'default-image' => '',
         ]
-      )
+            )
         );
 
         // Set up the WordPress Theme logo feature.

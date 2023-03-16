@@ -6,9 +6,9 @@ use Buildystrap\Builder\Extends\Module;
 
 class GalleryModule extends Module
 {
-  protected static function blueprint(): array
-  {
-    return [
+    protected static function blueprint(): array
+    {
+        return [
       'icon' => 'fa-solid fa-images',
       'fields' => [
         'images' => [
@@ -24,7 +24,7 @@ class GalleryModule extends Module
             'label' => 'Source Image Size',
             'class' => 'g-col-6',
             'options' => collect(get_registered_image_sizes())->map(
-              fn ($size, $key) => strtolower($key)
+                fn ($size, $key) => strtolower($key)
             )->toArray(),
           ],
         ],
@@ -108,9 +108,9 @@ class GalleryModule extends Module
         'selectorTab' => 'regular'
       ]
     ];
-  }
+    }
 
-  // public function augment(): void
+    // public function augment(): void
   // {
   //     // Remember for modules to run
   //     parent::augment();
