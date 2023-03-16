@@ -18,13 +18,18 @@ class HandleExceptions extends FoundationHandleExceptionsBootstrapper
      */
     public function bootstrap(Application $app)
     {
-        self::$reservedMemory = str_repeat('x', 32768);
+        self::$reservedMemory = str_repeat('x', 10240);
 
-        static::$app = $app;
+        $this->app = $app;
 
         if (!$this->isDebug() || $this->hasHandler()) {
             return;
         }
+
+        $this->app->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \Roots\Acorn\Exceptions\Handler::class
+        );
 
         set_error_handler([$this, 'handleError']);
         set_exception_handler([$this, 'handleException']);
@@ -63,7 +68,7 @@ class HandleExceptions extends FoundationHandleExceptionsBootstrapper
      */
     protected function isDebug()
     {
-        return static::$app->config->get('app.debug', WP_DEBUG);
+        return $this->app->config->get('app.debug', WP_DEBUG);
     }
 
     /**
@@ -73,7 +78,7 @@ class HandleExceptions extends FoundationHandleExceptionsBootstrapper
      */
     protected function hasHandler()
     {
-        return !static::$app->runningInConsole()
+        return !$this->app->runningInConsole()
             && is_readable(WP_CONTENT_DIR . '/fatal-error-handler.php');
     }
 

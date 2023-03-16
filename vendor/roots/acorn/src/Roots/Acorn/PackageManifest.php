@@ -2,8 +2,8 @@
 
 namespace Roots\Acorn;
 
-use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Exception;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest as FoundationPackageManifest;
 

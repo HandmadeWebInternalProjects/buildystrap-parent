@@ -61,20 +61,13 @@ class DataPart extends TextPart
             $contentType = self::$mimeTypes->getMimeTypes($ext)[0] ?? 'application/octet-stream';
         }
 
-        if ((is_file($path) && !is_readable($path)) || is_dir($path)) {
+        if (false === is_readable($path)) {
             throw new InvalidArgumentException(sprintf('Path "%s" is not readable.', $path));
         }
 
         if (false === $handle = @fopen($path, 'r', false)) {
             throw new InvalidArgumentException(sprintf('Unable to open path "%s".', $path));
         }
-
-        if (!is_file($path)) {
-            $cache = fopen('php://temp', 'r+');
-            stream_copy_to_stream($handle, $cache);
-            $handle = $cache;
-        }
-
         $p = new self($handle, $name ?: basename($path), $contentType);
         $p->handle = $handle;
 
@@ -84,7 +77,7 @@ class DataPart extends TextPart
     /**
      * @return $this
      */
-    public function asInline(): static
+    public function asInline()
     {
         return $this->setDisposition('inline');
     }
@@ -141,7 +134,10 @@ class DataPart extends TextPart
         }
     }
 
-    public function __sleep(): array
+    /**
+     * @return array
+     */
+    public function __sleep()
     {
         // converts the body to a string
         parent::__sleep();

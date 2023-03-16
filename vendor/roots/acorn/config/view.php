@@ -7,9 +7,8 @@ return [
     | View Storage Paths
     |--------------------------------------------------------------------------
     |
-    | Most templating systems load templates from disk. Here you may specify
-    | an array of paths that should be checked for your views. Of course
-    | the usual view paths have already been registered for you.
+    | Most template systems load templates from disk. Here you may specify
+    | an array of paths that should be checked for your views.
     |
     */
 
@@ -25,7 +24,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option determines where all the compiled Blade templates will be
-    | stored for your application. Typically, this is within the storage
+    | stored for your application. Typically, this is within the uploads
     | directory. However, as usual, you are free to change this value.
     |
     */

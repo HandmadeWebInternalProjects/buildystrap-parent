@@ -4,14 +4,12 @@ namespace Roots\Acorn\Assets;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Roots\Acorn\Assets\Concerns\Conditional;
 use Roots\Acorn\Assets\Concerns\Enqueuable;
 use Roots\Acorn\Assets\Contracts\Bundle as BundleContract;
 
 class Bundle implements BundleContract
 {
     use Enqueuable;
-    use Conditional;
 
     protected $id;
     protected $path;
@@ -34,7 +32,7 @@ class Bundle implements BundleContract
         $this->id = $id;
         $this->path = $path;
         $this->uri = $uri;
-        $this->bundle = $bundle + ['js' => [], 'mjs' => [], 'css' => []];
+        $this->bundle = $bundle;
         $this->setRuntime();
     }
 
@@ -48,13 +46,11 @@ class Bundle implements BundleContract
      */
     public function css(?callable $callable = null)
     {
-        $styles = $this->conditional ? $this->bundle['css'] : [];
-
         if (! $callable) {
-            return collect($styles);
+            return collect($this->bundle['css']);
         }
 
-        collect($styles)
+        collect($this->bundle['css'] ?? [])
             ->each(function ($src, $handle) use ($callable) {
                 $callable("{$this->id}/{$handle}", $this->getUrl($src));
             });
@@ -67,18 +63,16 @@ class Bundle implements BundleContract
      *
      * Optionally pass a function to execute on each JS file.
      *
-     * @param  callable $callable
+     * @param callable $callable
      * @return Collection|$this
      */
     public function js(?callable $callable = null)
     {
-        $scripts = $this->conditional ? array_merge($this->bundle['js'], $this->bundle['mjs']) : [];
-
         if (! $callable) {
-            return collect($scripts);
+            return collect($this->bundle['js']);
         }
 
-        collect($scripts)
+        collect($this->bundle['js'])
             ->reject('runtime')
             ->each(function ($src, $handle) use ($callable) {
                 $callable("{$this->id}/{$handle}", $this->getUrl($src), $this->dependencies());
@@ -88,17 +82,17 @@ class Bundle implements BundleContract
     }
 
     /**
-     * Get the bundle dependencies.
+     * Get depdencies.
      *
      * @return array
      */
     public function dependencies()
     {
-        return $this->bundle['dependencies'] ?? [];
+        return $this->bundle['dependencies'];
     }
 
     /**
-     * Get the bundle runtime.
+     * Get bundle runtime.
      *
      * @return string|null
      */
@@ -125,12 +119,6 @@ class Bundle implements BundleContract
         return self::$runtimes[$runtime] = file_get_contents("{$this->path}/{$runtime}");
     }
 
-    /**
-     * Get the bundle URL.
-     *
-     * @param  string $path
-     * @return string
-     */
     protected function getUrl($path)
     {
         if (parse_url($path, PHP_URL_HOST)) {
@@ -143,11 +131,6 @@ class Bundle implements BundleContract
         return "{$uri}/{$path}";
     }
 
-    /**
-     * Set the bundle runtime.
-     *
-     * @return void
-     */
     protected function setRuntime()
     {
         if (Arr::isAssoc($this->bundle['js'])) {
@@ -156,15 +139,6 @@ class Bundle implements BundleContract
         } elseif (isset($this->bundle['js'][0]) && strpos($this->bundle['js'][0], 'runtime') === 0) {
             $this->runtime = $this->bundle['js'][0];
             unset($this->bundle['js'][0]);
-        } elseif (isset($this->bundle['js'][0]) && strpos($this->bundle['js'][0], 'js/runtime') === 0) {
-            $this->runtime = $this->bundle['js'][0];
-            unset($this->bundle['js'][0]);
-        } elseif (isset($this->bundle['mjs'][0]) && strpos($this->bundle['mjs'][0], 'runtime') === 0) {
-            $this->runtime = $this->bundle['mjs'][0];
-            unset($this->bundle['mjs'][0]);
-        } elseif (isset($this->bundle['mjs'][0]) && strpos($this->bundle['mjs'][0], 'js/runtime') === 0) {
-            $this->runtime = $this->bundle['mjs'][0];
-            unset($this->bundle['mjs'][0]);
         }
     }
 }

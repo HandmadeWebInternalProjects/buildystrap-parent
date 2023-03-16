@@ -17,32 +17,16 @@ class VendorPublishCommand extends FoundationVendorPublishCommand
     protected function publishItem($from, $to)
     {
         if (Str::startsWith($to, $vendor_path = dirname(__DIR__, 5))) {
-            $to = str_replace($vendor_path, $this->getLaravel()->basePath(), $to);
+            $this->info("Cannot publish [{$from}] until Acorn is initialized.");
 
-            $this->callAcornInit($from, $to);
+            if (! $this->confirm("Would you like to initialize Acorn right now?", true)) {
+                throw new \Exception("Please run wp acorn acorn:init");
+            }
+
+            $this->call('acorn:init', ['--base' => $this->getLaravel()->basePath()]);
+            $to = str_replace($vendor_path, $this->getLaravel()->basePath(), $to);
         }
 
         parent::publishItem($from, $to);
-    }
-
-    /**
-     * Call acorn:init if item cannot be published.
-     *
-     * @param string $from
-     * @param string $to
-     */
-    protected function callAcornInit($from, $to)
-    {
-        if (is_dir(dirname($to))) {
-            return;
-        }
-
-        $this->info("Cannot publish [{$from}] until Acorn is initialized.");
-
-        if (! $this->confirm("Would you like to initialize Acorn right now?", true)) {
-            throw new \Exception("Please run wp acorn acorn:init");
-        }
-
-        $this->call('acorn:init', ['--base' => $this->getLaravel()->basePath()]);
     }
 }

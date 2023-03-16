@@ -26,6 +26,6 @@ class TextField extends Field
         parent::augment();
         if (is_string($this->value)) {
             $this->value = apply_shortcodes($this->value);
-        }
+        }        
     }
 }

@@ -36,31 +36,32 @@ final class ProgressBar
     private const FORMAT_DEBUG_NOMAX = 'debug_nomax';
     private const FORMAT_NORMAL_NOMAX = 'normal_nomax';
 
-    private int $barWidth = 28;
-    private string $barChar;
-    private string $emptyBarChar = '-';
-    private string $progressChar = '>';
-    private ?string $format = null;
-    private ?string $internalFormat = null;
-    private ?int $redrawFreq = 1;
-    private int $writeCount = 0;
-    private float $lastWriteTime = 0;
-    private float $minSecondsBetweenRedraws = 0;
-    private float $maxSecondsBetweenRedraws = 1;
+    private $barWidth = 28;
+    private $barChar;
+    private $emptyBarChar = '-';
+    private $progressChar = '>';
+    private $format;
+    private $internalFormat;
+    private $redrawFreq = 1;
+    private $writeCount;
+    private $lastWriteTime;
+    private $minSecondsBetweenRedraws = 0;
+    private $maxSecondsBetweenRedraws = 1;
     private $output;
-    private int $step = 0;
-    private ?int $max = null;
-    private int $startTime;
-    private int $stepWidth;
-    private float $percent = 0.0;
-    private array $messages = [];
-    private bool $overwrite = true;
+    private $step = 0;
+    private $max;
+    private $startTime;
+    private $stepWidth;
+    private $percent = 0.0;
+    private $formatLineCount;
+    private $messages = [];
+    private $overwrite = true;
     private $terminal;
-    private ?string $previousMessage = null;
+    private $previousMessage;
     private $cursor;
 
-    private static array $formatters;
-    private static array $formats;
+    private static $formatters;
+    private static $formats;
 
     /**
      * @param int $max Maximum steps (0 if unknown)
@@ -102,7 +103,9 @@ final class ProgressBar
      */
     public static function setPlaceholderFormatterDefinition(string $name, callable $callable): void
     {
-        self::$formatters ??= self::initPlaceholderFormatters();
+        if (!self::$formatters) {
+            self::$formatters = self::initPlaceholderFormatters();
+        }
 
         self::$formatters[$name] = $callable;
     }
@@ -114,7 +117,9 @@ final class ProgressBar
      */
     public static function getPlaceholderFormatterDefinition(string $name): ?callable
     {
-        self::$formatters ??= self::initPlaceholderFormatters();
+        if (!self::$formatters) {
+            self::$formatters = self::initPlaceholderFormatters();
+        }
 
         return self::$formatters[$name] ?? null;
     }
@@ -129,7 +134,9 @@ final class ProgressBar
      */
     public static function setFormatDefinition(string $name, string $format): void
     {
-        self::$formats ??= self::initFormats();
+        if (!self::$formats) {
+            self::$formats = self::initFormats();
+        }
 
         self::$formats[$name] = $format;
     }
@@ -141,7 +148,9 @@ final class ProgressBar
      */
     public static function getFormatDefinition(string $name): ?string
     {
-        self::$formats ??= self::initFormats();
+        if (!self::$formats) {
+            self::$formats = self::initFormats();
+        }
 
         return self::$formats[$name] ?? null;
     }
@@ -437,6 +446,8 @@ final class ProgressBar
         } else {
             $this->format = $format;
         }
+
+        $this->formatLineCount = substr_count($this->format, "\n");
     }
 
     /**
@@ -453,7 +464,7 @@ final class ProgressBar
         if ($this->overwrite) {
             if (null !== $this->previousMessage) {
                 if ($this->output instanceof ConsoleSectionOutput) {
-                    $messageLines = explode("\n", $this->previousMessage);
+                    $messageLines = explode("\n", $message);
                     $lineCount = \count($messageLines);
                     foreach ($messageLines as $messageLine) {
                         $messageLineLength = Helper::width(Helper::removeDecoration($this->output->getFormatter(), $messageLine));
@@ -463,8 +474,7 @@ final class ProgressBar
                     }
                     $this->output->clear($lineCount);
                 } else {
-                    $lineCount = substr_count($this->previousMessage, "\n");
-                    for ($i = 0; $i < $lineCount; ++$i) {
+                    for ($i = 0; $i < $this->formatLineCount; ++$i) {
                         $this->cursor->moveToColumn(1);
                         $this->cursor->clearLine();
                         $this->cursor->moveUp();
@@ -564,8 +574,6 @@ final class ProgressBar
 
     private function buildLine(): string
     {
-        \assert(null !== $this->format);
-
         $regex = "{%([a-z\-_]+)(?:\:([^%]+))?%}i";
         $callback = function ($matches) {
             if ($formatter = $this::getPlaceholderFormatterDefinition($matches[1])) {

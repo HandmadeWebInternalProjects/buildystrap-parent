@@ -2,28 +2,35 @@
 
 namespace Roots\Acorn\Console\Commands;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\ConfigCacheCommand as FoundationConfigCacheCommand;
-use Roots\Acorn\Console\Concerns\GetsFreshApplication;
+use Roots\Acorn\Bootloader;
 
 class ConfigCacheCommand extends FoundationConfigCacheCommand
 {
-    use GetsFreshApplication {
-        getFreshConfiguration as getPristineConfiguration;
-    }
-
     /**
-     * Get a fresh copy of the application configuration.
-     *
-     * Nonexistent providers are filtered out.
+     * Boot a fresh copy of the application configuration.
      *
      * @return array
      */
     protected function getFreshConfiguration()
     {
-        $config = $this->getPristineConfiguration();
+        add_filter('acorn/ready', '__return_true');
 
-        $config['app']['providers'] = array_filter($config['app']['providers'], 'class_exists');
+        /** @var \Illuminate\Contracts\Foundation\Application */
+        $app = null;
 
-        return $config;
+        $appClass = get_class($this->getLaravel());
+        $appClass::setInstance(null);
+
+        $bootloader = new Bootloader([], $appClass);
+
+        $bootloader();
+
+        $bootloader->call(function (Application $newApp) use (&$app) {
+            $app = $newApp;
+        });
+
+        return $app->make('config')->all();
     }
 }

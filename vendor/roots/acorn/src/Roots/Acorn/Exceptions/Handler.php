@@ -3,8 +3,11 @@
 namespace Roots\Acorn\Exceptions;
 
 use Throwable;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Foundation\Exceptions\Handler as FoundationHandler;
+use Whoops\Handler\HandlerInterface;
+use Whoops\Run as Whoops;
 
 class Handler extends FoundationHandler
 {
@@ -26,6 +29,20 @@ class Handler extends FoundationHandler
         $e = $this->prepareException($this->mapException($e));
 
         return $this->prepareResponse($request, $e);
+    }
+
+    /**
+     * Get the Whoops handler for the application.
+     *
+     * @return \Whoops\Handler\Handler
+     */
+    protected function whoopsHandler()
+    {
+        try {
+            return app(HandlerInterface::class);
+        } catch (BindingResolutionException $e) {
+            return (new WhoopsHandler())->forDebug();
+        }
     }
 
     /**

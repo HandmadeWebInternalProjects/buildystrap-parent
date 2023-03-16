@@ -9,11 +9,13 @@
 add_action('after_setup_theme', 'understrap_block_editor_setup');
 
 if ( ! function_exists('understrap_block_editor_setup')) {
+
     /**
      * Sets up our default theme support for the WordPress block editor.
      */
     function understrap_block_editor_setup()
     {
+
         // Add support for the block editor stylesheet.
         add_theme_support('editor-styles');
 

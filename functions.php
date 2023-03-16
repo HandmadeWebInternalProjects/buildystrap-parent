@@ -32,11 +32,7 @@ require $composer;
 | the IoC container for the system binding all of the various parts.
 |
 */
-try {
-    bootloader()->boot();
-} catch (Throwable $e) {
-    wp_die('You need to install Acorn to use this theme.');
-}
+bootloader();
 
 // Load Understrap functions
 require __DIR__ . '/understrap/functions.php';
@@ -61,11 +57,11 @@ add_action('admin_footer', function () {
             if ( event === 'form_saved' || event === 'form_save_email_requested' ) {
                 mergeTags['other'].tags.push( {
                     tag:  '{save_link}',
-                    label: <?php echo json_encode(esc_html__('Save & Continue Link', 'gravityforms')); ?>
+                    label: <?php echo json_encode( esc_html__( 'Save & Continue Link', 'gravityforms' ) ); ?>
                 } );
                 mergeTags['other'].tags.push( {
                     tag:   '{save_token}',
-                    label: <?php echo json_encode(esc_html__('Save & Continue Token', 'gravityforms')); ?>
+                    label: <?php echo json_encode( esc_html__( 'Save & Continue Token', 'gravityforms' ) ); ?>
                 } );
             }
             return mergeTags;

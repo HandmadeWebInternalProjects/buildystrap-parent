@@ -55,25 +55,21 @@ it('can re-encode json', function () {
 });
 
 it('can include a php asset', function () {
-    assertMatchesSnapshot($this->assets->asset('bnif.php')->include());
+    assertMatchesSnapshot($this->assets->asset('bnif.php')->load());
 });
 
 it('can include_once a php asset', function () {
-    assertMatchesSnapshot($this->assets->asset('bnif.php')->includeOnce());
+    assertMatchesSnapshot($this->assets->asset('bnif.php')->load(false, true));
 });
 
 it('can require a php asset', function () {
-    assertMatchesSnapshot($this->assets->asset('bnif.php')->require());
+    assertMatchesSnapshot($this->assets->asset('bnif.php')->load(true));
 });
 
 it('can require_once a php asset', function () {
-    assertMatchesSnapshot($this->assets->asset('bnif.php')->requireOnce());
+    assertMatchesSnapshot($this->assets->asset('bnif.php')->load(true, true));
 });
 
-it('can fail to include a php asset', function () {
-    (new PhpAsset(temp('does/not/exist.php'), 'https://kjo.kjo/'))->include();
+it('can fail to load a php asset', function () {
+    (new PhpAsset(temp('does/not/exist.php'), 'https://kjo.kjo/'))->load();
 })->throws(FileNotFoundException::class);
-
-it('can get a relative path', function () {
-    assertMatchesSnapshot($this->assets->asset('apray.ext')->relativePath($this->fixture('asset_types')));
-});

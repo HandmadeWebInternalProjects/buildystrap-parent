@@ -21,7 +21,7 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createArgumentMetadata(string|object|array $controller): array
+    public function createArgumentMetadata($controller): array
     {
         $arguments = [];
 
@@ -33,16 +33,18 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
             $class = $reflection->class;
         } else {
             $reflection = new \ReflectionFunction($controller);
-            if ($class = str_contains($reflection->name, '{closure}') ? null : (\PHP_VERSION_ID >= 80111 ? $reflection->getClosureCalledClass() : $reflection->getClosureScopeClass())) {
+            if ($class = str_contains($reflection->name, '{closure}') ? null : $reflection->getClosureScopeClass()) {
                 $class = $class->name;
             }
         }
 
         foreach ($reflection->getParameters() as $param) {
             $attributes = [];
-            foreach ($param->getAttributes() as $reflectionAttribute) {
-                if (class_exists($reflectionAttribute->getName())) {
-                    $attributes[] = $reflectionAttribute->newInstance();
+            if (\PHP_VERSION_ID >= 80000) {
+                foreach ($param->getAttributes() as $reflectionAttribute) {
+                    if (class_exists($reflectionAttribute->getName())) {
+                        $attributes[] = $reflectionAttribute->newInstance();
+                    }
                 }
             }
 

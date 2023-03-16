@@ -4,7 +4,6 @@ namespace Buildystrap\Builder\Extends;
 
 use Buildystrap\Traits\Attributes;
 use Buildystrap\Traits\Augment;
-use Buildystrap\Traits\CollectionClass;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
@@ -16,7 +15,6 @@ abstract class Layout
     use Attributes;
     use Augment;
     use Config;
-    use CollectionClass;
     use InlineAttributes;
     use HtmlStyleBuilder;
 

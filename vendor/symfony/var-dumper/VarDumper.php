@@ -37,7 +37,7 @@ class VarDumper
      */
     private static $handler;
 
-    public static function dump(mixed $var)
+    public static function dump($var)
     {
         if (null === self::$handler) {
             self::register();
@@ -46,7 +46,10 @@ class VarDumper
         return (self::$handler)($var);
     }
 
-    public static function setHandler(callable $callable = null): ?callable
+    /**
+     * @return callable|null
+     */
+    public static function setHandler(callable $callable = null)
     {
         $prevHandler = self::$handler;
 
@@ -96,7 +99,7 @@ class VarDumper
     {
         $contextProviders = [];
 
-        if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true) && class_exists(Request::class)) {
+        if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true) && (class_exists(Request::class))) {
             $requestStack = new RequestStack();
             $requestStack->push(Request::createFromGlobals());
             $contextProviders['request'] = new RequestContextProvider($requestStack);

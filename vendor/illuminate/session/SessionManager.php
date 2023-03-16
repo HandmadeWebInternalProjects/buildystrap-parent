@@ -4,16 +4,13 @@ namespace Illuminate\Session;
 
 use Illuminate\Support\Manager;
 
-/**
- * @mixin \Illuminate\Session\Store
- */
 class SessionManager extends Manager
 {
     /**
      * Call a custom driver creator.
      *
      * @param  string  $driver
-     * @return \Illuminate\Session\Store
+     * @return mixed
      */
     protected function callCustomCreator($driver)
     {
@@ -189,12 +186,7 @@ class SessionManager extends Manager
     {
         return $this->config->get('session.encrypt')
                 ? $this->buildEncryptedSession($handler)
-                : new Store(
-                    $this->config->get('session.cookie'),
-                    $handler,
-                    $id = null,
-                    $this->config->get('session.serialization', 'php')
-                );
+                : new Store($this->config->get('session.cookie'), $handler);
     }
 
     /**
@@ -206,11 +198,7 @@ class SessionManager extends Manager
     protected function buildEncryptedSession($handler)
     {
         return new EncryptedStore(
-            $this->config->get('session.cookie'),
-            $handler,
-            $this->container['encrypter'],
-            $id = null,
-            $this->config->get('session.serialization', 'php'),
+            $this->config->get('session.cookie'), $handler, $this->container['encrypter']
         );
     }
 

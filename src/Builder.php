@@ -18,8 +18,8 @@ use Buildystrap\Builder\Fields\ReplicatorField;
 use Buildystrap\Builder\Fields\RichTextField;
 use Buildystrap\Builder\Fields\SelectField;
 use Buildystrap\Builder\Fields\TabField;
-use Buildystrap\Builder\Fields\TextAreaField;
 use Buildystrap\Builder\Fields\TextField;
+use Buildystrap\Builder\Fields\TextAreaField;
 use Buildystrap\Builder\Fields\TitleField;
 use Buildystrap\Builder\Fields\ToggleField;
 use Buildystrap\Builder\Layout\Container;
@@ -59,193 +59,191 @@ use const REST_REQUEST;
 
 class Builder
 {
-    protected static bool $booted = false;
+  protected static bool $booted = false;
 
-    protected static array $fields = [
-      'accordion-field' => AccordionField::class,
-      'tab-field' => TabField::class,
-      'text-field' => TextField::class,
-      'textarea-field' => TextAreaField::class,
-      'link-field' => LinkField::class,
-      'toggle-field' => ToggleField::class,
-      'code-field' => CodeField::class,
-      'color-select-field' => ColorSelectField::class,
-      'select-field' => SelectField::class,
-      'richtext-field' => RichTextField::class,
-      'title-field' => TitleField::class,
-      'button-field' => ButtonField::class,
-      'media-field' => MediaField::class,
-      'image-field' => ImageField::class,
-      'radio-buttons-field' => RadioButtonsField::class,
-      'relational-field' => RelationalField::class,
-      'replicator-field' => ReplicatorField::class,
-    ];
+  protected static array $fields = [
+    'accordion-field' => AccordionField::class,
+    'tab-field' => TabField::class,
+    'text-field' => TextField::class,
+    'textarea-field' => TextAreaField::class,
+    'link-field' => LinkField::class,
+    'toggle-field' => ToggleField::class,
+    'code-field' => CodeField::class,
+    'color-select-field' => ColorSelectField::class,
+    'select-field' => SelectField::class,
+    'richtext-field' => RichTextField::class,
+    'title-field' => TitleField::class,
+    'button-field' => ButtonField::class,
+    'media-field' => MediaField::class,
+    'image-field' => ImageField::class,
+    'radio-buttons-field' => RadioButtonsField::class,
+    'relational-field' => RelationalField::class,
+    'replicator-field' => ReplicatorField::class,
+  ];
 
-    protected static array $modules = [
-      'card-module' => CardModule::class,
-      'text-module' => TextModule::class,
-      'code-module' => CodeModule::class,
-      'divider-module' => DividerModule::class,
-      'post-grid-module' => PostGridModule::class,
-      'gallery-module' => GalleryModule::class,
-      'image-module' => ImageModule::class,
-      'button-module' => ButtonModule::class,
-      'header-module' => HeaderModule::class,
-      'tab-module' => TabModule::class,
-      'accordion-module' => AccordionModule::class,
-      'slider-module' => SliderModule::class,
-      'video-module' => VideoModule::class,
-    ];
+  protected static array $modules = [
+    'card-module' => CardModule::class,
+    'text-module' => TextModule::class,
+    'code-module' => CodeModule::class,
+    'divider-module' => DividerModule::class,
+    'post-grid-module' => PostGridModule::class,
+    'gallery-module' => GalleryModule::class,
+    'image-module' => ImageModule::class,
+    'button-module' => ButtonModule::class,
+    'header-module' => HeaderModule::class,
+    'tab-module' => TabModule::class,
+    'accordion-module' => AccordionModule::class,
+    'slider-module' => SliderModule::class,
+    'video-module' => VideoModule::class,
+  ];
 
-    protected static array $paths = [];
-    protected static array $scripts = [];
-    protected static array $styles = [];
+  protected static array $paths = [];
+  protected static array $scripts = [];
+  protected static array $styles = [];
 
-    /**
-     * @throws Exception
-     */
-    public static function boot(): void
-    {
-        if ( ! static::$booted) {
-            static::$booted = true;
+  /**
+   * @throws Exception
+   */
+  public static function boot(): void
+  {
+    if (!static::$booted) {
+      static::$booted = true;
 
-            add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
+      add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
 
-            static::bootFields();
-            static::bootModules();
-            static::bootPaths();
+      static::bootFields();
+      static::bootModules();
+      static::bootPaths();
 
-            do_action('buildystrap::builder::boot');
-        }
+      do_action('buildystrap::builder::boot');
+    }
+  }
+
+  /**
+   * @throws Exception
+   */
+  protected static function bootFields(): void
+  {
+    foreach (static::$fields as $field) {
+      if (!class_extends($field, Field::class)) {
+        throw new Exception("{$field} does not extend " . Field::class);
+      }
+    }
+  }
+
+  /**
+   * @throws Exception
+   */
+  protected static function bootModules(): void
+  {
+    foreach (static::$modules as $module) {
+      if (!class_extends($module, Module::class)) {
+        throw new Exception("{$module} does not extend " . Module::class);
+      }
+    }
+  }
+
+  protected static function bootPaths(): void
+  {
+    $paths = collect(config('view.paths'))
+      ->map(fn ($path) => "$path/builder")->toArray();
+
+    view()->addNamespace('builder', $paths);
+
+    static::$paths = collect($paths)
+      ->map(fn ($path) => "$path/modules")->toArray();
+
+    view()->addNamespace('builder-modules', static::paths());
+  }
+
+  public static function paths(): array
+  {
+    return static::$paths;
+  }
+
+  /**
+   * @throws Exception
+   */
+  public static function registerField(string $handle, string $field): array
+  {
+    if (!class_extends($field, Field::class)) {
+      throw new Exception("{$field} does not extend " . Field::class);
     }
 
-    /**
-     * @throws Exception
-     */
-    protected static function bootFields(): void
-    {
-        foreach (static::$fields as $field) {
-            if ( ! class_extends($field, Field::class)) {
-                throw new Exception("{$field} does not extend " . Field::class);
-            }
-        }
+    static::$fields[Str::slug($handle)] = $field;
+
+    return static::fields();
+  }
+
+  public static function fields(): array
+  {
+    return static::$fields;
+  }
+
+  public static function getField(string $handle): mixed
+  {
+    return Arr::get(static::fields(), Str::slug($handle));
+  }
+
+  public static function getModuleStyles(): Collection
+  {
+    if (!function_exists('get_field')) {
+      return collect();
     }
 
-    /**
-     * @throws Exception
-     */
-    protected static function bootModules(): void
-    {
-        foreach (static::$modules as $module) {
-            if ( ! class_extends($module, Module::class)) {
-                throw new Exception("{$module} does not extend " . Module::class);
-            }
-        }
+    $shared = get_field('buildystrap_module_styles_shared', 'option') ?: [];
+    $modules = get_field('buildystrap_module_styles_modules', 'option') ?: [];
+
+    if ($shared) {
+      $shared = ['module_name' => 'shared', 'styles' => $shared];
+      array_push($modules, $shared);
     }
 
-    protected static function bootPaths(): void
-    {
-        $paths = collect(config('view.paths'))
-          ->map(fn ($path) => "$path/builder")->toArray();
+    return collect($modules ?? [])->map(fn ($module) => [
+      'module_name' => Str::slug($module['module_name']) . '-module',
+      'styles' => $module['styles'] ?? [],
+    ]);
+  }
 
-        view()->addNamespace('builder', $paths);
+  public static function getGlobals(): Collection
+  {
+    global $wpdb;
 
-        static::$paths = collect($paths)
-          ->map(fn ($path) => "$path/modules")->toArray();
-
-        view()->addNamespace('builder-modules', static::paths());
-    }
-
-    public static function paths(): array
-    {
-        return static::$paths;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public static function registerField(string $handle, string $field): array
-    {
-        if ( ! class_extends($field, Field::class)) {
-            throw new Exception("{$field} does not extend " . Field::class);
-        }
-
-        static::$fields[Str::slug($handle)] = $field;
-
-        return static::fields();
-    }
-
-    public static function fields(): array
-    {
-        return static::$fields;
-    }
-
-    public static function getField(string $handle): mixed
-    {
-        return Arr::get(static::fields(), Str::slug($handle));
-    }
-
-    public static function getModuleStyles(): Collection
-    {
-        if ( ! function_exists('get_field')) {
-            return collect();
-        }
-
-        $shared = get_field('buildystrap_module_styles_shared', 'option') ?: [];
-        $modules = get_field('buildystrap_module_styles_modules', 'option') ?: [];
-
-        if ($shared) {
-            $shared = ['module_name' => 'shared', 'styles' => $shared];
-            array_push($modules, $shared);
-        }
-
-        return collect($modules ?? [])->map(fn ($module) => [
-          'module_name' => Str::slug($module['module_name']) . '-module',
-          'styles' => $module['styles'] ?? [],
-        ]);
-    }
-
-    public static function getGlobals(): Collection
-    {
-        global $wpdb;
-
-        $query = $wpdb->prepare(
-            "SELECT 
+    $query = $wpdb->prepare(
+      "SELECT 
                 `ID` AS `id`, 
                 `post_title` AS `title` 
             FROM `{$wpdb->prefix}posts` 
             WHERE 
                 `post_type` = 'buildy-global' 
                  AND 
-                    `post_status` = %s",
-            'publish'
-        );
+                    `post_status` = 'publish'"
+    );
 
-        $globals = $wpdb->get_results($query);
+    $globals = $wpdb->get_results($query);
 
-        return collect($globals ?? []);
-    }
+    return collect($globals ?? []);
+  }
 
-    public static function getGlobalModules(): Collection
-    {
-        global $wpdb;
+  public static function getGlobalModules(): Collection
+  {
+    global $wpdb;
 
-        $query = $wpdb->prepare(
-            "SELECT 
+    $query = $wpdb->prepare(
+      "SELECT 
                 `ID` AS `id`, 
                 `post_title` AS `title` 
             FROM `{$wpdb->prefix}posts` 
             WHERE 
                 `post_type` = 'buildy-global-module' 
                 AND 
-                    `post_status` = %s",
-            'publish'
-        );
+                    `post_status` = 'publish'"
+    );
 
-        $globals = $wpdb->get_results($query);
+    $globals = $wpdb->get_results($query);
 
-        return collect($globals ?? []);
-    }
+    return collect($globals ?? []);
+  }
 
   public static function getLibrarySections(): Collection
   {
@@ -272,8 +270,8 @@ class Builder
   {
     global $wpdb;
 
-        $query = $wpdb->prepare(
-            "SELECT 
+    $query = $wpdb->prepare(
+      "SELECT 
                 `ID` AS `id`, 
                 `post_title` AS `title`, 
                 `post_content` AS `content` 
@@ -283,27 +281,26 @@ class Builder
                 AND 
                     `post_type` = 'buildy-global' 
                 AND 
-                    `post_status` = %s 
+                    `post_status` = 'publish' 
             LIMIT 1",
-            $post_id,
-            'publish'
-        );
+      $post_id
+    );
 
-        if ($global = $wpdb->get_row($query)) {
-            $content = new Content($global->content, $wrapper);
+    if ($global = $wpdb->get_row($query)) {
+      $content = new Content($global->content, $wrapper);
 
-            return $content->container();
-        }
-
-        return null;
+      return $content->container();
     }
 
-    public static function getGlobalModule(int $post_id, $wrapper = null): ?Module
-    {
-        global $wpdb;
+    return null;
+  }
 
-        $query = $wpdb->prepare(
-            "SELECT 
+  public static function getGlobalModule(int $post_id, $wrapper = null): ?Module
+  {
+    global $wpdb;
+
+    $query = $wpdb->prepare(
+      "SELECT 
                 `ID` AS `id`, 
                 `post_title` AS `title`, 
                 `post_content` AS `content` 
@@ -313,106 +310,112 @@ class Builder
                 AND 
                     `post_type` = 'buildy-global-module' 
                 AND 
-                    `post_status` = %s
+                    `post_status` = 'publish' 
             LIMIT 1",
-            $post_id,
-            'publish'
-        );
+      $post_id
+    );
 
-        if ($global = $wpdb->get_row($query)) {
-            $module = json_decode($global->content, true);
-            $_module = static::getModule($module['type']);
+    if ($global = $wpdb->get_row($query)) {
+      $module = json_decode($global->content, true);
+      $_module = static::getModule($module['type']);
 
-            return new $_module($module, $wrapper = null);
-        }
-
-        return null;
+      return new $_module($module, $wrapper = null);
     }
 
-    public static function getModule(string $handle): mixed
-    {
-        return Arr::get(static::modules(), Str::slug($handle));
+    return null;
+  }
+
+  public static function getModule(string $handle): mixed
+  {
+    return Arr::get(static::modules(), Str::slug($handle));
+  }
+
+  public static function modules(): array
+  {
+    return static::$modules;
+  }
+
+  /**
+   * @throws Exception
+   */
+  public static function registerModule(string $handle, string $module): array
+  {
+    if (!class_extends($module, Module::class)) {
+      throw new Exception("$module does not extend " . Module::class);
     }
 
-    public static function modules(): array
-    {
-        return static::$modules;
+    static::$modules[Str::slug($handle)] = $module;
+
+    return static::modules();
+  }
+
+  public static function moduleBlueprints(): Collection
+  {
+    return collect(static::modules())->map(fn ($module): Collection => $module::getBlueprint());
+  }
+
+  public static function registerPath(string $path): void
+  {
+    if (!in_array($path, static::paths())) {
+      view()->addNamespace('builder-modules', $path);
+      static::$paths[] = $path;
+    }
+  }
+
+  public static function getBackendScripts(): array
+  {
+    return static::$scripts;
+  }
+
+  public static function registerBackendScript(string $handle, string $script): void
+  {
+    static::$scripts[Str::slug($handle)] = $script;
+  }
+
+  public static function getBackendStyles(): array
+  {
+    return static::$styles;
+  }
+
+  public static function registerBackendStyle(string $handle, string $style): void
+  {
+    static::$styles[Str::slug($handle)] = $style;
+  }
+
+  public static function the_content(string $content): string
+  {
+    /*
+             * Possibly crude way of intercepting the output of the_content()
+             * We intercept the_content() via a Wordpress filter.
+             * Normally you would modify $content in some way and then return it as normal.
+             *
+             * However in this case, we want the raw unformatted content.
+             */
+    if (static::isEnabled() && $post = get_post()) {
+      if (is_admin() || defined('REST_REQUEST') && REST_REQUEST) {
+        return ''; // Stop render on backend Or via REST.
+      }
+
+      return !empty($post->post_content) ? static::renderFromContent($post->post_content)->render() : $content;
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function registerModule(string $handle, string $module): array
-    {
-        if ( ! class_extends($module, Module::class)) {
-            throw new Exception("$module does not extend " . Module::class);
-        }
+    /*
+             * If the Page Builder was not enabled on this post.
+             * Return the content, as is.
+             */
+    return $content;
+  }
 
-        static::$modules[Str::slug($handle)] = $module;
+  public static function isEnabled(int $post_id = 0): bool
+  {
+    $isEnabled = false;
 
-        return static::modules();
+    if ($post_id === 0) {
+      $post_id = get_the_ID();
     }
 
-    public static function moduleBlueprints(): Collection
-    {
-        return collect(static::modules())->map(fn ($module): Collection => $module::getBlueprint());
-    }
-
-    public static function registerPath(string $path): void
-    {
-        if ( ! in_array($path, static::paths())) {
-            view()->addNamespace('builder-modules', $path);
-            static::$paths[] = $path;
-        }
-    }
-
-    public static function getBackendScripts(): array
-    {
-        return static::$scripts;
-    }
-
-    public static function registerBackendScript(string $handle, string $script): void
-    {
-        static::$scripts[Str::slug($handle)] = $script;
-    }
-
-    public static function getBackendStyles(): array
-    {
-        return static::$styles;
-    }
-
-    public static function registerBackendStyle(string $handle, string $style): void
-    {
-        static::$styles[Str::slug($handle)] = $style;
-    }
-
-    public static function the_content(string $content): string
-    {
-        /*
-                 * Possibly crude way of intercepting the output of the_content()
-                 * We intercept the_content() via a Wordpress filter.
-                 * Normally you would modify $content in some way and then return it as normal.
-                 *
-                 * However in this case, we want the raw unformatted content.
-                 */
-        if (static::isEnabled() && $post = get_post()) {
-            if (is_admin() || defined('REST_REQUEST') && REST_REQUEST) {
-                return ''; // Stop render on backend Or via REST.
-            }
-
-            return ! empty($post->post_content) ? static::renderFromContent($post->post_content)->render() : $content;
-        }
-
-        /*
-                 * If the Page Builder was not enabled on this post.
-                 * Return the content, as is.
-                 */
-        return $content;
-    }
-
-    public static function isEnabled(int $post_id = 0): bool
-    {
-        $isEnabled = false;
+    if (is_admin()) {
+      $screen = get_current_screen();
 
       if ($screen->base === 'post') {
         // Buildy globals are always enabled
@@ -420,38 +423,28 @@ class Builder
           return true;
         }
 
-        if (is_admin()) {
-            $screen = get_current_screen();
-
-            if ($screen->base === 'post') {
-                // Buildy globals are always enabled
-                if (in_array($screen->post_type, ['buildy-global', 'buildy-global-module'])) {
-                    return true;
-                }
-
-                if (in_array($screen->post_type, static::enabledTypes())) {
-                    $isEnabled = ! empty(get_post_meta($post_id, '_buildy_enabled', true));
-                }
-            }
-        } else {
-            $isEnabled = ! empty(get_post_meta($post_id, '_buildy_enabled', true));
+        if (in_array($screen->post_type, static::enabledTypes())) {
+          $isEnabled = !empty(get_post_meta($post_id, '_buildy_enabled', true));
         }
-
-        return $isEnabled;
+      }
+    } else {
+      $isEnabled = !empty(get_post_meta($post_id, '_buildy_enabled', true));
     }
 
-    public static function enabledTypes(): array
-    {
-        $defaults = ['page'];
+    return $isEnabled;
+  }
 
   public static function enabledTypes(): array
   {
     $defaults = ['page', 'buildy-library'];
 
-    public static function renderFromContent(string $content): Renderer
-    {
-        $content = new Content($content);
+    return array_merge($defaults, config('builder.enabled_post_types', []));
+  }
 
-        return new Renderer($content->container());
-    }
+  public static function renderFromContent(string $content): Renderer
+  {
+    $content = new Content($content);
+
+    return new Renderer($content->container());
+  }
 }
