@@ -25,7 +25,7 @@
         ]
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.0.2",
         "roots/acorn": "^3.0",
         "spatie/blink": "^1.2"
     },
