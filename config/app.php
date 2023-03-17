@@ -178,10 +178,10 @@ return [
 //        Illuminate\Session\SessionServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
 //        Illuminate\Translation\TranslationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
 //        Illuminate\Validation\ValidationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-        Roots\Acorn\Assets\AssetsServiceProvider::class,
+//        Roots\Acorn\Assets\AssetsServiceProvider::class,
         Roots\Acorn\Filesystem\FilesystemServiceProvider::class,
         Roots\Acorn\Providers\AcornServiceProvider::class,
-        Roots\Acorn\Providers\RouteServiceProvider::class,
+//        Roots\Acorn\Providers\RouteServiceProvider::class,
         Roots\Acorn\View\ViewServiceProvider::class,
 
         /*
