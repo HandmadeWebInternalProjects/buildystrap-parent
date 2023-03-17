@@ -12,6 +12,6 @@ class ExampleDirective
      */
     public function __invoke($expression)
     {
-        return sprintf("<?php echo %s; ?>", $expression);
+        return sprintf('<?php echo %s; ?>', $expression);
     }
 }

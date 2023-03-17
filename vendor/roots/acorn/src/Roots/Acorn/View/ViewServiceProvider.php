@@ -2,13 +2,13 @@
 
 namespace Roots\Acorn\View;
 
-use ReflectionClass;
 use Illuminate\Contracts\View\Engine;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\View;
 use Illuminate\View\ViewServiceProvider as ViewServiceProviderBase;
+use ReflectionClass;
 use Roots\Acorn\View\Composers\Debugger;
 use Symfony\Component\Finder\Finder;
 

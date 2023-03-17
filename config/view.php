@@ -1,7 +1,5 @@
 <?php
 
-use Buildystrap\View\Directives\ExampleDirective;
-
 $paths = collect([
     get_theme_file_path('/resources/views'),
     get_parent_theme_file_path('/resources/views'),
@@ -79,6 +77,21 @@ return [
     */
 
     'directives' => [
-         'example'  => ExampleDirective::class,
+        'example' => Buildystrap\View\Directives\ExampleDirective::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | View Components
+    |--------------------------------------------------------------------------
+    |
+    | The namespaces where view components reside. Components can be referenced
+    | with camelCase & dot notation.
+    |
+    */
+
+    'components' => [
+        'loop'  => 'components.loop', // Simple method (point to a view file by path)
+//        'loop' => Buildystrap\View\Components\LoopComponent::class, // Advanced method (invoke a class to call the view)
     ],
 ];
