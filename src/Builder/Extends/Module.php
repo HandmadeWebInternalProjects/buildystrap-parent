@@ -146,7 +146,7 @@ abstract class Module
                 $item = static::matchConfigs($item, $item['fields']);
             }
 
-            if ($field = Builder::getField($item['type'])) {
+            if (isset($item['type']) && $field = Builder::getField($item['type'])) {
                 $parent['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
             }
         }
