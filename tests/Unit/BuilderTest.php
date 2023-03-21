@@ -10,8 +10,6 @@ use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Layout\Row;
 use Buildystrap\Builder\Layout\Section;
 use Buildystrap\Tests\TestCase;
-use Illuminate\Support\Collection;
-
 use Illuminate\Support\Enumerable;
 
 use function file_get_contents;
@@ -66,7 +64,7 @@ class BuilderTest extends TestCase
 
                         // Fields
                         $this->assertTrue(method_exists($module, 'fields'));
-                        $this->assertInstanceOf(Collection::class, $module->fields());
+                        $this->assertInstanceOf(Enumerable::class, $module->fields());
                         $this->assertTrue($module->fields()->isNotEmpty());
 
                         foreach ($module->fields() as $field) {
