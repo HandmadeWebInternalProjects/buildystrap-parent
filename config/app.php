@@ -6,7 +6,7 @@ use function Roots\env;
 
 return [
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
@@ -17,9 +17,9 @@ return [
     |
     */
 
-    'name' => get_bloginfo('name'),
+  'name' => get_bloginfo('name'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'env' => (defined('WP_DEBUG') && WP_DEBUG) ? 'local' : 'production',
+  'env' => (defined('WP_DEBUG') && WP_DEBUG) ? 'local' : 'production',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
@@ -43,9 +43,9 @@ return [
     |
     */
 
-    'debug' => (defined('WP_DEBUG') && defined('WP_DEBUG_DISPLAY') && WP_DEBUG && WP_DEBUG_DISPLAY),
+  'debug' => (defined('WP_DEBUG') && defined('WP_DEBUG_DISPLAY') && WP_DEBUG && WP_DEBUG_DISPLAY),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
@@ -56,9 +56,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', home_url()),
+  'url' => env('APP_URL', home_url()),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
@@ -69,9 +69,9 @@ return [
     |
     */
 
-    'timezone' => get_option('timezone_string', 'UTC'),
+  'timezone' => get_option('timezone_string', 'UTC'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
@@ -82,9 +82,9 @@ return [
     |
     */
 
-    'locale' => get_locale(),
+  'locale' => get_locale(),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
     |--------------------------------------------------------------------------
@@ -95,9 +95,9 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+  'fallback_locale' => 'en',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Faker Locale
     |--------------------------------------------------------------------------
@@ -108,9 +108,9 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+  'faker_locale' => 'en_US',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
@@ -121,11 +121,11 @@ return [
     |
     */
 
-    'key' => defined('APP_KEY') ? APP_KEY : env('APP_KEY'),
+  'key' => defined('APP_KEY') ? APP_KEY : env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+  'cipher' => 'AES-256-CBC',
 
-    /*
+  /*
      |--------------------------------------------------------------------------
      | Maintenance Mode Driver
      |--------------------------------------------------------------------------
@@ -138,12 +138,12 @@ return [
      |
      */
 
-    'maintenance' => [
-        'driver' => 'file',
-        // 'store'  => 'redis',
-    ],
+  'maintenance' => [
+    'driver' => 'file',
+    // 'store'  => 'redis',
+  ],
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
@@ -154,48 +154,48 @@ return [
     |
     */
 
-    'providers' => [
+  'providers' => [
 
-        /*
+    /*
          * Laravel Framework Service Providers...
          */
-//        Illuminate\Auth\AuthServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Broadcasting\BroadcastServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Bus\BusServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Cache\CacheServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Cookie\CookieServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Database\DatabaseServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Encryption\EncryptionServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Hashing\HashServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Mail\MailServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Notifications\NotificationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Pagination\PaginationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Pipeline\PipelineServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Queue\QueueServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Redis\RedisServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Routing\RoutingServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Session\SessionServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Translation\TranslationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Illuminate\Validation\ValidationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
-//        Roots\Acorn\Assets\AssetsServiceProvider::class,
-        Roots\Acorn\Filesystem\FilesystemServiceProvider::class,
-        Roots\Acorn\Providers\AcornServiceProvider::class,
-//        Roots\Acorn\Providers\RouteServiceProvider::class,
-        Roots\Acorn\View\ViewServiceProvider::class,
+    //        Illuminate\Auth\AuthServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Broadcasting\BroadcastServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Bus\BusServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    Illuminate\Cache\CacheServiceProvider::class,
+    //        Illuminate\Cookie\CookieServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Database\DatabaseServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Encryption\EncryptionServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Hashing\HashServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Mail\MailServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Notifications\NotificationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Pagination\PaginationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Pipeline\PipelineServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Queue\QueueServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Redis\RedisServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Routing\RoutingServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Session\SessionServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Translation\TranslationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Illuminate\Validation\ValidationServiceProvider::class, // Not supported yet, as of Acorn 3.1.0
+    //        Roots\Acorn\Assets\AssetsServiceProvider::class,
+    Roots\Acorn\Filesystem\FilesystemServiceProvider::class,
+    Roots\Acorn\Providers\AcornServiceProvider::class,
+    //        Roots\Acorn\Providers\RouteServiceProvider::class,
+    Roots\Acorn\View\ViewServiceProvider::class,
 
-        /*
+    /*
          * Package Service Providers...
          */
 
-        /*
+    /*
          * Application Service Providers...
          */
-        // App\Providers\ThemeServiceProvider::class,
+    // App\Providers\ThemeServiceProvider::class,
 
-    ],
+  ],
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
@@ -206,8 +206,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-    ])->toArray(),
+  'aliases' => Facade::defaultAliases()->merge([
+    // 'ExampleClass' => App\Example\ExampleClass::class,
+  ])->toArray(),
 
 ];
