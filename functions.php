@@ -33,8 +33,8 @@ require $composer;
 |
 */
 try {
-  bootloader()->boot();
-  require_once __DIR__ . '/vendor/illuminate/support/helpers.php';
+    bootloader()->boot();
+    require_once __DIR__ . '/vendor/illuminate/support/helpers.php';
 } catch (Throwable $e) {
   wp_die('You need to install Acorn to use this theme.');
 }

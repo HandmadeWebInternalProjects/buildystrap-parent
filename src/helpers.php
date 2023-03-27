@@ -107,12 +107,12 @@ if (!function_exists('getResponsiveClasses')) {
   }
 }
 
-if (!function_exists('str_slug')) {
-  // Str::slug already exists for this..
-  function str_slug($title, $separator = '-'): string
-  {
-    return Str::slug($title, $separator);
-  }
+if ( ! function_exists('str_slug')) {
+    // Str::slug already exists for this..
+    function str_slug($title, $separator = '-'): string
+    {
+        return Str::slug($title, $separator);
+    }
 }
 
 if (!function_exists('has_flourishes')) {
@@ -129,28 +129,32 @@ if (!function_exists('has_divider')) {
   }
 }
 
-if (!function_exists('acf_active')) {
-  function acf_active()
-  {
-    return function_exists('get_field');
-  }
+if ( ! function_exists('acf_active')) {
+    function acf_active()
+    {
+        return function_exists('get_field');
+    }
 }
 
-if (!function_exists('bs_has_field')) {
-  function bs_has_field(string $field, int | string $id, string $default = ''): bool
-  {
-    if (acf_active() && $check = get_field($field, $id)) {
-      return true;
+if ( ! function_exists('bs_has_field')) {
+    function bs_has_field(string $field, int | string $id, string $default = ''): bool
+    {
+        if (acf_active() && $check = get_field($field, $id)) {
+            return true;
+        }
+        return false;
     }
     return false;
   }
 }
 
-if (!function_exists('bs_get_field')) {
-  function bs_get_field(string $field, int | string $id, string $default = null): mixed
-  {
-    if (acf_active() && get_field($field, $id)) {
-      return get_field($field, $id);
+if ( ! function_exists('bs_get_field')) {
+    function bs_get_field(string $field, int | string $id, string $default = null): mixed
+    {
+        if (acf_active() && get_field($field, $id)) {
+            return get_field($field, $id);
+        }
+        return $default;
     }
     return $default;
   }
@@ -175,18 +179,13 @@ if (!function_exists('format_phone')) {
 }
 
 if (function_exists('acf_active') && acf_active()) {
-  if (!function_exists('get_theme_colors')) {
-    function get_theme_colors()
-    {
-      // get the textarea value from options page without any formatting
-      // check if the repeater field has rows of data
-      $set_colours = [];
-      $additional_colours = [];
-
-      if (have_rows('buildystrap_theme_colours_included', 'option')) {
-        // TEMP -- ACF Update has caused warnings to appear --- The @ symbol will suppress it for now (still works)
-        $set_colours_data = get_field('buildystrap_theme_colours_included', 'option');
-        $additional_colours_data = get_field('buildystrap_theme_colours_additional_colours', 'option');
+    if ( ! function_exists('get_theme_colors')) {
+        function get_theme_colors()
+        {
+            // get the textarea value from options page without any formatting
+            // check if the repeater field has rows of data
+            $set_colours = [];
+            $additional_colours = [];
 
         if (!$additional_colours_data) {
           $additional_colours_data = [];
@@ -222,26 +221,26 @@ if (!function_exists('get_svg_url')) {
 /**
  * Lightens/darkens a given colour (hex format), returning the altered colour in hex format.
  * */
-if (!function_exists('color_luminance')) {
-  function color_luminance(string $hex, $percent)
-  {
-    // validate hex string
-    $hex = preg_replace('/[^0-9a-f]/i', '', $hex);
-    $new_hex = '#';
+if ( ! function_exists('color_luminance')) {
+    function color_luminance(string $hex, $percent)
+    {
+        // validate hex string
+        $hex = preg_replace('/[^0-9a-f]/i', '', $hex);
+        $new_hex = '#';
 
-    if (strlen($hex) < 6) {
-      $hex = $hex[0] + $hex[0] + $hex[1] + $hex[1] + $hex[2] + $hex[2];
+        if (strlen($hex) < 6) {
+            $hex = $hex[0] + $hex[0] + $hex[1] + $hex[1] + $hex[2] + $hex[2];
+        }
+
+        // convert to decimal and change luminosity
+        for ($i = 0; $i < 3; $i++) {
+            $dec = hexdec(substr($hex, $i * 2, 2));
+            $dec = min(max(0, $dec + $dec * $percent), 255);
+            $new_hex .= str_pad(dechex($dec), 2, 0, STR_PAD_LEFT);
+        }
+
+        return $new_hex;
     }
-
-    // convert to decimal and change luminosity
-    for ($i = 0; $i < 3; $i++) {
-      $dec = hexdec(substr($hex, $i * 2, 2));
-      $dec = min(max(0, $dec + $dec * $percent), 255);
-      $new_hex .= str_pad(dechex($dec), 2, 0, STR_PAD_LEFT);
-    }
-
-    return $new_hex;
-  }
 }
 
 if (!function_exists('hex2rgb')) {
@@ -349,25 +348,25 @@ if (!function_exists('rgbToHsl')) {
   }
 }
 
-if (!function_exists('is_taggable')) {
-  function is_taggable($property, $value)
-  {
-    $options = BuilderBackend::get_default_options() ? collect(BuilderBackend::get_default_options()['structure'][$property])->pluck('value')->toArray() : [];
-    return !in_array($value, $options);
-  }
+if ( ! function_exists('is_taggable')) {
+    function is_taggable($property, $value)
+    {
+        $options = BuilderBackend::get_default_options() ? collect(BuilderBackend::get_default_options()['structure'][$property])->pluck('value')->toArray() : [];
+        return ! in_array($value, $options);
+    }
 }
 
-if (!function_exists('hmw_woocommerce_cart_link')) {
-  /**
-   * Cart Link.
-   *
-   * Displayed a link to the cart including the number of items present and the cart total.
-   *
-   * @return void
-   */
-  function hmw_woocommerce_cart_link()
-  {
-    ?>
+if ( ! function_exists('hmw_woocommerce_cart_link')) {
+    /**
+     * Cart Link.
+     *
+     * Displayed a link to the cart including the number of items present and the cart total.
+     *
+     * @return void
+     */
+    function hmw_woocommerce_cart_link()
+    {
+        ?>
     <a class="cart-contents <?php echo WC()->cart->get_cart_contents_count() > 0 ? 'has-items' : ''; ?>" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'hmw'); ?>">
       <?php if (WC()->cart->get_cart_contents_count() > 0) : ?>
         <span class="count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
