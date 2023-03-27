@@ -15,8 +15,8 @@ defined('ABSPATH') || exit;
 |
 */
 
-if ( ! file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
-    wp_die(__('Error locating autoloader. Please run <code>composer install</code>.'));
+if (!file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
+  wp_die(__('Error locating autoloader. Please run <code>composer install</code>.'));
 }
 
 require $composer;
@@ -33,9 +33,10 @@ require $composer;
 |
 */
 try {
-    bootloader()->boot();
+  bootloader()->boot();
+  require_once __DIR__ . '/vendor/illuminate/support/helpers.php';
 } catch (Throwable $e) {
-    wp_die('You need to install Acorn to use this theme.');
+  wp_die('You need to install Acorn to use this theme.');
 }
 
 // Load Understrap functions
@@ -52,25 +53,26 @@ require __DIR__ . '/src/shortcodes.php';
 
 // Temporarily fix Gravity Forms Merge Tags not displaying
 add_action('admin_footer', function () {
-    ?>
-    <script>
-    if ( typeof window.gform?.addFilter === 'function' ) {
-        gform?.addFilter( 'gform_merge_tags', 'MaybeAddSaveLinkMergeTag' );
-        function MaybeAddSaveLinkMergeTag( mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option ) {
-            var event = document.getElementById( 'event' )?.value;
-            if ( event === 'form_saved' || event === 'form_save_email_requested' ) {
-                mergeTags['other'].tags.push( {
-                    tag:  '{save_link}',
-                    label: <?php echo json_encode(esc_html__('Save & Continue Link', 'gravityforms')); ?>
-                } );
-                mergeTags['other'].tags.push( {
-                    tag:   '{save_token}',
-                    label: <?php echo json_encode(esc_html__('Save & Continue Token', 'gravityforms')); ?>
-                } );
-            }
-            return mergeTags;
+?>
+  <script>
+    if (typeof window.gform?.addFilter === 'function') {
+      gform?.addFilter('gform_merge_tags', 'MaybeAddSaveLinkMergeTag');
+
+      function MaybeAddSaveLinkMergeTag(mergeTags, elementId, hideAllFields, excludeFieldTypes, isPrepop, option) {
+        var event = document.getElementById('event')?.value;
+        if (event === 'form_saved' || event === 'form_save_email_requested') {
+          mergeTags['other'].tags.push({
+            tag: '{save_link}',
+            label: <?php echo json_encode(esc_html__('Save & Continue Link', 'gravityforms')); ?>
+          });
+          mergeTags['other'].tags.push({
+            tag: '{save_token}',
+            label: <?php echo json_encode(esc_html__('Save & Continue Token', 'gravityforms')); ?>
+          });
         }
+        return mergeTags;
+      }
     }
-    </script>
-    <?php
+  </script>
+<?php
 });
