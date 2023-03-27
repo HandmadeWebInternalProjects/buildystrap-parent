@@ -112,22 +112,6 @@ if ( ! function_exists('str_slug')) {
     function str_slug($title, $separator = '-'): string
     {
         return Str::slug($title, $separator);
-
-        // Convert all dashes/underscores into separator
-        $flip = $separator === '-' ? '_' : '-';
-
-        $title = preg_replace('![' . preg_quote($flip) . ']+!u', $separator, $title);
-
-        // Replace @ with the word 'at'
-        $title = str_replace('@', $separator . 'at' . $separator, $title);
-
-        // Remove all characters that are not the separator, letters, numbers, or whitespace.
-        $title = preg_replace('![^' . preg_quote($separator) . '\pL\pN\s]+!u', '', strtolower($title));
-
-        // Replace all separator characters and whitespace by a single separator
-        $title = preg_replace('![' . preg_quote($separator) . '\s]+!u', $separator, $title);
-
-        return trim($title, $separator);
     }
 }
 
@@ -145,15 +129,12 @@ if ( ! function_exists('has_divider')) {
     }
 }
 
-
-
 if ( ! function_exists('acf_active')) {
     function acf_active()
     {
         return function_exists('get_field');
     }
 }
-
 
 if ( ! function_exists('bs_has_field')) {
     function bs_has_field(string $field, int | string $id, string $default = ''): bool
@@ -164,7 +145,6 @@ if ( ! function_exists('bs_has_field')) {
         return false;
     }
 }
-
 
 if ( ! function_exists('bs_get_field')) {
     function bs_get_field(string $field, int | string $id, string $default = null): mixed
@@ -194,8 +174,7 @@ if ( ! function_exists('format_phone')) {
     }
 }
 
-
-if (acf_active()) {
+if (function_exists('acf_active') && acf_active()) {
     if ( ! function_exists('get_theme_colors')) {
         function get_theme_colors()
         {
@@ -228,7 +207,6 @@ if (acf_active()) {
     }
 }
 
-
 // Get SVG URL
 if ( ! function_exists('get_svg_url')) {
     function get_svg_url($url)
@@ -244,24 +222,26 @@ if ( ! function_exists('get_svg_url')) {
 /**
  * Lightens/darkens a given colour (hex format), returning the altered colour in hex format.
  * */
-function color_luminance(string $hex, $percent)
-{
-    // validate hex string
-    $hex = preg_replace('/[^0-9a-f]/i', '', $hex);
-    $new_hex = '#';
+if ( ! function_exists('color_luminance')) {
+    function color_luminance(string $hex, $percent)
+    {
+        // validate hex string
+        $hex = preg_replace('/[^0-9a-f]/i', '', $hex);
+        $new_hex = '#';
 
-    if (strlen($hex) < 6) {
-        $hex = $hex[0] + $hex[0] + $hex[1] + $hex[1] + $hex[2] + $hex[2];
+        if (strlen($hex) < 6) {
+            $hex = $hex[0] + $hex[0] + $hex[1] + $hex[1] + $hex[2] + $hex[2];
+        }
+
+        // convert to decimal and change luminosity
+        for ($i = 0; $i < 3; $i++) {
+            $dec = hexdec(substr($hex, $i * 2, 2));
+            $dec = min(max(0, $dec + $dec * $percent), 255);
+            $new_hex .= str_pad(dechex($dec), 2, 0, STR_PAD_LEFT);
+        }
+
+        return $new_hex;
     }
-
-    // convert to decimal and change luminosity
-    for ($i = 0; $i < 3; $i++) {
-        $dec = hexdec(substr($hex, $i * 2, 2));
-        $dec = min(max(0, $dec + $dec * $percent), 255);
-        $new_hex .= str_pad(dechex($dec), 2, 0, STR_PAD_LEFT);
-    }
-
-    return $new_hex;
 }
 
 if ( ! function_exists('hex2rgb')) {
@@ -369,7 +349,6 @@ if ( ! function_exists('rgbToHsl')) {
     }
 }
 
-
 if ( ! function_exists('is_taggable')) {
     function is_taggable($property, $value)
     {
@@ -377,7 +356,6 @@ if ( ! function_exists('is_taggable')) {
         return ! in_array($value, $options);
     }
 }
-
 
 if ( ! function_exists('hmw_woocommerce_cart_link')) {
     /**
