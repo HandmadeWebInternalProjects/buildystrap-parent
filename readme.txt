@@ -1,5 +1,11 @@
 == Changelog ==
 
+=== 4.2.3 ===
+- Composer packages updated 
+- Lazy collections stuff
+- A bunch of cleanup 
+- New Directives & Component Options 
+
 === 4.1.14 ===
 - Initial major commit for Taxonomy, Term, Relation, and Meta Query items in Post Grid Module. 
 - Fixes for taggable and multiple items on Vue select items
