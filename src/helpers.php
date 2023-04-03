@@ -146,15 +146,12 @@ if (!function_exists('bs_has_field')) {
   }
 }
 
-
 if (!function_exists('bs_get_field')) {
   function bs_get_field(string $field, int | string $id, string $default = null): mixed
   {
     if (acf_active() && get_field($field, $id)) {
       return get_field($field, $id);
     }
-    return $default;
-
     return $default;
   }
 }
@@ -186,18 +183,26 @@ if (function_exists('acf_active') && acf_active()) {
       $set_colours = [];
       $additional_colours = [];
 
-      if (!$additional_colours_data) {
-        $additional_colours_data = [];
-      }
+      if (have_rows('buildystrap_theme_colours_included', 'option')) {
+        // TEMP -- ACF Update has caused warnings to appear --- The @ symbol will suppress it for now (still works)
+        $set_colours_data = get_field('buildystrap_theme_colours_included', 'option');
+        $additional_colours_data = get_field('buildystrap_theme_colours_additional_colours', 'option');
 
-      foreach ($set_colours_data as $key => $val) {
-        $set_arr = [];
-        $set_arr['label'] = $key;
-        $set_arr['value'] = $val;
-        array_push($set_colours, $set_arr);
-      }
+        if (!$additional_colours_data) {
+          $additional_colours_data = [];
+        }
 
-      return array_merge($set_colours, $additional_colours_data);
+        foreach ($set_colours_data as $key => $val) {
+          $set_arr = [];
+          $set_arr['label'] = $key;
+          $set_arr['value'] = $val;
+          array_push($set_colours, $set_arr);
+        }
+
+        return array_merge($set_colours, $additional_colours_data);
+      } else {
+        return;
+      }
     }
   }
 }
