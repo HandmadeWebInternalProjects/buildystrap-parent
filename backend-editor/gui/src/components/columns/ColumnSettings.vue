@@ -9,7 +9,7 @@
     @click="toggleItem(uuid)">
     Edit Column {{ index + 1 }}
   </button>
-  <bs-tabs v-if="isOpen" class="column-options g-col-12 bg-200 rounded p-4">
+  <bs-tabs v-if="isOpen" class="column-options g-col-12 bg-200 rounded p-4" style="--bs-columns: 12;">
     <bs-tab :uuid="`modules-${uuid}`" :active="true" name="modules">
       <div class="d-flex flex-column gap-4">
         <bs-card
