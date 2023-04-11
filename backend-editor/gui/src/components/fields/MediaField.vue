@@ -12,8 +12,7 @@
         class="d-flex flex-wrap gap-3"
         :class="[
           {
-            '':
-              config.multiple && images.length,
+            '': config.multiple && images.length,
           },
         ]"
         :list="images"
@@ -32,9 +31,7 @@
           </div>
         </template>
       </draggable>
-      <div
-        class="d-flex flex-wrap gap-3"
-        v-if="placeholder?.length">
+      <div class="d-flex flex-wrap gap-3" v-if="placeholder?.length">
         <div class="image-preview-wrapper position-relative">
           <async-img
             v-for="phId in placeholder"
@@ -86,6 +83,7 @@ const initMediaLibrary = () => {
       // Enable/disable multiple select
       multiple: config.value.multiple || false,
       // Library wordpress query arguments.
+      defaultContent: "library",
       library: {
         order: "DESC",
         // [ 'name', 'author', 'date', 'title', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ]

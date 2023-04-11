@@ -172,15 +172,15 @@ $utilities: map-merge(
         outline: 0 0 0 3px rgba(66, 153, 225, 0.5),
       ),
     ),
-    "grid-template-rows": (
+    "grid-rows": (
       property: grid-template-rows,
-      class: grid-template-rows,
+      class: grid-rows,
       responsive: true,
       values: $grid-template,
     ),
-    "grid-template-colums": (
+    "grid-cols": (
       property: grid-template-columns,
-      class: grid-template-columns,
+      class: grid-cols,
       responsive: true,
       values: $grid-template,
     ),

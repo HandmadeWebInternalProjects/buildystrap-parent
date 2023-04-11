@@ -17,16 +17,15 @@
   $column_str = [];
   if (is_array($columns)) {
     foreach ($columns as $breakpoint => $value) {
-        $value = $value ? 12 / $value : '';
         if ($value) {
           $column_str[] = match ($breakpoint) {
-              'xs' => "g-col-{$value}",
-              default => "g-col-{$breakpoint}-{$value}"
+              'xs' => "grid-cols-{$value}",
+              default => "grid-cols-{$breakpoint}-{$value}"
           };
         }
     }
   } else {
-    $column_str[] = "g-col-12 g-col-md-{$columns}";
+    $column_str[] = "grid-cols-{$columns}";
   }
   $column_str = implode(' ', $column_str);
   $exclude_cats = $module->has('exclude_cats') ? $module->get('exclude_cats')->value() : null;
@@ -166,26 +165,26 @@
 
 @section('field_content')
   @if ($query->have_posts())
-    <div class="grid gap-2 gap-md-3">
+    <div class="grid {{ $column_str }} gap-2 gap-md-3">
       @while ($query->have_posts()) 
         @php $query->the_post(); global $post; @endphp
-        <div class="{{ $column_str }} {{ $column_class }}">
+        <div class="{{ $column_class }}">
           @include($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])
         </div>
       @endwhile
-      @if ($enable_pagination)
-        <div class="pagination g-col-12">
-          {!! paginate_links([
-            'total'   => $total_pages,
-            'current' => $current_page,
-            'prev_text' => 'Prev',
-            'next_text' => 'Next'
-          ]) !!}
-        </div>
-      @endif
+      
       @php wp_reset_query(); @endphp
       @php wp_reset_postdata(); @endphp
     </div>
+    @if ($enable_pagination)
+        <div class="d-flex mt-4 mt-lg-8 w-100 justify-content-center">
+          {!! understrap_pagination([
+            'prev_text' => '<i class="fas text-primary fa-arrow-left"></i>',
+            'next_text' => '<i class="fas text-primary fa-arrow-right"></i>',
+            'total' => $total_pages,
+            ]) !!}
+        </div>
+      @endif
   @else
     <div>
       {{ __('No posts to display.', 'buildystrap-parent') }}

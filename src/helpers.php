@@ -146,13 +146,29 @@ if (!function_exists('bs_has_field')) {
   }
 }
 
+
+
 if (!function_exists('bs_get_field')) {
   function bs_get_field(string $field, int | string $id, string $default = null): mixed
   {
-    if (acf_active() && get_field($field, $id)) {
-      return get_field($field, $id);
-    }
-    return $default;
+    return match (true) {
+      acf_active() && get_field($field, $id) && strpos($field, '.') === false => get_field($field, $id),
+      strpos($field, '.') !== false => (function () use ($field, $id) {
+        $subfields = explode('.', $field);
+        $parent_field = array_shift($subfields);
+        $repeater = get_field($parent_field, $id);
+
+        if (empty($subfields) || !is_array($repeater)) {
+          return $repeater;
+        }
+
+        $subfield_path = implode('.', $subfields);
+        return implode(', ', array_map(function ($row) use ($subfield_path) {
+          return bs_get_field($subfield_path, $row);
+        }, $repeater));
+      })(),
+      default => $default,
+    };
   }
 }
 
@@ -206,6 +222,25 @@ if (function_exists('acf_active') && acf_active()) {
     }
   }
 }
+
+if (!function_exists('convert_param_value')) {
+  function convert_param_value($param)
+  {
+    $trimmed_param = strtolower(trim($param));
+
+    if ($trimmed_param === 'true') {
+      return true;
+    } elseif ($trimmed_param === 'false') {
+      return false;
+    } elseif (is_numeric($trimmed_param)) {
+      return strpos($trimmed_param, '.') === false ? (int)$trimmed_param : (float)$trimmed_param;
+    }
+
+    return $param;
+  }
+}
+
+
 
 // Get SVG URL
 if (!function_exists('get_svg_url')) {
