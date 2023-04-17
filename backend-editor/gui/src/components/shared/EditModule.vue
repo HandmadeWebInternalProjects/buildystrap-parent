@@ -117,7 +117,7 @@ onMounted(() => {
           Save
         </button>
         <button class="btn btn-danger" value="discard">Discard Changes</button>
-        <button class="btn btn-outline-secondary" value="cancel">
+        <button class="btn border-indigo-500 text-indigo-500" value="cancel">
           Continue Editing
         </button>
       </div>
