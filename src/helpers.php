@@ -172,6 +172,16 @@ if (!function_exists('bs_get_field')) {
   }
 }
 
+if (!function_exists('bs_update_field')) {
+  function bs_update_field(string $field, mixed $value, int | string $id): void
+  {
+    if (!acf_active()) {
+      return;
+    }
+    update_field($field, $value, $id);
+  }
+}
+
 if (!function_exists('format_phone')) {
   function format_phone($number, $cc = '61', $html = null, $type = 'tel')
   {
