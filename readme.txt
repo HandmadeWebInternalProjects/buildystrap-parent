@@ -1,5 +1,11 @@
 == Changelog ==
 
+=== 4.3.0 ===
+- Composer packages updated 
+- Common packages added (guzzle/http, etc)
+- Start the process of swapping to vite
+- Make visibility tab stuff work
+
 === 4.2.3 ===
 - Composer packages updated 
 - Lazy collections stuff

@@ -35,7 +35,18 @@
   $orderby = $module->has('orderby') ? $module->get('orderby')->value() : 'menu_order date';
   $order = $module->has('order') ? $module->get('order')->value() : 'DESC';
   $enable_pagination = $module->has('enable_pagination') ? $module->get('enable_pagination')->value() : false;
-  $template_part = $module->has('template_part') ? $module->get('template_part')->value() : "loop-templates/content-$postType";
+
+  // Set a few fallbacks
+  $template_part = [
+    "loop-templates/content-$postType",
+    "components/$postType-card",
+    "components/post-card"
+  ];
+
+  if ($module->has('template_part')) {
+    // If this was defined, at it to the beginning of the array
+    array_unshift($template_part, $module->get('template_part')->value());
+  }
 
   $enable_pagination = ($enable_pagination && $limit !== -1);
   if($enable_pagination) {
@@ -54,16 +65,7 @@
     'orderby' => $orderby,
     'order' => $order,
   ];
-
-  // Setup tax_query arguments
-  $args['tax_query'] = [
-      'relation' => $taxonomy_relation,
-  ];
-
-  // Setup meta_query arguments
-  $args['meta_query'] = [
-      'relation' => 'AND',
-  ];
+  
 
   if ($show_related) {
     $args['tax_query'] = [
@@ -80,17 +82,22 @@
     }
   } else {
     if ($taxonomy_slug) {
+      $args['tax_query'] = [
+        'relation' => $taxonomy_relation,
+      ];
       foreach ($taxonomy_slug as $slug) {
         $terms = $taxonomy_term ? collect($taxonomy_term)->where('taxonomy', $slug)->pluck('id') : null;
-        $args['tax_query'][] = [
+        array_push($args['tax_query'], [
           'taxonomy' => $slug,
           'field' => 'term_id',
           'terms' => collect($terms)->toArray(),
-          'operator' => $term_relation,
-        ];
+        ]);
       }
     }
     if ($meta_query) {
+      $args['meta_query'] = [
+        'relation' => 'AND',
+      ];
       foreach ($meta_query as $meta) {
         $meta_key = $meta['meta_key'];
         $meta_value = $meta['meta_value'];
@@ -169,7 +176,9 @@
       @while ($query->have_posts()) 
         @php $query->the_post(); global $post; @endphp
         <div class="{{ $column_class }}">
-          @include($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])
+          @php 
+            echo view()->first($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])->render();
+          @endphp
         </div>
       @endwhile
       

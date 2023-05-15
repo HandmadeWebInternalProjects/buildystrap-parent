@@ -21,7 +21,7 @@ const { update } = useFieldType(emit)
       :handle="handle"
       :value="modelValue"
       @input="update(($event?.target as HTMLInputElement)?.value)"
-      rows="10"
+      :rows="config?.rows || 10"
       :placeholder="config.placeholder" />
   </div>
 </template>

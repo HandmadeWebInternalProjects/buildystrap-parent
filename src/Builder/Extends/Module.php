@@ -9,6 +9,7 @@ use Buildystrap\Traits\CollectionClass;
 use Buildystrap\Traits\Config;
 use Buildystrap\Traits\HtmlStyleBuilder;
 use Buildystrap\Traits\InlineAttributes;
+use Buildystrap\Traits\Visibility;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 
@@ -26,6 +27,7 @@ abstract class Module
   use Augment;
   use InlineAttributes;
   use HtmlStyleBuilder;
+  use Visibility;
 
   protected string $uuid;
   protected string $type;
@@ -65,6 +67,14 @@ abstract class Module
 
     if (isset($module['inline']) && is_array($module['inline'])) {
       $this->inline_attributes = $module['inline'];
+    }
+
+    //Visibility
+    if ($visibility = $this->getConfig('visibility')) {
+      foreach ($visibility as $breakpoint) {
+        $this->visibility_classes[] = "hide-{$breakpoint}";
+      }
+      array_merge($this->visibility_classes, $this->html_classes);
     }
   }
 
@@ -167,6 +177,10 @@ abstract class Module
 
   public function render(): string
   {
+    if ($this->hideOnAll()) {
+      return '';
+    }
+
     $this->augmentOnce();
 
     $views = [

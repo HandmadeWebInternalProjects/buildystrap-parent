@@ -10,26 +10,21 @@
           :config="{
             options: [
               {
-                label: 'All',
-                value: 'all',
-              },
-              {
                 label: 'Mobile',
-                value: 'mobile',
+                value: 'sm',
               },
               {
                 label: 'Tablet',
-                value: 'tablet',
+                value: 'md',
               },
               {
                 label: 'Desktop',
-                value: 'desktop',
+                value: 'lg',
               },
             ],
             label: false,
-            readOnly: true
           }"
-          v-model="visibility" /> 
+          v-model="visibility" />
       </template>
     </bs-card>
   </div>
