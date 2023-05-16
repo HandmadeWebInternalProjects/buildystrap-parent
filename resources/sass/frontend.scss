@@ -554,6 +554,22 @@ $utilities: map-merge(
   row-gap: var(--bs-gutter-y, var(--bs-row-gap));
 }
 
+.hide-sm {
+  @include media-breakpoint-down(sm) {
+    display: none !important;
+  }
+}
+@include media-breakpoint-down(md) {
+  .hide-md {
+    display: none !important;
+  }
+}
+@include media-breakpoint-down(lg) {
+  .hide-lg {
+    display: none !important;
+  }
+}
+
 @import "bootstrap/scss/utilities/api";
 
 // @import "theme/colors"; // <-------- This creates the necessary bootstrap color classes.

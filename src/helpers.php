@@ -172,6 +172,16 @@ if (!function_exists('bs_get_field')) {
   }
 }
 
+if (!function_exists('bs_update_field')) {
+  function bs_update_field(string $field, mixed $value, int | string $id): void
+  {
+    if (!acf_active()) {
+      return;
+    }
+    update_field($field, $value, $id);
+  }
+}
+
 if (!function_exists('format_phone')) {
   function format_phone($number, $cc = '61', $html = null, $type = 'tel')
   {
@@ -439,6 +449,20 @@ if (!function_exists('hmw_woocommerce_header_cart')) {
 <?php
   }
 }
+if (!function_exists('get_descendant_pages')) {
+  function get_descendant_pages($parent_id)
+  {
+    $children = get_pages(array('child_of' => $parent_id));
+    $descendants = array();
+    foreach ($children as $child) {
+      $descendants[] = $child;
+      $grandchildren = get_descendant_pages($child->ID);
+      $descendants = array_merge($descendants, $grandchildren);
+    }
+    return $descendants;
+  }
+}
+
 
 if (!function_exists('get_sub_fields')) {
   function get_sub_fields($fields, $parent_label = '')

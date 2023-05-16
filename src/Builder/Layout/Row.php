@@ -33,6 +33,10 @@ class Row extends Layout
 
   public function render(): string
   {
+    if ($this->hideOnAll()) {
+      return '';
+    }
+
     $this->augmentOnce();
 
     return view('builder::row')->with('row', $this)->render();
