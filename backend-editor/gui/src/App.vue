@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue"
+import { ref, watch } from "vue"
 import { storeToRefs } from "pinia"
 import { useStacks } from "./components/stacks/useStacks"
 import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
-import { fetchPost, fetchLibraryPost } from "@/services/post"
+import { fetchLibraryPost } from "@/services/post"
 import { recursifyID } from "./utils/id"
 
 const {

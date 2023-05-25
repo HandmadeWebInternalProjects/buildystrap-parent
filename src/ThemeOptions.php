@@ -172,8 +172,8 @@ class ThemeOptions
               --bs-btn-border-color: var(--bs-btn-bg);
               --bs-btn-hover-border-color: var(--bs-btn-bg);
               --bs-btn-active-color: var(--bs-white);
-              --bs-btn-active-bg: var(--bs-btn-bg);
-              --bs-btn-active-border-color: var(--bs-btn-bg);
+              --bs-btn-active-bg: var(--theme-$colorName, var(--bs-$colorName));;
+              --bs-btn-active-border-color: var(--theme-$colorName, var(--bs-$colorName));;
               --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
               --bs-btn-focus-shadow-rgb: var(--bs-$colorName-rgb);
               --bs-btn-disabled-bg: #d5d5d5;
@@ -187,8 +187,8 @@ class ThemeOptions
               --bs-btn-border-color: var(--theme-$colorName, var(--bs-$colorName));
               --bs-btn-hover-border-color: var(--theme-$colorName, var(--bs-hover-$colorName));
               --bs-btn-active-color: var(--bs-white);
-              --bs-btn-active-bg: var(--bs-$colorName);
-              --bs-btn-active-border-color: var(--bs-$colorName);
+              --bs-btn-active-bg: var(--theme-$colorName, var(--bs-$colorName));;
+              --bs-btn-active-border-color: var(--theme-$colorName, var(--bs-$colorName));;
               --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
               --bs-btn-focus-shadow-rgb: var(--bs-$colorName-rgb);
               --bs-btn-disabled-bg: #d5d5d5;

@@ -162,7 +162,7 @@ const addModule = (): void => {
 }
 
 const cloneModule = (): void => {
-  let clone = JSON.parse(JSON.stringify(component.value))
+  const clone = JSON.parse(JSON.stringify(component.value))
   // Generate ID's for each nested module
   recursifyID(clone)
   parentArray.value.splice(index.value + 1, 0, clone)

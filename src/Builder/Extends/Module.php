@@ -32,11 +32,12 @@ abstract class Module
   protected string $uuid;
   protected string $type;
   protected bool $enabled;
+  protected Collection $data;
 
   protected Collection|LazyCollection $fields;
   protected Collection $values;
 
-  public function __construct(array $module)
+  public function __construct(array $module, bool $disable_fields = false)
   {
     $this->uuid = $module['uuid'];
     $this->enabled = $module['enabled'] ?? false;
@@ -46,7 +47,12 @@ abstract class Module
 
     $values = $module['values'];
 
-    $this->fields = $this->collectionClass($values)
+    $this->fields = $this->collectionClass([]);
+
+    $this->data = collect([]);
+
+    if (!$disable_fields) {
+      $this->fields = $this->collectionClass($values)
       ->map(function ($value, $handle) use ($blueprintFields) {
         if (!empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
           if ($field = Builder::getField($blueprintField['type'])) {
@@ -56,6 +62,7 @@ abstract class Module
 
         return null;
       })->filter();
+    }
 
     if (isset($module['config']) && is_array($module['config'])) {
       $this->config = $module['config'];
@@ -86,6 +93,12 @@ abstract class Module
   public function fields(): Collection|LazyCollection
   {
     return $this->fields;
+  }
+
+  public function with(array $array)
+  {
+    $this->data = collect($array);
+    return $this;
   }
 
   public function recursifyFieldTypes($values): Collection
@@ -188,7 +201,7 @@ abstract class Module
       'builder::module-not-found',
     ];
 
-    return view()->first($views)->with('module', $this)->render();
+    return view()->first($views)->with('module', $this)->with($this->data->toArray())->render();
   }
 
   public function augment(): void

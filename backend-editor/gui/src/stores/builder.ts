@@ -37,6 +37,8 @@ export const useBuilderStore = defineStore("builder", () => {
   const pasteLocations = ref<string[]>([])
   const registeredComponents = ref<{ [key: string]: any }>({})
 
+  const isGlobalModule = computed(() => builderConfig?.value?.is_global_module)
+
   const getModuleBlueprintForType = computed(
     () => (type: string) => builderConfig?.value?.moduleBlueprints[type]
   )
@@ -97,6 +99,7 @@ export const useBuilderStore = defineStore("builder", () => {
     builderContent,
     pasteLocations,
     registeredComponents,
+    isGlobalModule,
     getModuleBlueprintForType,
     getModuleBlueprints,
     getModuleStyles,
