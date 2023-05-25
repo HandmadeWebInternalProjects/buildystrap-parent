@@ -11,6 +11,7 @@ export default function () {
             touchNavigation: true,
             loop: true,
         });
+        gallery.GLightbox = lightbox;
     });
 
 } 

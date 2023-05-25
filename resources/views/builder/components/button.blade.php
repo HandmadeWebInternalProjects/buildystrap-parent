@@ -7,8 +7,10 @@
   $bg_colour = isset($button['style']) && !$hasType ? "btn-{$button['style']}" : '';
   $color = isset($button['color']) && !$hasType ? "text-{$button['color']}" : null;
   $target = isset($button['target']) && $button['target'] ? '_blank' : null;
+  $btn_class = isset($button['class']) ? $button['class'] : null;
   $class = collect([])
     ->push('btn')
+    ->push($btn_class)
     ->push($bg_colour)
     ->push($type)
     ->push($size)

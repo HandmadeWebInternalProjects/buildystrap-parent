@@ -48,8 +48,10 @@ class ButtonField extends Field
         $size = $this->value()->get('size', null) ?? null;
         $color = $this->value()->get('color', null) ? "text-{$this->value()->get('color', null)}" : null;
         $target = ($this->value()->get('target') ?? null) && $this->value()->get('target') ? '_blank' : '_self';
+        $btn_class = $this->value()->get('class', null) ?? null;
         $class = collect([])
           ->push('btn')
+          ->push($btn_class)
           ->push($bg_colour)
           ->push($type)
           ->push($size)
