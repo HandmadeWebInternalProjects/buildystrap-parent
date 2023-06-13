@@ -298,7 +298,7 @@ class Builder
     return null;
   }
 
-  public static function getGlobalModule(int $post_id, $wrapper = null): ?Module
+  public static function getGlobalModule(int $post_id): ?Module
   {
     global $wpdb;
 
@@ -323,7 +323,7 @@ class Builder
       $module = json_decode($global->content, true);
       $_module = static::getModule($module['type']);
 
-      return new $_module($module, $wrapper = null);
+      return new $_module($module);
     }
 
     return null;

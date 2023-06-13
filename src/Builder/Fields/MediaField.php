@@ -18,6 +18,19 @@ class MediaField extends Field
     ];
   }
 
+  private function getImage($item)
+  {
+    $attachment_details = wp_get_attachment_metadata($item['id']);
+    $filename = pathinfo($attachment_details['file'], PATHINFO_FILENAME);
+
+    $this->additional_classes = $this->additional_classes . ' image-' . $filename;
+
+    return wp_get_attachment_image($item['id'], $this->size, false, [
+      'class' => $this->additional_classes,
+      'alt' => $attachment_details['alt'] ?? '',
+    ]);
+  }
+
   public function withSize($size = null): string
   {
     return $this->size = $size ?? $this->config['size'] ?? 'full';
@@ -26,14 +39,17 @@ class MediaField extends Field
   public function __toString(): string
   {
     return collect($this->value())
-      ->map(fn ($item) => wp_get_attachment_image_url($item['id'], $this->size))
-      ->first();
+    ->map(function ($item) {
+      return $this->getImage($item);
+    })->first();
   }
 
   public function toHtml(): string
   {
     return collect($this->value())
-      ->map(fn ($item) => wp_get_attachment_image($item['id'], $this->size, false, ['class' => $this->additional_classes]))
+      ->map(function ($item) {
+        return $this->getImage($item);
+      })
       ->implode('');
   }
 }
