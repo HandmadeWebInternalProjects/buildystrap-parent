@@ -18,9 +18,9 @@
  */
 
 // Exit if accessed directly.
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 ?>
 
-<a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-primary btn-lg btn-block">
-	<?php esc_html_e('Proceed to checkout', 'woocommerce'); ?>
+<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-primary btn-lg btn-block">
+	<?php esc_html_e( 'Proceed to checkout', 'woocommerce' ); ?>
 </a>
