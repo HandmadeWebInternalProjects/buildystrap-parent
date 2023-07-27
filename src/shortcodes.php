@@ -9,6 +9,7 @@ if (!function_exists('company_phone_shortcode')) {
       'prefix' => null,
       'suffix' => null,
       'icon' => false,
+      'default_class' => 'company-phone',
       'class' => 'd-inline-flex align-items-baseline gap-3',
       'field' => 'buildystrap_company_details_company_phone',
       'type' => 'tel'
@@ -28,7 +29,7 @@ if (!function_exists('company_phone_shortcode')) {
 
     ob_start(); ?>
 
-    <a class="<?= $atts['class']; ?>" href="<?= format_phone($company_phone, '61', false, $atts['type']) ?>">
+    <a class="<?= $atts['default_class']; ?> <?= $atts['class']; ?>" href="<?= format_phone($company_phone, '61', false, $atts['type']) ?>">
       <?php if ($atts['icon']) : ?>
         <i class="<?= esc_attr($atts['icon']) ?>"></i>
       <?php endif; ?>
@@ -54,7 +55,7 @@ if (!function_exists('company_fax_shortcode')) {
 
     ob_start();
 
-    echo apply_shortcodes('[company-phone type=\'fax\' field=\'company_fax\']');
+    echo apply_shortcodes('[company-phone default_class="company-fax" type=\'fax\' field=\'company_fax\']');
 
     return ob_get_clean();
   }
@@ -68,7 +69,8 @@ if (!function_exists('company_email_shortcode')) {
   {
     $atts = shortcode_atts([
       'text' => null,
-      'icon' => false
+      'icon' => false,
+      'default_class' => 'company-email',
     ], $atts);
 
     if (is_admin() || !function_exists('get_field')) {
@@ -78,7 +80,7 @@ if (!function_exists('company_email_shortcode')) {
     $company_email = get_field('buildystrap_company_details_company_email', 'option') ? get_field('buildystrap_company_details_company_email', 'option') : '';
     ob_start(); ?>
 
-    <a class="company-email d-flex align-items-baseline gap-3" href="mailto:<?php echo esc_attr($company_email); ?>">
+    <a class="<?= $atts['default_class']; ?> d-flex align-items-baseline gap-3" href="mailto:<?php echo esc_attr($company_email); ?>">
       <?php if ($atts['icon']) : ?>
         <i class="<?= esc_attr($atts['icon']) ?>"></i>
       <?php endif; ?>

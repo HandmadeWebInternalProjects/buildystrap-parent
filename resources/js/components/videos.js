@@ -8,9 +8,9 @@ export default function () {
   }
   videoOverlays.forEach(function (videoOverlay) {
     let playButton = videoOverlay?.querySelector('.video-play'),
-      parent = playButton.closest('.buildystrap-video-module'),
-      iframe = parent.querySelector('.video-overlay iframe'),
-      autoplay = videoOverlay.dataset.autoplay;
+      parent = playButton?.closest('.buildystrap-video-module'),
+      iframe = parent?.querySelector('.video-overlay iframe'),
+      autoplay = videoOverlay?.dataset.autoplay;
 
     if (!playButton) return;
 
