@@ -21,6 +21,11 @@ class MediaField extends Field
   private function getImage($item)
   {
     $attachment_details = wp_get_attachment_metadata($item['id']);
+
+    if (!$attachment_details) {
+      return "";
+    }
+    
     $filename = pathinfo($attachment_details['file'], PATHINFO_FILENAME);
 
     $this->additional_classes = $this->additional_classes . ' image-' . $filename;
