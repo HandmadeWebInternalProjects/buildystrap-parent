@@ -16,6 +16,8 @@
     @endif
 
     @foreach($column->modules() as $module)
+      @if ($module)
         {!! $module->render() !!}
+      @endif
     @endforeach
 </div>

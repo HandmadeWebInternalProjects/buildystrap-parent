@@ -120,6 +120,13 @@ class Theme
       wp_get_theme('buildystrap-parent')->get('Version'),
       true
     );
+
+    $enable_bugherd = bs_get_field('buildystrap_debug_enable_bugherd', 'option');
+    $bugherd_api_key = bs_get_field('buildystrap_debug_bugherd_api_key', 'option');
+
+    if ($enable_bugherd && $bugherd_api_key) {
+      wp_enqueue_script('bugherd-async', 'https://www.bugherd.com/sidebarv2.js?apikey=' . $bugherd_api_key, [], '', false);
+    }
   }
 
   /**

@@ -32,7 +32,9 @@ class Column extends Layout
           ($module['type'] === 'row') => Row::class,
           default => Builder::getModule($module['type'])
         };
-
+      if (!$moduleType) {
+        return null;
+      }
         return new $moduleType($module);
       });
   }

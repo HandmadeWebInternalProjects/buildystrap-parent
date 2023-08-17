@@ -64,6 +64,7 @@ class BuilderApi
 
           return new WP_REST_Response($fields, 200);
       },
+      'permission_callback' => '__return_true',
     ]);
 
         register_rest_route('buildy/v1', '/get_field/(?P<meta_key>[A-Za-z0-9_,-]+)', [
@@ -105,6 +106,7 @@ class BuilderApi
 
           return new WP_REST_Response($choices, 200);
       },
+      'permission_callback' => '__return_true',
     ]);
 
         register_rest_route('buildy/v1', '/render_module/(?P<id>\d+)', [
