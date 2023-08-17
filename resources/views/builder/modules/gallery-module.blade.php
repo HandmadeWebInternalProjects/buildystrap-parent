@@ -19,7 +19,8 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
       $col_gap = getResponsiveClasses(module: $module, prop: 'col_gap', classPrefix: 'gap', fallback: 'gap-3');
       $place_items = getResponsiveClasses(module: $module, prop: 'place_items', classPrefix: 'place-items', fallback: '');
       $image_size = $module->has('image_size') ? $module->get('image_size')->value() : 'medium';
-      $image_aspect_ratio = $module->has('image_aspect_ratio') ? $module->get('image_aspect_ratio')->value() : '16/9';
+      $image_aspect_ratio = $module->has('image_aspect_ratio') ? $module->get('image_aspect_ratio')->value() : '';
+      $image_style = $image_aspect_ratio ? "aspect-ratio: {$image_aspect_ratio}; object-fit: cover;" : '';
   @endphp
 
   <div class="grid {{ $col_gap }} {{ $place_items }}" @if($col_count) style="{{ $col_count }}" @endif>
@@ -30,7 +31,7 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
             @php $alt = get_post_meta($image['id'], '_wp_attachment_image_alt', true) ?? null; @endphp
             <a href="{!! wp_get_attachment_image_url($image['id'], 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
           @endif
-              {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded w-100 h-auto', 'style' => "aspect-ratio: {$image_aspect_ratio}; object-fit: cover;"]) !!}
+              {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded w-100 h-auto', 'style' => $image_style]) !!}
           @if($lightbox_enabled)
             </a>
           @endif
