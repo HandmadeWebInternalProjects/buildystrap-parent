@@ -74,26 +74,40 @@ if (!function_exists('class_extends')) {
   }
 }
 
-if (!function_exists('getResponsiveClasses')) {
-  function getResponsiveClasses(
-    object $module,
-    string $prop,
+if (!function_exists('get_responsive_classes')) {
+  function get_responsive_classes(
+    object|null $module = null,
+    mixed $prop,
     string $classPrefix,
-    string $fallback,
+    string $fallback = '',
     mixed $computed = null
   ) {
-    $has_prop = $module->has($prop);
-    if (!$has_prop) {
-      return $fallback;
+
+    // If Module is null, we have probably passed an array directly to prop
+    if (isset($module)) {
+      $has_prop = $module->has($prop);
+
+      if (!$has_prop) {
+        return $fallback;
+      }
     }
 
-    $prop = $module->get($prop);
-    if (!isset($prop)) {
+    // If this is not an array check if prop exists on module
+    if (!is_array($prop) && isset($module)) {
+      $prop = $module->get($prop)->value();
+
+      if (is_string($prop)) {
+        return $prop;
+      }
+    }
+
+    if (!isset($prop) || !is_array($prop)) {
       return $fallback;
     }
 
     $class_list = [];
-    foreach ($prop->value() as $breakpoint => $value) {
+    foreach ($prop as $breakpoint => $value) {
+
       $val = isset($computed) ? $computed($value) : $value;
       if (!$val) {
         continue;

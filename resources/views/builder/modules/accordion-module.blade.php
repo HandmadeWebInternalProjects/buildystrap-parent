@@ -21,7 +21,7 @@
             <div class="accordion-body">
               {!! do_shortcode($content) !!}
             </div>
-            @if ($cta->value()->get('text') && $cta->value()->get('url'))
+            @if ($cta && $cta->value()->get('text') && $cta->value()->get('url'))
               <div class="accordion-footer">
                 {!! $cta !!}
               </div>

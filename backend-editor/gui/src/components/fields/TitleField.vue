@@ -23,6 +23,7 @@ const fields: any = reactive({
   line_height: props.modelValue?.line_height || reactive({}),
   color: props.modelValue?.color || reactive({}),
   class: props.modelValue?.class || ref(""),
+  alignment: props.modelValue?.alignment || reactive({}),
 })
 
 const forceDelete = (val: any, resetVal: any = {}) => {
@@ -95,6 +96,18 @@ watch(fields, (newValue) => {
                 popover: 'Change the font weight of the header tag',
               }"
               v-model="fields.weight[bp]" />
+            <select-field
+              class="flex-grow-1 flex-basis-0"
+              @mouseover.ctrl="forceDelete('alignment')"
+              handle="alignment"
+              :config="{
+                label: 'Alignment',
+                options: ['start', 'center', 'end'],
+                placeholder: 'Default',
+                responsive: true,
+                popover: 'Change the font alignment of the heading',
+              }"
+              v-model="fields.alignment[bp]" />
           </div>
           <div class="d-flex gap-3">
             <color-select-field

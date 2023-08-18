@@ -2,6 +2,13 @@
   $direction = $module->get('image_placement') ?? 'flex-column';
   $card_classes = collect(['card', $direction])->filter()->implode(' ');
   $button_group_class = $module->get('button_group_class') ?? null;
+  $button_group_alignment = $module->get('button_group_alignment') ?? null;
+
+  $alignment = get_responsive_classes(module: $module, prop: 'button_group_alignment', fallback: '', classPrefix: 'align-self');
+
+  if ($button_group_alignment) {
+    $button_group_class .= " $alignment";
+  }
 @endphp
 
 @extends('builder::module-base', ['class' => $card_classes])

@@ -15,9 +15,9 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
         return (12 % (int) $value === 0) ? null : "--bs$prefix-columns: $value;";
       })->filter()->join('') : null;
 
-      $col_class = getResponsiveClasses(module: $module, prop: 'columns', classPrefix: 'g-col', fallback: 'g-col-4', computed: fn($val) => isset($val) ? (((int) $val && 12 % $val === 0) ? (12 / (int) $val) : 1) : null);
-      $col_gap = getResponsiveClasses(module: $module, prop: 'col_gap', classPrefix: 'gap', fallback: 'gap-3');
-      $place_items = getResponsiveClasses(module: $module, prop: 'place_items', classPrefix: 'place-items', fallback: '');
+      $col_class = get_responsive_classes(module: $module, prop: 'columns', classPrefix: 'g-col', fallback: 'g-col-4', computed: fn($val) => isset($val) ? (((int) $val && 12 % $val === 0) ? (12 / (int) $val) : 1) : null);
+      $col_gap = get_responsive_classes(module: $module, prop: 'col_gap', classPrefix: 'gap', fallback: 'gap-3');
+      $place_items = get_responsive_classes(module: $module, prop: 'place_items', classPrefix: 'place-items', fallback: '');
       $image_size = $module->has('image_size') ? $module->get('image_size')->value() : 'medium';
       $image_aspect_ratio = $module->has('image_aspect_ratio') ? $module->get('image_aspect_ratio')->value() : '';
       $image_style = $image_aspect_ratio ? "aspect-ratio: {$image_aspect_ratio}; object-fit: cover;" : '';
