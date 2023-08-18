@@ -69,28 +69,6 @@ final class NoUnneededControlParenthesesFixer extends AbstractFixer implements C
         [T_INCLUDE_ONCE],
     ];
 
-    private const NOOP_TYPES = [
-        '$',
-        [T_CONSTANT_ENCAPSED_STRING],
-        [T_DNUMBER],
-        [T_DOUBLE_COLON],
-        [T_LNUMBER],
-        [T_NS_SEPARATOR],
-        [T_OBJECT_OPERATOR],
-        [T_STRING],
-        [T_VARIABLE],
-        [T_STATIC],
-        // magic constants
-        [T_CLASS_C],
-        [T_DIR],
-        [T_FILE],
-        [T_FUNC_C],
-        [T_LINE],
-        [T_METHOD_C],
-        [T_NS_C],
-        [T_TRAIT_C],
-    ];
-
     private const CONFIG_OPTIONS = [
         'break',
         'clone',
@@ -123,11 +101,43 @@ final class NoUnneededControlParenthesesFixer extends AbstractFixer implements C
         T_INCLUDE_ONCE,
     ];
 
+    /**
+     * @var list<list<int>|string>
+     */
+    private array $noopTypes;
+
     private TokensAnalyzer $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->noopTypes = [
+            '$',
+            [T_CONSTANT_ENCAPSED_STRING],
+            [T_DNUMBER],
+            [T_DOUBLE_COLON],
+            [T_LNUMBER],
+            [T_NS_SEPARATOR],
+            [T_STRING],
+            [T_VARIABLE],
+            [T_STATIC],
+            // magic constants
+            [T_CLASS_C],
+            [T_DIR],
+            [T_FILE],
+            [T_FUNC_C],
+            [T_LINE],
+            [T_METHOD_C],
+            [T_NS_C],
+            [T_TRAIT_C],
+        ];
+
+        foreach (Token::getObjectOperatorKinds() as $kind) {
+            $this->noopTypes[] = [$kind];
+        }
+    }
+
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -170,17 +180,11 @@ while ($y) { continue (2); }
         return 30;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound(['(', CT::T_BRACE_CLASS_INSTANTIATION_OPEN]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->tokensAnalyzer = new TokensAnalyzer($tokens);
@@ -258,16 +262,11 @@ while ($y) { continue (2); }
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         $defaults = array_filter(
             self::CONFIG_OPTIONS,
-            static function (string $option): bool {
-                return 'negative_instanceof' !== $option && 'others' !== $option && 'yield_from' !== $option;
-            }
+            static fn (string $option): bool => 'negative_instanceof' !== $option && 'others' !== $option && 'yield_from' !== $option
         );
 
         return new FixerConfigurationResolver([
@@ -655,7 +654,7 @@ while ($y) { continue (2); }
                 continue;
             }
 
-            if (!$tokens[$startIndex]->equalsAny(self::NOOP_TYPES)) {
+            if (!$tokens[$startIndex]->equalsAny($this->noopTypes)) {
                 return true;
             }
         }

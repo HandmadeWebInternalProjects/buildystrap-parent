@@ -40,27 +40,24 @@ final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableF
      */
     private array $groups;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         $code = <<<'EOF'
-<?php
-/**
- * Hello there!
- *
- * @author John Doe
- * @custom Test!
- *
- * @throws Exception|RuntimeException foo
- * @param string $foo
- *
- * @param bool   $bar Bar
- * @return int  Return the number of changes.
- */
+            <?php
+            /**
+             * Hello there!
+             *
+             * @author John Doe
+             * @custom Test!
+             *
+             * @throws Exception|RuntimeException foo
+             * @param string $foo
+             *
+             * @param bool   $bar Bar
+             * @return int  Return the number of changes.
+             */
 
-EOF;
+            EOF;
 
         return new FixerDefinition(
             'Annotations in PHPDoc should be grouped together so that annotations of the same type immediately follow each other. Annotations of a different type are separated by a single blank line.',
@@ -79,17 +76,17 @@ EOF;
                 ]]),
                 new CodeSample(
                     <<<'EOF'
-                    <?php
-                    /**
-                     * @ORM\Id
-                     *
-                     * @ORM\GeneratedValue
-                     * @Assert\NotNull
-                     *
-                     * @Assert\Type("string")
-                     */
+                        <?php
+                        /**
+                         * @ORM\Id
+                         *
+                         * @ORM\GeneratedValue
+                         * @Assert\NotNull
+                         *
+                         * @Assert\Type("string")
+                         */
 
-                    EOF,
+                        EOF,
                     ['groups' => [['ORM\*'], ['Assert\*']]],
                 ),
                 new CodeSample($code, ['skip_unlisted_annotations' => true]),
@@ -97,9 +94,6 @@ EOF;
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -111,24 +105,18 @@ EOF;
      * {@inheritdoc}
      *
      * Must run before PhpdocAlignFixer.
-     * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, GeneralPhpdocAnnotationRemoveFixer, PhpdocIndentFixer, PhpdocNoAccessFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocOrderFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
+     * Must run after AlignMultilineCommentFixer, CommentToPhpdocFixer, GeneralPhpdocAnnotationRemoveFixer, PhpUnitInternalClassFixer, PhpUnitSizeClassFixer, PhpUnitTestClassRequiresCoversFixer, PhpdocIndentFixer, PhpdocNoAccessFixer, PhpdocNoEmptyReturnFixer, PhpdocNoPackageFixer, PhpdocOrderFixer, PhpdocScalarFixer, PhpdocToCommentFixer, PhpdocTypesFixer.
      */
     public function getPriority(): int
     {
         return -3;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
@@ -144,9 +132,6 @@ EOF;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         $allowTagToBelongToOnlyOneGroup = function ($groups) {
@@ -318,7 +303,7 @@ EOF;
             $tagInGroup = preg_quote($tagInGroup, '/');
             $tagInGroup = str_replace('\\\\\*', '.*?', $tagInGroup);
 
-            if (1 === Preg::match("/^{$tagInGroup}$/", $tag)) {
+            if (Preg::match("/^{$tagInGroup}$/", $tag)) {
                 return true;
             }
         }

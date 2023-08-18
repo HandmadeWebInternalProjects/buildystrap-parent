@@ -8,7 +8,34 @@ use Countable;
 class Blink implements ArrayAccess, Countable
 {
     /** @var array */
-    protected $values = [];
+    protected $values;
+
+    /**
+     * @var null|Blink
+     */
+    protected static $instance;
+
+    /**
+     * Get always the same instance within the current request
+     *
+     * @return static
+     */
+    public static function global(): self
+    {
+        if (!self::$instance) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * @param array $values
+     */
+    public function __construct(array $values = [])
+    {
+        $this->values = $values;
+    }
 
     /**
      * Put a value in the store.
@@ -54,7 +81,7 @@ class Blink implements ArrayAccess, Countable
             : $default;
     }
 
-    /*
+    /**
      * Determine if the store has a value for the given name.
      *
      * This function has support for the '*' wildcard.
@@ -280,6 +307,18 @@ class Blink implements ArrayAccess, Countable
         }
 
         return $this->get($key);
+    }
+
+    /**
+     * Use the "once" method only if the given condition is true.
+     *
+     * Otherwise, the callable will be executed.
+     *
+     * @return mixed
+     */
+    public function onceIf($shouldBlink, $key, callable $callable)
+    {
+        return $shouldBlink ? $this->once($key, $callable) : $callable();
     }
 
     protected function filterKeysStartingWith(array $values, string $startsWith): array

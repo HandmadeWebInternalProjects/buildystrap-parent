@@ -27,9 +27,6 @@ use PhpCsFixer\Preg;
 
 final class DoctrineAnnotationIndentationFixer extends AbstractDoctrineAnnotationFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -44,25 +41,17 @@ final class DoctrineAnnotationIndentationFixer extends AbstractDoctrineAnnotatio
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
-        return new FixerConfigurationResolver(array_merge(
-            parent::createConfigurationDefinition()->getOptions(),
-            [
-                (new FixerOptionBuilder('indent_mixed_lines', 'Whether to indent lines that have content before closing parenthesis.'))
-                    ->setAllowedTypes(['bool'])
-                    ->setDefault(false)
-                    ->getOption(),
-            ]
-        ));
+        return new FixerConfigurationResolver([
+            ...parent::createConfigurationDefinition()->getOptions(),
+            (new FixerOptionBuilder('indent_mixed_lines', 'Whether to indent lines that have content before closing parenthesis.'))
+                ->setAllowedTypes(['bool'])
+                ->setDefault(false)
+                ->getOption(),
+        ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function fixAnnotations(Tokens $doctrineAnnotationTokens): void
     {
         $annotationPositions = [];

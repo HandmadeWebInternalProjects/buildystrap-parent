@@ -36,9 +36,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'self-update')]
 final class SelfUpdateCommand extends Command
 {
-    /**
-     * @var string
-     */
     protected static $defaultName = 'self-update';
 
     private NewVersionCheckerInterface $versionChecker;
@@ -59,9 +56,6 @@ final class SelfUpdateCommand extends Command
         $this->pharChecker = $pharChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -74,20 +68,17 @@ final class SelfUpdateCommand extends Command
             ->setDescription('Update php-cs-fixer.phar to the latest stable version.')
             ->setHelp(
                 <<<'EOT'
-The <info>%command.name%</info> command replace your php-cs-fixer.phar by the
-latest version released on:
-<comment>https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases</comment>
+                    The <info>%command.name%</info> command replace your php-cs-fixer.phar by the
+                    latest version released on:
+                    <comment>https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases</comment>
 
-<info>$ php php-cs-fixer.phar %command.name%</info>
+                    <info>$ php php-cs-fixer.phar %command.name%</info>
 
-EOT
+                    EOT
             )
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof ConsoleOutputInterface) {

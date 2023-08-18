@@ -40,24 +40,21 @@ final class PhpdocOrderFixer extends AbstractFixer implements ConfigurableFixerI
      */
     private const ORDER_DEFAULT = ['param', 'throws', 'return'];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         $code = <<<'EOF'
-<?php
-/**
- * Hello there!
- *
- * @throws Exception|RuntimeException foo
- * @custom Test!
- * @return int  Return the number of changes.
- * @param string $foo
- * @param bool   $bar Bar
- */
+            <?php
+            /**
+             * Hello there!
+             *
+             * @throws Exception|RuntimeException foo
+             * @custom Test!
+             * @return int  Return the number of changes.
+             * @param string $foo
+             * @param bool   $bar Bar
+             */
 
-EOF;
+            EOF;
 
         return new FixerDefinition(
             'Annotations in PHPDoc should be ordered in defined sequence.',
@@ -70,9 +67,6 @@ EOF;
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_DOC_COMMENT);
@@ -89,9 +83,6 @@ EOF;
         return -2;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -109,9 +100,6 @@ EOF;
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {

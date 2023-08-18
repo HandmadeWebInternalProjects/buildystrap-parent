@@ -40,9 +40,6 @@ final class TypesSpacesFixer extends AbstractFixer implements ConfigurableFixerI
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -65,15 +62,19 @@ final class TypesSpacesFixer extends AbstractFixer implements ConfigurableFixerI
 
     /**
      * {@inheritdoc}
+     *
+     * Must run after NullableTypeDeclarationFixer, OrderedTypesFixer.
      */
+    public function getPriority(): int
+    {
+        return -1;
+    }
+
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([CT::T_TYPE_ALTERNATION, CT::T_TYPE_INTERSECTION]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -139,7 +140,7 @@ final class TypesSpacesFixer extends AbstractFixer implements ConfigurableFixerI
             return 1;
         }
 
-        if (' ' !== $tokens[$index]->getContent() && 1 !== Preg::match('/\R/', $tokens[$index]->getContent())) {
+        if (' ' !== $tokens[$index]->getContent() && !Preg::match('/\R/', $tokens[$index]->getContent())) {
             $tokens[$index] = new Token([T_WHITESPACE, ' ']);
         }
 
@@ -148,7 +149,7 @@ final class TypesSpacesFixer extends AbstractFixer implements ConfigurableFixerI
 
     private function ensureNoSpace(Tokens $tokens, int $index): void
     {
-        if ($tokens[$index]->isWhitespace() && 1 !== Preg::match('/\R/', $tokens[$index]->getContent())) {
+        if ($tokens[$index]->isWhitespace() && !Preg::match('/\R/', $tokens[$index]->getContent())) {
             $tokens->clearAt($index);
         }
     }

@@ -70,9 +70,6 @@ final class NoExtraBlankLinesFixer extends AbstractFixer implements Configurable
 
     private TokensAnalyzer $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         if (isset($configuration['tokens']) && \in_array('use_trait', $configuration['tokens'], true)) {
@@ -117,9 +114,6 @@ final class NoExtraBlankLinesFixer extends AbstractFixer implements Configurable
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -261,24 +255,18 @@ switch($a) {
      * {@inheritdoc}
      *
      * Must run before BlankLineBeforeStatementFixer.
-     * Must run after ClassAttributesSeparationFixer, CombineConsecutiveUnsetsFixer, EmptyLoopBodyFixer, EmptyLoopConditionFixer, FunctionToConstantFixer, ModernizeStrposFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUnusedImportsFixer, NoUselessElseFixer, NoUselessReturnFixer, NoUselessSprintfFixer, StringLengthToEmptyFixer.
+     * Must run after ClassAttributesSeparationFixer, CombineConsecutiveUnsetsFixer, EmptyLoopBodyFixer, EmptyLoopConditionFixer, FunctionToConstantFixer, ModernizeStrposFixer, NoEmptyCommentFixer, NoEmptyPhpdocFixer, NoEmptyStatementFixer, NoUnusedImportsFixer, NoUselessElseFixer, NoUselessReturnFixer, NoUselessSprintfFixer, StringLengthToEmptyFixer, YieldFromArrayToYieldsFixer.
      */
     public function getPriority(): int
     {
         return -20;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->tokens = $tokens;
@@ -289,9 +277,6 @@ switch($a) {
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -345,7 +330,7 @@ switch($a) {
 
     private function removeMultipleBlankLines(int $index): void
     {
-        $expected = $this->tokens[$index - 1]->isGivenKind(T_OPEN_TAG) && 1 === Preg::match('/\R$/', $this->tokens[$index - 1]->getContent()) ? 1 : 2;
+        $expected = $this->tokens[$index - 1]->isGivenKind(T_OPEN_TAG) && Preg::match('/\R$/', $this->tokens[$index - 1]->getContent()) ? 1 : 2;
 
         $parts = Preg::split('/(.*\R)/', $this->tokens[$index]->getContent(), -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $count = \count($parts);
@@ -418,8 +403,24 @@ switch($a) {
     private function removeEmptyLinesAfterLineWithTokenAt(int $index): void
     {
         // find the line break
+        $parenthesesDepth = 0;
         $tokenCount = \count($this->tokens);
         for ($end = $index; $end < $tokenCount; ++$end) {
+            if ($this->tokens[$end]->equals('(')) {
+                ++$parenthesesDepth;
+
+                continue;
+            }
+
+            if ($this->tokens[$end]->equals(')')) {
+                --$parenthesesDepth;
+                if ($parenthesesDepth < 0) {
+                    return;
+                }
+
+                continue;
+            }
+
             if (
                 $this->tokens[$end]->equals('}')
                 || str_contains($this->tokens[$end]->getContent(), "\n")

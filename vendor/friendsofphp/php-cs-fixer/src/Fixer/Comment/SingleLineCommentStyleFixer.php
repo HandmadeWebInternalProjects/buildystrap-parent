@@ -42,9 +42,6 @@ final class SingleLineCommentStyleFixer extends AbstractFixer implements Configu
      */
     private $hashEnabled;
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -53,9 +50,6 @@ final class SingleLineCommentStyleFixer extends AbstractFixer implements Configu
         $this->hashEnabled = \in_array('hash', $this->configuration['comment_types'], true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -112,17 +106,11 @@ $c = 3;
         return -31;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_COMMENT);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
@@ -147,7 +135,7 @@ $c = 3;
                 !$this->asteriskEnabled
                 || str_contains($commentContent, '?>')
                 || !str_starts_with($content, '/*')
-                || 1 === Preg::match('/[^\s\*].*\R.*[^\s\*]/s', $commentContent)
+                || Preg::match('/[^\s\*].*\R.*[^\s\*]/s', $commentContent)
             ) {
                 continue;
             }
@@ -155,7 +143,7 @@ $c = 3;
             $nextTokenIndex = $index + 1;
             if (isset($tokens[$nextTokenIndex])) {
                 $nextToken = $tokens[$nextTokenIndex];
-                if (!$nextToken->isWhitespace() || 1 !== Preg::match('/\R/', $nextToken->getContent())) {
+                if (!$nextToken->isWhitespace() || !Preg::match('/\R/', $nextToken->getContent())) {
                     continue;
                 }
 
@@ -163,16 +151,13 @@ $c = 3;
             }
 
             $content = '//';
-            if (1 === Preg::match('/[^\s\*]/', $commentContent)) {
+            if (Preg::match('/[^\s\*]/', $commentContent)) {
                 $content = '// '.Preg::replace('/[\s\*]*([^\s\*](?:.+[^\s\*])?)[\s\*]*/', '\1', $commentContent);
             }
             $tokens[$index] = new Token([$token->getId(), $content]);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([

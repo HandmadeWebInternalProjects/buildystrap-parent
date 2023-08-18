@@ -44,17 +44,15 @@ final class ListDocumentGenerator
     {
         usort(
             $fixers,
-            static function (FixerInterface $fixer1, FixerInterface $fixer2): int {
-                return strnatcasecmp($fixer1->getName(), $fixer2->getName());
-            }
+            static fn (FixerInterface $fixer1, FixerInterface $fixer2): int => strnatcasecmp($fixer1->getName(), $fixer2->getName())
         );
 
         $documentation = <<<'RST'
-=======================
-List of Available Rules
-=======================
+            =======================
+            List of Available Rules
+            =======================
 
-RST;
+            RST;
         foreach ($fixers as $fixer) {
             $name = $fixer->getName();
             $definition = $fixer->getDefinition();
@@ -93,7 +91,7 @@ RST;
 
                 foreach ($configurationDefinition->getOptions() as $option) {
                     $documentation .= "\n   - | ``{$option->getName()}``";
-                    $documentation .= "\n     | {$option->getDescription()}";
+                    $documentation .= "\n     | ".RstUtils::ensureProperInlineCode($option->getDescription());
 
                     if ($option instanceof DeprecatedFixerOptionInterface) {
                         $deprecationMessage = RstUtils::toRst($option->getDeprecationMessage(), 3);
@@ -114,18 +112,16 @@ RST;
                         );
                     } else {
                         $allowedKind = 'Allowed values';
-                        $allowed = array_map(static function ($value): string {
-                            return $value instanceof AllowedValueSubset
-                                ? 'a subset of ``'.HelpCommand::toString($value->getAllowedValues()).'``'
-                                : '``'.HelpCommand::toString($value).'``';
-                        }, $allowed);
+                        $allowed = array_map(static fn ($value): string => $value instanceof AllowedValueSubset
+                            ? 'a subset of ``'.Utils::toString($value->getAllowedValues()).'``'
+                            : '``'.Utils::toString($value).'``', $allowed);
                     }
 
-                    $allowed = implode(', ', $allowed);
+                    $allowed = Utils::naturalLanguageJoin($allowed, '');
                     $documentation .= "\n     | {$allowedKind}: {$allowed}";
 
                     if ($option->hasDefault()) {
-                        $default = HelpCommand::toString($option->getDefault());
+                        $default = Utils::toString($option->getDefault());
                         $documentation .= "\n     | Default value: ``{$default}``";
                     } else {
                         $documentation .= "\n     | This option is required.";

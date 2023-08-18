@@ -45,9 +45,6 @@ final class OperatorLinebreakFixer extends AbstractFixer implements Configurable
      */
     private array $operators = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -72,9 +69,6 @@ function foo() {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configure(array $configuration): void
     {
         parent::configure($configuration);
@@ -87,17 +81,11 @@ function foo() {
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -112,9 +100,6 @@ function foo() {
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $referenceAnalyzer = new ReferenceAnalyzer();
@@ -230,7 +215,7 @@ function foo() {
         $nextIndex = $tokens->getNextMeaningfulToken(max($operatorIndices));
 
         for ($i = $nextIndex - 1; $i > max($operatorIndices); --$i) {
-            if ($tokens[$i]->isWhitespace() && 1 === Preg::match('/\R/u', $tokens[$i]->getContent())) {
+            if ($tokens[$i]->isWhitespace() && Preg::match('/\R/u', $tokens[$i]->getContent())) {
                 $isWhitespaceBefore = $tokens[$prevIndex]->isWhitespace();
                 $inserts = $this->getReplacementsAndClear($tokens, $operatorIndices, -1);
                 if ($isWhitespaceBefore) {
@@ -255,7 +240,7 @@ function foo() {
         $nextIndex = $tokens->getNonEmptySibling(max($operatorIndices), 1);
 
         for ($i = $prevIndex + 1; $i < max($operatorIndices); ++$i) {
-            if ($tokens[$i]->isWhitespace() && 1 === Preg::match('/\R/u', $tokens[$i]->getContent())) {
+            if ($tokens[$i]->isWhitespace() && Preg::match('/\R/u', $tokens[$i]->getContent())) {
                 $isWhitespaceAfter = $tokens[$nextIndex]->isWhitespace();
                 $inserts = $this->getReplacementsAndClear($tokens, $operatorIndices, 1);
                 if ($isWhitespaceAfter) {

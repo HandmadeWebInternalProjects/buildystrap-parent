@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Console\Command;
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Differ\DiffConsoleFormatter;
 use PhpCsFixer\Differ\FullDiffer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
@@ -30,6 +32,7 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\RuleSet\RuleSets;
 use PhpCsFixer\StdinFileInfo;
 use PhpCsFixer\Tokenizer\Tokens;
+use PhpCsFixer\ToolInfo;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WordMatcher;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -37,6 +40,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -48,9 +52,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'describe')]
 final class DescribeCommand extends Command
 {
-    /**
-     * @var string
-     */
     protected static $defaultName = 'describe';
 
     /**
@@ -77,30 +78,34 @@ final class DescribeCommand extends Command
         $this->fixerFactory = $fixerFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
             ->setDefinition(
                 [
                     new InputArgument('name', InputArgument::REQUIRED, 'Name of rule / set.'),
+                    new InputOption('config', '', InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.'),
                 ]
             )
             ->setDescription('Describe rule / ruleset.')
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
             $stdErr->writeln($this->getApplication()->getLongVersion());
         }
+
+        $resolver = new ConfigurationResolver(
+            new Config(),
+            ['config' => $input->getOption('config')],
+            getcwd(),
+            new ToolInfo()
+        );
+
+        $this->fixerFactory->registerCustomFixers($resolver->getConfig()->getCustomFixers());
 
         $name = $input->getArgument('name');
 
@@ -200,14 +205,12 @@ final class DescribeCommand extends Command
                         $option->getAllowedTypes(),
                     );
                 } else {
-                    $allowed = array_map(static function ($value): string {
-                        return $value instanceof AllowedValueSubset
-                            ? 'a subset of <comment>'.HelpCommand::toString($value->getAllowedValues()).'</comment>'
-                            : '<comment>'.HelpCommand::toString($value).'</comment>';
-                    }, $allowed);
+                    $allowed = array_map(static fn ($value): string => $value instanceof AllowedValueSubset
+                        ? 'a subset of <comment>'.Utils::toString($value->getAllowedValues()).'</comment>'
+                        : '<comment>'.Utils::toString($value).'</comment>', $allowed);
                 }
 
-                $line .= ' ('.implode(', ', $allowed).')';
+                $line .= ' ('.Utils::naturalLanguageJoin($allowed, '').')';
 
                 $description = Preg::replace('/(`.+?`)/', '<info>$1</info>', OutputFormatter::escape($option->getDescription()));
                 $line .= ': '.lcfirst(Preg::replace('/\.$/', '', $description)).'; ';
@@ -215,7 +218,7 @@ final class DescribeCommand extends Command
                 if ($option->hasDefault()) {
                     $line .= sprintf(
                         'defaults to <comment>%s</comment>',
-                        HelpCommand::toString($option->getDefault())
+                        Utils::toString($option->getDefault())
                     );
                 } else {
                     $line .= '<comment>required</comment>';
@@ -288,7 +291,7 @@ final class DescribeCommand extends Command
                     if (null === $configuration) {
                         $output->writeln(sprintf(' * Example #%d. Fixing with the <comment>default</comment> configuration.', $index + 1));
                     } else {
-                        $output->writeln(sprintf(' * Example #%d. Fixing with configuration: <comment>%s</comment>.', $index + 1, HelpCommand::toString($codeSample->getConfiguration())));
+                        $output->writeln(sprintf(' * Example #%d. Fixing with configuration: <comment>%s</comment>.', $index + 1, Utils::toString($codeSample->getConfiguration())));
                     }
                 } else {
                     $output->writeln(sprintf(' * Example #%d.', $index + 1));
@@ -341,7 +344,7 @@ final class DescribeCommand extends Command
                 $rule,
                 $fixer->isRisky() ? ' <error>risky</error>' : '',
                 $definition->getSummary(),
-                true !== $config ? sprintf("   <comment>| Configuration: %s</comment>\n", HelpCommand::toString($config)) : ''
+                true !== $config ? sprintf("   <comment>| Configuration: %s</comment>\n", Utils::toString($config)) : ''
             );
         }
 
@@ -413,15 +416,11 @@ final class DescribeCommand extends Command
     {
         return Preg::replaceCallback(
             '/(`[^<]+<[^>]+>`_)/',
-            static function (array $matches) {
-                return Preg::replaceCallback(
-                    '/`(.*)<(.*)>`_/',
-                    static function (array $matches): string {
-                        return $matches[1].'('.$matches[2].')';
-                    },
-                    $matches[1]
-                );
-            },
+            static fn (array $matches) => Preg::replaceCallback(
+                '/`(.*)<(.*)>`_/',
+                static fn (array $matches): string => $matches[1].'('.$matches[2].')',
+                $matches[1]
+            ),
             $content
         );
     }

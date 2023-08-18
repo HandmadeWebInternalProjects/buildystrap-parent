@@ -26,9 +26,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class SimplifiedNullReturnFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -37,13 +34,13 @@ final class SimplifiedNullReturnFixer extends AbstractFixer
                 new CodeSample("<?php return null;\n"),
                 new CodeSample(
                     <<<'EOT'
-<?php
-function foo() { return null; }
-function bar(): int { return null; }
-function baz(): ?int { return null; }
-function xyz(): void { return null; }
+                        <?php
+                        function foo() { return null; }
+                        function bar(): int { return null; }
+                        function baz(): ?int { return null; }
+                        function xyz(): void { return null; }
 
-EOT
+                        EOT
                 ),
             ]
         );
@@ -59,17 +56,11 @@ EOT
         return 16;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_RETURN);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {

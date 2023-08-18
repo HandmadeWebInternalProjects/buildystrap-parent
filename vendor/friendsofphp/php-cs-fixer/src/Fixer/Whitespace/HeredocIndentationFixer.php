@@ -20,10 +20,9 @@ use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\FixerDefinition\VersionSpecification;
-use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
@@ -34,49 +33,36 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class HeredocIndentationFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
-            'Heredoc/nowdoc content must be properly indented. Requires PHP >= 7.3.',
+            'Heredoc/nowdoc content must be properly indented.',
             [
-                new VersionSpecificCodeSample(
+                new CodeSample(
                     <<<'SAMPLE'
-<?php
-    $a = <<<EOD
-abc
-    def
-EOD;
+                        <?php
+                            $heredoc = <<<EOD
+                        abc
+                            def
+                        EOD;
 
-SAMPLE
-                    ,
-                    new VersionSpecification(7_03_00)
+                            $nowdoc = <<<'EOD'
+                        abc
+                            def
+                        EOD;
+
+                        SAMPLE
                 ),
-                new VersionSpecificCodeSample(
+                new CodeSample(
                     <<<'SAMPLE'
-<?php
-    $a = <<<'EOD'
-abc
-    def
-EOD;
+                        <?php
+                            $nowdoc = <<<'EOD'
+                        abc
+                            def
+                        EOD;
 
-SAMPLE
+                        SAMPLE
                     ,
-                    new VersionSpecification(7_03_00)
-                ),
-                new VersionSpecificCodeSample(
-                    <<<'SAMPLE'
-<?php
-    $a = <<<'EOD'
-abc
-    def
-EOD;
-
-SAMPLE
-                    ,
-                    new VersionSpecification(7_03_00),
                     ['indentation' => 'same_as_start']
                 ),
             ]
@@ -93,17 +79,11 @@ SAMPLE
         return -26;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_START_HEREDOC);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([

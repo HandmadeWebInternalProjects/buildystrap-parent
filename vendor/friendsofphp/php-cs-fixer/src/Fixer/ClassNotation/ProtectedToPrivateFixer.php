@@ -30,9 +30,6 @@ final class ProtectedToPrivateFixer extends AbstractFixer
 {
     private TokensAnalyzer $tokensAnalyzer;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -58,16 +55,13 @@ final class Sample
      * {@inheritdoc}
      *
      * Must run before OrderedClassElementsFixer.
-     * Must run after FinalInternalClassFixer.
+     * Must run after FinalClassFixer, FinalInternalClassFixer.
      */
     public function getPriority(): int
     {
         return 66;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         if (\defined('T_ENUM') && $tokens->isAllTokenKindsFound([T_ENUM, T_PROTECTED])) { // @TODO: drop condition when PHP 8.1+ is required
@@ -77,9 +71,6 @@ final class Sample
         return $tokens->isAllTokenKindsFound([T_CLASS, T_FINAL, T_PROTECTED]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->tokensAnalyzer = new TokensAnalyzer($tokens);

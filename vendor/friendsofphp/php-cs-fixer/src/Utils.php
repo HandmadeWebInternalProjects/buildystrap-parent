@@ -23,6 +23,8 @@ use PhpCsFixer\Tokenizer\Token;
  * @author Odín del Río <odin.drp@gmail.com>
  *
  * @internal
+ *
+ * @deprecated This is a God Class anti-pattern. Don't expand it. It is fine to use logic that is already here (that's why we don't trigger deprecation warnings), but over time logic should be moved to dedicated, single-responsibility classes.
  */
 final class Utils
 {
@@ -94,9 +96,7 @@ final class Utils
             return $a[1] <=> $b[1];
         });
 
-        return array_map(static function (array $item) {
-            return $item[0];
-        }, $elements);
+        return array_map(static fn (array $item) => $item[0], $elements);
     }
 
     /**
@@ -112,13 +112,37 @@ final class Utils
         // `usort(): Array was modified by the user comparison function` warning for mocked objects.
         return self::stableSort(
             $fixers,
-            static function (FixerInterface $fixer): int {
-                return $fixer->getPriority();
-            },
-            static function (int $a, int $b): int {
-                return $b <=> $a;
-            }
+            static fn (FixerInterface $fixer): int => $fixer->getPriority(),
+            static fn (int $a, int $b): int => $b <=> $a
         );
+    }
+
+    /**
+     * Join names in natural language using specified wrapper (double quote by default).
+     *
+     * @param string[] $names
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function naturalLanguageJoin(array $names, string $wrapper = '"'): string
+    {
+        if (0 === \count($names)) {
+            throw new \InvalidArgumentException('Array of names cannot be empty.');
+        }
+
+        if (\strlen($wrapper) > 1) {
+            throw new \InvalidArgumentException('Wrapper should be a single-char string or empty.');
+        }
+
+        $names = array_map(static fn (string $name): string => sprintf('%2$s%1$s%2$s', $name, $wrapper), $names);
+
+        $last = array_pop($names);
+
+        if (\count($names) > 0) {
+            return implode(', ', $names).' and '.$last;
+        }
+
+        return $last;
     }
 
     /**
@@ -130,21 +154,7 @@ final class Utils
      */
     public static function naturalLanguageJoinWithBackticks(array $names): string
     {
-        if (0 === \count($names)) {
-            throw new \InvalidArgumentException('Array of names cannot be empty.');
-        }
-
-        $names = array_map(static function (string $name): string {
-            return sprintf('`%s`', $name);
-        }, $names);
-
-        $last = array_pop($names);
-
-        if (\count($names) > 0) {
-            return implode(', ', $names).' and '.$last;
-        }
-
-        return $last;
+        return self::naturalLanguageJoin($names, '`');
     }
 
     public static function triggerDeprecation(\Exception $futureException): void
@@ -172,5 +182,50 @@ final class Utils
         sort($triggeredDeprecations);
 
         return $triggeredDeprecations;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public static function toString($value): string
+    {
+        return \is_array($value)
+            ? self::arrayToString($value)
+            : self::scalarToString($value);
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private static function scalarToString($value): string
+    {
+        $str = var_export($value, true);
+
+        return Preg::replace('/\bNULL\b/', 'null', $str);
+    }
+
+    /**
+     * @param array<mixed> $value
+     */
+    private static function arrayToString(array $value): string
+    {
+        if (0 === \count($value)) {
+            return '[]';
+        }
+
+        $isHash = !array_is_list($value);
+        $str = '[';
+
+        foreach ($value as $k => $v) {
+            if ($isHash) {
+                $str .= self::scalarToString($k).' => ';
+            }
+
+            $str .= \is_array($v)
+                ? self::arrayToString($v).', '
+                : self::scalarToString($v).', ';
+        }
+
+        return substr($str, 0, -2).']';
     }
 }
