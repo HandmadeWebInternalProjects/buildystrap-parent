@@ -101,7 +101,7 @@ class Theme
 
     // Font / Line Awesome
     if (bs_get_field('buildystrap_typography_enable_font_awesome', 'option')) {
-      wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');
+      wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
     }
     if (bs_get_field('buildystrap_typography_enable_line_awesome', 'option')) {
       wp_enqueue_style('line-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css');
