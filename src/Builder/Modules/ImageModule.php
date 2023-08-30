@@ -24,6 +24,13 @@ class ImageModule extends Module
                 'class' => 'g-col-12',
               ],
             ],
+        'link' => [
+          'type' => 'link-field',
+          'config' => [
+            'label' => 'Link',
+            'class' => 'g-col-12',
+          ],
+        ],
           ],
           'config' => [
             'selectorTab' => 'regular'

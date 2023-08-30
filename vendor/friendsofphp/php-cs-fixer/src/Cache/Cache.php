@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace PhpCsFixer\Cache;
 
+use PhpCsFixer\Utils;
+
 /**
  * @author Andreas Möller <am@localheinz.com>
  *
@@ -111,8 +113,8 @@ final class Cache implements CacheInterface
 
         if (\count($missingKeys) > 0) {
             throw new \InvalidArgumentException(sprintf(
-                'JSON data is missing keys "%s"',
-                implode('", "', $missingKeys)
+                'JSON data is missing keys %s',
+                Utils::naturalLanguageJoin(array_keys($missingKeys))
             ));
         }
 
@@ -126,11 +128,9 @@ final class Cache implements CacheInterface
 
         $cache = new self($signature);
 
-        $cache->hashes = array_map(function ($v): string {
-            // before v3.11.1 the hashes were crc32 encoded and saved as integers
-            // @TODO: remove the to string cast/array_map in v4.0
-            return \is_int($v) ? (string) $v : $v;
-        }, $data['hashes']);
+        // before v3.11.1 the hashes were crc32 encoded and saved as integers
+        // @TODO: remove the to string cast/array_map in v4.0
+        $cache->hashes = array_map(fn ($v): string => \is_int($v) ? (string) $v : $v, $data['hashes']);
 
         return $cache;
     }

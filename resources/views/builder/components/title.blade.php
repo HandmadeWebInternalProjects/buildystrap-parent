@@ -7,6 +7,9 @@ $size_vars = [];
 $color = [];
 $weight = [];
 $class = $title['class'] ?? '';
+$alignment = $title['alignment'] ?? [];
+
+$class .= ' ' . get_responsive_classes(prop: $alignment, fallback: '', classPrefix: 'align-self');
 
 foreach ($title['size'] as $breakpoint => $value) {
     if ($value) {

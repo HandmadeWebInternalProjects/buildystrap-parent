@@ -1,7 +1,7 @@
 export default function () {
   const videoOverlays = document.querySelectorAll('.video-overlay');
-  const playVimeo = () => {
-    if (iframe.classList.contains('vimeo-iframe')) {
+  const playVimeo = (iframe) => {
+    if (iframe?.classList.contains('vimeo-iframe')) {
       let data = { method: 'play' };
       iframe.contentWindow.postMessage(JSON.stringify(data), '*');
     }
@@ -16,7 +16,7 @@ export default function () {
 
     if (autoplay) {
       parent.classList.add('is-playing');
-      playVimeo();
+      playVimeo(iframe);
       return;
     }
 
@@ -24,7 +24,7 @@ export default function () {
       e.preventDefault();
       parent.classList.add('is-playing');
       iframe.src += '&autoplay=1';
-      playVimeo();
+      playVimeo(iframe);
     }, { once: true });
   });
 }  

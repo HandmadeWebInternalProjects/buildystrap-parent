@@ -35,9 +35,6 @@ use Symfony\Component\OptionsResolver\Options;
  */
 final class PhpdocOrderByValueFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -83,17 +80,11 @@ final class MyTest extends \PHPUnit_Framework_TestCase
         return -10;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAllTokenKindsFound([T_CLASS, T_DOC_COMMENT]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         if ([] === $this->configuration['annotations']) {
@@ -110,7 +101,7 @@ final class MyTest extends \PHPUnit_Framework_TestCase
 
                 if (
                     !$tokens[$index]->isGivenKind(T_DOC_COMMENT)
-                    || 0 === Preg::match($findPattern, $tokens[$index]->getContent())
+                    || !Preg::match($findPattern, $tokens[$index]->getContent())
                 ) {
                     continue;
                 }

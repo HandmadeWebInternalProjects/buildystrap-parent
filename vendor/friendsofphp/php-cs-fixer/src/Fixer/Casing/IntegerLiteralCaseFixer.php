@@ -24,9 +24,6 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class IntegerLiteralCaseFixer extends AbstractFixer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -53,7 +50,7 @@ final class IntegerLiteralCaseFixer extends AbstractFixer
 
             $content = $token->getContent();
 
-            if (1 !== Preg::match('#^0[bxoBXO][0-9a-fA-F]+$#', $content)) {
+            if (!Preg::match('#^0[bxoBXO][0-9a-fA-F]+$#', $content)) {
                 continue;
             }
 

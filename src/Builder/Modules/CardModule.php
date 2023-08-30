@@ -78,6 +78,19 @@ class CardModule extends Module
                 'class' => 'g-col-12',
               ],
             ],
+        'button_group_alignment' => [
+          'type' => 'select-field',
+          'config' => [
+            'label' => 'Button Group Alignment',
+            'class' => 'g-col-12',
+            'options' => [
+              'Start' => 'start',
+              'Center' => 'center',
+              'End' => 'end',
+            ],
+            'responsive' => true,
+          ],
+        ],
           ],
           'config' => [
             'selectorTab' => 'regular'

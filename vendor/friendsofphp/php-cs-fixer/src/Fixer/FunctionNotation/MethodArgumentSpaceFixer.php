@@ -31,15 +31,10 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 /**
- * Fixer for rules defined in PSR2 ¶4.4, ¶4.6.
- *
  * @author Kuanhung Chen <ericj.tw@gmail.com>
  */
 final class MethodArgumentSpaceFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -81,41 +76,28 @@ final class MethodArgumentSpaceFixer extends AbstractFixer implements Configurab
                 ),
                 new VersionSpecificCodeSample(
                     <<<'SAMPLE'
-<?php
-sample(
-    <<<EOD
-        foo
-        EOD
-    ,
-    'bar'
-);
+                        <?php
+                        sample(
+                            <<<EOD
+                                foo
+                                EOD
+                            ,
+                            'bar'
+                        );
 
-SAMPLE
+                        SAMPLE
                     ,
                     new VersionSpecification(7_03_00),
                     ['after_heredoc' => true]
                 ),
-            ]
+            ],
+            'This fixer covers rules defined in PSR2 ¶4.4, ¶4.6.'
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound('(');
-    }
-
-    public function configure(array $configuration): void
-    {
-        parent::configure($configuration);
-
-        if (isset($configuration['ensure_fully_multiline'])) {
-            $this->configuration['on_multiline'] = $this->configuration['ensure_fully_multiline']
-                ? 'ensure_fully_multiline'
-                : 'ignore';
-        }
     }
 
     /**
@@ -129,9 +111,6 @@ SAMPLE
         return 30;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $expectedTokens = [T_LIST, T_FUNCTION, CT::T_USE_LAMBDA, T_FN, T_CLASS];
@@ -164,9 +143,6 @@ SAMPLE
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([

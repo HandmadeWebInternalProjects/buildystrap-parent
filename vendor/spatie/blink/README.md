@@ -1,7 +1,7 @@
 # Cache that expires in the blink of an eye
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/blink.svg?style=flat-square)](https://packagist.org/packages/spatie/blink)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/blink/run-tests?label=tests)
+[![run-tests](https://github.com/spatie/blink/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/blink/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/blink.svg?style=flat-square)](https://packagist.org/packages/spatie/blink)
 
 This package contains a class called `Blink` that can cache values. The cache only spans the length of a single request.
@@ -57,6 +57,14 @@ unset($blink['key']); // Equivalent to removing the value
 count($blink); // Returns 0
 $blink->put('key', 'value');
 count($blink); // Returns 1
+```
+
+If you want to use the same instance within the current request, you can use the static method `global`.
+
+```php
+Blink::global()->put('key', 'value');
+
+Blink::global()->get('key') // Returns 'value'
 ```
 
 Read the [usage](#usage) section of this readme to learn the other methods.
@@ -139,6 +147,24 @@ public function has(string $name) : bool
  *
  * @return mixed
  */
+public function once($key, callable $callable)
+```
+
+### onceIf
+
+```php
+/**
+ * Use the "once" method only if the given condition is true.
+ *
+ * Otherwise, the callable will be executed.
+ *
+ * @param bool $shouldBlink
+ * @param $key
+ * @param callable
+ *
+ * @return mixed
+ */
+public function onceIf($shouldBlink, $key, callable $callable)
 ```
 
 ### all
@@ -249,11 +275,11 @@ $ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
+If you've found a bug regarding security please mail [security@spatie.be](mailto:security@spatie.be) instead of using the issue tracker.
 
 ## Credits
 

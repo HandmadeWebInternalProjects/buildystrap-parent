@@ -31,23 +31,20 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 final class EscapeImplicitBackslashesFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         $codeSample = <<<'EOF'
-<?php
+            <?php
 
-$singleQuoted = 'String with \" and My\Prefix\\';
+            $singleQuoted = 'String with \" and My\Prefix\\';
 
-$doubleQuoted = "Interpret my \n but not my \a";
+            $doubleQuoted = "Interpret my \n but not my \a";
 
-$hereDoc = <<<HEREDOC
-Interpret my \100 but not my \999
-HEREDOC;
+            $hereDoc = <<<HEREDOC
+            Interpret my \100 but not my \999
+            HEREDOC;
 
-EOF;
+            EOF;
 
         return new FixerDefinition(
             'Escape implicit backslashes in strings and heredocs to ease the understanding of which are special chars interpreted by PHP and which not.',
@@ -76,9 +73,6 @@ EOF;
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isAnyTokenKindsFound([T_ENCAPSED_AND_WHITESPACE, T_CONSTANT_ENCAPSED_STRING]);
@@ -95,9 +89,6 @@ EOF;
         return 15;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         static $singleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![\\\'\\\\])/';
@@ -147,9 +138,6 @@ EOF;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([

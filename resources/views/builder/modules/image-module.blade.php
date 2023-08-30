@@ -6,6 +6,7 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
 
 @php
     $image = $module->has('image') ? $module->get('image')->value() : [];
+    $link = $module->has('link') ? $module->get('link')->value() : false;
     $image_id = isset($image['image']) ? collect($image['image'])->pluck('id')->first() : '';
     $object_fit = isset($image['object_fit']) ? $image['object_fit'] : 'full';
     $object_position = isset($image['object_position']) ? $image['object_position'] : null;
@@ -28,9 +29,11 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
       @if($lightbox_enabled)
         @php $alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ?? null; @endphp
         <a href="{!! wp_get_attachment_image_url($image_id, 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
+      @elseif($link)
+        <a href="{{ $link['url'] ?? '#' }}" target="{{ $link['target'] ?? '_self' }}" title="{{ $link['title'] ?? '' }}">
       @endif
           {!! wp_get_attachment_image($image_id, 'full', '', ["class" => $classes, "style" => trim("$width $max_width $height $max_height")]) !!}
-      @if($lightbox_enabled)
+      @if($lightbox_enabled || $link)
         </a>
       @endif
     @endif

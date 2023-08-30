@@ -88,7 +88,7 @@ final class FixerFactory
             /** @var SplFileInfo $file */
             foreach (SymfonyFinder::create()->files()->in(__DIR__.'/Fixer')->name('*Fixer.php')->depth(1) as $file) {
                 $relativeNamespace = $file->getRelativePath();
-                $fixerClass = 'PhpCsFixer\\Fixer\\'.($relativeNamespace ? $relativeNamespace.'\\' : '').$file->getBasename('.php');
+                $fixerClass = 'PhpCsFixer\\Fixer\\'.('' !== $relativeNamespace ? $relativeNamespace.'\\' : '').$file->getBasename('.php');
                 $builtInFixers[] = $fixerClass;
             }
         }
@@ -195,11 +195,15 @@ final class FixerFactory
     }
 
     /**
-     * @return null|string[]
+     * @return string[]
      */
-    private function getFixersConflicts(FixerInterface $fixer): ?array
+    private function getFixersConflicts(FixerInterface $fixer): array
     {
         static $conflictMap = [
+            'blank_lines_before_namespace' => [
+                'no_blank_lines_before_namespace',
+                'single_blank_line_before_namespace',
+            ],
             'no_blank_lines_before_namespace' => ['single_blank_line_before_namespace'],
             'single_import_per_statement' => ['group_import'],
         ];
@@ -221,13 +225,11 @@ final class FixerFactory
             // filter mutual conflicts
             $report[$fixer] = array_filter(
                 $fixers,
-                static function (string $candidate) use ($report, $fixer): bool {
-                    return !\array_key_exists($candidate, $report) || !\in_array($fixer, $report[$candidate], true);
-                }
+                static fn (string $candidate): bool => !\array_key_exists($candidate, $report) || !\in_array($fixer, $report[$candidate], true)
             );
 
             if (\count($report[$fixer]) > 0) {
-                $message .= sprintf("\n- \"%s\" with \"%s\"", $fixer, implode('", "', $report[$fixer]));
+                $message .= sprintf("\n- \"%s\" with %s", $fixer, Utils::naturalLanguageJoin($report[$fixer]));
             }
         }
 

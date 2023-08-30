@@ -82,17 +82,11 @@ class FooTest extends TestCase {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -108,9 +102,6 @@ class FooTest extends TestCase {
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyPhpUnitClassFix(Tokens $tokens, int $startIndex, int $endIndex): void
     {
         $dataProviderAnalyzer = new DataProviderAnalyzer();
@@ -118,7 +109,7 @@ class FooTest extends TestCase {
 
         $inserts = [];
         foreach ($dataProviderAnalyzer->getDataProviders($tokens, $startIndex, $endIndex) as $dataProviderDefinitionIndex) {
-            $methodStartIndex = $tokens->getNextTokenOfKind($dataProviderDefinitionIndex, ['{']);
+            $methodStartIndex = $tokens->getNextTokenOfKind($dataProviderDefinitionIndex->getNameIndex(), ['{']);
             if (null !== $methodStartIndex) {
                 $methodEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $methodStartIndex);
 
@@ -126,7 +117,7 @@ class FooTest extends TestCase {
                     continue;
                 }
             }
-            $functionIndex = $tokens->getPrevTokenOfKind($dataProviderDefinitionIndex, [[T_FUNCTION]]);
+            $functionIndex = $tokens->getPrevTokenOfKind($dataProviderDefinitionIndex->getNameIndex(), [[T_FUNCTION]]);
 
             $methodAttributes = $tokensAnalyzer->getMethodAttributes($functionIndex);
             if (false !== $methodAttributes['static']) {

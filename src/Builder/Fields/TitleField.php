@@ -59,6 +59,7 @@ class TitleField extends Field
         'color' => $this->value()->get('color', []),
         'weight' => $this->value()->get('weight', []),
         'class' => $this->value()->get('class', '') . ' ' . ($this->additional_classes ?? ''),
+        'alignment' => $this->value()->get('alignment', []),
       ]
     ])->render();
   }

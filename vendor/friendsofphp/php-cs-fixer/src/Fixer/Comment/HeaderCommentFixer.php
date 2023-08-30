@@ -44,9 +44,6 @@ final class HeaderCommentFixer extends AbstractFixer implements ConfigurableFixe
      */
     public const HEADER_COMMENT = 'comment';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -113,9 +110,6 @@ echo 1;
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isMonolithicPhp();
@@ -124,7 +118,7 @@ echo 1;
     /**
      * {@inheritdoc}
      *
-     * Must run before SingleLineCommentStyleFixer.
+     * Must run before BlankLinesBeforeNamespaceFixer, SingleBlankLineBeforeNamespaceFixer, SingleLineCommentStyleFixer.
      * Must run after DeclareStrictTypesFixer, NoBlankLinesAfterPhpdocFixer.
      */
     public function getPriority(): int
@@ -135,9 +129,6 @@ echo 1;
         return -30;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $location = $this->configuration['location'];
@@ -172,7 +163,7 @@ echo 1;
             $expectedLocation = $possibleLocation === $location;
 
             if (!$sameComment || !$expectedLocation) {
-                if ($expectedLocation ^ $sameComment) {
+                if ($expectedLocation xor $sameComment) {
                     $this->removeHeader($tokens, $headerCurrentIndex);
                 }
 
@@ -191,9 +182,6 @@ echo 1;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         $fixerName = $this->getName();

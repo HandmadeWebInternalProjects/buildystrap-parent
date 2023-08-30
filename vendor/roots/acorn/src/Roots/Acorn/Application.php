@@ -4,11 +4,9 @@ namespace Roots\Acorn;
 
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Events\EventServiceProvider;
 use Illuminate\Foundation\Application as FoundationApplication;
 use Illuminate\Foundation\PackageManifest as FoundationPackageManifest;
 use Illuminate\Foundation\ProviderRepository;
-use Illuminate\Log\LogServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -28,7 +26,7 @@ class Application extends FoundationApplication
      *
      * @var string
      */
-    public const VERSION = '3.1.0';
+    public const VERSION = '3.2.0';
 
     /**
      * The custom bootstrap path defined by the developer.

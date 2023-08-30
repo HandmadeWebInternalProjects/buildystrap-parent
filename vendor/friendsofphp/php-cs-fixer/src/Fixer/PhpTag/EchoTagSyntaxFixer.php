@@ -61,18 +61,15 @@ final class EchoTagSyntaxFixer extends AbstractFixer implements ConfigurableFixe
         self::LONG_FUNCTION_PRINT,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         $sample = <<<'EOT'
-<?=1?>
-<?php print '2' . '3'; ?>
-<?php /* comment */ echo '2' . '3'; ?>
-<?php print '2' . '3'; someFunction(); ?>
+            <?=1?>
+            <?php print '2' . '3'; ?>
+            <?php /* comment */ echo '2' . '3'; ?>
+            <?php print '2' . '3'; someFunction(); ?>
 
-EOT;
+            EOT;
 
         return new FixerDefinition(
             'Replaces short-echo `<?=` with long format `<?php echo`/`<?php print` syntax, or vice-versa.',
@@ -97,9 +94,6 @@ EOT;
         return 0;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
@@ -109,9 +103,6 @@ EOT;
         return $tokens->isTokenKindFound(T_OPEN_TAG_WITH_ECHO);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -130,9 +121,6 @@ EOT;
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {

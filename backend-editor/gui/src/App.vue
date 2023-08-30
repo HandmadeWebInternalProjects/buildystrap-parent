@@ -88,6 +88,13 @@ const pastePage = (fromClipBoard: any): void => {
   return (builderContent.value = fromClipBoard)
 }
 
+// Watch for browser window focus
+window.addEventListener("focus", () => {
+  if (hasClipboardAccess.value) {
+    readFromClipboard()
+  }
+})
+
 watch(
   builderContent,
   (newValue) => {

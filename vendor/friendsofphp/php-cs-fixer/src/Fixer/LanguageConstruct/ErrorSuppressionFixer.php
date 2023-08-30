@@ -47,9 +47,6 @@ final class ErrorSuppressionFixer extends AbstractFixer implements ConfigurableF
      */
     public const OPTION_NOISE_REMAINING_USAGES_EXCLUDE = 'noise_remaining_usages_exclude';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -73,25 +70,16 @@ final class ErrorSuppressionFixer extends AbstractFixer implements ConfigurableF
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(T_STRING);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isRisky(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         return new FixerConfigurationResolver([
@@ -110,15 +98,10 @@ final class ErrorSuppressionFixer extends AbstractFixer implements ConfigurableF
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $functionsAnalyzer = new FunctionsAnalyzer();
-        $excludedFunctions = array_map(static function (string $function): string {
-            return strtolower($function);
-        }, $this->configuration[self::OPTION_NOISE_REMAINING_USAGES_EXCLUDE]);
+        $excludedFunctions = array_map(static fn (string $function): string => strtolower($function), $this->configuration[self::OPTION_NOISE_REMAINING_USAGES_EXCLUDE]);
 
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
