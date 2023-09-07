@@ -25,8 +25,8 @@ new ThemeOptions();
 /* Custom Logo */
 function custom_logo($url = null, $svg = null)
 {
-    $custom_logo = acf_active() ? get_field('buildystrap_company_details_site_logo', 'option') : null;
-    if ( ! acf_active() || empty($custom_logo)) { ?>
+  $custom_logo = acf_active() ? get_field('buildystrap_company_details_site_logo', 'option') : null;
+  if (!acf_active() || empty($custom_logo)) { ?>
 
     <?php
     if (is_front_page() && is_home()) : ?>
@@ -38,35 +38,35 @@ function custom_logo($url = null, $svg = null)
     endif; ?>
 
 <?php
+  } else {
+    if (isset($svg) && $svg) {
+      echo sprintf(
+        '<a class="navbar-brand" href="%s">%s</a>',
+        esc_url(isset($url) ? $url : home_url('/')),
+        get_svg_url($custom_logo['url'])
+      );
     } else {
-        if (isset($svg) && $svg) {
-            echo sprintf(
-                '<a class="navbar-brand" href="%s">%s</a>',
-                esc_url(isset($url) ? $url : home_url('/')),
-                get_svg_url($custom_logo['url'])
-            );
-        } else {
-            echo sprintf(
-                '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
-                esc_url(isset($url) ? $url : home_url('/')),
-                $custom_logo['url'],
-                $custom_logo['alt']
-            );
-        }
+      echo sprintf(
+        '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+        esc_url(isset($url) ? $url : home_url('/')),
+        $custom_logo['url'],
+        $custom_logo['alt']
+      );
     }
+  }
 }
 
 add_action('wp_body_open', function () {
-    if (function_exists('get_field') && ! is_admin() && (get_field('buildystrap_sitewide_message_enable_sitewide_message', 'option') == true) && ! isset($_COOKIE['sitewide_message'])) {
-        echo apply_shortcodes('[sitewide-message]');
-    }
+  if (function_exists('get_field') && !is_admin() && (get_field('buildystrap_sitewide_message_enable_sitewide_message', 'option') == true) && !isset($_COOKIE['sitewide_message'])) {
+    echo apply_shortcodes('[sitewide-message]');
+  }
 });
 
 
 // Populate colour options
 // Add the global colour options to all of these fields
-if ( ! function_exists('add_site_color_choices')) {
-    $fields = apply_filters('acf-theme-colour-fields', [
+if (!function_exists('add_site_color_choices')) {
+  $fields = apply_filters('acf-theme-colour-fields', [
     'field_62eb52287454c',
     'field_62ce5cbe77fbf',
     'field_62ce5cd577fc0',
@@ -75,31 +75,31 @@ if ( ! function_exists('add_site_color_choices')) {
     'field_62ce558644f03',
   ]);
 
-    foreach ($fields as $field) {
-        add_filter("acf/load_field/key={$field}", 'add_site_color_choices');
-    }
+  foreach ($fields as $field) {
+    add_filter("acf/load_field/key={$field}", 'add_site_color_choices');
+  }
 
-    function add_site_color_choices($field)
-    {
-        $field['choices'] = [];
-        if (function_exists('get_theme_colors')) :
-            $colours = @get_theme_colors();
-            // $colours = [["name" => "red", "value" => "sdf79sf"]];
-            if ( ! empty($colours) && (is_array($colours) || is_object($colours))) :
-                foreach ($colours as $colour) {
-                    $colour_name = trim($colour['label']);
-                    $colour_value = sanitize_hex_color($colour['value']);
-                    $field['choices']['None'] = 'None';
-                    if ($field['ui']) {
-                        $field['choices'][$colour_name] = "<div style='display: flex;'><span style='background: {$colour_value}; width: 20px;
+  function add_site_color_choices($field)
+  {
+    $field['choices'] = [];
+    if (function_exists('get_theme_colors')) :
+      $colours = @get_theme_colors();
+      // $colours = [["name" => "red", "value" => "sdf79sf"]];
+      if (!empty($colours) && (is_array($colours) || is_object($colours))) :
+        foreach ($colours as $colour) {
+          $colour_name = trim($colour['label']);
+          $colour_value = sanitize_hex_color($colour['value']);
+          $field['choices']['None'] = 'None';
+          if ($field['ui']) {
+            $field['choices'][$colour_name] = "<div style='display: flex;'><span style='background: {$colour_value}; width: 20px;
             margin-right: 0.6rem; display: block; border-radius: 50%;'></span>{$colour_name}</div>";
-                    } else {
-                        $field['choices'][$colour_value] = $colour_name;
-                    }
-                }
-        endif;
-        // return the field
-        endif;
-        return $field;
-    }
+          } else {
+            $field['choices'][$colour_value] = $colour_name;
+          }
+        }
+      endif;
+    // return the field
+    endif;
+    return $field;
+  }
 }

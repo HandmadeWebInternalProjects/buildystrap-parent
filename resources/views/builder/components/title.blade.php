@@ -9,7 +9,7 @@ $weight = [];
 $class = $title['class'] ?? '';
 $alignment = $title['alignment'] ?? [];
 
-$class .= ' ' . get_responsive_classes(prop: $alignment, fallback: '', classPrefix: 'align-self');
+$class .= ' ' . get_responsive_classes(module: null, prop: $alignment, fallback: '', classPrefix: 'align-self');
 
 foreach ($title['size'] as $breakpoint => $value) {
     if ($value) {

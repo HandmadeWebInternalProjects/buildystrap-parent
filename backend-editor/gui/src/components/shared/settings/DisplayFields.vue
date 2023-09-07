@@ -43,6 +43,30 @@ const display: any = reactive({
 const options = Array.from({ length: 13 }, (_, i) => i)
 
 watch(display, (val: any) => {
+  // Watch for display.property change, loop over the breakpoints inside the property and if it's not flex or grid, remove the other properties from the display object at their respective breakpoints
+  if (val.property) {
+    Object.keys(val.property).forEach((key) => {
+      if (
+        val.property[key] !== "flex" &&
+        val.property[key] !== "grid" &&
+        val.property[key] !== "inline-flex" &&
+        val.property[key] !== "inline-grid"
+      ) {
+        delete val["flex-direction"][key]
+        delete val["flex-wrap"][key]
+        delete val["justify-content"][key]
+        delete val["align-items"][key]
+        delete val["align-self"][key]
+        delete val["align-content"][key]
+        delete val["grid-template-rows"][key]
+        delete val["grid-template-columns"][key]
+        delete val["combine-gaps"][key]
+        delete val["gap"][key]
+        delete val["column-gap"][key]
+        delete val["row-gap"][key]
+      }
+    })
+  }
   update(filterOutEmptyValues(val))
 })
 </script>
@@ -89,9 +113,13 @@ watch(display, (val: any) => {
       v-model="display.property[bp]" />
 
     <div
-      class="g-col-12 d-flex flex-column gap-3"
-      v-if="display.property[bp] === 'flex' || responsivePlaceholder(display, 'property', bp) == 'flex'">
-      <div class="d-flex gap-3">
+      class="g-col-12 d-flex flex-column gap-3">
+      <div
+        v-if="
+          display.property[bp] === 'flex' ||
+          responsivePlaceholder(display, 'property', bp) == 'flex'
+        "
+        class="d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
           handle="flex-direction"
@@ -120,7 +148,14 @@ watch(display, (val: any) => {
           }"
           v-model="display['flex-wrap'][bp]" />
       </div>
-      <div class="g-col-12 d-flex gap-3">
+      <div
+        v-if="
+          display.property[bp] === 'flex' ||
+          responsivePlaceholder(display, 'property', bp) == 'flex' ||
+          display.property[bp] === 'grid' ||
+          responsivePlaceholder(display, 'property', bp) == 'grid'
+        "
+       class="g-col-12 d-flex gap-3">
         <select-field
           class="flex-grow-1 flex-basis-0"
           handle="justify-content"

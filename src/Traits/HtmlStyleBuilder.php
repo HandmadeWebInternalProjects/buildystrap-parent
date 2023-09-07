@@ -101,7 +101,6 @@ trait HtmlStyleBuilder
         }
       }
     }
-
     /** Flex/Grid */
     foreach ($this->getInlineAttribute('display.property', []) as $breakpoint => $value) {
       $this->html_classes[] = match ($breakpoint) {
@@ -124,33 +123,35 @@ trait HtmlStyleBuilder
       };
     }
 
-    foreach ($this->getInlineAttribute('display.justify-content', []) as $breakpoint => $value) {
-      $this->html_classes[] = match ($breakpoint) {
-        'xs' => "justify-content-{$value}",
-        default => "justify-content-{$breakpoint}-{$value}"
-      };
-    }
+    if (collect($this->getInlineAttribute('display.property'))->values()->contains('grid' || 'flex')) :
+      foreach ($this->getInlineAttribute('display.justify-content', []) as $breakpoint => $value) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "justify-content-{$value}",
+          default => "justify-content-{$breakpoint}-{$value}"
+        };
+      }
 
-    foreach ($this->getInlineAttribute('display.align-items', []) as $breakpoint => $value) {
-      $this->html_classes[] = match ($breakpoint) {
-        'xs' => "align-items-{$value}",
-        default => "align-items-{$breakpoint}-{$value}"
-      };
-    }
+      foreach ($this->getInlineAttribute('display.align-items', []) as $breakpoint => $value) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "align-items-{$value}",
+          default => "align-items-{$breakpoint}-{$value}"
+        };
+      }
 
-    foreach ($this->getInlineAttribute('display.align-self', []) as $breakpoint => $value) {
-      $this->html_classes[] = match ($breakpoint) {
-        'xs' => "align-self-{$value}",
-        default => "align-self-{$breakpoint}-{$value}"
-      };
-    }
+      foreach ($this->getInlineAttribute('display.align-self', []) as $breakpoint => $value) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "align-self-{$value}",
+          default => "align-self-{$breakpoint}-{$value}"
+        };
+      }
 
-    foreach ($this->getInlineAttribute('display.align-content', []) as $breakpoint => $value) {
-      $this->html_classes[] = match ($breakpoint) {
-        'xs' => "align-content-{$value}",
-        default => "align-content-{$breakpoint}-{$value}"
-      };
-    }
+      foreach ($this->getInlineAttribute('display.align-content', []) as $breakpoint => $value) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "align-content-{$value}",
+          default => "align-content-{$breakpoint}-{$value}"
+        };
+      }
+    endif;
 
     foreach ($this->getInlineAttribute('display.grid-template-rows', []) as $breakpoint => $value) {
       $this->html_classes[] = match ($breakpoint) {
