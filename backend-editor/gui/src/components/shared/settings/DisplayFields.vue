@@ -43,7 +43,12 @@ const display: any = reactive({
 const options = Array.from({ length: 13 }, (_, i) => i)
 
 watch(display, (val: any) => {
-  // Watch for display.property change, loop over the breakpoints inside the property and if it's not flex or grid, remove the other properties from the display object at their respective breakpoints
+  /* 
+    This will remove all properties that are not flex or grid
+    at each respective breakpoint. So if you have it set to flex
+    or grid and add those properties, then change it to a non-flex 
+    or grid property, it will remove those properties.
+  */
   if (val.property) {
     Object.keys(val.property).forEach((key) => {
       if (
