@@ -21,6 +21,14 @@ class SliderModule extends Module
                     'label' => 'Title',
                   ],
                 ],
+
+            'body' => [
+              'type' => 'richtext-field',
+              'config' => [
+                'label' => 'Body',
+              ],
+            ],
+            
                 'image' => [
                   'type' => 'media-field',
                   'config' => [
