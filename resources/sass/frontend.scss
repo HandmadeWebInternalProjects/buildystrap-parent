@@ -564,7 +564,7 @@ $utilities: map-merge(
     display: none !important;
   }
 }
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-up(lg) {
   .hide-lg {
     display: none !important;
   }
