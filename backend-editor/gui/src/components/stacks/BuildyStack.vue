@@ -85,7 +85,6 @@ const { half, narrow, full, beforeClose } = toRefs(props)
 const vm = getCurrentInstance()
 const depth: Ref<number> = ref(0)
 const portalName: Ref<string | null> = ref(null)
-// const escBinding = ref(null);
 
 const isTopStack = computed(() => {
   return getStacks.value.length === depth.value
@@ -134,12 +133,21 @@ onBeforeMount(() => {
     `stacks.${depth.value}.hit-area-mouseout`,
     () => (isHovering.value = false)
   )
-
+  
   window.Buildy.$bus.on(
     `stacks.${depth.value}.hit-area-removed`,
     () => (isHovering.value = false)
   )
-  // this.escBinding = this.$keys.bindGlobal("esc", this.close);
+
+  // add event listener to close on esc, maybe cone back to this is if we 
+  // need the modal to close on escape as well.
+  window.addEventListener("keydown", (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (e.key === "Escape") {
+      runCloseCallback()
+    }
+  })
 })
 
 onUnmounted(() => {
