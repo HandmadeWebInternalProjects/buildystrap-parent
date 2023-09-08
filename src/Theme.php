@@ -35,6 +35,15 @@ class Theme
       add_action('wp_enqueue_scripts', [static::class, 'enqueue_styles']);
       add_action('wp_enqueue_scripts', [static::class, 'enqueue_scripts']);
 
+      // Add action to add script to header
+      add_action('wp_head', [static::class, 'add_script_to_header']);
+
+      // Add action to add script to body
+      add_action('wp_body_open', [static::class, 'add_script_to_body']);
+
+      // Add action to add script to footer
+      add_action('wp_footer', [static::class, 'add_script_to_footer']);
+
       add_filters([
         'index_template_hierarchy',
         '404_template_hierarchy',
@@ -126,6 +135,33 @@ class Theme
 
     if ($enable_bugherd && $bugherd_api_key) {
       wp_enqueue_script('bugherd-async', 'https://www.bugherd.com/sidebarv2.js?apikey=' . $bugherd_api_key, [], '', false);
+    }
+  }
+
+  public static function add_script_to_header(): void
+  {
+    $header_script = bs_get_field('buildystrap_header_snippets', 'option');
+
+    if ($header_script) {
+      echo $header_script;
+    }
+  }
+
+  public static function add_script_to_body(): void
+  {
+    $body_script = bs_get_field('buildystrap_body_snippets', 'option');
+
+    if ($body_script) {
+      echo $body_script;
+    }
+  }
+
+  public static function add_script_to_footer(): void
+  {
+    $footer_script = bs_get_field('buildystrap_footer_snippets', 'option');
+
+    if ($footer_script) {
+      echo $footer_script;
     }
   }
 
