@@ -47,7 +47,7 @@ const rowIndex = computed(() => props.rowIndex)
         :index="rowIndex" />
     </div>
     <div class="flex-grow-1">
-      <div class="grid p-3">
+      <div class="grid p-2">
         <template v-for="column in columns" :key="column.uuid">
           <grid-column :component="column" />
         </template>

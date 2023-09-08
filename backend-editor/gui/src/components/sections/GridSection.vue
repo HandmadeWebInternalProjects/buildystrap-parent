@@ -49,7 +49,7 @@ const handleDrop = (to: any, from: any, el: any) => {
         }"
         handle=".sortable-handle"
         item-key="uuid"
-        class="section-draggable d-flex flex-grow-1 p-3 flex-grow flex-column gap-3 group">
+        class="section-draggable d-flex flex-grow-1 p-2 flex-grow flex-column gap-3 group">
         <template #item="{ element, index }">
           <grid-row
             v-if="element.type === 'row'"

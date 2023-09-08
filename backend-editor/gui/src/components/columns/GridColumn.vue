@@ -23,7 +23,7 @@ const handleDrop = (to: any, from: any, el: any) => {
 
 <template>
   <div
-    class="border border-dashed border-300 border-2 rounded w-full d-flex flex-column p-3 justify-content-center gap-3"
+    class="border border-dashed border-300 border-2 rounded w-full d-flex flex-column p-2 justify-content-center gap-3"
     :class="[
       `g-col-12 g-col-sm-${colSizes?.sm || 'auto'} g-col-md-${
         colSizes?.md || 'auto'

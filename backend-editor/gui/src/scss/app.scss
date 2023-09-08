@@ -143,6 +143,30 @@ $utilities: map-merge(
         fit: fit-content,
       ),
     ),
+    "opacity": (
+    property: opacity,
+    class: opacity,
+    responsive: true,
+    values: (
+      0: 0,
+      25: .25,
+      50: .5,
+      75: .75,
+      100: 1,
+    )
+  ),
+    "opacity-hover": (
+    property: opacity,
+    class: opacity,
+    state: hover,
+    values: (
+      0: 0,
+      25: .25,
+      50: .5,
+      75: .75,
+      100: 1,
+    )
+  ),
     "transition": (
       property: transition,
       class: transition,
@@ -304,8 +328,8 @@ $utilities: map-merge(
     justify-content: space-between;
     align-items: center;
     row-gap: 20px;
-    width: 35px;
-    padding: 10px;
+    width: 25px;
+    padding: 10px 5px;
     cursor: -webkit-grab;
     cursor: grab;
     background: $gray-600;
@@ -324,6 +348,18 @@ $utilities: map-merge(
       &:after {
         margin-top: 0;
       }
+    }
+  }
+}
+
+#app {
+  .container-box {
+    container-type: inline-size;
+  }
+  
+  @container (min-width: 300px) {
+    .md\:opacity-100 {
+      opacity: 1 !important;
     }
   }
 }
