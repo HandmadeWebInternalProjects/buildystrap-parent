@@ -6,6 +6,7 @@ import { useBuilderStore } from "./stores/builder"
 import { useClipboard } from "./composables/useClipboard"
 import { fetchLibraryPost } from "@/services/post"
 import { recursifyID } from "./utils/id"
+import { useRefHistory } from "@vueuse/core"
 
 const {
   getGlobalSections,
@@ -49,6 +50,9 @@ if (contentEl && contentEl.innerText) {
   builderContent.value = content
   setBuilderContent(content)
 }
+
+const { history, undo, redo, canUndo, canRedo  } = useRefHistory(builderContent, { deep: true})
+
 
 const addSection = () => {
   const newModule = createModule("Section", {})
@@ -99,6 +103,7 @@ watch(
   builderContent,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
+    console.log('history', history.value)
   },
   {
     deep: true,
@@ -109,7 +114,33 @@ watch(
 <template>
   <stacks v-if="getStacks.length"></stacks>
   <div class="d-flex flex-column rounded gap-3 m-0 mb-6 px-0 bg-white">
-    <buildy-header title="Buildystrap" />
+    <buildy-header title="Buildystrap">
+      <div class="d-flex ms-auto me-3 gap-2">
+        <span type="button" 
+        :class="[!canUndo ? 'opacity-50' : '']" 
+        @click="undo()">
+          <font-awesome-icon
+          :icon="['fas', 'redo']"
+          width="15"
+          height="15"
+          fill="currentColor"
+          class="flex cursor-pointer pulse"></font-awesome-icon>
+          Undo
+        </span>
+        <span type="button" 
+        :class="[!canRedo ? 'opacity-50' : '']" 
+        @click="redo()">
+          <font-awesome-icon
+          :icon="['fas', 'undo']"
+          width="15"
+          height="15"
+          fill="currentColor"
+          class="flex cursor-pointer pulse"></font-awesome-icon>
+          Redo
+        </span>
+      </div>
+    </buildy-header>
+    
     <draggable
       :list="builderContent"
       :key="builderContent"

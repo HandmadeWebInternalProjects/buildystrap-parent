@@ -88,6 +88,8 @@ import {
   faClipboardCheck,
   faArrowUpRightFromSquare,
   faLink,
+  faUndo,
+  faRedo,
 } from "@fortawesome/free-solid-svg-icons"
 
 /* import font awesome icon component */
@@ -119,7 +121,9 @@ library.add(
   faClipboard,
   faClipboardCheck,
   faArrowUpRightFromSquare,
-  faLink
+  faLink,
+  faUndo,
+  faRedo
 )
 /* add font awesome icon component */
 window.Buildy.registerComponent("font-awesome-icon", FontAwesomeIcon)

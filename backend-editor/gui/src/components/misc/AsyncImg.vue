@@ -26,7 +26,6 @@ const getImageSrc = async (id: number | string) => {
   attachment = await Promise.resolve(window.wp.media.attachment(id))
   if (attachment) {
     attachment = await attachment.fetch()
-    console.log({ attachment })
     attachment =
       attachment?.sizes?.["thumbnail"]?.url ?? attachment?.sizes?.["full"]?.url
   }

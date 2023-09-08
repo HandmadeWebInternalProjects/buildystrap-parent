@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted } from "vue"
+import { ref, computed, onMounted, watch } from "vue"
 import { useBuilderStore } from "../../stores/builder"
 import { storeToRefs } from "pinia"
 import { slugToStr } from "../../utils/helpers"
 const { registeredComponents, setBuilderContent } = useBuilderStore()
 
-const { builderContent } = storeToRefs(useBuilderStore())
+const { builderContent } = storeToRefs(useBuilderStore());
+
 
 const props = defineProps({
   component: {

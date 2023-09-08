@@ -9,7 +9,7 @@
     <bs-tab name="columns">
       <div
         class="grid gap-3"
-        :style="`--bs-columns: ${component?.config?.columnCount || 12}`">
+        :style="`--bs-columns: ${component?.config?.columnCount}`">
         <text-field
           :field="{
             type: 'text-field',
@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, provide } from "vue"
+import { ref, reactive, onMounted, computed, provide } from "vue"
 import { useBreakpoints } from "../../composables/useBreakpoints"
 const { bp } = useBreakpoints("global")
 
@@ -82,19 +82,18 @@ const config = computed({
 
 const columnCount = computed({
   get() {
-    // Check if config.value.columnCount exists and is of type object else make it an object
-    if (
-      component.value.config.columnCount &&
-      typeof component.value.config.columnCount !== "object"
-    ) {
-      component.value.config.columnCount = reactive({ md: 12 })
-    }
-
-    return component.value.config.columnCount || {}
+    return component.value.config.columnCount
   },
   set(value) {
     component.value.config.columnCount = value
   },
+})
+
+onMounted(() => {
+  // Check if config.value.columnCount exists and is of type object else make it an object
+  if (columnCount.value && typeof columnCount.value !== "object") {
+    columnCount.value = reactive({ md: 12 })
+  }
 })
 </script>
 <style lang=""></style>

@@ -24,7 +24,7 @@ const Row = function (
   this.config = {
     enabled: true,
     adminLabel: ADMIN_LABEL || this.type,
-    columnCount: 12,
+    columnCount: { md: 12 },
   }
   this.columns = [column]
   this.attributes = {}
