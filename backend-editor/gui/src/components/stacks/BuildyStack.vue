@@ -147,7 +147,7 @@ onBeforeMount(() => {
       e.preventDefault()
       runCloseCallback()
     }
-  })
+  }, { once: true })
 })
 
 onUnmounted(() => {
