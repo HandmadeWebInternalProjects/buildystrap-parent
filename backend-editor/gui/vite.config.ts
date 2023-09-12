@@ -12,12 +12,6 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  // server: {
-  //   https: true,
-  //   hmr: {
-  //     port: 443,
-  //   },
-  // },
   build: {
     outDir: "../../public/builder-gui",
     sourcemap: true,

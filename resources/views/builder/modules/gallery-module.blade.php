@@ -26,13 +26,18 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
   <div class="grid {{ $col_gap }} {{ $place_items }}" @if($col_count) style="{{ $col_count }}" @endif>
     @if($module->has('images'))
       @foreach($module->get('images')->value() as $image)
+      @php
+        $image_link = bs_get_field('image_link', $image['id']);
+      @endphp
         <div class="{{ $col_class }}">
-          @if($lightbox_enabled)
+          @if($image_link)
+            <a href="{{ $image_link }}" target="_blank">
+          @elseif($lightbox_enabled)
             @php $alt = get_post_meta($image['id'], '_wp_attachment_image_alt', true) ?? null; @endphp
             <a href="{!! wp_get_attachment_image_url($image['id'], 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
           @endif
               {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded w-100 h-auto', 'style' => $image_style]) !!}
-          @if($lightbox_enabled)
+          @if($image_link || $lightbox_enabled)
             </a>
           @endif
         </div>

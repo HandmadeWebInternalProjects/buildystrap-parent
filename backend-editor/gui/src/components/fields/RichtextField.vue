@@ -32,7 +32,7 @@ import "../../lib/tinymce/plugins/print/plugin.min.js"
 
 const props = defineProps({ ...commonProps })
 
-const incrementValue = inject<any>("increment-value")?.incrementValue ?? 0
+const incrementValue = inject<any>("increment-value", () => 0)
 
 const { handle, config, uuid } = toRefs(props)
 const content = computed({

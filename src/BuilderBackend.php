@@ -74,14 +74,20 @@ class BuilderBackend
 
       $jsFile = $manifest->getScriptFor($jsEntryFile);
 
-      if (!config('builder.dev_mode')) {
-        foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
-          wp_enqueue_style('buildy-editor', $manifest->getUrlFor($cssFile));
-          break;
-        }
+      if (is_array(wp_remote_get('http://localhost:5173/', array('sslverify' => false, 'timeout' => 60))) // is Vite.js running
+      ) {
+        wp_enqueue_script('vite-module', 'http://localhost:5173/@vite/client', [], null, false);
+        wp_enqueue_script('buildy-editor', 'http://localhost:5173/src/main.ts', ['vite-module'], null, false);
+      } else {
+        if (!config('builder.dev_mode')) {
+          foreach ($manifest->getStylesFor($jsEntryFile) as $cssFile) {
+            wp_enqueue_style('buildy-editor', $manifest->getUrlFor($cssFile));
+            break;
+          }
 
-        if ($jsFile) {
-          wp_enqueue_script('buildy-editor', $manifest->getUrlFor($jsFile), [], false, true);
+          if ($jsFile) {
+            wp_enqueue_script('buildy-editor', $manifest->getUrlFor($jsFile), [], false, true);
+          }
         }
       }
 

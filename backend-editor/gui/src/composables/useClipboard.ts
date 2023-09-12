@@ -3,7 +3,9 @@ import { useBuilderStore } from "@/stores/builder"
 import { storeToRefs } from "pinia"
 import { Toast } from "bootstrap"
 
-export const hasClipboardAccess = computed(() => !!navigator.clipboard)
+export const hasClipboardAccess = computed(
+  () => !!navigator.clipboard && !!navigator.clipboard.writeText
+)
 export const hasPageInClipboard = ref(false)
 
 export const useClipboard = (component: any) => {
@@ -127,8 +129,7 @@ export const useClipboard = (component: any) => {
       .readText()
       .then((clipboardText) => {
         if (!clipboardText) {
-          updatePasteLocations([])
-          return
+          return updatePasteLocations([])
         }
         hasPageInClipboard.value = false
         const newModule = tryParseJSON(clipboardText)

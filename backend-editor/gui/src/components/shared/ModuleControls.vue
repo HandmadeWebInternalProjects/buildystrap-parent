@@ -142,7 +142,6 @@ const settings = computed((): ControlItem[] => {
 const handleClick = (setting: any, i: number): void => {
   if (Object.hasOwnProperty.call(setting, "isActive")) {
     setting.isActive = !setting.isActive
-    console.log(setting.isActive)
   }
   if (setting?.action) {
     setting.action()

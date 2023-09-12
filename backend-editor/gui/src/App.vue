@@ -53,7 +53,6 @@ if (contentEl && contentEl.innerText) {
 
 const { history, undo, redo, canUndo, canRedo  } = useRefHistory(builderContent, { deep: true})
 
-
 const addSection = () => {
   const newModule = createModule("Section", {})
   builderContent.value.push(newModule)
