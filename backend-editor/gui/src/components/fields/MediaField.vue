@@ -72,38 +72,25 @@ const { update } = useFieldType(emit)
 
 let libraryRef: any = null
 
-const insertImage = window?.wp.media.controller.Library.extend({
-    defaults :  {
-      ...window?.wp.media.controller.Library.prototype.defaults ?? {},
-      id:        'insert-image',
-      title:      'Insert Image Url',
-      allowLocalEdits: true,
-      displaySettings: true,
-      displayUserSettings: true,
-      multiple : true,
-      type : 'image'//audio, video, application/pdf, ... etc
-    }
-})
-
 const initMediaLibrary = () => {
   if (window?.wp?.media) {
     libraryRef = window.wp.media({
       // Accepts [ 'select', 'post', 'image', 'audio', 'video' ]
       // Determines what kind of library should be rendered.
-      // frame: "select",
+      frame: "select",
       // Modal title.
       title: "Select Images",
       // Enable/disable multiple select
       multiple: config.value.multiple || false,
       // Library wordpress query arguments.
-      defaultContent: "selected",
+      defaultContent: "library",
       library: {
         order: "DESC",
         // [ 'name', 'author', 'date', 'title', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ]
         // post__in: images.value.map((el: MediaType) => el.id),
         orderby: "date",
         // mime type. e.g. 'image', 'image/jpeg'
-        // type: "image",
+        // type: ["image"],
         // Searches the attachment title.
         // search: true,
         // Includes media only uploaded to the specified post (ID)
@@ -112,6 +99,7 @@ const initMediaLibrary = () => {
       button: {
         text: "Done",
       },
+
     })
   }
   if (libraryRef) {
@@ -128,13 +116,13 @@ const initMediaLibrary = () => {
     })
 
     libraryRef.on("open", () => {
+      let library = libraryRef.state().get("library")
       let selection = libraryRef.state().get("selection")
 
-      selection.comparator = function( a: any, b: any ) {
+      // Make sure the selected images appear first in the gallery
+      library.comparator = function( a: any, b: any ) {
             var aInQuery = !! this.mirroring.get( a.cid ),
                 bInQuery = !! this.mirroring.get( b.cid );
-
-                console.log(this.mirroring)
 
             if ( ! aInQuery && bInQuery ) {
                 return -1;
@@ -144,6 +132,8 @@ const initMediaLibrary = () => {
                 return 0;
             }
         };
+
+      library.observe( selection );
 
       if (images.value.length) {
         images.value.forEach((image: MediaType) => {
