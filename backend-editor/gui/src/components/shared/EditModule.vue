@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from "vue"
 import { useBuilderStore } from "../../stores/builder"
 import { storeToRefs } from "pinia"
 import { slugToStr } from "../../utils/helpers"
-const { registeredComponents, setBuilderContent } = useBuilderStore()
+const { registeredComponents, setBuilderContent, toggleIsEditing } = useBuilderStore()
 
 const { builderContent } = storeToRefs(useBuilderStore());
 
@@ -28,6 +28,8 @@ const settingsToggle = ref(true)
 const builderSnapshot = ref<any>(null)
 const component = ref(props.component)
 const adminLabelEl = ref<HTMLElement | null>(null)
+
+toggleIsEditing(true)
 
 // Check if a vue component exists that provides custom settings, else use module settings (default)
 const componentToLoad = computed((): string => {
@@ -60,6 +62,7 @@ const focusOnAdminLabel = () => {
 
 const handleClose = () => {
   settingsToggle.value = false
+  toggleIsEditing(false)
   emit("close", true)
 }
 

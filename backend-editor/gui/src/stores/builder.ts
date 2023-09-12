@@ -10,6 +10,7 @@ export type BuildyConfig = {
   post_id: number
   is_admin: boolean
   is_global_module: boolean
+  isEditing: boolean
   builder_options: { [key: string]: any }
   moduleStyles: { [key: string]: any }
   globalSections: { [key: string]: any }
@@ -27,6 +28,7 @@ export const useBuilderStore = defineStore("builder", () => {
     post_id: 0,
     is_admin: false,
     is_global_module: false,
+    isEditing: false,
     builder_options: {},
     moduleStyles: {},
     globalSections: {},
@@ -58,6 +60,10 @@ export const useBuilderStore = defineStore("builder", () => {
   const getBuilderOptions = computed(
     () => builderConfig?.value?.builder_options
   )
+
+  const toggleIsEditing = (val) => {
+    builderConfig.value.isEditing = val
+  }
 
   function setBuilderContent(payload: any) {
     console.log("setBuilderContent", payload)
@@ -91,6 +97,7 @@ export const useBuilderStore = defineStore("builder", () => {
     registeredComponents.value = { ...payload }
   }
   function updatePasteLocations(payload: string[]) {
+    if (builderConfig.value.isEditing) return
     pasteLocations.value = payload
   }
 
@@ -112,5 +119,6 @@ export const useBuilderStore = defineStore("builder", () => {
     setGlobals,
     setRegisteredComponents,
     updatePasteLocations,
+    toggleIsEditing,
   }
 })

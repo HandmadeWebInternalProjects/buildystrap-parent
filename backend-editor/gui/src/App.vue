@@ -102,7 +102,6 @@ watch(
   builderContent,
   (newValue) => {
     contentEl && (contentEl.innerText = JSON.stringify(newValue))
-    console.log('history', history.value)
   },
   {
     deep: true,
