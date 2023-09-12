@@ -15,7 +15,7 @@ class GalleryModule extends Module
               'type' => 'media-field',
               'config' => [
                 'label' => 'Images',
-                'multiple' => true,
+            'multiple' => "toggle",
               ],
             ],
             'image_size' => [

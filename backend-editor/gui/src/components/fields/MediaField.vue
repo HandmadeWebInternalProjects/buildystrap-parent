@@ -81,6 +81,7 @@ const initMediaLibrary = () => {
       // Modal title.
       title: "Select Images",
       // Enable/disable multiple select
+      // Options here can be true / false / "add" / "toggle"
       multiple: config.value.multiple || false,
       // Library wordpress query arguments.
       defaultContent: "library",
