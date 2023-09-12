@@ -61,7 +61,7 @@ export const useBuilderStore = defineStore("builder", () => {
     () => builderConfig?.value?.builder_options
   )
 
-  const toggleIsEditing = (val) => {
+  const toggleIsEditing = (val: boolean) => {
     builderConfig.value.isEditing = val
   }
 

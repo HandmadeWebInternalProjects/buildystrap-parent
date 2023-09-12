@@ -134,7 +134,7 @@ export const useClipboard = (component: any) => {
         hasPageInClipboard.value = false
         const newModule = tryParseJSON(clipboardText)
         if (!newModule) {
-          return emptyClipboard()
+          return updatePasteLocations([])
         }
 
         if (newModule && newModule?.type) {
