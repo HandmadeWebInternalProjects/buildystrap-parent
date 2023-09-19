@@ -315,7 +315,7 @@ trait HtmlStyleBuilder
           $this->html_classes[] = 'min-height-taggable';
         }
         $this->inline_styles[] = match ($breakpoint) {
-          'xs' => "--min-height: {$value} !important",
+          'xs' => "--min-height: {$value} !important;",
           default => "--min-height-{$breakpoint}: {$value} !important;"
         };
       }
