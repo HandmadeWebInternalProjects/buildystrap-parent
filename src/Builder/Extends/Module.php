@@ -81,7 +81,7 @@ abstract class Module
       foreach ($visibility as $breakpoint) {
         $this->visibility_classes[] = "hide-{$breakpoint}";
       }
-      array_merge($this->visibility_classes, $this->html_classes);
+      array_push($this->html_classes, ...$this->visibility_classes);
     }
   }
 

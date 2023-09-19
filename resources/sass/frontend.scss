@@ -559,7 +559,7 @@ $utilities: map-merge(
     display: none !important;
   }
 }
-@include media-breakpoint-down(md) {
+@include media-breakpoint-only(md) {
   .hide-md {
     display: none !important;
   }
