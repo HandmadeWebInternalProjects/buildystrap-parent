@@ -1146,6 +1146,18 @@ if (function_exists('acf_add_local_field_group')) :
         'layout' => 'block',
         'sub_fields' => array(
           array(
+            'key' => 'field_ad5623335bd63',
+            'label' => 'Enable Debugging',
+            'name' => 'enable_debugging',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(),
+            'default_value' => 0,
+            'ui' => 1,
+          ),
+          array(
             'key' => 'field_64c330335bd63',
             'label' => 'Enable Bugherd',
             'name' => 'enable_bugherd',

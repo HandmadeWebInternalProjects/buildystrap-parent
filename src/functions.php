@@ -6,6 +6,7 @@ use Buildystrap\BuilderBackend;
 use Buildystrap\BuilderCPT;
 use Buildystrap\Theme;
 use Buildystrap\ThemeOptions;
+use Buildystrap\BSLogger;
 
 BuilderCPT::boot();
 include __DIR__ . '/BuilderACF.php';
@@ -101,5 +102,16 @@ if (!function_exists('add_site_color_choices')) {
     // return the field
     endif;
     return $field;
+  }
+}
+
+
+// Logger function globally available now
+// Useage BSLogger()->log('message', 'context');
+if (!function_exists('BSLogger')) {
+  // Make function inherit the comments from the class
+  function BSLogger()
+  {
+    return BSLogger::get_instance();
   }
 }
