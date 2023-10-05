@@ -163,7 +163,7 @@ if (!function_exists('bs_has_field')) {
 
 
 if (!function_exists('bs_get_field')) {
-  function bs_get_field(string $field, int | string $id, string $default = null): mixed
+  function bs_get_field(string $field, int | string $id, mixed $default = null): mixed
   {
     return match (true) {
       acf_active() && get_field($field, $id) && strpos($field, '.') === false => get_field($field, $id),
