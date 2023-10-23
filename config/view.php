@@ -1,9 +1,11 @@
 <?php
 
-$paths = collect([
-    get_theme_file_path('/resources/views'),
-    get_parent_theme_file_path('/resources/views'),
-])->unique()->toArray();
+$defaultPaths = [
+  get_theme_file_path('/resources/views'),
+  get_parent_theme_file_path('/resources/views'),
+];
+
+$paths = collect(apply_filters('buildystrap_view_paths', $defaultPaths))->unique()->toArray();
 
 return [
 
