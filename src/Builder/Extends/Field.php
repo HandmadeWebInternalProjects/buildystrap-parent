@@ -105,4 +105,168 @@ abstract class Field implements Htmlable
 
     return $input_string;
   }
+
+  /**
+   * Populate from wp_query
+   */
+  public static function get_options_from_query($query = array())
+  {
+    $select     = array();
+    $query      = (isset($query)) ? $query : array();
+    $query_args = array();
+    $type = $query['type'] ?? null;
+
+    /**
+     * Make possible to have different args for different pages.
+     */
+    if (isset($query['args']) && is_array($query['args'])) {
+
+      // Check if multi_query is set
+      if (isset($query['args']['multi_query']) && true === $query['args']['multi_query']) {
+
+        foreach ($query['args'] as $args) {
+
+          // Skip if not an array (eg. 'multi_query' => true )
+          if (!is_array($args)) {
+            continue;
+          }
+          global $post;
+          $display_on = $args['display_on'];
+
+          // 'disply_on' is the post slog or id
+          if ((is_array($displaym_on) && in_array($post->post_name, $display_on)) ||
+            (!is_array($display_on) && $display_on == $post->post_name) ||
+            (is_array($display_on) && in_array($post->ID, $display_on)) ||
+            (!is_array($display_on) && $display_on == $post->ID)
+          ) {
+
+            // remove 'display_on'
+            unset($args['display_on']);
+            // set args
+            $query_args = $args;
+          }
+        }
+      } else {
+        $query_args = $query['args'];
+      }
+    }
+
+    switch ($type) {
+
+      case 'pages':
+      case 'page':
+
+        $pages = get_pages($query_args);
+
+        if (!is_wp_error($pages) && !empty($pages)) {
+          foreach ($pages as $page) {
+            $select[$page->post_title] = $page->ID;
+          }
+        }
+
+        break;
+
+      case 'posts':
+      case 'post':
+
+        $posts = get_posts($query_args);
+
+        if (!is_wp_error($posts) && !empty($posts)) {
+          foreach ($posts as $post) {
+            $select[$post->post_title] = $post->ID;
+          }
+        }
+
+        break;
+
+      case 'categories':
+      case 'category':
+
+        $categories = get_categories($query_args);
+
+        if (!is_wp_error($categories) && !empty($categories) && !isset($categories['errors'])) {
+          foreach ($categories as $category) {
+            $select[$category->name] = $category->term_id;
+          }
+        }
+
+        break;
+
+      case 'tags':
+      case 'tag':
+
+        $taxonomies = (isset($query_args['taxonomies'])) ? $query_args['taxonomies'] : 'post_tag';
+        $tags       = get_terms($taxonomies, $query_args);
+
+        if (!is_wp_error($tags) && !empty($tags)) {
+          foreach ($tags as $tag) {
+            $select[$tag->name] = $tag->term_id;
+          }
+        }
+
+        break;
+
+      case 'menus':
+      case 'menu':
+
+        $menus = wp_get_nav_menus($query_args);
+
+        if (!is_wp_error($menus) && !empty($menus)) {
+          foreach ($menus as $menu) {
+            $select[$menu->name] = $menu->term_id;
+          }
+        }
+
+        break;
+
+      case 'post_types':
+      case 'post_type':
+
+        $query_args['show_in_nav_menus'] = true;
+        $post_types                      = get_post_types($query_args);
+
+        if (!is_wp_error($post_types) && !empty($post_types)) {
+          foreach ($post_types as $post_type) {
+            $select[ucfirst($post_type)] = $post_type;
+          }
+        }
+
+        break;
+
+      case 'users':
+      case 'user':
+
+        $users = get_users($query_args);
+
+        /**
+         * key:   the name in select
+         * value: the value in select
+         */
+        $key   = (isset($query['key'])) ? sanitize_key($query['key']) : 'ID';
+        $value = (isset($query['value'])) ? sanitize_key($query['value']) : 'user_login';
+
+        if (!is_wp_error($users) && !empty($users)) {
+          foreach ($users as $user) {
+            $select[$user->{$value}] = $user->{$key};
+          }
+        }
+
+        break;
+
+      case 'custom':
+      case 'callback':
+
+        global $post;
+
+        if (is_callable($query['function'])) {
+          $select = call_user_func($query['function'], $query_args, $post);
+        }
+
+        break;
+    }
+
+    // dd($select);
+
+    return $select;
+  }
 }
