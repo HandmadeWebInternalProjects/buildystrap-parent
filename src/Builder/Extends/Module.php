@@ -51,17 +51,19 @@ abstract class Module
 
     $this->data = collect([]);
 
+
+
     if (!$disable_fields) {
       $this->fields = $this->collectionClass($values)
-      ->map(function ($value, $handle) use ($blueprintFields) {
-        if (!empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
-          if ($field = Builder::getField($blueprintField['type'])) {
-            return new $field($value);
+        ->map(function ($value, $handle) use ($blueprintFields) {
+          if (!empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
+            if ($field = Builder::getField($blueprintField['type'])) {
+              return new $field($value);
+            }
           }
-        }
 
-        return null;
-      })->filter();
+          return null;
+        })->filter();
     }
 
     if (isset($module['config']) && is_array($module['config'])) {
@@ -171,6 +173,14 @@ abstract class Module
 
       if (isset($item['type']) && $field = Builder::getField($item['type'])) {
         $parent['fields'][$handle] = array_replace_recursive($field::getBlueprint()->toArray(), $item);
+      }
+
+      if (isset($field) && $query = $item['config']['query'] ?? false) {
+        // Make sure config exists and is an array
+        if (!isset($parent['fields'][$handle]['config'])) {
+          $parent['fields'][$handle]['config'] = [];
+        }
+        $parent['fields'][$handle]['config']['options'] = $field::get_options_from_query($query);
       }
     }
     return $parent;
