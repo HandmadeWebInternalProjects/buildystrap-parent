@@ -96,7 +96,7 @@ if( ! empty($param_args) ) {
         width="100%"
         height="auto"
         frameborder="0"
-        allow="false"
+        allow="autoplay; fullscreen"
         allowfullscreen
         style="aspect-ratio: {{ $aspect_ratio }};">
       </iframe>
