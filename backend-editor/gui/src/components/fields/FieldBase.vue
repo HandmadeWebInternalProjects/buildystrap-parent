@@ -11,6 +11,7 @@
       :handle="handle"
       :meta="meta"
       :uuid="uuid"
+      :default="field?.config?.default"
       :placeholder="
         config?.responsive && responsivePlaceholder(value, handle, bp)
       "
@@ -24,7 +25,7 @@
 <script lang="ts" setup>
 import Validator from "../../field-conditions/Validator"
 import { useFieldType, commonProps } from "./useFieldType"
-import { computed, ref, inject, watch, nextTick } from "vue"
+import { computed, ref, inject, watch, nextTick, onMounted } from "vue"
 import { Popover } from "bootstrap"
 import { useBreakpoints } from "../../composables/useBreakpoints"
 
@@ -107,6 +108,32 @@ watch(showField, async (val) => {
           trigger: "focus",
         })
     )
+  }
+})
+
+onMounted(() => {
+  /**
+   * Checks if the field is responsive and initializes the value for the specified breakpoint.
+   * If the value for the specified breakpoint is not set, it uses the default value from the field configuration.
+   * 
+   * @param {Object} props - The component props.
+   * @param {Object} value - The value object.
+   * @param {string} handle - The field handle.
+   * @param {string} bp - The breakpoint value.
+   */
+  if (props.field.config?.default) {
+    if (props.field.config?.responsive) {
+      if (!value.value[props.handle]) {
+        value.value[props.handle] = {}
+      }
+      if (!value.value[props.handle]?.md) {
+        value.value[props.handle].md = props.field.config?.default
+      }
+    } else {
+      value.value[props.handle] = !value.value[props.handle]
+        ? props.field.config?.default
+        : value.value[props.handle]
+    }
   }
 })
 </script>
