@@ -409,9 +409,9 @@ if (!function_exists('rgbToHsl')) {
 }
 
 if (!function_exists('is_taggable')) {
-  function is_taggable($property, $value)
+  function is_taggable($property, $value, $type = 'structure')
   {
-    $options = BuilderBackend::get_default_options() ? collect(BuilderBackend::get_default_options()['structure'][$property])->pluck('value')->toArray() : [];
+    $options = BuilderBackend::get_default_options() ? collect(BuilderBackend::get_default_options()[$type][$property])->pluck('value')->toArray() : [];
     return !in_array($value, $options);
   }
 }

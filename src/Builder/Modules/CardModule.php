@@ -33,6 +33,7 @@ class CardModule extends Module
                   'Left' => 'flex-row',
                   'Right' => 'flex-row-reverse',
                 ],
+            'default' => 'flex-column',
               ],
             ],
             'image_aspect_ratio' => [

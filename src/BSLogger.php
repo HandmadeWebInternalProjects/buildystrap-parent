@@ -38,6 +38,15 @@ class BSLogger
       return;
     }
 
+    // Create an action here so we can hook into it and have it return true/false to determine if we should log or not
+    $should_log = apply_filters('buildystrap_debug_before_log', true, $message, $context);
+
+    // Check if we should log
+    if (!$should_log) {
+      // We should not log, return
+      return;
+    }
+
     // Check if the message is an array or object
     if (is_array($message) || is_object($message)) {
       // Convert the message to a string

@@ -9,18 +9,18 @@ class SliderModule extends Module
     protected static function blueprint(): array
     {
         return [
-          'icon' => 'fa-solid fa-photo-film',
+      'icon' => 'fa-solid fa-photo-film',
+      'fields' => [
+        'slides' => [
+          'type' => 'replicator-field',
           'fields' => [
-            'slides' => [
-              'type' => 'replicator-field',
-              'fields' => [
-                'title' => [
-                  'type' => 'text-field',
-                  'config' => [
-                    'input_type' => 'text',
-                    'label' => 'Title',
-                  ],
-                ],
+            'title' => [
+              'type' => 'text-field',
+              'config' => [
+                'input_type' => 'text',
+                'label' => 'Title',
+              ],
+            ],
 
             'body' => [
               'type' => 'richtext-field',
@@ -28,39 +28,76 @@ class SliderModule extends Module
                 'label' => 'Body',
               ],
             ],
-            
-                'image' => [
-                  'type' => 'media-field',
-                  'config' => [
-                    'label' => 'Image',
-                    'multiple' => false,
-                  ],
-                ],
-                'show_button' => [
-                  'type' => 'toggle-field',
-                  'config' => [
-                    'label' => 'Show Button',
-                  ],
-                ],
-                'cta' => [
-                  'type' => 'button-field',
-                  'config' => [
-                    'label' => 'Call to action',
-                    'if' => [
-                      'show_button' => 'equals true',
-                    ],
-                  ],
-                ],
-              ],
+
+            'image' => [
+              'type' => 'media-field',
               'config' => [
-                'preview' => 'title',
+                'label' => 'Image',
+                'multiple' => false,
+              ],
+            ],
+            'show_button' => [
+              'type' => 'toggle-field',
+              'config' => [
+                'label' => 'Show Button',
+              ],
+            ],
+            'cta' => [
+              'type' => 'button-field',
+              'config' => [
+                'label' => 'Call to action',
+                'if' => [
+                  'show_button' => 'equals true',
+                ],
               ],
             ],
           ],
           'config' => [
-            'handle' => 'Slider',
-            'selectorTab' => 'regular'
+            'preview' => 'title',
           ],
+        ],
+        'slidesPerView' => [
+          'type' => 'text-field',
+          'config' => [
+            'label' => 'Slides Per View',
+            'popover' => 'How many slides are visible at the same time, can be a decimal e.g 2.5.',
+          ],
+        ],
+        'spaceBetween' => [
+          'type' => 'text-field',
+          'config' => [
+            'label' => 'Space Between',
+            'popover' => 'The space between slides (in pixels).',
+          ],
+        ],
+        'additional_settings' => [
+          'type' => 'replicator-field',
+          'fields' => [
+            'name' => [
+              'type' => 'text-field',
+            ],
+            'value' => [
+              'type' => 'text-field',
+            ],
+            'breakpoint' => [
+              'type' => 'text-field',
+              'config' => [
+                'label' => 'Breakpoint (optional)',
+                'popover' => 'The breakpoint (in pixels) between the settings.',
+              ],
+            ],
+          ],
+          'config' => [
+            'label' => 'Additional Slider Settings',
+            'popover' => 'Add additional settings to the slider. See <a href="https://swiperjs.com/swiper-api" target="_blank">Swiper API</a> for more information.',
+            'preview' => 'name',
+          ],
+        ],
+      ],
+      'config' => [
+        'handle' => 'Slider',
+        'selectorTab' => 'regular',
+      ],
         ];
     }
 }
