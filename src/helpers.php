@@ -247,6 +247,33 @@ if (function_exists('acf_active') && acf_active()) {
   }
 }
 
+// This is used for the slider module but can work for anything
+// that is name/value where you're checking if name is dot notation
+// e.g $name 'sliders.delay' and $value 4000
+/* like [
+    'autoplay' => [
+      'delay' => 4000
+    ]
+  ]
+  */
+if (!function_exists('maybe_nested')) {
+  function maybe_nested(string $name, mixed $value): array
+  {
+    if (strpos($name, '.') !== false) {
+      $name = explode('.', $name);
+    }
+
+    // If $name is an array, we need to nest it
+    if (is_array($name)) {
+      return collect($name)->reverse()->reduce(function ($carry, $item) {
+        return [$item => $carry];
+      }, $value);
+    }
+
+    return [$name => $value];
+  }
+}
+
 if (!function_exists('convert_param_value')) {
   function convert_param_value($param)
   {

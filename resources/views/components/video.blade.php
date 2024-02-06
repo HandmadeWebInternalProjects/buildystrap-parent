@@ -1,105 +1,36 @@
 @php
+
+use Buildystrap\Factories\DefaultVideoStrategyFactory;
+use Buildystrap\VideoContext;
+
 $video_url = $video_url ?? null;
 $aspect_ratio = $aspect_ratio ?? '16/9';
-$fullscreen = $fullscreen ?? false;
+$fullscreen = $fullscreen ?? true;
 $autoplay = $autoplay ?? false;
-$muted = $muted ?? false;
+$mute = $muted ?? false;
 $additional_params = $additional_params ?? '';
+$playsinline = $autoplay;
+$loop = $autoplay;
+$controls = !$autoplay;
+$background = $background ?? false;
 
-if( ! function_exists('getVimeoVideoIdFromUrl') ) {
-  function getVimeoVideoIdFromUrl($url = '') {
-    $regs = array();
-    $id = '';
-    if (preg_match('%^https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)(?:[?]?.*)$%im', $url, $regs)) {
-      $id = $regs[3];
-    }
-    return $id;
-  }
-}
+$params = collect(compact('fullscreen', 'background', 'autoplay', 'mute', 'playsinline', 'loop', 'additional_params'))->filter()->map(function($value, $key) {
+  return $key . '=' . $value;
+})->implode('&');
 
-if( ! function_exists('getVimeoEmbedUrl') ) {
-  function getVimeoEmbedUrl($url = '') {
-    $id = getVimeoVideoIdFromUrl($url);
-    return "https://player.vimeo.com/video/{$id}?title=0&byline=0&portrait=0";
-  }
-}
+// Instantiate the context with the default factory
+$factory = new DefaultVideoStrategyFactory();
+$context = new VideoContext($factory, $video_url);
 
-if( ! function_exists('getYoutubeVideoIdFromUrl') ) {
-  function getYoutubeVideoIdFromUrl($url = '') {
-    preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match);
-    $id = $match[1];
-    return $id;
-  }
-}
+$video_type = $context->getVideoType();
 
-if( ! function_exists('getYoutubeEmbedUrl') ) {
-  function getYoutubeEmbedUrl($url = '') {
-    $id = getYoutubeVideoIdFromUrl($url);
-    return "https://www.youtube.com/embed/{$id}?feature=oembed&rel=0&autohide=1&playlist={$id}";
-  }
-}
-
-if( ! function_exists('getYoutubeThumbUrl') ) {
-  function getYoutubeThumbUrl($url = '') {
-    $id = getYoutubeVideoIdFromUrl($url);
-    return 'https://img.youtube.com/vi/'. $id .'/maxresdefault.jpg';
-  }
-}
-
-$video_type = match(true) {
-  str_contains($video_url, 'youtube') => 'youtube',
-  str_contains($video_url, 'vimeo') => 'vimeo',
-  default => 'other'
-};
-
-$embed_url = match($video_type) {
-  'youtube' => getYoutubeEmbedUrl($video_url),
-  'vimeo' => getVimeoEmbedUrl($video_url),
-  default => ''
-};
-
-$default_video_thumb = match($video_type) {
-  'youtube' => getYoutubeThumbUrl($video_url),
-  'vimeo' => '',
-  default => ''
-};
-$video_thumb = isset($video_thumb) && $video_thumb ? wp_get_attachment_image_url($video_thumb, 'full') : $default_video_thumb;
-
-$param_args = [];
-if( $fullscreen ) {
-  $param_args[] = 'fullscreen=1';
-}
-if( $autoplay ) {
-  $param_args[] = 'autoplay=1&playsinline=1&loop=1&controls=0';
-}
-if( $muted ) {
-  $param_args[] = 'mute=1';
-}
-if( !empty($additional_params) ) {
-  $param_args[] = $additional_params;
-}
-$param_args = implode('&', $param_args);
-
-if( ! empty($param_args) ) {
-  // Check if ? in in the URL already and add the param args accordingly
-  $embed_url = str_contains($embed_url, '?') ? $embed_url . '&' . $param_args : $embed_url . '?' . $param_args;
-}
+$video_thumb = isset($video_thumb) && $video_thumb ? wp_get_attachment_image_url($video_thumb, 'full') : ($context->getThumb() ?? '');
 @endphp
 
-@if(!empty($embed_url))
-  <div class="video-container {{ $video_type }}" style="aspect-ratio: {{ $aspect_ratio }};">
-    <div class="video-overlay rounded" style="@if (!empty($video_thumb)) {{ "--bg-image-url: url( $video_thumb );" }} @endif"> 
-      <iframe
-        class="video-iframe video-iframe--{{ $video_type }} rounded"
-        data-src='{!! "$embed_url" !!}'
-        src='{!! "$embed_url" !!}'
-        width="100%"
-        height="auto"
-        frameborder="0"
-        allow="autoplay; fullscreen"
-        allowfullscreen
-        style="aspect-ratio: {{ $aspect_ratio }};">
-      </iframe>
+@if(!empty($video_url))
+  <div class="video-container position-relative {{ $video_type }}" style="aspect-ratio: {{ $aspect_ratio }};">
+    <div class="video-overlay rounded" style="@if (!empty($video_thumb)) {{ "--bg-image-url: url( $video_thumb );" }} @endif aspect-ratio: {{ $aspect_ratio }};"> 
+      {!! $context->embed($params) !!}
       @if (!$autoplay)
         <div class="video-overlay__contents">
           <a href="javascript:;" class="video-play">

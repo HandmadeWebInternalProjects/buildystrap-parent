@@ -424,6 +424,11 @@ trait HtmlStyleBuilder
       }
     }
 
+    // if background video_url 
+    if ($this->getInlineAttribute('background.video_url', [])) {
+      $this->html_classes[] = 'overflow-hidden';
+    }
+
     // If background separate_element is true, we won't add styles, we'll make a separate div in the view
     if (!$this->getInlineAttribute('background.separate_element', [])) {
       /** Background Image URL */

@@ -1,4 +1,4 @@
-.buildystrap-video-module {
+[class*="buildystrap-"] {
   position: relative;
 
   .video-container {
@@ -37,6 +37,10 @@
         opacity: 1;
         visibility: visible;
         transition: all 0.5s ease-in-out;
+      }
+
+      iframe {
+        aspect-ratio: inherit;
       }
 
       iframe,

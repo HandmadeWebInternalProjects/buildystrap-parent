@@ -1,6 +1,7 @@
 @extends('builder::module-base', ['class' => 'w-100'])
 
 @php
+
 $options = [
     'breakpoints' => [
       0 => [
@@ -17,15 +18,24 @@ $options = [
   if ($module->has('additional_settings')) {
     // $options = array_merge($options[], collect($module->get('additional_settings')->value())->pluck('value', 'name')->toArray());
     collect($module->get('additional_settings')->value())->each(function ($setting) use (&$options) {
-      if ($setting['breakpoint'])
+      $value = maybe_nested($setting['name'], $setting['value']);
+      
+      if ($setting['breakpoint'] ?? false)
        {
-          $options['breakpoints'][$setting['breakpoint']] = array_merge(
+
+          if (!is_array($value)) {
+            $value = [$value];
+          }
+
+          $options['breakpoints'][$setting['breakpoint']] = array_merge_recursive(
             $options['breakpoints'][$setting['breakpoint']] ?? [],
-            [$setting['name'] => $setting['value']]
+            $value
           );
-          return;
        }
-      $options[$setting['name']] = $setting['value'];
+
+      if (is_array($value)) {
+        $options = array_merge_recursive($options, $value);
+      }
     });
   }
 @endphp
@@ -52,11 +62,15 @@ $options = [
         @endforeach
     </div>
 
-    <div class="swiper-pagination"></div>
+    @if(isset($options['pagination']) && $options['pagination'] !== "false")
+      <div class="swiper-pagination"></div>
+    @endif
 
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    @if(isset($options['navigation']) && $options['navigation'] !== "false")
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    @endif
       </div>
   @endif
 @overwrite

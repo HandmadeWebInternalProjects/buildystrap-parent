@@ -40,6 +40,7 @@ const background: any = reactive({
       ...(props.modelValue?.image?.repeat || {}),
     },
   },
+  video_url: props.modelValue?.video_url || null,
   color: {
     ...(props.modelValue?.color || {}),
   },
@@ -72,6 +73,15 @@ watch(background, (val: any) => {
         label: 'Background Image',
       }"
       v-model="background.image['id'][bp]" />
+
+    <text-field
+      class="g-col-12 flex-grow-1 flex-basis-0"
+      handle="background-class"
+      :config="{
+        label: 'Background video url',
+        popover: 'Paste a youtube or vimeo url here for background video',
+      }"
+      v-model="background.video_url" />
     <div class="g-col-12 d-flex gap-3">
       <select-field
         class="flex-grow-1 flex-basis-0"

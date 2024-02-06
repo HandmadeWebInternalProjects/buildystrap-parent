@@ -53,6 +53,11 @@ abstract class Layout
     }
   }
 
+  public function addClass(string $class): void
+  {
+    $this->html_classes[] = $class;
+  }
+
   public function type(): string
   {
     return $this->type;

@@ -184,6 +184,12 @@ $utilities: map-merge(
       responsive: true,
       values: $grid-template,
     ),
+    'index': (
+      property: z-index,
+      class: z,
+      responsive: true,
+      values: map-merge($order, (-1: -1, 99: 99, 999: 999, 9999: 9999)),
+    ),
     "order": (
       property: order,
       class: order,

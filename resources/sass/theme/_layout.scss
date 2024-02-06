@@ -24,6 +24,12 @@
   }
 }
 
+:is(.buildystrap-section, .buildystrap-row, .buildystrap-column) .buildystrap-video-background {
+  .video-container {
+    position: absolute !important;
+  }
+}
+
 :where(.buildystrap-row) {
   column-gap: var(--bs-col-gap);
   row-gap: var(--bs-row-gap);
