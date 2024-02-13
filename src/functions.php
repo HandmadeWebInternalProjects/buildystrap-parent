@@ -4,12 +4,13 @@ use Buildystrap\Builder;
 use Buildystrap\BuilderApi;
 use Buildystrap\BuilderBackend;
 use Buildystrap\BuilderCPT;
+use Buildystrap\BuilderACF;
 use Buildystrap\Theme;
 use Buildystrap\ThemeOptions;
 use Buildystrap\BSLogger;
 
 BuilderCPT::boot();
-include __DIR__ . '/BuilderACF.php';
+BuilderACF::boot();
 
 add_action('init', [Builder::class, 'boot']);
 add_action('init', [BuilderApi::class, 'boot']);

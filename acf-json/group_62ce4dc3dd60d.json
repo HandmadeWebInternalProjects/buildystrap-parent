@@ -1,0 +1,2054 @@
+{
+  "key": "group_62ce4dc3dd60d",
+  "title": "Buildystrap Settings",
+  "fields": [
+    {
+      "key": "field_62ce53951cb9f",
+      "label": "Company Details",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62eb436da1053",
+      "label": "Company Details",
+      "name": "buildystrap_company_details",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "row",
+      "sub_fields": [
+        {
+          "key": "field_62ce4dd4597b0",
+          "label": "Site Logo",
+          "name": "site_logo",
+          "aria-label": "",
+          "type": "image",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "return_format": "array",
+          "preview_size": "medium",
+          "library": "all",
+          "min_width": 0,
+          "min_height": 0,
+          "min_size": 0,
+          "max_width": 0,
+          "max_height": 0,
+          "max_size": 0,
+          "mime_types": ""
+        },
+        {
+          "key": "field_62ce52d21cb95",
+          "label": "Company Phone",
+          "name": "company_phone",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_company_phone_alt",
+          "label": "Company Phone 2",
+          "name": "company_phone_alt",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62ce52e31cb96",
+          "label": "Company Fax",
+          "name": "company_fax",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62ce52ea1cb97",
+          "label": "Company Email",
+          "name": "company_email",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62ce52f51cb98",
+          "label": "Company Address",
+          "name": "company_address",
+          "aria-label": "",
+          "type": "textarea",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "rows": 2,
+          "new_lines": "br",
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": ""
+        },
+        {
+          "key": "field_62ce53041cb99",
+          "label": "Company ABN",
+          "name": "company_abn",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62ce530f1cb9a",
+          "label": "Social Links",
+          "name": "social_links",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62ce531c1cb9b",
+              "label": "Name",
+              "name": "name",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ce530f1cb9a"
+            },
+            {
+              "key": "field_62fd80aa001f5",
+              "label": "Icon Style",
+              "name": "icon_style",
+              "aria-label": "",
+              "type": "select",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "fa": "Font Awesome",
+                "la": "Line Awesome"
+              },
+              "default_value": false,
+              "allow_null": 0,
+              "multiple": 0,
+              "ui": 0,
+              "return_format": "value",
+              "ajax": 0,
+              "placeholder": "",
+              "parent_repeater": "field_62ce530f1cb9a"
+            },
+            {
+              "key": "field_62ce53271cb9c",
+              "label": "Icon",
+              "name": "icon",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ce530f1cb9a"
+            },
+            {
+              "key": "field_62ce53561cb9d",
+              "label": "URL",
+              "name": "url",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ce530f1cb9a"
+            }
+          ]
+        },
+        {
+          "key": "field_62ce53851cb9e",
+          "label": "Google API Key",
+          "name": "google_api_key",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_65cadea833449",
+          "label": "Google API Key (Server Side)",
+          "name": "google_api_key_server_side",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        }
+      ]
+    },
+    {
+      "key": "field_62ce53ad1cba0",
+      "label": "Sitewide Message",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62ce544744eff",
+      "label": "Sitewide Message",
+      "name": "buildystrap_sitewide_message",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "row",
+      "sub_fields": [
+        {
+          "key": "field_62ce53fb44efe",
+          "label": "Enable Sitewide Message",
+          "name": "enable_sitewide_message",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_62ce555444f01",
+          "label": "Content",
+          "name": "content",
+          "aria-label": "",
+          "type": "wysiwyg",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "tabs": "visual",
+          "toolbar": "basic",
+          "media_upload": 0,
+          "delay": 0,
+          "default_value": ""
+        },
+        {
+          "key": "field_62ce556144f02",
+          "label": "BG Colour",
+          "name": "bg_colour",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "None": "None",
+            "#055d72": "primary",
+            "#fb7434": "secondary",
+            "#50daac": "tertiary",
+            "#66db5c": "success",
+            "#dc3545": "danger",
+            "#f6b13c": "yellow",
+            "#949494": "info",
+            "#f1f0eb": "light",
+            "#212529": "dark",
+            "#ffffff": "white",
+            "#4daac9": "blue",
+            "": "accent",
+            "#837a6f": "brown-500",
+            "#48aaad": "teal",
+            "#c1c1c1": "gray-300"
+          },
+          "default_value": false,
+          "allow_null": 0,
+          "multiple": 0,
+          "ui": 0,
+          "return_format": "label",
+          "ajax": 0,
+          "placeholder": ""
+        },
+        {
+          "key": "field_62ce558644f03",
+          "label": "Text Colour",
+          "name": "text_colour",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "None": "None",
+            "#055d72": "primary",
+            "#fb7434": "secondary",
+            "#50daac": "tertiary",
+            "#66db5c": "success",
+            "#dc3545": "danger",
+            "#f6b13c": "yellow",
+            "#949494": "info",
+            "#f1f0eb": "light",
+            "#212529": "dark",
+            "#ffffff": "white",
+            "#4daac9": "blue",
+            "": "accent",
+            "#837a6f": "brown-500",
+            "#48aaad": "teal",
+            "#c1c1c1": "gray-300"
+          },
+          "default_value": false,
+          "allow_null": 0,
+          "multiple": 0,
+          "ui": 0,
+          "return_format": "label",
+          "ajax": 0,
+          "placeholder": ""
+        }
+      ]
+    },
+    {
+      "key": "field_62ce566b8da7c",
+      "label": "Theme Colours",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62ce56808da7d",
+      "label": "Theme Colours",
+      "name": "buildystrap_theme_colours",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_62ce578d8da87",
+          "label": "Additional Colours",
+          "name": "additional_colours",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62ce57a68da88",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ce578d8da87"
+            },
+            {
+              "key": "field_62ce57ab8da89",
+              "label": "Value",
+              "name": "value",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "enable_opacity": 0,
+              "return_format": "string",
+              "default_value": "",
+              "parent_repeater": "field_62ce578d8da87"
+            }
+          ]
+        },
+        {
+          "key": "field_62ce5cbe77fbf",
+          "label": "Text Colour Headings",
+          "name": "text_colour_headings",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "None": "None",
+            "#055d72": "primary",
+            "#fb7434": "secondary",
+            "#50daac": "tertiary",
+            "#66db5c": "success",
+            "#dc3545": "danger",
+            "#f6b13c": "yellow",
+            "#949494": "info",
+            "#f1f0eb": "light",
+            "#212529": "dark",
+            "#ffffff": "white",
+            "#4daac9": "blue",
+            "": "accent",
+            "#837a6f": "brown-500",
+            "#48aaad": "teal",
+            "#c1c1c1": "gray-300"
+          },
+          "default_value": false,
+          "allow_null": 0,
+          "multiple": 0,
+          "ui": 0,
+          "return_format": "array",
+          "ajax": 0,
+          "placeholder": ""
+        },
+        {
+          "key": "field_62ce5cd577fc0",
+          "label": "Text Colour Body",
+          "name": "text_colour_body",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "None": "None",
+            "#055d72": "primary",
+            "#fb7434": "secondary",
+            "#50daac": "tertiary",
+            "#66db5c": "success",
+            "#dc3545": "danger",
+            "#f6b13c": "yellow",
+            "#949494": "info",
+            "#f1f0eb": "light",
+            "#212529": "dark",
+            "#ffffff": "white",
+            "#4daac9": "blue",
+            "": "accent",
+            "#837a6f": "brown-500",
+            "#48aaad": "teal",
+            "#c1c1c1": "gray-300"
+          },
+          "default_value": false,
+          "allow_null": 0,
+          "multiple": 0,
+          "ui": 0,
+          "return_format": "array",
+          "ajax": 0,
+          "placeholder": ""
+        },
+        {
+          "key": "field_62ce5d0577fc1",
+          "label": "Link Colour",
+          "name": "link_colour",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "33",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "None": "None",
+            "#055d72": "primary",
+            "#fb7434": "secondary",
+            "#50daac": "tertiary",
+            "#66db5c": "success",
+            "#dc3545": "danger",
+            "#f6b13c": "yellow",
+            "#949494": "info",
+            "#f1f0eb": "light",
+            "#212529": "dark",
+            "#ffffff": "white",
+            "#4daac9": "blue",
+            "": "accent",
+            "#837a6f": "brown-500",
+            "#48aaad": "teal",
+            "#c1c1c1": "gray-300"
+          },
+          "default_value": false,
+          "allow_null": 0,
+          "multiple": 0,
+          "ui": 0,
+          "return_format": "label",
+          "ajax": 0,
+          "placeholder": ""
+        },
+        {
+          "key": "field_62eb495fab606",
+          "label": "Included Colours",
+          "name": "included",
+          "aria-label": "",
+          "type": "group",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "layout": "block",
+          "sub_fields": [
+            {
+              "key": "field_62ce56878da7e",
+              "label": "Primary",
+              "name": "primary",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "enable_opacity": 0,
+              "return_format": "string",
+              "default_value": ""
+            },
+            {
+              "key": "field_62ce56cb8da7f",
+              "label": "Secondary",
+              "name": "secondary",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "enable_opacity": 0,
+              "return_format": "string",
+              "default_value": ""
+            },
+            {
+              "key": "field_62ce5b8bd12aa",
+              "label": "Tertiary",
+              "name": "tertiary",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "enable_opacity": 0,
+              "return_format": "string",
+              "default_value": ""
+            },
+            {
+              "key": "field_62ce56d38da80",
+              "label": "Success",
+              "name": "success",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "#198754",
+              "enable_opacity": 0,
+              "return_format": "string"
+            },
+            {
+              "key": "field_62ce574a8da81",
+              "label": "Danger",
+              "name": "danger",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "#dc3545",
+              "enable_opacity": 0,
+              "return_format": "string"
+            },
+            {
+              "key": "field_62ce57578da82",
+              "label": "Warning",
+              "name": "warning",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "#ffc107",
+              "enable_opacity": 0,
+              "return_format": "string"
+            },
+            {
+              "key": "field_62ce57628da83",
+              "label": "Info",
+              "name": "info",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "#0dcaf0",
+              "enable_opacity": 0,
+              "return_format": "string"
+            },
+            {
+              "key": "field_62ce57698da84",
+              "label": "Light",
+              "name": "light",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "#f8f9fa",
+              "enable_opacity": 0,
+              "return_format": "string"
+            },
+            {
+              "key": "field_62ce576f8da85",
+              "label": "Dark",
+              "name": "dark",
+              "aria-label": "",
+              "type": "color_picker",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "#212529",
+              "enable_opacity": 0,
+              "return_format": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "field_62ce5d9577fc2",
+      "label": "Header",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62eb4324a1043",
+      "label": "Header",
+      "name": "buildystrap_header",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_62ce5d9f77fc3",
+          "label": "Always show mobile nav?",
+          "name": "always_show_mobile_nav",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_62eb52287454c",
+          "label": "Header background colour",
+          "name": "background_colour",
+          "aria-label": "",
+          "type": "select",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": false,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "None": "None",
+            "primary": "<div style='display: flex;'><span style='background: #055d72; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>primary<\/div>",
+            "secondary": "<div style='display: flex;'><span style='background: #fb7434; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>secondary<\/div>",
+            "tertiary": "<div style='display: flex;'><span style='background: #50daac; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>tertiary<\/div>",
+            "success": "<div style='display: flex;'><span style='background: #66db5c; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>success<\/div>",
+            "danger": "<div style='display: flex;'><span style='background: #dc3545; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>danger<\/div>",
+            "warning": "<div style='display: flex;'><span style='background: #f6b13c; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>warning<\/div>",
+            "info": "<div style='display: flex;'><span style='background: #949494; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>info<\/div>",
+            "light": "<div style='display: flex;'><span style='background: #f1f0eb; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>light<\/div>",
+            "dark": "<div style='display: flex;'><span style='background: #212529; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>dark<\/div>",
+            "white": "<div style='display: flex;'><span style='background: #ffffff; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>white<\/div>",
+            "blue": "<div style='display: flex;'><span style='background: #4daac9; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>blue<\/div>",
+            "yellow": "<div style='display: flex;'><span style='background: #f6b13c; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>yellow<\/div>",
+            "transparent": "<div style='display: flex;'><span style='background: ; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>transparent<\/div>",
+            "currentColor": "<div style='display: flex;'><span style='background: ; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>currentColor<\/div>",
+            "brown-500": "<div style='display: flex;'><span style='background: #837a6f; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>brown-500<\/div>",
+            "accent": "<div style='display: flex;'><span style='background: ; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>accent<\/div>",
+            "teal": "<div style='display: flex;'><span style='background: #48aaad; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>teal<\/div>",
+            "gray-300": "<div style='display: flex;'><span style='background: #c1c1c1; width: 20px;\n            margin-right: 0.6rem; display: block; border-radius: 50%;'><\/span>gray-300<\/div>"
+          },
+          "default_value": false,
+          "allow_null": 0,
+          "multiple": 0,
+          "ui": 1,
+          "ajax": 0,
+          "return_format": "value",
+          "placeholder": ""
+        }
+      ]
+    },
+    {
+      "key": "field_62ce5db477fc4",
+      "label": "Structure",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62ce5dc177fc5",
+      "label": "Structure",
+      "name": "buildystrap_structure",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_61ez60dad795_5",
+          "label": "Enqueue Bootstrap Bundle",
+          "name": "use_bootstrap_bundle",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "Whether to load custom css or the full bootstrap bundle",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "allow_null": 0,
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_62e202dad6868",
+          "label": "Default Grid System",
+          "name": "default_grid_system",
+          "aria-label": "",
+          "type": "button_group",
+          "instructions": "Whether to use flex or grid for the main layout grid system (bootstrap supports both)",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "flex": "Flex",
+            "grid": "Grid"
+          },
+          "allow_null": 0,
+          "layout": "horizontal",
+          "return_format": "value",
+          "default_value": ""
+        },
+        {
+          "key": "field_62ce5e610c56787d",
+          "label": "Row Gap",
+          "name": "row_gap",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "3rem",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62ce5e610c42d",
+          "label": "Column Gap",
+          "name": "column_gap",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "3rem",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62eb1e47bcf2e",
+          "label": "Module Gap",
+          "name": "module_gap",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "3rem",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62eb1e2dbcf2c",
+          "label": "Section Padding",
+          "name": "section_padding",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62eb1e3abcf2d",
+          "label": "Row Padding",
+          "name": "row_padding",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "3rem",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        },
+        {
+          "key": "field_62ce5f850c42e",
+          "label": "Box Model Sizing",
+          "name": "box_model_sizing",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "Additional settings for margins, paddings and position attributes. Note: These settings are not designed to replace module styles. Any sections \/ rows \/ columns \/ modules that use these settings will retain their existing value if these values are updated.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62cfcfd3dac94",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ce5f850c42e"
+            },
+            {
+              "key": "field_62ce9fe52661b",
+              "label": "Value",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 1,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ce5f850c42e"
+            }
+          ]
+        },
+        {
+          "key": "field_62ceaad3e7135",
+          "label": "Width",
+          "name": "width",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "Additional settings for width, min-width and max-width attributes. Note: These settings are not designed to replace module styles. Any sections \/ rows \/ columns \/ modules that use these settings will retain their existing value if these values are updated.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62cfcfe7dac95",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ceaad3e7135"
+            },
+            {
+              "key": "field_62ceaad3e7136",
+              "label": "Value",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 1,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ceaad3e7135"
+            }
+          ]
+        },
+        {
+          "key": "field_62ceaaeae7137",
+          "label": "Height",
+          "name": "height",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "Additional settings for height, min-height and max-height attributes. Note: These settings are not designed to replace module styles. Any sections \/ rows \/ columns \/ modules that use these settings will retain their existing value if these values are updated.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62cfcff2dac96",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ceaaeae7137"
+            },
+            {
+              "key": "field_62ceaaeae7138",
+              "label": "Value",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 1,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62ceaaeae7137"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "field_62eb4286a1026",
+      "label": "Typography",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62eb4296a1027",
+      "label": "Typography",
+      "name": "buildystrap_typography",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "Fonts should be added under _typography.scss and uploaded to \/dist\/fonts\/",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_enable_font_awesome",
+          "label": "Enable Font Awesome 6",
+          "name": "enable_font_awesome",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "20%",
+            "class": "",
+            "id": ""
+          },
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_enable_line_awesome",
+          "label": "Enable Line Awesome",
+          "name": "enable_line_awesome",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "20%",
+            "class": "",
+            "id": ""
+          },
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_62eb4296a1037",
+          "label": "Body Font",
+          "name": "body_font",
+          "aria-label": "",
+          "type": "group",
+          "instructions": "Enter the font name exactly as it is in CSS (including spaces \/ casing if applicable)",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "layout": "row",
+          "sub_fields": [
+            {
+              "key": "field_62eb4296a1039",
+              "label": "Font Name",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            }
+          ]
+        },
+        {
+          "key": "field_62eb4296a103a",
+          "label": "Heading Font",
+          "name": "heading_font",
+          "aria-label": "",
+          "type": "group",
+          "instructions": "Enter the font name exactly as it is in CSS (including spaces \/ casing if applicable)",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "layout": "row",
+          "sub_fields": [
+            {
+              "key": "field_62eb4296a103c",
+              "label": "Font Name",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            }
+          ]
+        },
+        {
+          "key": "field_62eb4296a103d",
+          "label": "Additional Fonts",
+          "name": "additional_fonts",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "row",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62f4718c46e4d",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62eb4296a103d"
+            },
+            {
+              "key": "field_62eb4296a103f",
+              "label": "Font Name",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Enter the font name exactly as it is in CSS (including spaces \/ casing if applicable)",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62eb4296a103d"
+            }
+          ]
+        },
+        {
+          "key": "field_62eb4296a1040",
+          "label": "Font Size",
+          "name": "font_size",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_62eb4296a1041",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62eb4296a1040"
+            },
+            {
+              "key": "field_62eb4296a1042",
+              "label": "Size",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_62eb4296a1040"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "field_62ce6402e3bb5",
+      "label": "Module Styles",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_62ce640fe3bb6",
+      "label": "Module Styles",
+      "name": "buildystrap_module_styles",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_6310062e71d34",
+          "label": "Modules",
+          "name": "modules",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "row",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_6310076d94f01",
+              "label": "Module Name",
+              "name": "module_name",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_6310062e71d34"
+            },
+            {
+              "key": "field_6310065771d35",
+              "label": "Styles",
+              "name": "styles",
+              "aria-label": "",
+              "type": "repeater",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "min": 0,
+              "max": 0,
+              "layout": "table",
+              "rows_per_page": 20,
+              "button_label": "Add Row",
+              "collapsed": "",
+              "sub_fields": [
+                {
+                  "key": "field_6310066671d36",
+                  "label": "Label",
+                  "name": "label",
+                  "aria-label": "",
+                  "type": "text",
+                  "instructions": "",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                  },
+                  "default_value": "",
+                  "maxlength": "",
+                  "placeholder": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_6310065771d35"
+                },
+                {
+                  "key": "field_6310066c71d37",
+                  "label": "Value",
+                  "name": "value",
+                  "aria-label": "",
+                  "type": "text",
+                  "instructions": "",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                  },
+                  "default_value": "",
+                  "maxlength": "",
+                  "placeholder": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_6310065771d35"
+                }
+              ],
+              "parent_repeater": "field_6310062e71d34"
+            }
+          ]
+        },
+        {
+          "key": "field_631006b771d38",
+          "label": "Shared",
+          "name": "shared",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "min": 0,
+          "max": 0,
+          "layout": "table",
+          "rows_per_page": 20,
+          "button_label": "Add Row",
+          "collapsed": "",
+          "sub_fields": [
+            {
+              "key": "field_631006c271d39",
+              "label": "Label",
+              "name": "label",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_631006b771d38"
+            },
+            {
+              "key": "field_631006c871d3a",
+              "label": "Value",
+              "name": "value",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": 1,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": "",
+              "parent_repeater": "field_631006b771d38"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "field_scripts_328t4923",
+      "label": "Code Snippets",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_header_ccript_143b6634",
+      "label": "Header Snippets",
+      "name": "buildystrap_header_snippets",
+      "aria-label": "",
+      "type": "textarea",
+      "instructions": "These snippets will be added right before the closing head tag.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "placeholder": "<script>...<\/script> or <style>...<\/style>",
+      "maxlength": "",
+      "rows": "",
+      "new_lines": ""
+    },
+    {
+      "key": "field_body_ccript_143b6635",
+      "label": "Body Snippets",
+      "name": "buildystrap_body_snippets",
+      "aria-label": "",
+      "type": "textarea",
+      "instructions": "These snippets will be added right after the opening body tag.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "placeholder": "<script>...<\/script> or <style>...<\/style>",
+      "maxlength": "",
+      "rows": "",
+      "new_lines": ""
+    },
+    {
+      "key": "field_footer_ccript_143b6636",
+      "label": "Footer Snippets",
+      "name": "buildystrap_footer_snippets",
+      "aria-label": "",
+      "type": "textarea",
+      "instructions": "These snippets will be added right before the closing body tag.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "placeholder": "<script>...<\/script> or <style>...<\/style>",
+      "maxlength": "",
+      "rows": "",
+      "new_lines": ""
+    },
+    {
+      "key": "field_64c33143b6633",
+      "label": "Debugging",
+      "name": "",
+      "aria-label": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_64c3300c5bd47",
+      "label": "Debugging",
+      "name": "buildystrap_debug",
+      "aria-label": "",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_ad5623335bd63",
+          "label": "Enable Debugging",
+          "name": "enable_debugging",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_64c330335bd63",
+          "label": "Enable Bugherd",
+          "name": "enable_bugherd",
+          "aria-label": "",
+          "type": "true_false",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": 0,
+          "ui": 1,
+          "message": "",
+          "ui_on_text": "",
+          "ui_off_text": ""
+        },
+        {
+          "key": "field_64c3304b5bd64",
+          "label": "Bugherd API Key",
+          "name": "bugherd_api_key",
+          "aria-label": "",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": [
+            [
+              {
+                "field": "field_64c330335bd63",
+                "operator": "==",
+                "value": "1"
+              }
+            ]
+          ],
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": ""
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "options_page",
+        "operator": "==",
+        "value": "buildystrap-settings"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "",
+  "show_in_rest": 0,
+  "modified": 1707794098
+}
