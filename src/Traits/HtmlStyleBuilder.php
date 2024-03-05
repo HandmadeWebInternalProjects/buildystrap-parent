@@ -162,8 +162,8 @@ trait HtmlStyleBuilder
 
     foreach ($this->getInlineAttribute('display.grid-template-columns', []) as $breakpoint => $value) {
       $this->html_classes[] = match ($breakpoint) {
-        'xs' => "grid-template-columns-{$value}",
-        default => "grid-template-columns-{$breakpoint}-{$value}"
+        'xs' => "grid-cols-{$value}",
+        default => "grid-cols-{$breakpoint}-{$value}"
       };
     }
 
