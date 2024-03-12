@@ -14,12 +14,24 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  customSettings: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const section = ref(props.component || {})
 const parentArray = ref(props.parentArray || [])
+const customSettings = ref(props.customSettings)
 const sectionIndex = computed(() => props.sectionIndex || 0)
-const rows = ref(props.component?.rows)
+const rows = ref(props.component?.rows || [])
+
+import { createModule } from "../../factories/modules/moduleFactory"
+
+const addRow = () => {
+  const row = createModule("Row")
+  rows.value.push(row)
+}
 
 const handleDrop = (to: any, from: any, el: any) => {
   const validTypes = ["row", "divider-module"]
@@ -38,10 +50,12 @@ const handleDrop = (to: any, from: any, el: any) => {
         direction="column"
         :component="section"
         :value="parentArray"
-        :index="sectionIndex" />
+        :index="sectionIndex"
+        :custom-settings="customSettings" />
     </div>
     <div class="flex-grow-1">
       <draggable
+        v-if="rows.length"
         :list="rows"
         :group="{
           name: 'rows',
@@ -63,6 +77,7 @@ const handleDrop = (to: any, from: any, el: any) => {
             :component-index="index" />
         </template>
       </draggable>
+      <button @click="addRow" type="button" v-else>Add row</button>
     </div>
   </div>
 </template>

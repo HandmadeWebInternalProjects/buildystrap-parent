@@ -1,6 +1,6 @@
 <template>
   <bs-tabs>
-    <bs-tab :active="true" name="content">
+    <bs-tab :uuid="`content-${uuid}`" :active="true" name="content">
       <field-group>
         <field-base
           v-for="(field, key) in ModuleType.fields"
@@ -15,13 +15,13 @@
           @update-meta="updateMeta" />
       </field-group>
     </bs-tab>
-    <bs-tab name="design">
+    <bs-tab :uuid="`design-${uuid}`" name="design">
       <design-tab-settings v-model="inline" />
     </bs-tab>
-    <bs-tab name="attributes">
+    <bs-tab :uuid="`attributes-${uuid}`" name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
-    <bs-tab name="visibility">
+    <bs-tab :uuid="`visibility-${uuid}`" name="visibility">
       <visibility-tab-settings v-model="config" />
     </bs-tab>
   </bs-tabs>
@@ -65,6 +65,7 @@ const updateMeta = (meta: any) => {
 }
 
 const component = ref(props.component)
+const uuid = component.value.uuid
 
 const inline = computed({
   get() {

@@ -22,6 +22,7 @@ use Buildystrap\Builder\Fields\TextAreaField;
 use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Fields\TitleField;
 use Buildystrap\Builder\Fields\ToggleField;
+use Buildystrap\Builder\Fields\SectionField;
 use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
@@ -79,6 +80,7 @@ class Builder
     'radio-buttons-field' => RadioButtonsField::class,
     'relational-field' => RelationalField::class,
     'replicator-field' => ReplicatorField::class,
+    'section-field' => SectionField::class,
   ];
 
   protected static array $modules = [

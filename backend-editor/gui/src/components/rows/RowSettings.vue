@@ -1,12 +1,12 @@
 <template lang="">
   <bs-tabs>
-    <bs-tab :active="true" name="design">
+    <bs-tab :uuid="`design-${uuid}`" :active="true" name="design">
       <design-tab-settings v-model="inline" />
     </bs-tab>
-    <bs-tab name="attributes">
+    <bs-tab :uuid="`attributes-${uuid}`" name="attributes">
       <settings-tab-settings v-model="attributes" />
     </bs-tab>
-    <bs-tab name="columns">
+    <bs-tab :uuid="`columns-${uuid}`" name="columns">
       <div
         class="grid gap-3"
         :style="`--bs-columns: ${component?.config?.columnCount}`">
@@ -26,7 +26,7 @@
           :key="'row-cols' + column.uuid" />
       </div>
     </bs-tab>
-    <bs-tab name="visibility">
+    <bs-tab :uuid="`visibility-${uuid}`" name="visibility">
       <visibility-tab-settings v-model="config" />
     </bs-tab>
   </bs-tabs>
@@ -49,6 +49,8 @@ const props = defineProps({
 })
 
 const component = ref(props.component)
+
+const uuid = component.value.uuid
 
 // Module styles injection
 provide("component", component.value)
