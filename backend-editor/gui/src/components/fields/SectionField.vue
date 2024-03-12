@@ -1,4 +1,8 @@
 <template>
+  <field-label
+    v-if="config.label !== false"
+    :label="config?.label !== undefined ? config.label : handle"
+    :popover="config.popover" />
   <grid-section
     :section-index="1"
     :component="modelValue"
