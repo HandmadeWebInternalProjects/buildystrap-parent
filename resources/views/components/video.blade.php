@@ -28,7 +28,7 @@ $video_thumb = isset($video_thumb) && $video_thumb ? wp_get_attachment_image_url
 @endphp
 
 @if(!empty($video_url))
-  <div class="video-container position-relative {{ $video_type }}" style="aspect-ratio: {{ $aspect_ratio }};">
+  <div class="video-container {{ $video_type }}" style="aspect-ratio: {{ $aspect_ratio }};">
     <div class="video-overlay rounded" style="@if (!empty($video_thumb)) {{ "--bg-image-url: url( $video_thumb );" }} @endif aspect-ratio: {{ $aspect_ratio }};"> 
       {!! $context->embed($params) !!}
       @if (!$autoplay)
