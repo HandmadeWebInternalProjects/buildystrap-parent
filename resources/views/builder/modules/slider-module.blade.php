@@ -38,6 +38,13 @@ $options = [
       }
     });
   }
+
+  $has_navigation = $options['navigation'] ?? false;
+
+  // unset the navigation options from the main options array
+  if ($has_navigation) {
+    unset($options['navigation']);
+  }
 @endphp
 
 @section('field_content')
@@ -66,7 +73,7 @@ $options = [
       <div class="swiper-pagination"></div>
     @endif
 
-    @if(isset($options['navigation']) && $options['navigation'] !== "false")
+    @if($has_navigation)
       <!-- If we need navigation buttons -->
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
