@@ -91,6 +91,13 @@ const pastePage = (fromClipBoard: any): void => {
   return (builderContent.value = fromClipBoard)
 }
 
+const handleDrop = (to: any, from: any, el: any) => {
+  const validTypes = ["section", "divider-module"]
+  const type = el._underlying_vm_?.type || false
+
+  return type && validTypes.includes(type)
+}
+
 // Watch for browser window focus
 window.addEventListener("focus", () => {
   if (hasClipboardAccess.value) {
@@ -143,15 +150,23 @@ watch(
       :list="builderContent"
       :key="builderContent"
       handle=".sortable-handle"
-      group="sections"
+      :group="{
+          name: 'sections',
+          put: handleDrop,
+        }"
       item-key="uuid"
       class="section-draggable d-flex flex-grow flex-column gap-3 group bg-white px-3">
       <template #item="{ element, index }">
-        <component
-          :is="`grid-${element.type}`"
-          :section-index="index"
-          :parent-array="builderContent"
-          :component="element" />
+          <grid-section
+            v-if="element.type === 'section'"
+            :row-index="index"
+            :parent-array="builderContent"
+            :component="element" />
+          <module-base
+            v-else
+            :component="element"
+            :parent-array="builderContent"
+            :component-index="index" />
       </template>
     </draggable>
     <div class="d-flex ms-auto">

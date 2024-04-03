@@ -24,6 +24,7 @@ class Container
         $this->sections = $this->collectionClass($sections)
             ->map(fn ($section) => match (true) {
                 ($section['type'] === 'global-section') => new GlobalSection($section),
+      ($section['type'] === 'divider-module') => new \Buildystrap\Builder\Modules\DividerModule($section),
                 default => new Section($section)
             });
     }

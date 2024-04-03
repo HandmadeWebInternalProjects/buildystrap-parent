@@ -18,7 +18,14 @@ class Section extends Layout
     parent::__construct($section, $parent);
 
     $this->rows = $this->collectionClass($section['rows'])
-      ->map(fn ($row) => new Row($row, $this));
+    ->map(function ($row) {
+      $type = $row['type'] = $row['type'] ?? 'row';
+      return match ($type) {
+        'row' => new Row($row, $this),
+        'divider-module' => new \Buildystrap\Builder\Modules\DividerModule($row),
+        default => new Row($row, $this),
+      };
+    });
   }
 
   public function rows(): Collection|LazyCollection
