@@ -26,6 +26,8 @@ use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
  * @author Gregor Harlan <gharlan@web.de>
  *
  * @internal
+ *
+ * @phpstan-type _ClassyElementType 'case'|'const'|'method'|'property'|'trait_import'
  */
 final class TokensAnalyzer
 {
@@ -44,7 +46,7 @@ final class TokensAnalyzer
     /**
      * Get indices of methods and properties in classy code (classes, interfaces and traits).
      *
-     * @return array<int, array{classIndex: int, token: Token, type: string}>
+     * @return array<int, array{classIndex: int, token: Token, type: _ClassyElementType}>
      */
     public function getClassyElements(): array
     {
@@ -319,6 +321,40 @@ final class TokensAnalyzer
         return $startParenthesisToken->equals('(');
     }
 
+    public function getLastTokenIndexOfArrowFunction(int $index): int
+    {
+        if (!$this->tokens[$index]->isGivenKind(T_FN)) {
+            throw new \InvalidArgumentException(sprintf('Not an "arrow function" at given index %d.', $index));
+        }
+
+        $stopTokens = [')', ']', ',', ';', [T_CLOSE_TAG]];
+        $index = $this->tokens->getNextTokenOfKind($index, [[T_DOUBLE_ARROW]]);
+
+        while (true) {
+            $index = $this->tokens->getNextMeaningfulToken($index);
+
+            if ($this->tokens[$index]->equalsAny($stopTokens)) {
+                break;
+            }
+
+            $blockType = Tokens::detectBlockType($this->tokens[$index]);
+
+            if (null === $blockType) {
+                continue;
+            }
+
+            if ($blockType['isStart']) {
+                $index = $this->tokens->findBlockEnd($blockType['type'], $index);
+
+                continue;
+            }
+
+            break;
+        }
+
+        return $this->tokens->getPrevMeaningfulToken($index);
+    }
+
     /**
      * Check if the T_STRING under given index is a constant invocation.
      */
@@ -347,7 +383,7 @@ final class TokensAnalyzer
             $prevIndex = $this->tokens->getPrevMeaningfulToken($prevIndex);
         }
 
-        if ($this->tokens[$prevIndex]->isGivenKind([CT::T_CONST_IMPORT, T_EXTENDS, CT::T_FUNCTION_IMPORT, T_IMPLEMENTS, T_INSTANCEOF, T_INSTEADOF, T_NAMESPACE, T_NEW, CT::T_NULLABLE_TYPE, CT::T_TYPE_COLON, T_USE, CT::T_USE_TRAIT])) {
+        if ($this->tokens[$prevIndex]->isGivenKind([CT::T_CONST_IMPORT, T_EXTENDS, CT::T_FUNCTION_IMPORT, T_IMPLEMENTS, T_INSTANCEOF, T_INSTEADOF, T_NAMESPACE, T_NEW, CT::T_NULLABLE_TYPE, CT::T_TYPE_COLON, T_USE, CT::T_USE_TRAIT, CT::T_TYPE_INTERSECTION, CT::T_TYPE_ALTERNATION, T_CONST, CT::T_DISJUNCTIVE_NORMAL_FORM_TYPE_PARENTHESIS_CLOSE])) {
             return false;
         }
 
@@ -518,13 +554,15 @@ final class TokensAnalyzer
             ';',
             '{',
             '}',
+            [T_DOUBLE_ARROW],
+            [T_FN],
             [T_FUNCTION],
             [T_OPEN_TAG],
             [T_OPEN_TAG_WITH_ECHO],
         ];
         $prevToken = $tokens[$tokens->getPrevTokenOfKind($index, $searchTokens)];
 
-        return $prevToken->isGivenKind(T_FUNCTION);
+        return $prevToken->isGivenKind([T_FN, T_FUNCTION]);
     }
 
     /**
@@ -689,7 +727,7 @@ final class TokensAnalyzer
      *
      * @param int $classIndex classy index
      *
-     * @return array{int, array<int, array{classIndex: int, token: Token, type: string}>}
+     * @return array{int, array<int, array{classIndex: int, token: Token, type: _ClassyElementType}>}
      */
     private function findClassyElements(int $classIndex, int $index): array
     {

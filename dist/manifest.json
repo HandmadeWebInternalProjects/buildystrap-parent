@@ -1,0 +1,14 @@
+{
+  "resources/js/frontend.css": {
+    "file": "css/frontend.css",
+    "src": "resources/js/frontend.css"
+  },
+  "resources/js/frontend.ts": {
+    "css": [
+      "css/frontend.css"
+    ],
+    "file": "js/frontend.js",
+    "isEntry": true,
+    "src": "resources/js/frontend.ts"
+  }
+}

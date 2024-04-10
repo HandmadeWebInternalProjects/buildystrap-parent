@@ -1,0 +1,14 @@
+{
+  "resources/js/parent-theme.css": {
+    "file": "css/parent-theme.css",
+    "src": "resources/js/parent-theme.css"
+  },
+  "resources/js/parent-theme.ts": {
+    "css": [
+      "css/parent-theme.css"
+    ],
+    "file": "js/parent-theme.js",
+    "isEntry": true,
+    "src": "resources/js/parent-theme.ts"
+  }
+}

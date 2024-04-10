@@ -36,6 +36,18 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
+     * @internal
+     *
+     * @var string[][]
+     */
+    public const OPTION_GROUPS_DEFAULT = [
+        ['author', 'copyright', 'license'],
+        ['category', 'package', 'subpackage'],
+        ['property', 'property-read', 'property-write'],
+        ['deprecated', 'link', 'see', 'since'],
+    ];
+
+    /**
      * @var string[][]
      */
     private array $groups;
@@ -134,7 +146,7 @@ final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableF
 
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
-        $allowTagToBelongToOnlyOneGroup = function ($groups) {
+        $allowTagToBelongToOnlyOneGroup = static function (array $groups): bool {
             $tags = [];
             foreach ($groups as $groupIndex => $group) {
                 foreach ($group as $member) {
@@ -161,12 +173,7 @@ final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableF
         return new FixerConfigurationResolver([
             (new FixerOptionBuilder('groups', 'Sets of annotation types to be grouped together. Use `*` to match any tag character.'))
                 ->setAllowedTypes(['string[][]'])
-                ->setDefault([
-                    ['deprecated', 'link', 'see', 'since'],
-                    ['author', 'copyright', 'license'],
-                    ['category', 'package', 'subpackage'],
-                    ['property', 'property-read', 'property-write'],
-                ])
+                ->setDefault(self::OPTION_GROUPS_DEFAULT)
                 ->setAllowedValues([$allowTagToBelongToOnlyOneGroup])
                 ->getOption(),
             (new FixerOptionBuilder('skip_unlisted_annotations', 'Whether to skip annotations that are not listed in any group.'))
@@ -214,7 +221,7 @@ final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableF
 
             if (true === $shouldBeTogether) {
                 $this->ensureAreTogether($doc, $annotation, $next);
-            } elseif (false === $shouldBeTogether || !$this->configuration['skip_unlisted_annotations']) {
+            } elseif (false === $shouldBeTogether || false === $this->configuration['skip_unlisted_annotations']) {
                 $this->ensureAreSeparate($doc, $annotation, $next);
             }
         }
@@ -228,7 +235,7 @@ final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableF
         $pos = $first->getEnd();
         $final = $second->getStart();
 
-        for ($pos = $pos + 1; $pos < $final; ++$pos) {
+        for (++$pos; $pos < $final; ++$pos) {
             $doc->getLine($pos)->remove();
         }
     }
@@ -248,7 +255,7 @@ final class PhpdocSeparationFixer extends AbstractFixer implements ConfigurableF
             return;
         }
 
-        for ($pos = $pos + 1; $pos < $final; ++$pos) {
+        for (++$pos; $pos < $final; ++$pos) {
             $doc->getLine($pos)->remove();
         }
     }

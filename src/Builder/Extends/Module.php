@@ -107,6 +107,7 @@ abstract class Module
   {
     $blueprintFields = static::getBlueprint()->get('fields');
 
+    // Change to $this->collectionClass()
     return collect($values)->map(function ($value, $handle) use ($blueprintFields) {
       if (!empty($blueprintFields[$handle]) && $blueprintField = $blueprintFields[$handle]) {
         if ($field = Builder::getField($blueprintField['type'])) {

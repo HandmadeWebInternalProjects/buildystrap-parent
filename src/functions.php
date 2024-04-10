@@ -109,10 +109,8 @@ if (!function_exists('add_site_color_choices')) {
 
 // Logger function globally available now
 // Useage BSLogger()->log('message', 'context');
-if (!function_exists('BSLogger')) {
-  // Make function inherit the comments from the class
-  function BSLogger()
-  {
-    return BSLogger::get_instance();
-  }
+// Make function inherit the comments from the class
+function BSLogger()
+{
+  return BSLogger::get_instance();
 }

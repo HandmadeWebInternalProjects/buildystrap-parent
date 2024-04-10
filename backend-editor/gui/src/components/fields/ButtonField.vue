@@ -28,16 +28,17 @@ const sizes = {
   ...(config.value?.sizes || {}),
 }
 
-const spliceColorValues = (property: string, style: string) => {
+const spliceColorValues = (property: string, style: string, order = 1) => {
   let parts: string[] = style.split("-")
   if (parts.includes(property)) return style
-  parts.splice(1, 0, property)
+  // Add property to the end after dash
+  parts.splice(order, 0, property)
   return parts.join("-")
 }
 
-const unSpliceColorvalues = (property: string, style: string) => {
+const unSpliceColorvalues = (property: string, style: string, order = 1) => {
   let parts = style.split("-")
-  parts.splice(1, 1)
+  parts.splice(order, 1)
   return parts.join("-")
 }
 
@@ -49,14 +50,14 @@ const updateStyleValue = (property: string, action: boolean) => {
 
   if (action) {
     if (style) {
-      value.value["style"] = spliceColorValues(property, style)
+      value.value["style"] = spliceColorValues(property, style, 0)
     }
     if (type) {
       value.value["type"] = spliceColorValues(property, type)
     }
   } else {
     if (style) {
-      value.value["style"] = unSpliceColorvalues(property, style)
+      value.value["style"] = unSpliceColorvalues(property, style, 0)
     }
     if (type) {
       value.value["type"] = unSpliceColorvalues(property, type)

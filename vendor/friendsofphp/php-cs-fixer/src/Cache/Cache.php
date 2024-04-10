@@ -75,7 +75,7 @@ final class Cache implements CacheInterface
             'hashes' => $this->hashes,
         ]);
 
-        if (JSON_ERROR_NONE !== json_last_error()) {
+        if (JSON_ERROR_NONE !== json_last_error() || false === $json) {
             throw new \UnexpectedValueException(sprintf(
                 'Cannot encode cache signature to JSON, error: "%s". If you have non-UTF8 chars in your signature, like in license for `header_comment`, consider enabling `ext-mbstring` or install `symfony/polyfill-mbstring`.',
                 json_last_error_msg()
@@ -130,8 +130,22 @@ final class Cache implements CacheInterface
 
         // before v3.11.1 the hashes were crc32 encoded and saved as integers
         // @TODO: remove the to string cast/array_map in v4.0
-        $cache->hashes = array_map(fn ($v): string => \is_int($v) ? (string) $v : $v, $data['hashes']);
+        $cache->hashes = array_map(static fn ($v): string => \is_int($v) ? (string) $v : $v, $data['hashes']);
 
         return $cache;
+    }
+
+    /**
+     * @internal
+     */
+    public function backfillHashes(self $oldCache): bool
+    {
+        if (!$this->getSignature()->equals($oldCache->getSignature())) {
+            return false;
+        }
+
+        $this->hashes = array_merge($oldCache->hashes, $this->hashes);
+
+        return true;
     }
 }

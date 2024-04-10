@@ -101,7 +101,7 @@ class Theme
 
     wp_enqueue_style(
       'parent-style',
-      get_template_directory_uri() . "/public/{$stylesheet}",
+      get_template_directory_uri() . "/public/css/{$stylesheet}",
       [],
       wp_get_theme('buildystrap-parent')->get('Version')
     );
@@ -124,7 +124,7 @@ class Theme
   {
     wp_enqueue_script(
       'parent-script',
-      get_template_directory_uri() . '/public/parent-script.js',
+      get_template_directory_uri() . '/public/js/parent-theme.js',
       [],
       wp_get_theme('buildystrap-parent')->get('Version'),
       true
