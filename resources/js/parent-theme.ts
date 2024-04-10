@@ -1,6 +1,5 @@
 // import './bootstrap';
-import "../sass/parent-style.scss";
-import "../sass/parent-style-woocommerce.scss";
+import "@/sass/parent-style.scss";
 import "./skip-link-focus-fix";
 import lightbox from "./components/lightbox";
 import videos from "./components/videos";

@@ -85,10 +85,6 @@ class Theme
    */
   public static function enqueue_styles(): void
   {
-    $stylesheet = is_plugin_active(
-      'woocommerce/woocommerce.php'
-    ) ? 'parent-style-woocommerce.css' : 'parent-style.css';
-
     if (bs_get_field('buildystrap_structure_use_bootstrap_bundle', 'option')) {
       wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css');
       wp_enqueue_style('swiper', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css');
@@ -101,7 +97,7 @@ class Theme
 
     wp_enqueue_style(
       'parent-style',
-      get_template_directory_uri() . "/public/css/{$stylesheet}",
+      get_template_directory_uri() . "/public/css/parent-theme.css",
       [],
       wp_get_theme('buildystrap-parent')->get('Version')
     );

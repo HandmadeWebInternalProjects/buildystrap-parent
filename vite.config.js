@@ -40,7 +40,7 @@ export default ({ mode }) => {
     base: './',
     resolve: {
       alias: {
-        '@': resolve(__dirname, './resources/assets'),
+        '@': resolve(__dirname, './resources/'),
       },
     },
     plugins: [
