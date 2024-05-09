@@ -159,7 +159,7 @@ watch(
       <template #item="{ element, index }">
           <grid-section
             v-if="element.type === 'section'"
-            :row-index="index"
+            :section-index="index"
             :parent-array="builderContent"
             :component="element" />
           <module-base
