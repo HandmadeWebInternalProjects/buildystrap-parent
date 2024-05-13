@@ -21,28 +21,73 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
       $image_size = $module->has('image_size') ? $module->get('image_size')->value() : 'medium';
       $image_aspect_ratio = $module->has('image_aspect_ratio') ? $module->get('image_aspect_ratio')->value() : '';
       $image_style = $image_aspect_ratio ? "aspect-ratio: {$image_aspect_ratio}; object-fit: cover;" : '';
+      $enable_slider = $module->has('enable_slider') ? $module->get('enable_slider')->value() : false;
+
+      $options = get_slider_options($module);
+      $has_navigation = $options['navigation'] ?? false;
+      // unset the navigation options from the main options array
+      if ($has_navigation) {
+        unset($options['navigation']);
+      }
   @endphp
 
-  <div class="grid {{ $col_gap }} {{ $place_items }}" @if($col_count) style="{{ $col_count }}" @endif>
-    @if($module->has('images'))
-      @foreach($module->get('images')->value() as $image)
-      @php
-        $image_link = bs_get_field('image_link', $image['id']);
-      @endphp
-        <div class="{{ $col_class }}">
-          @if($image_link)
-            <a href="{{ $image_link }}" target="_blank">
-          @elseif($lightbox_enabled)
-            @php $alt = get_post_meta($image['id'], '_wp_attachment_image_alt', true) ?? null; @endphp
-            <a href="{!! wp_get_attachment_image_url($image['id'], 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
-          @endif
-              {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded w-100 h-auto', 'style' => $image_style]) !!}
-          @if($image_link || $lightbox_enabled)
-            </a>
-          @endif
-        </div>
-      @endforeach
-    @endif
-  </div>
+  @if($enable_slider && $module->has('images')) 
+    <div class="swiper" data-options="{{ json_encode($options) }}">
+      <div class="swiper-wrapper max-w-100">
+        @foreach($module->get('images')->value() as $image)
+          @php
+            $image_link = bs_get_field('image_link', $image['id']);
+          @endphp
+          <div class="swiper-slide {{ $col_class }}">
+            @if($image_link)
+              <a href="{{ $image_link }}" target="_blank">
+            @elseif($lightbox_enabled)
+              @php $alt = get_post_meta($image['id'], '_wp_attachment_image_alt', true) ?? null; @endphp
+              <a href="{!! wp_get_attachment_image_url($image['id'], 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
+            @endif
+                {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded w-100 h-auto', 'style' => $image_style]) !!}
+            @if($image_link || $lightbox_enabled)
+              </a>
+            @endif
+          </div>
+        @endforeach
+      </div>
+
+      @if(isset($options['pagination']) && $options['pagination'] !== "false")
+        <div class="swiper-pagination"></div>
+      @endif
+
+      @if($has_navigation)
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      @endif
+    </div>
+
+  @else
+    <div class="grid {{ $col_gap }} {{ $place_items }}" @if($col_count) style="{{ $col_count }}" @endif>
+      @if($module->has('images'))
+        @foreach($module->get('images')->value() as $image)
+        @php
+          $image_link = bs_get_field('image_link', $image['id']);
+        @endphp
+          <div class="{{ $col_class }}">
+            @if($image_link)
+              <a href="{{ $image_link }}" target="_blank">
+            @elseif($lightbox_enabled)
+              @php $alt = get_post_meta($image['id'], '_wp_attachment_image_alt', true) ?? null; @endphp
+              <a href="{!! wp_get_attachment_image_url($image['id'], 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
+            @endif
+                {!! wp_get_attachment_image($image['id'], $image_size, '', ['class' => 'rounded w-100 h-auto', 'style' => $image_style]) !!}
+            @if($image_link || $lightbox_enabled)
+              </a>
+            @endif
+          </div>
+        @endforeach
+      @endif
+    </div>
+  @endif
+
+  
     
 @overwrite

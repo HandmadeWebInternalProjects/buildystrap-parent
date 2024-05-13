@@ -190,21 +190,27 @@ class BuilderBackend
 
   public static function get_default_options()
   {
-    $default_options = [];
+    $parent_options = [];
+    $child_options = [];
 
     if (class_exists('ACF')) {
-      $file = @file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json');
-      if ($file === false) {
-        return [];
+      $parent = @file_get_contents(get_template_directory() . '/backend-editor/gui/defaults/options.json');
+      $child = @file_get_contents(get_stylesheet_directory() . '/defaults/options.json');
+      if ($parent !== false) {
+        $parent_options = json_decode(
+          $parent,
+          true
+        );
       }
-      $json_data = json_decode(
-        $file,
-        true
-      );
-      $default_options = $json_data;
+      if ($child !== false) {
+        $child_options = json_decode(
+          $child,
+          true
+        );
+      }
     }
 
-    return $default_options;
+    return array_replace_recursive($parent_options, $child_options);
   }
 
   public static function get_acf_options()
