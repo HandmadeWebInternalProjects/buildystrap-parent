@@ -8,16 +8,28 @@
   $color = isset($button['color']) && !$hasType ? "text-{$button['color']}" : null;
   $target = isset($button['target']) && $button['target'] ? '_blank' : null;
   $btn_class = isset($button['class']) ? $button['class'] : null;
+  $btn_icon = isset($button['icon']) ? collect($button['icon'])->pluck('id')->first() : null;
   $class = collect([])
     ->push('btn')
     ->push($btn_class)
     ->push($bg_colour)
     ->push($type)
     ->push($size)
-    ->push($color)
-    ->filter()
+    ->push($color);
+
+  if ($btn_icon) {
+    $class->push('d-flex align-items-center gap-1');
+  }
+
+  $class = $class->filter()
     ->implode(' ');
+
   $url = $button['url']['url'] ?? '#';
 @endphp
 
-<a href="{{ $url }}" @isset($target) target="{{ $target }}" @endisset class="{{ $class }}">{!! __($text, 'buildystrap') !!}</a>
+<a href="{{ $url }}" @isset($target) target="{{ $target }}" @endisset class="{{ $class }}">
+  {!! __($text, 'buildystrap') !!}
+  @isset($btn_icon)
+    {!! wp_get_attachment_image($btn_icon, 'full', false, ['class' => 'h-fit object-cover']) !!}
+  @endisset
+</a>

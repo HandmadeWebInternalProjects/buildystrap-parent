@@ -127,6 +127,12 @@ const types = computed(() => {
             options: types,
           }" />
 
+        <media-field
+          class="g-col-12"
+          handle="icon"
+          v-model="value['icon']"
+          :config="{ label: 'Icon' }" />
+
         <div
           v-if="!value?.['type'] || value?.['type'] === 'custom'"
           class="g-col-12 grid gap-4"
@@ -170,13 +176,20 @@ const types = computed(() => {
           </div>
           <button
             type="button"
-            class="preview-btn btn"
+            class="preview-btn btn d-flex align-items-center gap-2"
             :class="[`btn-${value['style']}`, value['size'], value['type']]"
             :style="{
               '--bs-btn-color': `var(--bs-${value['color']})`,
             }"
             :disabled="value['disabled']">
-            {{ value["text"] || "Example" }}
+            {{ value["text"] || "Example" }} 
+            <span v-if="value['icon']">
+              <async-img 
+              v-for="icon in value['icon']"
+              :key="icon.id"
+              :id="icon.id"
+              class="image-preview image-placeholder opacity-50 aspect-square" />
+            </span>
           </button>
         </div>
       </field-group>

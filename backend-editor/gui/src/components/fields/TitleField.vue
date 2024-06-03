@@ -18,12 +18,12 @@ const { update } = useFieldType(emit)
 const fields: any = reactive({
   text: props.modelValue?.text || ref(""),
   level: props.modelValue?.level || ref(""),
-  size: props.modelValue?.size || reactive({}),
-  weight: props.modelValue?.weight || reactive({}),
-  line_height: props.modelValue?.line_height || reactive({}),
-  color: props.modelValue?.color || reactive({}),
+  size: props.modelValue?.size || {},
+  weight: props.modelValue?.weight || {},
+  line_height: props.modelValue?.line_height || {},
+  color: props.modelValue?.color || {},
   class: props.modelValue?.class || ref(""),
-  alignment: props.modelValue?.alignment || reactive({}),
+  alignment: props.modelValue?.alignment || {},
 })
 
 const forceDelete = (val: any, resetVal: any = {}) => {

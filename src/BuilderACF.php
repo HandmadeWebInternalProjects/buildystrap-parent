@@ -49,9 +49,9 @@ class BuilderACF
     unset($paths[0]);
 
     // Append the new path and return it.
-    $paths[] = get_stylesheet_directory() . '/acf-json';
-
     $paths[] = get_template_directory() . '/acf-json';
+    
+    $paths[] = get_stylesheet_directory() . '/acf-json';
 
     return $paths;
   }

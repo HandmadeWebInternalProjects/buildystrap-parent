@@ -94,7 +94,7 @@ final class ConfigurationResolver
     private $isDryRun;
 
     /**
-     * @var null|FixerInterface[]
+     * @var null|list<FixerInterface>
      */
     private $fixers;
 
@@ -314,7 +314,7 @@ final class ConfigurationResolver
     }
 
     /**
-     * @return FixerInterface[] An array of FixerInterface
+     * @return list<FixerInterface>
      */
     public function getFixers(): array
     {
@@ -355,7 +355,7 @@ final class ConfigurationResolver
     /**
      * Returns path.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getPath(): array
     {
@@ -554,7 +554,7 @@ final class ConfigurationResolver
             $configDir = $path[0];
         } else {
             $dirName = pathinfo($path[0], PATHINFO_DIRNAME);
-            $configDir = $dirName ?: $path[0];
+            $configDir = is_dir($dirName) ? $dirName : $path[0];
         }
 
         $candidates = [
@@ -954,6 +954,7 @@ final class ConfigurationResolver
     {
         return $this->toolInfo->isInstalledAsPhar()
             || $this->toolInfo->isInstalledByComposer()
-            || $this->toolInfo->isRunInsideDocker();
+            || $this->toolInfo->isRunInsideDocker()
+            || filter_var(getenv('PHP_CS_FIXER_ENFORCE_CACHE'), FILTER_VALIDATE_BOOL);
     }
 }

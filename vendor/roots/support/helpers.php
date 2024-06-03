@@ -12,9 +12,15 @@ namespace Roots;
  * @copyright Taylor Otwell
  * @license   https://github.com/laravel/framework/blob/v5.6.25/LICENSE.md MIT
  * @link      https://github.com/laravel/framework/blob/v5.6.25/src/Illuminate/Support/helpers.php#L597-L632 Original
+ * 
+ * @deprecated Use \Illuminate\Support\Env::get() instead
  */
 function env($key, $default = null)
 {
+    if (class_exists(\Illuminate\Support\Env::class)) {
+        return \Illuminate\Support\Env::get($key, $default);
+    }
+
     $value = getenv($key);
     if ($value === false) {
         return value($default);
@@ -57,7 +63,7 @@ function env($key, $default = null)
  */
 function value($value)
 {
-    return $value instanceof Closure ? $value() : $value;
+    return $value instanceof \Closure ? $value() : $value;
 }
 
 /**

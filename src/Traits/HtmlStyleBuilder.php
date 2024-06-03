@@ -525,22 +525,12 @@ trait HtmlStyleBuilder
 
     /** Typography Font Size */
     foreach ($this->getInlineAttribute('typography.font-size', []) as $breakpoint => $value) {
-      $is_heading = in_array($value, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
-      $is_display = in_array($value, ['display-1', 'display-2', 'display-3', 'display-4', 'display-5', 'display-6']);
-
-      if ($is_heading || $is_display) {
-        if ($is_heading) {
-          $this->html_classes[] = match ($breakpoint) {
-            'xs' => "h{$value}",
-            default => "h{$breakpoint}-{$value}"
-          };
-        }
-        if ($is_display) {
-          $this->html_classes[] = match ($breakpoint) {
-            'xs' => 'display-' . str_replace('display-', '', $value),
-            default => "display-{$breakpoint}-" . str_replace('display-', '', $value)
-          };
-        }
+      $is_taggable = is_taggable('font_size', $value, 'typography');
+      if (!$is_taggable) {
+        $this->html_classes[] = match ($breakpoint) {
+          'xs' => "$value",
+          default => "{$breakpoint}-{$value}"
+        };
       } else {
         if (!in_array('fs-taggable', $this->html_classes)) {
           $this->html_classes[] = 'fs-taggable';
