@@ -30,6 +30,7 @@ use Buildystrap\Builder\Modules\CardModule;
 use Buildystrap\Builder\Modules\CodeModule;
 use Buildystrap\Builder\Modules\DividerModule;
 use Buildystrap\Builder\Modules\GalleryModule;
+use Buildystrap\Builder\Modules\GravityFormsModule;
 use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ImageModule;
 use Buildystrap\Builder\Modules\PostGridModule;
@@ -110,6 +111,10 @@ class Builder
   {
     if (!static::$booted) {
       static::$booted = true;
+
+      if (class_exists('GFAPI')) {
+        self::$modules['gravity-forms-module'] = GravityFormsModule::class;
+      }
 
       add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
 
