@@ -1,7 +1,7 @@
 @php
 
-use Buildystrap\Factories\DefaultVideoStrategyFactory;
-use Buildystrap\VideoContext;
+use Buildystrap\Factories\DefaultEmbedStrategyFactory;
+use Buildystrap\EmbedContext;
 
 $video_url = $video_url ?? null;
 $aspect_ratio = $aspect_ratio ?? '16/9';
@@ -19,8 +19,7 @@ $params = collect(compact('fullscreen', 'background', 'autoplay', 'mute', 'plays
 })->implode('&');
 
 // Instantiate the context with the default factory
-$factory = new DefaultVideoStrategyFactory();
-$context = new VideoContext($factory, $video_url);
+$context = new EmbedContext(url: $video_url);
 
 $video_type = $context->getVideoType();
 

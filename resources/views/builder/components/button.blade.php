@@ -18,7 +18,7 @@
     ->push($color);
 
   if ($btn_icon) {
-    $class->push('d-flex align-items-center gap-1');
+    $class->push('has-icon');
   }
 
   $class = $class->filter()

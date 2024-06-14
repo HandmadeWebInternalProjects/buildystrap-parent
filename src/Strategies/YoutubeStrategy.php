@@ -2,22 +2,26 @@
 
 namespace Buildystrap\Strategies;
 
-use Buildystrap\Interfaces\VideoStrategy;
+use Buildystrap\Interfaces\EmbedStrategy;
 
-class YoutubeStrategy implements VideoStrategy
+class YoutubeStrategy implements EmbedStrategy
 {
   private $id;
 
   public function __construct($url)
   {
-    $this->id = $this->extractVideoIdFromYoutubeUrl($url);
+    $this->id = $this->extractIdFromUrl($url);
   }
 
   public function embed($params = '')
   {
-    return "<iframe src='https://www.youtube.com/embed/{$this->id}?{$params}' width='100%' height='400' frameborder='0' allow='autoplay; fullscreen' allowfullscreen></iframe>";
+    return "<iframe src='{$this->embedUrl($params)}' width='100%' height='400' frameborder='0' allow='autoplay; fullscreen' allowfullscreen></iframe>";
   }
 
+  public function embedUrl($params = '')
+  {
+    return "https://www.youtube.com/embed/{$this->id}?{$params}";
+  }
 
   public function getThumb()
   {
@@ -29,7 +33,7 @@ class YoutubeStrategy implements VideoStrategy
     return 'Youtube';
   }
 
-  private function extractVideoIdFromYoutubeUrl($url)
+  public function extractIdFromUrl($url)
   {
     $video_id_regex = '/[\\?\\&]v=([^\\?\\&]+)/';
     $video_id = '';

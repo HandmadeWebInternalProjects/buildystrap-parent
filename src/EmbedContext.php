@@ -2,16 +2,17 @@
 
 namespace Buildystrap;
 
-use Buildystrap\Factories\DefaultVideoStrategyFactory;
+use Buildystrap\Interfaces\EmbedStrategyFactory;
+use Buildystrap\Factories\DefaultEmbedStrategyFactory;
 
-class VideoContext
+class EmbedContext
 {
   private $factory;
   private $strategy;
 
-  public function __construct(DefaultVideoStrategyFactory $factory, string $url)
+  public function __construct(string $url, EmbedStrategyFactory $factory = null)
   {
-    $this->factory = $factory;
+    $this->factory = $factory ?? new DefaultEmbedStrategyFactory();
 
     if ($url) {
       $this->strategy = $this->factory->createStrategy($url);
@@ -21,6 +22,11 @@ class VideoContext
   public function embed($params = '')
   {
     return $this->strategy->embed($params);
+  }
+
+  public function embedUrl($params = '')
+  {
+    return $this->strategy->embedUrl($params);
   }
 
   public function getVideoType()

@@ -2,35 +2,30 @@
 
 namespace Buildystrap\Strategies;
 
-use Buildystrap\Interfaces\VideoStrategy;
+use Buildystrap\Interfaces\EmbedStrategy;
 
-class VimeoStrategy implements VideoStrategy
+class VimeoStrategy implements EmbedStrategy
 {
   private $id;
 
   public function __construct($url)
   {
-    $this->id = $this->extractVideoIdFromVimeoUrl($url);
+    $this->id = $this->extractIdFromUrl($url);
   }
 
   public function getThumb()
   {
-    $vimeo_api = "http://vimeo.com/api/v2/video/{$this->id}.json";
-    $response = wp_remote_get($vimeo_api);
-    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-      return '';
-    }
-    $response_body = wp_remote_retrieve_body($response);
-    $json_data = json_decode($response_body);
-    if (empty($json_data) || !isset($json_data[0]->thumbnail_large)) {
-      return '';
-    }
-    return $json_data[0]->thumbnail_large;
+    return "https://i.vimeocdn.com/video/{$this->id}_1280.jpg";
   }
 
   public function embed($params = '')
   {
-    return "<iframe src='https://player.vimeo.com/video/{$this->id}?{$params}' width='100%' height='400' frameborder='0' allow='autoplay; fullscreen' allowfullscreen></iframe>";
+    return "<iframe src='{$this->embedUrl($params)}' width='100%' height='400' frameborder='0' allow='autoplay; fullscreen' allowfullscreen></iframe>";
+  }
+
+  public function embedURL($params = '')
+  {
+    return "https://player.vimeo.com/video/{$this->id}?{$params}";
   }
 
   public function __toString()
@@ -38,7 +33,7 @@ class VimeoStrategy implements VideoStrategy
     return 'Vimeo';
   }
 
-  private function extractVideoIdFromVimeoUrl($url)
+  public function extractIdFromUrl($url)
   {
     $video_id_regex = '/vimeo.com\/([0-9]+)/';
     $video_id = '';
