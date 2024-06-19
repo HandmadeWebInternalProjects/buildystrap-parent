@@ -206,6 +206,14 @@ class PostGridModule extends Module
             'responsive' => true
           ],
         ],
+        'gap' => [
+          'type' => 'text-field',
+          'config' => [
+            'label' => 'Gap',
+            'class' => 'g-col-6',
+            'responsive' => true
+          ],
+        ],
         'column_class' => [
           'type' => 'text-field',
           'config' => [

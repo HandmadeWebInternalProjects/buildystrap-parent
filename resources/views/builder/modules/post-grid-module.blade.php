@@ -14,20 +14,8 @@
   $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
   $column_class = $module->has('column_class') ? $module->get('column_class')->value() : "";
   $template_class = $module->has('template_class') ? $module->get('template_class')->value() : "";
-  $column_str = [];
-  if (is_array($columns)) {
-    foreach ($columns as $breakpoint => $value) {
-        if ($value) {
-          $column_str[] = match ($breakpoint) {
-              'xs' => "grid-cols-{$value}",
-              default => "grid-cols-{$breakpoint}-{$value}"
-          };
-        }
-    }
-  } else {
-    $column_str[] = "grid-cols-{$columns}";
-  }
-  $column_str = implode(' ', $column_str);
+  $column_str = get_responsive_classes(module: $module, prop: 'columns', classPrefix: 'grid-cols', fallback: 'grid-cols-3');
+  $gap = get_responsive_classes(module: $module, prop: 'gap', classPrefix: 'gap', fallback: 'gap-2 gap-md-3');
   $exclude_cats = $module->has('exclude_cats') ? $module->get('exclude_cats')->value() : null;
   $exclude_cats = $exclude_cats ? explode(',', $exclude_cats) : null;
   $exclude_posts = $module->has('exclude_posts') ? $module->get('exclude_posts')->value() : null;
@@ -172,7 +160,7 @@
 
 @section('field_content')
   @if ($query->have_posts())
-    <div class="grid {{ $column_str }} gap-2 gap-md-3">
+    <div class="grid {{ $column_str }} {{ $gap }}">
       @while ($query->have_posts()) 
         @php $query->the_post(); global $post; @endphp
         <div class="{{ $column_class }}">

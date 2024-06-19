@@ -210,6 +210,56 @@ if (!function_exists('social_icons_shortcode')) {
   add_shortcode('social-icons', 'social_icons_shortcode');
 }
 
+// [social-media-list]
+if (!function_exists('social_media_list_shortcode')) {
+  function social_media_list_shortcode($atts)
+  {
+    $atts = shortcode_atts([
+      'type' => 'fa',
+      'show_icons' => false,
+      'class' => null,
+      'prepend' => false,
+      'append' => false
+    ], $atts);
+
+    ob_start();
+
+    if (have_rows('buildystrap_company_details_social_links', 'option')) : ?>
+      <div class="social-links-wrapper">
+        <?php if ($atts['prepend']) : ?>
+          <span class="social-links-prepend"><?php echo $atts['prepend']; ?></span>
+        <?php endif; ?>
+
+        <ul class="social-links d-flex flex-column mb-0 list-unstyled">
+
+          <?php while (have_rows('buildystrap_company_details_social_links', 'option')) : the_row(); ?>
+
+            <?php $icon_type = get_sub_field('icon_style') ? get_sub_field('icon_style') : 'fa'; ?>
+
+            <li class="<?= $icon_type ?>-social-item d-flex align-items-center"><a href="<?php the_sub_field('url'); ?>" target="_blank" class="text-decoration-none">
+                <?php if ($atts['show_icons']) : ?>
+                  <i class="<?= $icon_type ?>b <?= $icon_type ?>-<?php echo strtolower(get_sub_field('icon')); ?>"></i>
+                <?php endif; ?>
+                <?php the_sub_field('name'); ?>
+              </a></li>
+
+          <?php endwhile; ?>
+
+        </ul>
+
+        <?php if ($atts['append']) : ?>
+          <span class="social-links-append"><?php echo $atts['append']; ?></span>
+        <?php endif; ?>
+
+      </div>
+
+    <?php endif;
+
+    return ob_get_clean();
+  }
+  add_shortcode('social-media-list', 'social_media_list_shortcode');
+}
+
 
 // [site-year]
 if (!function_exists('site_year_shortcode')) {
