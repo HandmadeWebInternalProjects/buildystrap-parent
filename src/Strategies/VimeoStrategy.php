@@ -15,7 +15,17 @@ class VimeoStrategy implements EmbedStrategy
 
   public function getThumb()
   {
-    return "https://i.vimeocdn.com/video/{$this->id}_1280.jpg";
+    $vimeo_api = "http://vimeo.com/api/v2/video/{$this->id}.json";
+    $response = wp_remote_get($vimeo_api);
+    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+      return '';
+    }
+    $response_body = wp_remote_retrieve_body($response);
+    $json_data = json_decode($response_body);
+    if (empty($json_data) || !isset($json_data[0]->thumbnail_large)) {
+      return '';
+    }
+    return $json_data[0]->thumbnail_large;
   }
 
   public function embed($params = '')
