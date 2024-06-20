@@ -1,5 +1,5 @@
 <template>
-  <div class="stacks-on-stacks">
+  <div ref="stacks" class="stacks-on-stacks">
     <portal-target
       v-for="(stack, i) in getStacks"
       :key="`stack-${stack.uid}-${i}`"
@@ -8,11 +8,17 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from "vue"
+import { onMounted, onUnmounted, ref } from "vue"
 import { useStacks } from "./useStacks"
 
 const { getStacks } = useStacks()
-// import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock"
+
+const stacks = ref(null)
 
 onMounted(() => {
   window.Buildy.$bus.on("stacks.hit-area-clicked", (depth: number) => {
@@ -22,14 +28,17 @@ onMounted(() => {
       }
     }
   })
-
-  // disableBodyScroll(this.$el);
+  if (stacks.value) {
+    disableBodyScroll(stacks.value)
+  }
 })
 
 onUnmounted(() => {
   window.Buildy.$bus.off("stacks.hit-area-clicked")
-  // enableBodyScroll(this.$el);
-  // clearAllBodyScrollLocks();
+  if (stacks.value) {
+    enableBodyScroll(stacks.value)
+  }
+  clearAllBodyScrollLocks()
 })
 </script>
 
