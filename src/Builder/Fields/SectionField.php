@@ -20,7 +20,12 @@ class SectionField extends Field
   public function __construct(array $field)
   {
     parent::__construct($field);
+
     $section = new Section($field);
+
+    // Since this is nested we don't want to have another container inside.
+    $section->setConfig('boxed_layout', false);
+
     $this->value = "<div class='section-field'>" . $section->render() . "</div>";
   }
 
