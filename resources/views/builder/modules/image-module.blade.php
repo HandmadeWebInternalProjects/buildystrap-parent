@@ -5,21 +5,23 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
 @extends('builder::module-base', ['class' => $lightbox_enabled, 'uuid' => $module->uuid()])
 
 @php
-    $image = $module->has('image') ? $module->get('image')->value() : [];
-    $link = $module->has('link') ? $module->get('link')->value() : false;
-    $image_id = isset($image['image']) ? collect($image['image'])->pluck('id')->first() : '';
-    $object_fit = isset($image['object_fit']) ? $image['object_fit'] : 'full';
-    $object_position = isset($image['object_position']) ? $image['object_position'] : null;
+  global $bodhi_svgs_options;
+  $image = $module->has('image') ? $module->get('image')->value() : [];
+  $link = $module->has('link') ? $module->get('link')->value() : false;
+  $image_id = isset($image['image']) ? collect($image['image'])->pluck('id')->first() : '';
+  $object_fit = isset($image['object_fit']) ? $image['object_fit'] : 'full';
+  $object_position = isset($image['object_position']) ? $image['object_position'] : null;
 
-    $classes = collect([
-      isset($image['object_fit']) ? "object-{$image['object_fit']}" : 'full',
-      isset($image['object_position']) ? "object-position-{$image['object_position']}" : null,
-    ])->filter()->implode(' ');
-    
-    $width = isset($image['width']) ? "width: {$image['width']};" : '';
-    $max_width = isset($image['max_width']) ? "max-width: {$image['max_width']};" : '';
-    $height = isset($image['height']) ? "height: {$image['height']};" : '';
-    $max_height = isset($image['max_height']) ? "max-height: {$image['max_height']};" : '';
+  $classes = collect([
+    isset($image['object_fit']) ? "object-{$image['object_fit']}" : 'full',
+    isset($image['object_position']) ? "object-position-{$image['object_position']}" : null,
+  ])->filter()->implode(' ');
+  
+  $width = isset($image['width']) ? "width: {$image['width']};" : '';
+  $max_width = isset($image['max_width']) ? "max-width: {$image['max_width']};" : '';
+  $height = isset($image['height']) ? "height: {$image['height']};" : '';
+  $max_height = isset($image['max_height']) ? "max-height: {$image['max_height']};" : '';
+  $inline_svg = isset($bodhi_svgs_options) && (($bodhi_svgs_options['force_inline_svg'] ?? false) == 'on') ? true : false;
 @endphp
 
 @section('field_content')
@@ -32,7 +34,13 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
       @elseif($link)
         <a href="{{ $link['url'] ?? '#' }}" target="{{ $link['target'] ?? '_self' }}" title="{{ $link['title'] ?? '' }}">
       @endif
-          {!! wp_get_attachment_image($image_id, 'full', '', ["class" => $classes, "style" => trim("$width $max_width $height $max_height")]) !!}
+          @if($inline_svg)
+            <div class="svg-container" style="{{ trim("$width $max_width $height $max_height") }}">
+          @endif
+            {!! wp_get_attachment_image($image_id, 'full', '', ["class" => $classes, "style" => trim("$width $max_width $height $max_height")]) !!}
+          @if($inline_svg)
+            </div>
+          @endif
       @if($lightbox_enabled || $link)
         </a>
       @endif

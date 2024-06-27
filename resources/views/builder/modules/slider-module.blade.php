@@ -2,49 +2,7 @@
 
 @php
 
-$options = [
-    'breakpoints' => [
-      0 => [
-        'slidesPerView' => 1,
-        'spaceBetween' => 20,
-      ],
-      980 => [
-        'slidesPerView' => $module->has('slidesPerView') ? $module->get('slidesPerView')->value() : 1,
-        'spaceBetween' => $module->has('spaceBetween') ? (int) $module->get('spaceBetween')->value() : 30,
-      ],
-    ],
-  ];
-
-  if ($module->has('additional_settings')) {
-    // $options = array_merge($options[], collect($module->get('additional_settings')->value())->pluck('value', 'name')->toArray());
-    collect($module->get('additional_settings')->value())->each(function ($setting) use (&$options) {
-      $value = maybe_nested($setting['name'], $setting['value']);
-      
-      if ($setting['breakpoint'] ?? false)
-       {
-
-          if (!is_array($value)) {
-            $value = [$value];
-          }
-
-          $options['breakpoints'][$setting['breakpoint']] = array_merge_recursive(
-            $options['breakpoints'][$setting['breakpoint']] ?? [],
-            $value
-          );
-       }
-
-      if (is_array($value)) {
-        $options = array_merge_recursive($options, $value);
-      }
-    });
-  }
-
-  $has_navigation = $options['navigation'] ?? false;
-
-  // unset the navigation options from the main options array
-  if ($has_navigation) {
-    unset($options['navigation']);
-  }
+$options = get_slider_options($module);
 @endphp
 
 @section('field_content')
