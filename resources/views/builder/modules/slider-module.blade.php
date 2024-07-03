@@ -1,8 +1,12 @@
 @extends('builder::module-base', ['class' => 'w-100'])
 
 @php
-
 $options = get_slider_options($module);
+$has_navigation = $options['navigation'] ?? false;
+// unset the navigation options from the main options array
+if ($has_navigation) {
+    unset($options['navigation']);
+}
 @endphp
 
 @section('field_content')
@@ -30,6 +34,7 @@ $options = get_slider_options($module);
     @if(isset($options['pagination']) && $options['pagination'] !== "false")
       <div class="swiper-pagination"></div>
     @endif
+    
 
     @if($has_navigation)
       <!-- If we need navigation buttons -->
