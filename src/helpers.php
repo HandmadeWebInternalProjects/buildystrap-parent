@@ -305,20 +305,63 @@ if (!function_exists('get_svg_url')) {
   }
 }
 
+function get_defined_breakpoints()
+{
+  $vite_breakpoints = env('VITE_GRIDBREAKPOINTS', '');
+  return json_decode($vite_breakpoints, true);
+}
+
+if (!function_exists('get_slider_options_v2')) {
+  function get_slider_options_v2($module)
+  {
+    // Directly fetch values with fallbacks
+    $slidesPerView = $module->has('slidesPerView') ? $module->get('slidesPerView')->value() : [];
+    $spaceBetween = $module->has('spaceBetween') ? $module->get('spaceBetween')->value() : [];
+    $breakpoints = get_defined_breakpoints();
+
+    $slider_options = [];
+
+    foreach ($breakpoints as $breakpoint => $value) {
+      // Initialize only if needed
+      $option = [];
+      if (isset($slidesPerView[$breakpoint]) && !empty($slidesPerView[$breakpoint])) {
+        $option['slidesPerView'] = (int) $slidesPerView[$breakpoint];
+      }
+      if (isset($spaceBetween[$breakpoint]) && !empty($spaceBetween[$breakpoint])) {
+        $option['spaceBetween'] = (int) $spaceBetween[$breakpoint];
+      }
+      if ($option) {
+        $slider_options[$value] = $option;
+      }
+    }
+
+    if ($module->has('additional_settings')) {
+      collect($module->get('additional_settings')->value())->each(function ($setting) use (&$slider_options, $breakpoints) {
+        $key = $setting['name'];
+        $val = $setting['value'] ?? [];
+
+        foreach ($val as $k => $v) {
+          if (!$v) continue;
+          $option = [$key => is_numeric($v) ? (int) $v : $v];
+          if (isset($breakpoints[$k])) {
+            $breakpointValue = $breakpoints[$k];
+            $slider_options[$breakpointValue] = array_merge($slider_options[$breakpointValue] ?? [], $option);
+          }
+        }
+      });
+    }
+
+    // Simplify the final assignment
+    return ['breakpoints' => $slider_options];
+  }
+}
+
 if (!function_exists('get_slider_options')) {
   function get_slider_options($module)
   {
     $options = [
-      'breakpoints' => [
-        0 => [
-          'slidesPerView' => 1,
-          'spaceBetween' => 20,
-        ],
-        980 => [
-          'slidesPerView' => $module->has('slidesPerView') ? $module->get('slidesPerView')->value() : 1,
-          'spaceBetween' => $module->has('spaceBetween') ? (int) $module->get('spaceBetween')->value() : 30,
-        ],
-      ],
+      'slidesPerView' => $module->has('slidesPerView') ? $module->get('slidesPerView')->value() : 1,
+      'spaceBetween' => $module->has('spaceBetween') ? (int) $module->get('spaceBetween')->value() : 30,
     ];
 
     if ($module->has('additional_settings')) {
@@ -332,14 +375,14 @@ if (!function_exists('get_slider_options')) {
             $value = [$value];
           }
 
-          $options['breakpoints'][$setting['breakpoint']] = array_merge_recursive(
+          $options['breakpoints'][$setting['breakpoint']] = array_merge(
             $options['breakpoints'][$setting['breakpoint']] ?? [],
             $value
           );
         }
 
         if (is_array($value)) {
-          $options = array_merge_recursive($options, $value);
+          $options = array_merge($options, $value);
         }
       });
     }

@@ -2,7 +2,7 @@
 
 @php
 
-$options = get_slider_options($module);
+$options = get_slider_options_v2($module);
 
 $has_navigation = $options['navigation'] ?? false;
 // unset the navigation options from the main options array

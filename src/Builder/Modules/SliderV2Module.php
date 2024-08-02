@@ -4,11 +4,11 @@ namespace Buildystrap\Builder\Modules;
 
 use Buildystrap\Builder\Extends\Module;
 
-class SliderModule extends Module
+class SliderV2Module extends Module
 {
-    protected static function blueprint(): array
-    {
-        return [
+  protected static function blueprint(): array
+  {
+    return [
       'icon' => 'fa-solid fa-photo-film',
       'fields' => [
         'slides' => [
@@ -61,6 +61,7 @@ class SliderModule extends Module
           'config' => [
             'label' => 'Slides Per View',
             'popover' => 'How many slides are visible at the same time, can be a decimal e.g 2.5.',
+            'responsive' => true,
           ],
         ],
         'spaceBetween' => [
@@ -68,6 +69,7 @@ class SliderModule extends Module
           'config' => [
             'label' => 'Space Between',
             'popover' => 'The space between slides (in pixels).',
+            'responsive' => true,
           ],
         ],
         'additional_settings' => [
@@ -78,12 +80,9 @@ class SliderModule extends Module
             ],
             'value' => [
               'type' => 'text-field',
-            ],
-            'breakpoint' => [
-              'type' => 'text-field',
               'config' => [
-                'label' => 'Breakpoint (optional)',
-                'popover' => 'The breakpoint (in pixels) between the settings.',
+                'label' => 'Value',
+                'responsive' => true,
               ],
             ],
           ],
@@ -95,9 +94,9 @@ class SliderModule extends Module
         ],
       ],
       'config' => [
-        'handle' => 'Slider (legacy)',
+        'handle' => 'Slider',
         'selectorTab' => 'regular',
       ],
-        ];
-    }
+    ];
+  }
 }

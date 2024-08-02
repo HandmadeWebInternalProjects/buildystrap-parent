@@ -35,6 +35,7 @@ use Buildystrap\Builder\Modules\HeaderModule;
 use Buildystrap\Builder\Modules\ImageModule;
 use Buildystrap\Builder\Modules\PostGridModule;
 use Buildystrap\Builder\Modules\SliderModule;
+use Buildystrap\Builder\Modules\SliderV2Module;
 use Buildystrap\Builder\Modules\TabModule;
 use Buildystrap\Builder\Modules\TextModule;
 use Buildystrap\Builder\Modules\VideoModule;
@@ -97,6 +98,7 @@ class Builder
     'tab-module' => TabModule::class,
     'accordion-module' => AccordionModule::class,
     'slider-module' => SliderModule::class,
+    'slider-v2-module' => SliderV2Module::class,
     'video-module' => VideoModule::class,
   ];
 
