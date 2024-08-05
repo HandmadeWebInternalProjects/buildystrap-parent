@@ -120,21 +120,7 @@ class Theme
    */
   public static function admin_enqueue_scripts(): void
   {
-    wp_register_script('bs-yoast-integration', get_template_directory_uri() . '/js/buildystrap-yoast-integration.js', [], '1.', true);
-
-    if (Builder::isEnabled()) {
-      // Get the content from the currently viewed page we are editing using WP functions
-      $current_page_content = get_post_field('post_content', get_the_ID());
-
-      wp_localize_script('bs-yoast-integration', 'global_vars', [
-        'rest_base' => site_url() . '/wp-json/wp/v2',
-        'admin_ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('wp_rest'),
-        'rendered_page' => Builder::renderFromContent($current_page_content)->render(),
-      ]);
-    }
-
-    wp_enqueue_script('bs-yoast-integration');
+    
   }
 
   /**

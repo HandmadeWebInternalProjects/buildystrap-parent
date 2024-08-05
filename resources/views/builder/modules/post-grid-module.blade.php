@@ -160,17 +160,20 @@
 
 @section('field_content')
   @if ($query->have_posts())
+    @php
+      $posts = $query->posts;
+      wp_reset_query();
+      wp_reset_postdata();
+    @endphp
     <div class="grid {{ $column_str }} {{ $gap }}">
-      @while ($query->have_posts()) 
-        @php $query->the_post(); global $post; @endphp
+      @foreach ($posts as $post)
+        @php setup_postdata($post); @endphp
         <div class="{{ $column_class }}">
           @php 
             echo view()->first($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])->render();
           @endphp
         </div>
-      @endwhile
-      
-      @php wp_reset_query(); @endphp
+      @endforeach
       @php wp_reset_postdata(); @endphp
     </div>
     @if ($enable_pagination)
