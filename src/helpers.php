@@ -325,10 +325,10 @@ if (!function_exists('get_slider_options_v2')) {
       // Initialize only if needed
       $option = [];
       if (isset($slidesPerView[$breakpoint]) && !empty($slidesPerView[$breakpoint])) {
-        $option['slidesPerView'] = (int) $slidesPerView[$breakpoint];
+        $option['slidesPerView'] = (float) $slidesPerView[$breakpoint];
       }
       if (isset($spaceBetween[$breakpoint]) && !empty($spaceBetween[$breakpoint])) {
-        $option['spaceBetween'] = (int) $spaceBetween[$breakpoint];
+        $option['spaceBetween'] = (float) $spaceBetween[$breakpoint];
       }
       if ($option) {
         $slider_options[$value] = $option;

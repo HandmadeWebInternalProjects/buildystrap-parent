@@ -15,16 +15,20 @@ const value = ref(modelValue?.value || {})
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
+function ensureObject(value: any) {
+  return Array.isArray(value) ? {} : value;
+}
+
 const fields: any = reactive({
   text: props.modelValue?.text || ref(""),
   level: props.modelValue?.level || ref(""),
-  size: props.modelValue?.size || {},
-  weight: props.modelValue?.weight || {},
-  line_height: props.modelValue?.line_height || {},
-  color: props.modelValue?.color || {},
+  size: ensureObject(props.modelValue?.size),
+  weight: ensureObject(props.modelValue?.weight),
+  line_height: ensureObject(props.modelValue?.line_height),
+  color: ensureObject(props.modelValue?.color),
   class: props.modelValue?.class || ref(""),
-  alignment: props.modelValue?.alignment || {},
-})
+  alignment: ensureObject(props.modelValue?.alignment),
+});
 
 const forceDelete = (val: any, resetVal: any = {}) => {
   fields[val] = resetVal

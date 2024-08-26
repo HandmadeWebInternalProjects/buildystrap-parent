@@ -9,6 +9,7 @@ if (!function_exists('company_phone_shortcode')) {
       'prefix' => null,
       'suffix' => null,
       'icon' => false,
+      'icon_svg' => false,
       'default_class' => 'company-phone',
       'class' => 'd-inline-flex align-items-baseline gap-3',
       'field' => 'buildystrap_company_details_company_phone',
@@ -30,7 +31,9 @@ if (!function_exists('company_phone_shortcode')) {
     ob_start(); ?>
 
     <a class="<?= $atts['default_class']; ?> <?= $atts['class']; ?>" href="<?= format_phone($company_phone, '61', false, $atts['type']) ?>">
-      <?php if ($atts['icon']) : ?>
+      <?php if (!empty($atts['icon_svg']) && wp_attachment_is_image($atts['icon_svg'])) : ?>
+        <?= wp_get_attachment_image($atts['icon_svg'], 'full'); ?>
+      <?php elseif (!empty($atts['icon'])) : ?>
         <i class="<?= esc_attr($atts['icon']) ?>"></i>
       <?php endif; ?>
       <?php if ($atts['text']) : ?>
@@ -70,6 +73,7 @@ if (!function_exists('company_email_shortcode')) {
     $atts = shortcode_atts([
       'text' => null,
       'icon' => false,
+      'icon_svg' => false,
       'default_class' => 'company-email',
     ], $atts);
 
@@ -81,7 +85,9 @@ if (!function_exists('company_email_shortcode')) {
     ob_start(); ?>
 
     <a class="<?= $atts['default_class']; ?> d-flex align-items-baseline gap-3" href="mailto:<?php echo esc_attr($company_email); ?>">
-      <?php if ($atts['icon']) : ?>
+      <?php if (!empty($atts['icon_svg']) && wp_attachment_is_image($atts['icon_svg'])) : ?>
+        <?= wp_get_attachment_image($atts['icon_svg'], 'full'); ?>
+      <?php elseif (!empty($atts['icon'])) : ?>
         <i class="<?= esc_attr($atts['icon']) ?>"></i>
       <?php endif; ?>
       <span><?php echo esc_attr_e($atts['text'] ?: $company_email, 'hmw-starter-child'); ?></span>
@@ -102,7 +108,8 @@ if (!function_exists('company_address_shortcode')) {
     }
 
     $atts = shortcode_atts([
-      'icon' => false
+      'icon' => false,
+      'icon_svg' => false
     ], $atts);
 
     $address = get_field('buildystrap_company_details_company_address', 'option') ? get_field('buildystrap_company_details_company_address', 'option') : '';
@@ -114,7 +121,9 @@ if (!function_exists('company_address_shortcode')) {
     ob_start(); ?>
 
     <address class="company-address d-flex align-items-baseline gap-3">
-      <?php if ($atts['icon']) : ?>
+      <?php if (!empty($atts['icon_svg']) && wp_attachment_is_image($atts['icon_svg'])) : ?>
+        <?= wp_get_attachment_image($atts['icon_svg'], 'full'); ?>
+      <?php elseif (!empty($atts['icon'])) : ?>
         <i class="<?= esc_attr($atts['icon']) ?>"></i>
       <?php endif; ?>
       <div>

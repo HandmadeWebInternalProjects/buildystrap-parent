@@ -33,7 +33,7 @@ onMounted(() => {
         <input
           type="radio"
           :class="config?.input_class || 'btn-check'"
-          :name="handle"
+          :name="`${handle}-${uuid}`"
           :id="`${option.value}-${handle}-${uuid}`"
           @input="update(($event?.target as HTMLInputElement)?.value)"
           :value="option.value"
