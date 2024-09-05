@@ -66,8 +66,8 @@ export const useBuilderOptions = () => {
   const getImageSizes = () => {
     const imageSizes = getBuilderOptions?.image_sizes || []
     return Object.entries(imageSizes).map(([key, value]: any) => ({
-      label: key,
-      value,
+      label: key ?? "",
+      value: key?.toLowerCase() ?? "",
     }))
   }
 

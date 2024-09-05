@@ -104,4 +104,3 @@ watch(value.value, (newValue) => {
 </template>
 
 <style lang=""></style>
-pnpm 

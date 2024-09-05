@@ -11,6 +11,7 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
   $image_id = isset($image['image']) ? collect($image['image'])->pluck('id')->first() : '';
   $object_fit = isset($image['object_fit']) ? $image['object_fit'] : 'full';
   $object_position = isset($image['object_position']) ? $image['object_position'] : null;
+  $image_size = $image['image_size'] ?? 'full';
 
   $classes = collect([
     isset($image['object_fit']) ? "object-{$image['object_fit']}" : 'full',
@@ -30,14 +31,14 @@ $lightbox_enabled = ($module->has('enable_lightbox') && $module->get('enable_lig
     
       @if($lightbox_enabled)
         @php $alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ?? null; @endphp
-        <a href="{!! wp_get_attachment_image_url($image_id, 'full') !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
+        <a href="{!! wp_get_attachment_image_url($image_id, $image_size) !!}" class="lightbox-trigger" data-glightbox="description:{{ $alt }}">
       @elseif($link)
         <a href="{{ $link['url'] ?? '#' }}" target="{{ $link['target'] ?? '_self' }}" title="{{ $link['title'] ?? '' }}">
       @endif
           @if($inline_svg)
             <div class="svg-container" style="{{ trim("$width $max_width $height $max_height") }}">
           @endif
-            {!! wp_get_attachment_image($image_id, 'full', '', ["class" => $classes, "style" => trim("$width $max_width $height $max_height")]) !!}
+            {!! wp_get_attachment_image($image_id, $image_size, '', ["class" => $classes, "style" => trim("$width $max_width $height $max_height")]) !!}
           @if($inline_svg)
             </div>
           @endif
