@@ -40,7 +40,7 @@ const display: any = reactive({
   order: props.modelValue["order"] || {},
 })
 
-const options = Array.from({ length: 13 }, (_, i) => i)
+const options = Array.from({ length: 21 }, (_, i) => i)
 
 watch(display, (val: any) => {
   /* 

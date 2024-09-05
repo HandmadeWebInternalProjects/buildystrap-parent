@@ -53,6 +53,38 @@
       {
         "label": "12rem",
         "value": "12"
+      },
+      {
+        "label": "13rem",
+        "value": "13"
+      },
+      {
+        "label": "14rem",
+        "value": "14"
+      },
+      {
+        "label": "15rem",
+        "value": "15"
+      },
+      {
+        "label": "16rem",
+        "value": "16"
+      },
+      {
+        "label": "17rem",
+        "value": "17"
+      },
+      {
+        "label": "18rem",
+        "value": "18"
+      },
+      {
+        "label": "19rem",
+        "value": "19"
+      },
+      {
+        "label": "20rem",
+        "value": "20"
       }
     ],
     "width": [

@@ -6,20 +6,26 @@ export const useBuilderOptions = () => {
   const getBoxModelSizing = () => {
     const boxModelSizing = getBuilderOptions?.structure.box_model_sizing || []
 
-    return boxModelSizing.filter((el: any) => el).map((obj: { label: string; value: string }) => ({
-      label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value,
-      value: obj?.value ? obj.value.toLowerCase() : obj?.value,
-    }))
+    return boxModelSizing
+      .filter((el: any) => el)
+      .map((obj: { label: string; value: string }) => ({
+        label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value,
+        value: obj?.value ? obj.value.toLowerCase() : obj?.value,
+      }))
   }
 
   const getSizing = (type: string) => {
     const sizing = getBuilderOptions?.structure[type] || []
-    return sizing.filter((el: any) => el).map((obj: { label: string; value: string }) => {
-      return {
-        label: obj?.label ? `${obj.label} (${obj?.value})` : obj?.value ?? type,
-        value: obj?.value ? obj.value.toLowerCase() : type,
-      }
-    })
+    return sizing
+      .filter((el: any) => el)
+      .map((obj: { label: string; value: string }) => {
+        return {
+          label: obj?.label
+            ? `${obj.label} (${obj?.value})`
+            : obj?.value ?? type,
+          value: obj?.value ? obj.value.toLowerCase() : type,
+        }
+      })
   }
 
   const getThemeColours = () => {
@@ -27,9 +33,11 @@ export const useBuilderOptions = () => {
     const additionalColours = getBuilderOptions?.additional_colours || []
     return [
       ...Object.keys(themeColours),
-      ...additionalColours.filter((el: any) => el).map((el: { label: string; value: any }) =>
-        el?.label ? el.label.toLowerCase() : el?.value || []
-      ),
+      ...additionalColours
+        .filter((el: any) => el)
+        .map((el: { label: string; value: any }) =>
+          el?.label ? el.label.toLowerCase() : el?.value || []
+        ),
     ]
   }
 
@@ -46,10 +54,20 @@ export const useBuilderOptions = () => {
   const getFontSize = () => {
     const fontSize = getBuilderOptions?.typography?.font_size || []
 
-    return fontSize.filter((el: any) => el).map((obj: { label: string; value: string }) => ({
-      ...obj,
-      label: obj?.label ? obj.label : obj?.value ?? "",
-      value: obj?.value ? obj.value.toLowerCase() : "",
+    return fontSize
+      .filter((el: any) => el)
+      .map((obj: { label: string; value: string }) => ({
+        ...obj,
+        label: obj?.label ? obj.label : obj?.value ?? "",
+        value: obj?.value ? obj.value.toLowerCase() : "",
+      }))
+  }
+
+  const getImageSizes = () => {
+    const imageSizes = getBuilderOptions?.image_sizes || []
+    return Object.entries(imageSizes).map(([key, value]: any) => ({
+      label: key,
+      value,
     }))
   }
 
@@ -59,5 +77,6 @@ export const useBuilderOptions = () => {
     getThemeColours,
     getTypography,
     getFontSize,
+    getImageSizes,
   }
 }

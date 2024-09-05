@@ -19,7 +19,7 @@
 // @import "bootstrap/scss/grid";
 
 $box-model-sizing: ();
-@for $i from 0 through 12 {
+@for $i from 0 through 20 {
   $box-model-sizing: map-merge(
     $box-model-sizing,
     (#{$i}: #{$i}rem, #{$i}\.5: calc(#{$i}rem + 0.5rem))
@@ -37,7 +37,7 @@ $order: ();
 }
 
 $gaps: ();
-@for $i from 0 through 12 {
+@for $i from 0 through 20 {
   $gaps: map-merge(
     $gaps,
     (#{$i}: #{$i}rem !important, #{$i}\.5: calc(#{$i}rem + 0.5rem) !important)
@@ -585,6 +585,9 @@ $utilities: map-merge(
 @import "theme/layout";
 
 @import "theme/taggables";
+
+// Elements
+@import "elements";
 
 // Components
 @import "components/videos";

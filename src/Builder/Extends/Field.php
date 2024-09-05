@@ -134,7 +134,7 @@ abstract class Field implements Htmlable
           $display_on = $args['display_on'];
 
           // 'disply_on' is the post slog or id
-          if ((is_array($displaym_on) && in_array($post->post_name, $display_on)) ||
+          if ((is_array($display_on) && in_array($post->post_name, $display_on)) ||
             (!is_array($display_on) && $display_on == $post->post_name) ||
             (is_array($display_on) && in_array($post->ID, $display_on)) ||
             (!is_array($display_on) && $display_on == $post->ID)

@@ -168,9 +168,8 @@ class BuilderBackend
       'librarySections' => Builder::getLibrarySections(),
       'globalModules' => Builder::getGlobalModules(),
       'moduleStyles' => Builder::getModuleStyles(),
-      // 'registered_image_sizes' => static::get_all_image_sizes(),
       'registered_post_types' => get_post_types(['_builtin' => false]),
-      'builder_options' => array_merge_recursive(static::get_default_options(), static::get_acf_options()),
+      'builder_options' => array_merge_recursive(static::get_default_options(), static::get_acf_options(), static::get_all_image_sizes()),
     ]);
 
     // Module Blueprints
@@ -186,6 +185,22 @@ class BuilderBackend
       echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
       echo '<script type="module" src="http://localhost:5173/main.js"></script>';
     }
+  }
+
+  public static function get_all_image_sizes()
+  {
+    $sizes = get_intermediate_image_sizes();
+    $image_sizes = [];
+
+    foreach ($sizes as $size) {
+      $image_sizes[$size] = [
+        'width' => get_option($size . '_size_w'),
+        'height' => get_option($size . '_size_h'),
+        'crop' => get_option($size . '_crop'),
+      ];
+    }
+
+    return ['image_sizes' => $image_sizes];
   }
 
   public static function get_default_options()

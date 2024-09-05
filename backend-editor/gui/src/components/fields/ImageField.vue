@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { toRefs, ref, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
+
+const { getImageSizes } = useBuilderOptions()
 const props = defineProps({ ...commonProps })
 
 const { handle, config, modelValue } = toRefs(props)
@@ -83,8 +86,22 @@ watch(value.value, (newValue) => {
           :config="{ label: 'Max Height' }"
           v-model="value['max_height']" />
       </div>
+      <div>
+        <select-field
+          class="flex-grow-1 flex-basis-0"
+          handle="image_size"
+          :config="{
+            label: 'WordPress Image Size',
+            options: getImageSizes(),
+            popover:
+              'Optionally choose a WordPress image size (crop) to use for this image.',
+            placeholder: 'Default',
+          }"
+          v-model="value['image_size']" />
+      </div>
     </template>
   </bs-card>
 </template>
 
 <style lang=""></style>
+pnpm 
