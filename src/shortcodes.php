@@ -47,24 +47,34 @@ if (!function_exists('company_phone_shortcode')) {
   add_shortcode('company-phone', 'company_phone_shortcode');
 }
 
-
 // [company-fax]
 if (!function_exists('company_fax_shortcode')) {
-  function company_fax_shortcode()
+  function company_fax_shortcode($atts)
   {
     if (is_admin()) {
       return null;
     }
 
+    $atts = shortcode_atts([
+      'text' => true,
+      'prefix' => null,
+      'suffix' => null,
+      'icon' => false,
+      'icon_svg' => false,
+      'default_class' => 'company-phone',
+      'class' => 'd-inline-flex gap-2',
+      'field' => 'buildystrap_company_details_company_phone',
+      'type' => 'tel'
+    ], $atts);
+
     ob_start();
 
-    echo apply_shortcodes('[company-phone default_class="company-fax" type=\'fax\' field=\'company_fax\']');
+    echo apply_shortcodes('[company-phone text="' . $atts['text'] . '" prefix="' . $atts['prefix'] . '" suffix="' . $atts['suffix'] . '" icon="' . $atts['icon'] . '" icon_svg="' . $atts['icon_svg'] . '" default_class="' . $atts['default_class'] . '" class="' . $atts['class'] . '" field="buildystrap_company_details_company_fax" type="' . $atts['type'] . '"]');
 
     return ob_get_clean();
   }
   add_shortcode('company-fax', 'company_fax_shortcode');
 }
-
 
 // [company-email]
 if (!function_exists('company_email_shortcode')) {
