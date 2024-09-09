@@ -9,6 +9,7 @@ use Buildystrap\Builder\Fields\AccordionField;
 use Buildystrap\Builder\Fields\ButtonField;
 use Buildystrap\Builder\Fields\CodeField;
 use Buildystrap\Builder\Fields\ColorSelectField;
+use Buildystrap\Builder\Fields\GroupField;
 use Buildystrap\Builder\Fields\ImageField;
 use Buildystrap\Builder\Fields\LinkField;
 use Buildystrap\Builder\Fields\MediaField;
@@ -83,6 +84,7 @@ class Builder
     'relational-field' => RelationalField::class,
     'replicator-field' => ReplicatorField::class,
     'section-field' => SectionField::class,
+    'group-field' => GroupField::class,
   ];
 
   protected static array $modules = [
