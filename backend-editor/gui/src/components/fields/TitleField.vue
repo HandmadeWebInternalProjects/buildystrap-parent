@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { toRefs, ref, watch, reactive } from "vue"
+import { toRefs, ref, watch, reactive, onMounted } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderOptions } from "@/composables/useBuilderOptions"
 import { useBreakpoints } from "../../composables/useBreakpoints"
@@ -22,17 +22,13 @@ function ensureObject(value: any) {
 const fields: any = reactive({
   text: props.modelValue?.text || ref(""),
   level: props.modelValue?.level || ref(""),
-  size: ensureObject(props.modelValue?.size),
-  weight: ensureObject(props.modelValue?.weight),
-  line_height: ensureObject(props.modelValue?.line_height),
-  color: ensureObject(props.modelValue?.color),
+  size: ensureObject(props.modelValue?.size ?? {}),
+  weight: ensureObject(props.modelValue?.weight ?? {}),
+  line_height: ensureObject(props.modelValue?.line_height ?? {}),
+  color: ensureObject(props.modelValue?.color ?? {}),
   class: props.modelValue?.class || ref(""),
-  alignment: ensureObject(props.modelValue?.alignment),
+  alignment: ensureObject(props.modelValue?.alignment ?? {}),
 });
-
-const forceDelete = (val: any, resetVal: any = {}) => {
-  fields[val] = resetVal
-}
 
 watch(fields, (newValue) => {
   update(newValue)
@@ -66,7 +62,6 @@ watch(fields, (newValue) => {
               v-model="fields.level" />
             <select-field
               class="flex-grow-1 flex-basis-0"
-              @mouseover.ctrl="forceDelete('size')"
               handle="size"
               :config="{
                 label: 'Size',
@@ -80,7 +75,6 @@ watch(fields, (newValue) => {
               v-model="fields.size[bp]" />
             <select-field
               class="flex-grow-1 flex-basis-0"
-              @mouseover.ctrl="forceDelete('weight')"
               handle="weight"
               :config="{
                 label: 'Weight',
@@ -102,7 +96,6 @@ watch(fields, (newValue) => {
               v-model="fields.weight[bp]" />
             <select-field
               class="flex-grow-1 flex-basis-0"
-              @mouseover.ctrl="forceDelete('alignment')"
               handle="alignment"
               :config="{
                 label: 'Alignment',
@@ -116,7 +109,6 @@ watch(fields, (newValue) => {
           <div class="d-flex gap-3">
             <color-select-field
               class="flex-grow-1 flex-basis-0"
-              @mouseover.ctrl="forceDelete('color')"
               handle="colour"
               :config="{
                 label: 'Colour',
@@ -128,7 +120,6 @@ watch(fields, (newValue) => {
               v-model="fields.color[bp]" />
             <select-field
               class="flex-grow-1 flex-basis-0"
-              @mouseover.ctrl="forceDelete('line_height')"
               handle="line_height"
               :config="{
                 label: 'Line Height',

@@ -17,6 +17,7 @@ trait RecursiveFieldMap
         if ($field = Builder::getField($blueprintField['type'])) {
           $fieldValue = $value;
 
+          // Replicators
           if (is_array($fieldValue)) {
             $fieldValue = collect($fieldValue)->map(function ($subField) use ($blueprintFields, $handle) {
               if (is_array($subField)) {
@@ -32,6 +33,16 @@ trait RecursiveFieldMap
               return $subField;
             });
           }
+
+          // Groups
+          if (isset($blueprintField['fields'])) {
+            $fieldValue = collect($fieldValue)->map(function ($subField, $handle) use ($blueprintField) {
+              if (($blueprintField['fields'][$handle]['type'] ?? null) && $subFieldType = Builder::getField($blueprintField['fields'][$handle]['type'])) {
+                return new $subFieldType($subField);
+              }
+            });
+          }
+
           return new $field($fieldValue);
         }
       }
