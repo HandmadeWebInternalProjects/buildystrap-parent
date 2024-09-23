@@ -49,7 +49,7 @@ const isGlobalModule = computed((): boolean => {
       class="sortable-handle handle-single align-items-center absolute top-0 left-0 h-full rounded-start"
       :class="[isGlobalModule ? 'bg-purple-700' : 'bg-800']"></div>
     <div
-      class="d-flex group container-box relative flex-row justify-content-between align-items-center flex-grow-1 px-2 py-2">
+      class="d-flex group container-box position-relative flex-row justify-content-between align-items-center flex-grow-1 px-2 py-2">
       <div class="d-flex gap-1 align-items-center">
         <i :class="[blueprint?.icon]"></i>
         <span

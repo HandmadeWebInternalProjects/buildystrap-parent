@@ -395,11 +395,11 @@ add_shortcode('sitewide-message', function ($atts) {
 
   <?php if (get_field('buildystrap_sitewide_message_content', 'option')) { ?>
     <div id="sitewide-message-bar" role="dialog" aria-describedby="dialog-description" class="sitewide-message <?= $classes ?>" style="background: <?= $bg_colour; ?>; color: <?= $text_colour; ?>;">
-      <div class="container position-relative py-2">
+      <div class="container position-relative">
         <div class="row">
           <div class="col">
             <div id="dialog-description" class="sitewide-message__content">
-              <?php echo get_field('buildystrap_sitewide_message_content', 'option'); ?>
+              <?php echo apply_filters('sitewide_message_content', bs_get_field('buildystrap_sitewide_message_content', 'option')); ?>
             </div>
           </div>
         </div>

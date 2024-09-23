@@ -13,9 +13,9 @@
     "bootstrap": "5.3.3",
     "fast-glob": "^3.3.2",
     "glightbox": "^3.3.0",
-    "sass": "^1.74.1",
-    "typescript": "~5.4.4",
-    "vite": "^5.2.8",
+    "sass": "^1.79.1",
+    "typescript": "~5.4.5",
+    "vite": "^5.4.6",
     "vite-plugin-svg-icons": "^2.0.1"
   }
 }
