@@ -60,7 +60,7 @@ const isGlobalModule = computed((): boolean => {
         </span>
       </div>
       <module-controls
-        class="justify-content-center bg-700 text-white position-absolute end-0 me-2 opacity-0 md:opacity-100 opacity-100-hover transition-opacity"
+        class="justify-content-center bg-700 text-white position-absolute end-0 me-2 opacity-0 opacity-md-1 opacity-100-hover transition-opacity"
         direction="row"
         :component="component"
         :value="parentArray"

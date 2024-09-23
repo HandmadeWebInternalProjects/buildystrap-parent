@@ -357,9 +357,12 @@ $utilities: map-merge(
   .container-box {
     container-type: inline-size;
   }
-  
-  @container (min-width: 300px) {
-    .md\:opacity-100 {
+}
+
+// This had to be not nested for it to work... Interesting.
+@container (min-width: 300px) {
+  #app {
+    .opacity-md-1 {
       opacity: 1 !important;
     }
   }
