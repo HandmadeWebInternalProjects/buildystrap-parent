@@ -1,6 +1,6 @@
 @extends('builder::module-base', ['class' => 'accordion'])
 
-@section('field_content')
+@section('field_content') 
 
   @if($module->has('accordion'))
     @foreach($module->get('accordion')->value() as $index => $value)

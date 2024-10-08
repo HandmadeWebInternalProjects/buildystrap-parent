@@ -156,27 +156,27 @@
     "font_size": [
       {
         "label": "H1",
-        "value": "1"
+        "value": "h1"
       },
       {
         "label": "H2",
-        "value": "2"
+        "value": "h2"
       },
       {
         "label": "H3",
-        "value": "3"
+        "value": "h3"
       },
       {
         "label": "H4",
-        "value": "4"
+        "value": "h4"
       },
       {
         "label": "H5",
-        "value": "5"
+        "value": "h5"
       },
       {
         "label": "H6",
-        "value": "6"
+        "value": "h6"
       },
       {
         "label": "Display 1",

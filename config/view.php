@@ -9,7 +9,7 @@ $paths = collect(apply_filters('buildystrap_view_paths', $defaultPaths))->unique
 
 return [
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | View Storage Paths
     |--------------------------------------------------------------------------
@@ -19,9 +19,9 @@ return [
     |
     */
 
-    'paths' => $paths,
+  'paths' => $paths,
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Compiled View Path
     |--------------------------------------------------------------------------
@@ -32,9 +32,9 @@ return [
     |
     */
 
-    'compiled' => env('VIEW_COMPILED_PATH', storage_path('framework/views')),
+  'compiled' => env('VIEW_COMPILED_PATH', storage_path('framework/views')),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | View Debugger
     |--------------------------------------------------------------------------
@@ -46,9 +46,9 @@ return [
     |
     */
 
-    'debug' => false,
+  'debug' => false,
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | View Namespaces
     |--------------------------------------------------------------------------
@@ -60,15 +60,15 @@ return [
     |
     */
 
-    'namespaces' => [
-        /*
+  'namespaces' => [
+    /*
          | Given the below example, in your views use something like:
          |     @include('MyPlugin::some.view.or.partial.here')
          */
-        // 'MyPlugin' => WP_PLUGIN_DIR . '/my-plugin/resources/views',
-    ],
+    // 'MyPlugin' => WP_PLUGIN_DIR . '/my-plugin/resources/views',
+  ],
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | View Directives
     |--------------------------------------------------------------------------
@@ -78,11 +78,11 @@ return [
     |
     */
 
-    'directives' => [
-        'example' => Buildystrap\View\Directives\ExampleDirective::class,
-    ],
+  'directives' => [
+    'example' => Buildystrap\View\Directives\ExampleDirective::class,
+  ],
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | View Components
     |--------------------------------------------------------------------------
@@ -92,8 +92,11 @@ return [
     |
     */
 
-    'components' => [
-        'loop'  => 'components.loop', // Simple method (point to a view file by path)
-//        'loop' => Buildystrap\View\Components\LoopComponent::class, // Advanced method (invoke a class to call the view)
-    ],
+  'components' => [
+    'loop'  => 'components.loop', // Simple method (point to a view file by path)
+    'card'  => 'components.cards.card', // Simple method (point to a view file by path)
+    'testimonials-card'  => 'components.cards.testimonials-card', // Simple method (point to a view file by path)
+    'page-card'  => 'components.cards.page-card', // Simple method (point to a view file by path)
+    // 'loop' => Buildystrap\View\Components\LoopComponent::class, // Advanced method (invoke a class to call the view)
+  ],
 ];

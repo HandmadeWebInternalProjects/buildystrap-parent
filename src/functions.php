@@ -58,11 +58,15 @@ function custom_logo($url = null, $svg = null)
   }
 }
 
-add_action('wp_body_open', function () {
-  if (function_exists('get_field') && !is_admin() && (get_field('buildystrap_sitewide_message_enable_sitewide_message', 'option') == true) && !isset($_COOKIE['sitewide_message'])) {
-    echo apply_shortcodes('[sitewide-message]');
+if (!function_exists('sitewide_message')) {
+  function sitewide_message()
+  {
+    if (function_exists('get_field') && !is_admin() && (get_field('buildystrap_sitewide_message_enable_sitewide_message', 'option') == true) && !isset($_COOKIE['sitewide_message'])) {
+      echo apply_shortcodes('[sitewide-message]');
+    }
   }
-});
+  add_action('wp_body_open', 'sitewide_message');
+}
 
 
 // Populate colour options
