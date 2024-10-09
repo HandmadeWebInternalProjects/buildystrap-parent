@@ -15,10 +15,19 @@ foreach ($title['size'] as $breakpoint => $value) {
     if ($value) {
       $is_taggable = is_taggable('font_size', $value, 'typography');
       if (!$is_taggable) {
-        $size[] = match ($breakpoint) {
-          'xs' => "$value",
-          default => "{$breakpoint}-{$value}"
-        };
+        // Check if value is only a number with no alpha characters
+        // Backwards compatibility for old font size values
+        if (is_numeric($value)) {
+          $size[] = match ($breakpoint) {
+            'xs' => "h{$value}",
+            default => "h{$breakpoint}-{$value}"
+          }
+        } else {
+          $size[] = match ($breakpoint) {
+            'xs' => "$value",
+            default => "{$breakpoint}-{$value}"
+          };
+        }
       } else {
         if (!in_array('fs-taggable', $size)) {
           $size[] = 'fs-taggable';
