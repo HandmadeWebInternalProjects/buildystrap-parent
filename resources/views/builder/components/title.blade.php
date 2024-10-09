@@ -21,7 +21,7 @@ foreach ($title['size'] as $breakpoint => $value) {
           $size[] = match ($breakpoint) {
             'xs' => "h{$value}",
             default => "h{$breakpoint}-{$value}"
-          }
+          };
         } else {
           $size[] = match ($breakpoint) {
             'xs' => "$value",
