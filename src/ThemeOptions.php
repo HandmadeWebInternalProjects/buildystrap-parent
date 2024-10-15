@@ -162,6 +162,8 @@ class ThemeOptions
         echo sprintf('.bg-%1$s, .bg-%1$s-hover:hover { background-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
         echo sprintf('.text-%1$s, .text-%1$s-visited:visited, .text-%1$s-hover:hover { color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
 
+        echo  ":is([class*='text-{$colorName}']) :where(h1, h2, h3, h4, h5, h6) { color: inherit; }";
+
         /* Buttons */
 
         echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
