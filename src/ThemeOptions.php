@@ -165,8 +165,12 @@ class ThemeOptions
         echo  ":is([class*='text-{$colorName}']) :where(h1, h2, h3, h4, h5, h6) { color: inherit; }";
 
         /* Buttons */
+        $add_button_css = apply_filters('should_add_button_css', true, $colorName);
 
-        echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
+
+        if ($add_button_css) {
+
+          echo "#app .btn.btn-{$colorName}, .btn.btn-{$colorName}, #app .button.button-{$colorName}, .button.button-{$colorName} {
               --bs-btn-color: var(--bs-white);
               --bs-btn-hover-color: var(--bs-white-hover, var(--bs-white));
               --bs-btn-bg: var(--theme-$colorName, var(--bs-$colorName));
@@ -182,7 +186,7 @@ class ThemeOptions
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
 
-        echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
+          echo "#app .btn.btn-outline-{$colorName}, .btn.btn-outline-{$colorName} {
               --bs-btn-color: var(--theme-$colorName, var(--bs-$colorName));
               --bs-btn-bg: transparent;
               --bs-btn-hover-bg: var(--theme-$colorName-hover, var(--bs-$colorName-hover));
@@ -196,6 +200,7 @@ class ThemeOptions
               --bs-btn-disabled-bg: #d5d5d5;
               --bs-btn-disabled-border-color: #d5d5d5;
               }";
+        }
 
       endforeach;
     endif;
