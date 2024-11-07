@@ -24,6 +24,7 @@ use Buildystrap\Builder\Fields\TextField;
 use Buildystrap\Builder\Fields\TitleField;
 use Buildystrap\Builder\Fields\ToggleField;
 use Buildystrap\Builder\Fields\SectionField;
+use Buildystrap\Builder\Fields\RowField;
 use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
@@ -84,6 +85,7 @@ class Builder
     'relational-field' => RelationalField::class,
     'replicator-field' => ReplicatorField::class,
     'section-field' => SectionField::class,
+    'row-field' => RowField::class,
     'group-field' => GroupField::class,
   ];
 
@@ -157,12 +159,12 @@ class Builder
   protected static function bootPaths(): void
   {
     $paths = collect(config('view.paths'))
-      ->map(fn ($path) => "$path/builder")->toArray();
+    ->map(fn($path) => "$path/builder")->toArray();
 
     view()->addNamespace('builder', $paths);
 
     static::$paths = collect($paths)
-      ->map(fn ($path) => "$path/modules")->toArray();
+      ->map(fn($path) => "$path/modules")->toArray();
 
     view()->addNamespace('builder-modules', static::paths());
   }
@@ -210,7 +212,7 @@ class Builder
       array_push($modules, $shared);
     }
 
-    return collect($modules ?? [])->map(fn ($module) => [
+    return collect($modules ?? [])->map(fn($module) => [
       'module_name' => Str::slug($module['module_name']) . '-module',
       'styles' => $module['styles'] ?? [],
     ]);
@@ -366,7 +368,7 @@ class Builder
 
   public static function moduleBlueprints(): Collection
   {
-    return collect(static::modules())->map(fn ($module): Collection => $module::getBlueprint());
+    return collect(static::modules())->map(fn($module): Collection => $module::getBlueprint());
   }
 
   public static function registerPath(string $path): void
