@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+use \Illuminate\Support\Env;
 
-use function Roots\env;
 
 return [
 
@@ -69,7 +70,7 @@ return [
     |
     */
 
-  'timezone' => get_option('timezone_string', 'UTC'),
+  'timezone' => get_option('timezone_string') ?: 'UTC',
 
   /*
     |--------------------------------------------------------------------------
@@ -154,7 +155,8 @@ return [
     |
     */
 
-  'providers' => [
+  'providers' => ServiceProvider::defaultProviders()->merge(
+    [
 
     /*
          * Laravel Framework Service Providers...
@@ -184,16 +186,17 @@ return [
     //        Roots\Acorn\Providers\RouteServiceProvider::class,
     Roots\Acorn\View\ViewServiceProvider::class,
 
-    /*
+      /*
          * Package Service Providers...
          */
 
-    /*
+      /*
          * Application Service Providers...
          */
-    // App\Providers\ThemeServiceProvider::class,
+      // App\Providers\ThemeServiceProvider::class,
 
-  ],
+    ]
+  )->toArray(),
 
   /*
     |--------------------------------------------------------------------------

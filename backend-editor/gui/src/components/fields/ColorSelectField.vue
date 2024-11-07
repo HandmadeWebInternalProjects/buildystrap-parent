@@ -53,7 +53,7 @@ const options =
         <div class="d-flex align-items-center gap-2">
           <span
             :class="[
-              `btn-${option.label}`,
+              `bg-${option.label}`,
               'btn color-label-icon rounded-circle p-0',
             ]"></span>
           {{ option?.label ?? "" }}

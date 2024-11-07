@@ -4,7 +4,7 @@ namespace Roots\Acorn\Assets;
 
 use InvalidArgumentException;
 use Roots\Acorn\Assets\Contracts\Manifest as ManifestContract;
-use Roots\Acorn\Assets\Contracts\ManifestNotFoundException;
+use Roots\Acorn\Assets\Exceptions\ManifestNotFoundException;
 use Roots\Acorn\Assets\Middleware\LaravelMixMiddleware;
 use Roots\Acorn\Assets\Middleware\RootsBudMiddleware;
 
@@ -43,7 +43,7 @@ class Manager
     /**
      * Initialize the AssetManager instance.
      *
-     * @param Container $container
+     * @param  Container  $container
      */
     public function __construct($config = [])
     {
@@ -53,8 +53,7 @@ class Manager
     /**
      * Register the given manifest
      *
-     * @param  string $name
-     * @param  Manifest $manifest
+     * @param  Manifest  $manifest
      * @return static
      */
     public function register(string $name, ManifestContract $manifest): self
@@ -66,10 +65,6 @@ class Manager
 
     /**
      * Get a Manifest
-     *
-     * @param  string $name
-     * @param  array $config
-     * @return ManifestContract
      */
     public function manifest(string $name, ?array $config = null): ManifestContract
     {
@@ -81,8 +76,6 @@ class Manager
     /**
      * Resolve the given manifest.
      *
-     * @param  string  $name
-     * @return ManifestContract
      *
      * @throws InvalidArgumentException
      */
@@ -106,9 +99,6 @@ class Manager
 
     /**
      * Manifest config pipeline.
-     *
-     * @param array $config
-     * @return array
      */
     protected function pipeline(array $config): array
     {
@@ -124,13 +114,12 @@ class Manager
     /**
      * Opens a JSON manifest file from the local file system
      *
-     * @param string $jsonManifest Path to .json file
-     * @return array
+     * @param  string  $jsonManifest  Path to .json file
      */
     protected function getJsonManifest(string $jsonManifest): array
     {
         if (! file_exists($jsonManifest)) {
-            throw new ManifestNotFoundException("The manifest [{$jsonManifest}] cannot be found.");
+            throw new ManifestNotFoundException("The asset manifest [{$jsonManifest}] cannot be found.");
         }
 
         return json_decode(file_get_contents($jsonManifest), true) ?? [];
@@ -138,9 +127,6 @@ class Manager
 
     /**
      * Get the assets manifest configuration.
-     *
-     * @param  string  $name
-     * @return array
      */
     protected function getConfig(string $name): array
     {
