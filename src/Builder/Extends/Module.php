@@ -160,6 +160,11 @@ abstract class Module
     $blueprint = static::blueprint();
     $fields = $blueprint['fields'] ?? [];
 
+    $moduleName = class_basename(static::class);
+
+    // This filter allows you to modify the fields of a module globally
+    $fields = apply_filters('builder_module_fields', $fields, $blueprint, $moduleName);
+
     $blueprint = static::matchConfigs($blueprint, $fields);
 
     return collect($blueprint);
