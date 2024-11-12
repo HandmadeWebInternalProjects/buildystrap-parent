@@ -469,22 +469,22 @@ trait HtmlStyleBuilder
           default => "bg-{$breakpoint}-{$value}"
         };
       }
+    }
 
-      /** Background Color */
-      foreach ($this->getInlineAttribute('background.color', []) as $breakpoint => $value) {
-        $this->html_classes[] = match ($breakpoint) {
-          'xs' => "bg-{$value}",
-          default => "bg-{$breakpoint}-{$value}"
-        };
-      }
+    /** Background Color */
+    foreach ($this->getInlineAttribute('background.color', []) as $breakpoint => $value) {
+      $this->html_classes[] = match ($breakpoint) {
+        'xs' => "bg-{$value}",
+        default => "bg-{$breakpoint}-{$value}"
+      };
+    }
 
-      /** Background Blend Mode */
-      foreach ($this->getInlineAttribute('background.image.blend-mode', []) as $breakpoint => $value) {
-        $this->html_classes[] = match ($breakpoint) {
-          'xs' => "bg-blend-{$value}",
-          default => "bg-blend-{$breakpoint}-{$value}"
-        };
-      }
+    /** Background Blend Mode */
+    foreach ($this->getInlineAttribute('background.image.blend-mode', []) as $breakpoint => $value) {
+      $this->html_classes[] = match ($breakpoint) {
+        'xs' => "bg-blend-{$value}",
+        default => "bg-blend-{$breakpoint}-{$value}"
+      };
     }
 
     /** Typography Color */
