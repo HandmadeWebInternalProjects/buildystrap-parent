@@ -7,6 +7,7 @@ use Buildystrap\Builder\Extends\Field;
 use Buildystrap\Builder\Extends\Module;
 use Buildystrap\Builder\Fields\AccordionField;
 use Buildystrap\Builder\Fields\ButtonField;
+use Buildystrap\Builder\Fields\CheckboxesField;
 use Buildystrap\Builder\Fields\CodeField;
 use Buildystrap\Builder\Fields\ColorSelectField;
 use Buildystrap\Builder\Fields\GroupField;
@@ -73,6 +74,7 @@ class Builder
     'textarea-field' => TextAreaField::class,
     'link-field' => LinkField::class,
     'toggle-field' => ToggleField::class,
+    'checkboxes-field' => CheckboxesField::class,
     'code-field' => CodeField::class,
     'color-select-field' => ColorSelectField::class,
     'select-field' => SelectField::class,

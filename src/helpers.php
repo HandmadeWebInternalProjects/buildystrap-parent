@@ -315,8 +315,10 @@ if (!function_exists('get_slider_options_v2')) {
   function get_slider_options_v2($module)
   {
     // Directly fetch values with fallbacks
-    $slidesPerView = $module->has('slidesPerView') ? $module->get('slidesPerView')->value() : [];
-    $spaceBetween = $module->has('spaceBetween') ? $module->get('spaceBetween')->value() : [];
+    $slider_settings = optional($module->get('slider_settings'))->value() ?? [];
+    $slidesPerView = optional($slider_settings->get('slidesPerView'))->value() ?? [];
+    $spaceBetween = optional($slider_settings->get('spaceBetween'))->value() ?? [];
+    $additional_settings = optional($slider_settings->get('additional_settings'))->value() ?? [];
     $breakpoints = get_defined_breakpoints();
 
     $slider_options = [];
@@ -335,8 +337,8 @@ if (!function_exists('get_slider_options_v2')) {
       }
     }
 
-    if ($module->has('additional_settings')) {
-      collect($module->get('additional_settings')->value())->each(function ($setting) use (&$slider_options, $breakpoints) {
+    if ($additional_settings) {
+      collect($additional_settings)->each(function ($setting) use (&$slider_options, $breakpoints) {
         $key = $setting['name'];
         $val = $setting['value'] ?? [];
 
