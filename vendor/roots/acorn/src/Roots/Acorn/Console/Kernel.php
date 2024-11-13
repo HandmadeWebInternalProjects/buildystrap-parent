@@ -34,8 +34,10 @@ class Kernel extends FoundationConsoleKernel
         \Illuminate\Routing\Console\MiddlewareMakeCommand::class,
         \Roots\Acorn\Console\Commands\AboutCommand::class,
         \Roots\Acorn\Console\Commands\AcornInitCommand::class,
+        \Roots\Acorn\Console\Commands\AcornInstallCommand::class,
         \Roots\Acorn\Console\Commands\ComposerMakeCommand::class,
         \Roots\Acorn\Console\Commands\ConfigCacheCommand::class,
+        \Roots\Acorn\Console\Commands\KeyGenerateCommand::class,
         \Roots\Acorn\Console\Commands\OptimizeClearCommand::class,
         \Roots\Acorn\Console\Commands\OptimizeCommand::class,
         \Roots\Acorn\Console\Commands\RouteCacheCommand::class,
@@ -49,7 +51,7 @@ class Kernel extends FoundationConsoleKernel
      * @var string[]
      */
     protected $bootstrappers = [
-        \Roots\Acorn\Bootstrap\SageFeatures::class,
+        \Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables::class,
         \Roots\Acorn\Bootstrap\LoadConfiguration::class,
         \Roots\Acorn\Bootstrap\HandleExceptions::class,
         \Roots\Acorn\Bootstrap\RegisterFacades::class,
@@ -61,14 +63,12 @@ class Kernel extends FoundationConsoleKernel
     /**
      * Create a new console kernel instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
      * @return void
      */
     public function __construct(Application $app, Dispatcher $events)
     {
         if (! defined('ARTISAN_BINARY')) {
-            define('ARTISAN_BINARY', dirname(__DIR__, 4) . '/bin/acorn');
+            define('ARTISAN_BINARY', dirname(__DIR__, 4).'/bin/acorn');
         }
 
         $this->app = $app;

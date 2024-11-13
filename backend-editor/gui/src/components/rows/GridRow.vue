@@ -14,12 +14,28 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  customSettings: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const columns = ref(props.component?.columns || [])
 const row = ref(props.component)
+const customSettings = ref(props.customSettings)
 const parentArray = ref(props.parentArray)
 const rowIndex = computed(() => props.rowIndex)
+
+const rowSettings = {
+  colSelector: {
+    icon: ["fas", "columns"],
+    title: "Change Columns",
+    order: 15,
+    component: "column-selector",
+    isActive: false,
+  },
+  ...customSettings.value,
+}
 </script>
 
 <template>
@@ -34,15 +50,7 @@ const rowIndex = computed(() => props.rowIndex)
         class="align-self-start justify-content-end text-white"
         direction="column"
         :component="row"
-        :custom-settings="{
-          colSelector: {
-            icon: ['fas', 'columns'],
-            title: 'Change Columns',
-            order: 15,
-            component: 'column-selector',
-            isActive: false,
-          },
-        }"
+        :custom-settings="rowSettings"
         :value="parentArray"
         :index="rowIndex" />
     </div>

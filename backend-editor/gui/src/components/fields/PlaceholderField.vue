@@ -15,7 +15,11 @@ const { update } = useFieldType(emit)
       v-if="config.label !== false"
       :label="config?.label !== undefined ? config.label : handle"
       :popover="config?.popover" />
-    <span>This field is a placeholder for a shortcode or include</span>
+    <span
+      v-text="
+        config?.description ||
+        'This field is a placeholder for a shortcode or include'
+      "></span>
   </div>
 </template>
 

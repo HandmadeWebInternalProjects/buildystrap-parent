@@ -43,15 +43,29 @@ abstract class Module
     $this->enabled = $module['enabled'] ?? false;
     $this->type = $module['type'];
 
-    $blueprintFields = static::getBlueprint()->get('fields');
+    // Determine the JSON file path
+    $jsonFilePath = __DIR__ . '/' . $this->type . '-blueprint.json';
+
+    // Check if the JSON file exists
+    if (file_exists($jsonFilePath)) {
+      $jsonContent = file_get_contents($jsonFilePath);
+      $blueprintArray = json_decode($jsonContent, true);
+
+      if (json_last_error() !== JSON_ERROR_NONE) {
+        throw new \Exception("Error decoding JSON: " . json_last_error_msg());
+      }
+
+      $blueprintFields = $blueprintArray['fields'];
+    } else {
+      // Fallback to the getBlueprint method
+      $blueprintFields = static::getBlueprint()->get('fields');
+    }
 
     $values = $module['values'];
 
     $this->fields = $this->collectionClass([]);
 
     $this->data = collect([]);
-
-
 
     if (!$disable_fields) {
       $this->fields = $this->collectionClass($values)
@@ -78,7 +92,7 @@ abstract class Module
       $this->inline_attributes = $module['inline'];
     }
 
-    //Visibility
+    // Visibility
     if ($visibility = $this->getConfig('visibility')) {
       foreach ($visibility as $breakpoint) {
         $this->visibility_classes[] = "hide-{$breakpoint}";

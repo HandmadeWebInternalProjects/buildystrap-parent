@@ -2,6 +2,9 @@
 
 namespace Roots\Acorn\Assets\Concerns;
 
+use Illuminate\Support\Str;
+use Roots\Acorn\Filesystem\Filesystem;
+
 trait Enqueuable
 {
     /**
@@ -16,7 +19,6 @@ trait Enqueuable
      *
      * Optionally pass a function to execute on each JS file.
      *
-     * @param callable $callable
      * @return Collection|$this
      */
     abstract public function js(?callable $callable = null);
@@ -26,7 +28,6 @@ trait Enqueuable
      *
      * Optionally pass a function to execute on each CSS file.
      *
-     * @param callable $callable
      * @return Collection|$this
      */
     abstract public function css(?callable $callable = null);
@@ -38,8 +39,6 @@ trait Enqueuable
     /**
      * Enqueue CSS files in WordPress.
      *
-     * @param string $media
-     * @param array $dependencies
      * @return $this
      */
     public function enqueueCss(string $media = 'all', array $dependencies = [])
@@ -55,14 +54,12 @@ trait Enqueuable
     /**
      * Enqueue JS files in WordPress.
      *
-     * @param bool $in_footer
-     * @param array $dependencies
      * @return $this
      */
     public function enqueueJs(bool|array $args = true, array $dependencies = [])
     {
-        $this->js(function ($handle, $src, $bundle_dependencies) use (&$dependencies, $args) {
-            $this->mergeDependencies($dependencies, $bundle_dependencies);
+        $this->js(function ($handle, $src, $bundleDependencies) use (&$dependencies, $args) {
+            $this->mergeDependencies($dependencies, $bundleDependencies);
 
             wp_enqueue_script($handle, $src, $dependencies, null, $args);
 
@@ -82,6 +79,35 @@ trait Enqueuable
     public function enqueue()
     {
         return $this->enqueueCss()->enqueueJs();
+    }
+
+    /**
+     * Add CSS files as editor styles in WordPress.
+     *
+     * @return $this
+     */
+    public function editorStyles()
+    {
+        $relativePath = (new Filesystem)->getRelativePath(
+            Str::finish(get_theme_file_path(), '/'),
+            $this->path
+        );
+
+        $this->css(function ($handle, $src) use ($relativePath) {
+            if (! Str::startsWith($src, $this->uri)) {
+                return add_editor_style($src);
+            }
+
+            $style = Str::of($src)
+                ->after($this->uri)
+                ->ltrim('/')
+                ->start("{$relativePath}/")
+                ->toString();
+
+            add_editor_style($style);
+        });
+
+        return $this;
     }
 
     /**
@@ -149,8 +175,8 @@ trait Enqueuable
     /**
      * Add an inline script before or after the bundle loads
      *
-     * @param string $contents
-     * @param string $position
+     * @param  string  $contents
+     * @param  string  $position
      * @return $this
      */
     public function inline($contents, $position = 'after')
@@ -159,7 +185,7 @@ trait Enqueuable
             return $this;
         }
 
-        $handle = "{$this->id}/" . (
+        $handle = "{$this->id}/".(
             $position === 'after'
                 ? array_pop($handles)
                 : array_shift($handles)
@@ -173,8 +199,8 @@ trait Enqueuable
     /**
      * Add localization data to be used by the bundle
      *
-     * @param string $name
-     * @param array $object
+     * @param  string  $name
+     * @param  array  $object
      * @return $this
      */
     public function localize($name, $object)
@@ -190,21 +216,39 @@ trait Enqueuable
     }
 
     /**
+     * Add script translations to be used by the bundle
+     *
+     * @param  string  $domain
+     * @param  string  $path
+     * @return $this
+     */
+    public function translate($domain = null, $path = null)
+    {
+        $domain ??= wp_get_theme()->get('TextDomain');
+        $path ??= lang_path();
+
+        $this->js()->keys()->each(function ($handle) use ($domain, $path) {
+            wp_set_script_translations("{$this->id}/{$handle}", $domain, $path);
+        });
+
+        return $this;
+    }
+
+    /**
      * Merge two or more arrays.
      *
-     * @param array $dependencies
-     * @param array $more_dependencies
      * @return void
      */
-    protected function mergeDependencies(array &$dependencies, array ...$more_dependencies)
+    protected function mergeDependencies(array &$dependencies, array ...$moreDependencies)
     {
-        $dependencies = array_unique(array_merge($dependencies, ...$more_dependencies));
+        $dependencies = array_unique(array_merge($dependencies, ...$moreDependencies));
     }
 
     /**
      * Reset inlined sources.
      *
      * @internal
+     *
      * @return void
      */
     public static function resetInlinedSources()

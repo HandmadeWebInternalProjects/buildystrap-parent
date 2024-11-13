@@ -162,8 +162,12 @@ class ThemeOptions
         echo sprintf('.bg-%1$s, .bg-%1$s-hover:hover { background-color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
         echo sprintf('.text-%1$s, .text-%1$s-visited:visited, .text-%1$s-hover:hover { color: var(--theme-%1$s, var(--bs-%1$s)) !important; }', $colorName);
 
-        echo  ":is([class*='text-{$colorName}']) :where(h1, h2, h3, h4, h5, h6) { color: inherit; }";
+        $inherited_elements = apply_filters('selectors_should_inherit_color', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], $colorName);
 
+        $inherited_elements = implode(', ', $inherited_elements);
+
+        echo  ":is([class*='text-{$colorName}']) :where($inherited_elements) { color: inherit; }";
+        
         /* Buttons */
         $add_button_css = apply_filters('should_add_button_css', true, $colorName);
 

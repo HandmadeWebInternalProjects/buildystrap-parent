@@ -28,7 +28,7 @@
   $template_part = [
     "loop-templates/content-$postType",
     "components/$postType-card",
-    "components/cards/post-card"
+    "components/cards/post-card",
     "components/post-card"
   ];
 

@@ -26,13 +26,9 @@ it('accepts a callback for styles and scripts', function () {
     $manifest = json_decode(file_get_contents($this->fixture('bud_single_runtime/public/entrypoints.json')), JSON_OBJECT_AS_ARRAY);
     $app = new Bundle('app', $manifest['app'], $this->fixture('bud_single_runtime'), 'https://k.jo');
 
-    $app->js(fn ($handle, $src, $dependencies) =>
-        assertMatchesSnapshot(compact('handle', 'src', 'dependencies'))
-    );
+    $app->js(fn ($handle, $src, $dependencies) => assertMatchesSnapshot(compact('handle', 'src', 'dependencies')));
 
-    $app->css(fn ($handle, $src) =>
-        assertMatchesSnapshot(compact('handle', 'src'))
-    );
+    $app->css(fn ($handle, $src) => assertMatchesSnapshot(compact('handle', 'src')));
 });
 
 it('can enqueue css', function () {
@@ -42,6 +38,16 @@ it('can enqueue css', function () {
     $this->stub('wp_enqueue_style', fn (...$args) => assertMatchesSnapshot($args));
 
     $app->enqueueCss();
+});
+
+it('can add editor styles', function () {
+    $manifest = json_decode(file_get_contents($this->fixture('bud_single_runtime/public/entrypoints.json')), JSON_OBJECT_AS_ARRAY);
+    $app = new Bundle('app', $manifest['app'], $this->fixture('bud_single_runtime'), 'https://k.jo');
+
+    $this->stub('get_theme_file_path', fn ($path = '') => $this->fixture('bud_v6_single_runtime/public/'.$path));
+    $this->stub('add_editor_style', fn (...$args) => assertMatchesSnapshot($args));
+
+    $app->editorStyles();
 });
 
 it('can dequeue css', function () {
