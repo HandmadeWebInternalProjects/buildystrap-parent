@@ -89,11 +89,11 @@
     ],
     "width": [
       {
-        "label": "",
+        "label": "none",
         "value": "none"
       },
       {
-        "label": "",
+        "label": "auto",
         "value": "auto"
       },
       {
@@ -131,11 +131,11 @@
     ],
     "height": [
       {
-        "label": "",
+        "label": "auto",
         "value": "auto"
       },
       {
-        "label": "",
+        "label": "0%",
         "value": "0%"
       },
       {

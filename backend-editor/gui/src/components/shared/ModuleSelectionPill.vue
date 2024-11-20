@@ -35,10 +35,4 @@ const props = defineProps({
 </template>
 
 <style lang="scss">
-.preview-dialog {
-  position: absolute;
-  left: 0;
-  right: unset;
-  transform: translateX(-112%);
-}
 </style>
