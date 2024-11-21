@@ -25,13 +25,13 @@
 					@endphp
             
             @if ($post_type !== 'post')
-              @if (view()->exists(''loop-template.content-single-' . $post_type))
-              @include(''loop-template.content-single-' . $post_type)
+              @if (view()->exists('loop-template.content-single-' . $post_type))
+                @include('loop-template.content-single-' . $post_type)
               @else
-                @include(''loop-template.content-single')
+                @include('loop-template.content-single')
               @endif
             @else
-                @include(''loop-template.content-single')
+                @include('loop-template.content-single')
             @endif
                         
 						@php
