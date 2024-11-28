@@ -20,9 +20,9 @@ const props = defineProps({
 const { post }: { post: any } = usePost(props?.moduleItem?.id, props.postType)
 const showPreviewDialog = ref<any>(null)
 const previewWindow = ref<HTMLIFrameElement | null>(null)
-const leaving = ref<number>(0);
+const leaving = ref<ReturnType<typeof setTimeout> | null>(null);
 
-const scrollPreview = ($event) => {
+const scrollPreview = ($event: any) => {
   const iframe = previewWindow.value
   if (!iframe) return
 
