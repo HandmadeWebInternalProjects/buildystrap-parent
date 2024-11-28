@@ -429,6 +429,10 @@ class Builder
   {
     $isEnabled = false;
 
+    if (is_archive() || is_search()) {
+      return false;
+    }
+
     if ($post_id === 0) {
       $post_id = get_the_ID();
     }

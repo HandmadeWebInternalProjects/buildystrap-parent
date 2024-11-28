@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, onMounted, reactive, watch, computed } from "vue"
+import { toRefs, onMounted, reactive, watch, computed, provide } from "vue"
 import { useFieldType, commonProps } from "../useFieldType"
 import { findNestedObject } from "../../../utils/objects"
 import { useBuilderStore } from "../../../stores/builder"
@@ -26,7 +26,7 @@ const props = defineProps({
   ...commonProps,
 })
 
-let values = reactive(props.modelValue ? props.modelValue : {})
+const values = reactive(props.modelValue ? props.modelValue : {})
 
 const { getModuleBlueprintForType } = useBuilderStore()
 
@@ -37,6 +37,10 @@ const { update } = useFieldType(emit)
 
 const fields = reactive<any>({})
 
+if (props?.values) {
+  provide("parent_values", props?.values)
+}
+
 const set: any = computed(() => {
   return getModuleBlueprintForType(moduleType.value)
 })
@@ -44,12 +48,6 @@ const set: any = computed(() => {
 onMounted(() => {
   const { fields: foundFields } = findNestedObject(set.value, handle?.value)
   Object.assign(fields, foundFields || {})
-  // Make sure the values object has all the keys from the fields object
-  // Object.keys(fields).forEach((key) => {
-  //   if (!values[key]) {
-  //     values[key] = {}
-  //   }
-  // })
 })
 
 watch(
