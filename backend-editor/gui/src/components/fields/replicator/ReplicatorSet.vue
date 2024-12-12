@@ -4,7 +4,8 @@
       value?.[field?.config?.preview] || `Item ${index + 1}`
     }`"
     :uuid="value._uuid"
-    @remove="removeSet">
+    @remove="removeSet"
+    @clone="cloneSet">
     <div>
       <field-group>
         <field-base
@@ -57,7 +58,7 @@ const meta = computed(() => props.meta)
 
 provide('index', props.index)
 
-const emit = defineEmits(["input", "updateMeta", "removeSet"])
+const emit = defineEmits(["input", "updateMeta", "removeSet", "cloneSet"])
 
 const removeSet = () => {
   if (
@@ -69,6 +70,10 @@ const removeSet = () => {
   ) {
     emit("removeSet")
   }
+}
+
+const cloneSet = () => {
+  emit("cloneSet")
 }
 
 const value = computed({

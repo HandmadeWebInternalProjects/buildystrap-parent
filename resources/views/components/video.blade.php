@@ -13,8 +13,9 @@ $playsinline = $autoplay;
 $loop = $autoplay;
 $controls = !$autoplay;
 $background = $background ?? false;
+$enablejsapi = $enablejsapi ?? true;
 
-$params = collect(compact('fullscreen', 'background', 'autoplay', 'mute', 'playsinline', 'loop', 'additional_params'))->filter()->map(function($value, $key) {
+$params = collect(compact('fullscreen', 'background', 'autoplay', 'mute', 'playsinline', 'loop', 'additional_params', 'enablejsapi'))->filter()->map(function($value, $key) {
   return $key . '=' . $value;
 })->implode('&');
 

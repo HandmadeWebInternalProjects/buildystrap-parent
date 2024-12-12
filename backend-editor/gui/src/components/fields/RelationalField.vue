@@ -3,10 +3,19 @@ import { toRefs, ref, inject, computed, onMounted, watch } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderStore } from "../../stores/builder"
 import { getDeep, getDeepArray } from "@/utils/objects"
-const props = defineProps({ ...commonProps })
+const props = defineProps({
+  ...commonProps,
+  values: { type: Object, default: () => ({}) },
+})
 
 const { handle, config, modelValue, values } = toRefs(props)
 const { builderConfig } = useBuilderStore()
+
+// watch(values.value, () => {
+//   const findValue = findNestedObject(values?.value, 'taxonomy')
+//   console.log({values: values.value})
+//   console.log("values", findValue)
+// })
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
@@ -33,7 +42,7 @@ const depends_on = computed(() => {
     if (index !== false && index !== undefined && index !== null) {
       deps = deps.replace("$", index)
     }
-    let findValue = getDeepArray(values?.value, deps)
+    let findValue = getDeepArray(values?.value, deps);
 
     // check if test is an array if it is filter out the falsy values and flatten the array
     if (Array.isArray(findValue)) {

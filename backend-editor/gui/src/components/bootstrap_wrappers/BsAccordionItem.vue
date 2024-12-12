@@ -12,6 +12,10 @@
           class="delete-icon d-block ps-3 order-2"
           icon="trash"
           @click.prevent="removeItem(_uuid)" />
+        <font-awesome-icon
+          class="clone-icon d-block ps-3 order-2"
+          icon="copy"
+          @click.prevent.stop="cloneItem(_uuid)" />
       </button>
     </h2>
     <div
@@ -27,13 +31,12 @@
 <script lang="ts" setup>
 import { computed } from "vue"
 import { generateID } from "@/utils/id"
-import { faAlignCenter } from "@fortawesome/free-solid-svg-icons"
 const props = defineProps({
   title: String,
   uuid: String,
 })
 
-const emit = defineEmits(["remove"])
+const emit = defineEmits(["remove", "clone"])
 
 const _uuid = computed(() => {
   return props.uuid || generateID()
@@ -41,6 +44,10 @@ const _uuid = computed(() => {
 
 const removeItem = (_uuid: string) => {
   emit("remove", _uuid)
+}
+
+const cloneItem = (_uuid: string) => {
+  emit("clone", _uuid)
 }
 </script>
 <style lang="scss">

@@ -20,6 +20,11 @@ const removeItem = (uuid: string) => {
   }
 }
 
+const cloneItem = (uuid: string) => {
+  const item = values.value.find((el) => el._uuid === uuid)
+  values.value = [...values.value, { ...item, _uuid: generateID() }]
+}
+
 const values = computed({
   get() {
     return modelValue?.value || []
@@ -49,7 +54,8 @@ const values = computed({
         <bs-accordion-item
           :title="element?.title || `Item ${index + 1}`"
           :uuid="element._uuid"
-          @remove="removeItem">
+          @remove="removeItem"
+          @clone="cloneItem">
           <field-group>
             <text-field
               class="g-col-12"

@@ -26,6 +26,7 @@
           :module-type="moduleType"
           :meta="meta[index]"
           @remove-set="removeSet(index)"
+          @clone-set="cloneSet(index)"
           @update-meta="onMetaUpdated($event, index)"
           @input="updateSet" />
       </template>
@@ -101,6 +102,13 @@ const addSet = () => {
 const removeSet = (index: number) => {
   values.value.splice(index, 1)
   meta.value.splice(index, 1)
+  updateMeta(meta.value)
+}
+
+const cloneSet = (index: number) => {
+  const item = values.value[index]
+  values.value.splice(index, 0, { ...item, _uuid: generateID() })
+  meta.value.splice(index, 0, { collapsed: false })
   updateMeta(meta.value)
 }
 

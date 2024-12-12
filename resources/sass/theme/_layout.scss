@@ -86,7 +86,7 @@
   }
 }
 
-:where(.buildystrap-module) * {
+:where(.buildystrap-module) > * {
   &:last-child {
     margin-bottom: 0;
   }

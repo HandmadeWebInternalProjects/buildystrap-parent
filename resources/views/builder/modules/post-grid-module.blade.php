@@ -8,7 +8,7 @@
   $taxonomy_term = $module->has('term') ? $module->get('term')->value() : null;
   $taxonomy_relation = $module->has('taxonomy_relation') ? $module->get('taxonomy_relation')->value() : 'AND';
   $term_relation = $module->has('term_relation') ? $module->get('term_relation')->value() : 'AND';
-  $meta_query = $module->has('meta_query') ? $module->get('meta_query')->value() : null;  $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
+  $meta_query = $module->has('meta_query') ? $module->get('meta_query')->value() : null;  
   $limit = $module->has('limit') ? $module->get('limit')->value() : 6;
   $offset_start = $module->has('offset') ? $module->get('offset')->value() : 0;
   $columns = $module->has('columns') ? $module->get('columns')->value() : 3;
@@ -161,20 +161,15 @@
 
 @section('field_content')
   @if ($query->have_posts())
-    @php
-      $posts = $query->posts;
-      wp_reset_query();
-      wp_reset_postdata();
-    @endphp
     <div class="grid {{ $column_str }} {{ $gap }}">
-      @foreach ($posts as $post)
-        @php setup_postdata($post); @endphp
+      @while ($query->have_posts())
+        @php $query->the_post(); @endphp
         <div class="{{ $column_class }}">
           @php 
             echo view()->first($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])->render();
           @endphp
         </div>
-      @endforeach
+      @endwhile
       @php wp_reset_postdata(); @endphp
     </div>
     @if ($enable_pagination)

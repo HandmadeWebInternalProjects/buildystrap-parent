@@ -1,7 +1,8 @@
 :where(.buildystrap-video-background, .buildystrap-video-module) {
   position: relative;
+}
 
-  .video-container {
+:where(.video-container) {
     width: 100%;
     vertical-align: bottom;
     position: relative;
@@ -99,17 +100,12 @@
         }
       }
     }
-  }
-
-  &.is-playing {
-    &:after {
-      visibility: hidden;
-      opacity: 0;
-    }
-    .video-container {
+    &.is-playing {
+      &:after {
+        visibility: hidden;
+        opacity: 0;
+      }
       .video-overlay {
-        // background: var(--bs-white) !important;
-
         &:before {
           opacity: 0;
           visibility: hidden;
@@ -124,4 +120,3 @@
       }
     }
   }
-}
