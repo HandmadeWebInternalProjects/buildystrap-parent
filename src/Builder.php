@@ -429,8 +429,17 @@ class Builder
   {
     $isEnabled = false;
 
-    if (is_archive() || is_search()) {
-      return false;
+    if (is_search()) {
+      return apply_filters('buildystrap::builder_enable_on_search', false);
+    }
+
+    if (is_archive()) {
+      $post_type = get_post_type();
+      $enabled_archives = config('builder.enabled_archives', []);
+
+      if (in_array('all', $enabled_archives) || in_array($post_type, $enabled_archives)) {
+        return true;
+      }
     }
 
     if ($post_id === 0) {
