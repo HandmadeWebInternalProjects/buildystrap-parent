@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { toRefs, ref, watch } from "vue"
+import { toRefs, ref, watch, reactive } from "vue"
 import { useFieldType, commonProps } from "./useFieldType"
 import { useBuilderOptions } from "@/composables/useBuilderOptions"
 
@@ -8,12 +8,21 @@ const props = defineProps({ ...commonProps })
 
 const { handle, config, modelValue } = toRefs(props)
 
-const value = ref(modelValue?.value || { height: "auto" })
+const fields: any = reactive({
+  image: ref(modelValue?.value?.image || []),
+  object_fit: ref(modelValue?.value?.object_fit || ""),
+  object_position: ref(modelValue?.value?.object_position || ""),
+  width: ref(modelValue?.value?.width || ""),
+  height: ref(modelValue?.value?.height || ""),
+  max_width: ref(modelValue?.value?.max_width || ""),
+  max_height: ref(modelValue?.value?.max_height || ""),
+  image_size: ref(modelValue?.value?.image_size || ""),
+})
 
 const emit = defineEmits(["update:modelValue", "updateMeta"])
 const { update } = useFieldType(emit)
 
-watch(value.value, (newValue) => {
+watch(fields, (newValue) => {
   update(newValue)
 })
 </script>
@@ -25,7 +34,7 @@ watch(value.value, (newValue) => {
         <media-field
           handle="image"
           :config="{ multiple: false }"
-          v-model="value['image']" />
+          v-model="fields.image" />
       </div>
 
       <div class="d-flex gap-4">
@@ -38,7 +47,7 @@ watch(value.value, (newValue) => {
             popover: 'Choose how the image should fit within the container.',
             placeholder: 'Default',
           }"
-          v-model="value['object_fit']" />
+          v-model="fields.object_fit" />
         <select-field
           class="flex-grow-1 flex-basis-0"
           handle="object_position"
@@ -59,7 +68,7 @@ watch(value.value, (newValue) => {
               'Choose how the image should be positioned within the container.',
             placeholder: 'Default',
           }"
-          v-model="value['object_position']" />
+          v-model="fields.object_position" />
       </div>
 
       <div class="d-flex gap-4">
@@ -67,24 +76,24 @@ watch(value.value, (newValue) => {
           class="flex-grow-1"
           :config="{ label: 'Width' }"
           handle="width"
-          v-model="value['width']" />
+          v-model="fields.width" />
         <text-field
           class="flex-grow-1"
           handle="height"
           :config="{ label: 'Height' }"
-          v-model="value['height']" />
+          v-model="fields.height" />
       </div>
       <div class="d-flex gap-4">
         <text-field
           class="flex-grow-1"
           handle="max_width"
           :config="{ label: 'Max Width' }"
-          v-model="value['max_width']" />
+          v-model="fields.max_width" />
         <text-field
           class="flex-grow-1"
           handle="max_height"
           :config="{ label: 'Max Height' }"
-          v-model="value['max_height']" />
+          v-model="fields.max_height" />
       </div>
       <div>
         <select-field
@@ -97,7 +106,7 @@ watch(value.value, (newValue) => {
               'Optionally choose a WordPress image size (crop) to use for this image.',
             placeholder: 'Default',
           }"
-          v-model="value['image_size']" />
+          v-model="fields.image_size" />
       </div>
     </template>
   </bs-card>

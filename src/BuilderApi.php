@@ -35,6 +35,12 @@ class BuilderApi
       'permission_callback' => '__return_true',
     ]);
 
+    register_rest_route('buildy/v1', '/types', [
+      'methods' => 'GET',
+      'callback' => [static::class, 'getTypes'],
+      'permission_callback' => fn() => true
+    ]);
+
         // register rest route to render a page html by an ID passed in the request
 
         register_rest_route('buildy/v1', '/get_image_sizes', [
@@ -204,4 +210,27 @@ class BuilderApi
       'data' => $result,
     ]);
     }
+
+  public static function getTypes(\WP_REST_Request $request)
+  {
+    $types = get_post_types([
+      'public' => true
+    ]);
+
+    if (!$types) {
+      return new \WP_REST_Response('No post types found.', 404);
+    }
+
+    // Return an array of post types with the name and slug
+    $types = array_map(function ($type) {
+      return [
+        'slug' => $type
+      ];
+    }, $types);
+
+    return new \WP_REST_Response(
+      $types,
+      200
+    );
+  }
 }

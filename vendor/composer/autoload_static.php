@@ -347,8 +347,8 @@ class ComposerStaticInit87424cbf936a2d4a85e945feda3da974
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -614,6 +614,7 @@ class ComposerStaticInit87424cbf936a2d4a85e945feda3da974
         'Buildystrap\\Builder\\Extends\\Module' => __DIR__ . '/../..' . '/src/Builder/Extends/Module.php',
         'Buildystrap\\Builder\\Fields\\AccordionField' => __DIR__ . '/../..' . '/src/Builder/Fields/AccordionField.php',
         'Buildystrap\\Builder\\Fields\\ButtonField' => __DIR__ . '/../..' . '/src/Builder/Fields/ButtonField.php',
+        'Buildystrap\\Builder\\Fields\\CheckboxesField' => __DIR__ . '/../..' . '/src/Builder/Fields/CheckboxesField.php',
         'Buildystrap\\Builder\\Fields\\CodeField' => __DIR__ . '/../..' . '/src/Builder/Fields/CodeField.php',
         'Buildystrap\\Builder\\Fields\\ColorSelectField' => __DIR__ . '/../..' . '/src/Builder/Fields/ColorSelectField.php',
         'Buildystrap\\Builder\\Fields\\GroupField' => __DIR__ . '/../..' . '/src/Builder/Fields/GroupField.php',
@@ -624,6 +625,7 @@ class ComposerStaticInit87424cbf936a2d4a85e945feda3da974
         'Buildystrap\\Builder\\Fields\\RelationalField' => __DIR__ . '/../..' . '/src/Builder/Fields/RelationalField.php',
         'Buildystrap\\Builder\\Fields\\ReplicatorField' => __DIR__ . '/../..' . '/src/Builder/Fields/ReplicatorField.php',
         'Buildystrap\\Builder\\Fields\\RichTextField' => __DIR__ . '/../..' . '/src/Builder/Fields/RichTextField.php',
+        'Buildystrap\\Builder\\Fields\\RowField' => __DIR__ . '/../..' . '/src/Builder/Fields/RowField.php',
         'Buildystrap\\Builder\\Fields\\SectionField' => __DIR__ . '/../..' . '/src/Builder/Fields/SectionField.php',
         'Buildystrap\\Builder\\Fields\\SelectField' => __DIR__ . '/../..' . '/src/Builder/Fields/SelectField.php',
         'Buildystrap\\Builder\\Fields\\TabField' => __DIR__ . '/../..' . '/src/Builder/Fields/TabField.php',
@@ -2407,6 +2409,7 @@ class ComposerStaticInit87424cbf936a2d4a85e945feda3da974
         'Monolog\\Handler\\WebRequestRecognizerTrait' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/WebRequestRecognizerTrait.php',
         'Monolog\\Handler\\WhatFailureGroupHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/WhatFailureGroupHandler.php',
         'Monolog\\Handler\\ZendMonitorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/ZendMonitorHandler.php',
+        'Monolog\\JsonSerializableDateTimeImmutable' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/JsonSerializableDateTimeImmutable.php',
         'Monolog\\Level' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Level.php',
         'Monolog\\LogRecord' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/LogRecord.php',
         'Monolog\\Logger' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Logger.php',

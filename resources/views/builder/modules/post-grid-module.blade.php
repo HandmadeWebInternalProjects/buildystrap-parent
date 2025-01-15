@@ -166,7 +166,7 @@
         @php $query->the_post(); @endphp
         <div class="{{ $column_class }}">
           @php 
-            echo view()->first($template_part, ['post' => $post, 'taxonomy' => $taxonomy_slug, 'class' => $template_class])->render();
+            echo view()->first($template_part, ['post' => get_post(get_the_ID()), 'taxonomy' => $taxonomy_slug, 'class' => $template_class])->render();
           @endphp
         </div>
       @endwhile

@@ -315,7 +315,7 @@ if (!function_exists('get_slider_options_v2')) {
   function get_slider_options_v2($module)
   {
     // Directly fetch values with fallbacks
-    $slider_settings = optional($module->get('slider_settings'))->value() ?? [];
+    $slider_settings = optional($module->get('slider_settings'))->value() ?? collect([]);
     $slidesPerView = optional($slider_settings->get('slidesPerView'))->value() ?? [];
     $spaceBetween = optional($slider_settings->get('spaceBetween'))->value() ?? [];
     $additional_settings = optional($slider_settings->get('additional_settings'))->value() ?? [];
@@ -619,5 +619,25 @@ if (!function_exists('get_sub_fields')) {
       }
     }
     return $sub_fields;
+  }
+}
+
+if (!function_exists('getViewComponents')) {
+  function getViewComponents($dir, $baseNamespace = '')
+  {
+    $components = [];
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+
+    foreach ($iterator as $file) {
+      if ($file->isFile() && $file->getExtension() === 'php') {
+        $componentName = basename($file->getFilename(), '.blade.php');
+        $componentPath = str_replace(get_stylesheet_directory() . '/resources/views/', '', $file->getPathname());
+        $componentPath = str_replace('/', '.', $componentPath);
+        $componentPath = str_replace('.blade.php', '', $componentPath);
+        $components[$componentName] = $componentPath;
+      }
+    }
+
+    return $components;
   }
 }

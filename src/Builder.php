@@ -437,14 +437,14 @@ class Builder
       $post_type = get_post_type();
       $enabled_archives = config('builder.enabled_archives', []);
 
-      if (in_array('all', $enabled_archives) || in_array($post_type, $enabled_archives)) {
-        return true;
-      }
+      return (in_array('all', $enabled_archives) || in_array($post_type, $enabled_archives));
     }
 
     if ($post_id === 0) {
       $post_id = get_the_ID();
     }
+
+    // dd($post_id);
 
     if (is_admin()) {
       $screen = get_current_screen();

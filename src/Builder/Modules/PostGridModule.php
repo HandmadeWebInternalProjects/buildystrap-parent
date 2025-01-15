@@ -15,7 +15,7 @@ class PostGridModule extends Module
           'type' => 'relational-field',
           'config' => [
             'label' => 'Post Type',
-            'endpoint' => 'wp/v2/types',
+            'endpoint' => 'buildy/v1/types',
             'return_value' => 'slug',
             'return_label' => 'slug',
             'allow_null' => true,
