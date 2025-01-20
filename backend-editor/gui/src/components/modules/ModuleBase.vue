@@ -40,6 +40,28 @@ const blueprint = getModuleBlueprintForType(component.value.type)
 const isGlobalModule = computed((): boolean => {
   return component.value.type.includes("global")
 })
+
+const customSettings = isGlobalModule.value
+  ? {
+      ...props.customSettings,
+      clone: false,
+      clipboardCopy: false,
+      goToGlobal: {
+        icon: ["fas", "arrow-up-right-from-square"],
+        title: "Jump to this global module in a new tab",
+        action: () =>
+          // check if window has .open method
+          window.open
+            ? window.open(
+                `/wp-admin/post.php?post=${props.component?.global_id}&action=edit&classic-editor`,
+                "_blank"
+              )
+            : (window.location.href = `/wp-admin/post.php?post=${props.component?.global_id}&action=edit&classic-editor`),
+
+        order: 10,
+      },
+    }
+  : { ...props.customSettings }
 </script>
 <template>
   <div
@@ -60,7 +82,8 @@ const isGlobalModule = computed((): boolean => {
         </span>
       </div>
       <module-controls
-        class="justify-content-center bg-700 text-white position-absolute end-0 me-2 opacity-0 opacity-md-1 opacity-100-hover transition-opacity"
+        class="justify-content-center text-white position-absolute end-0 me-2 opacity-0 opacity-md-1 opacity-100-hover transition-opacity"
+        :class="[isGlobalModule ? 'bg-purple-600' : 'bg-700']"
         direction="row"
         :component="component"
         :value="parentArray"

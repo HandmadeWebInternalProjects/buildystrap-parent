@@ -93,8 +93,9 @@ const columnCount = computed({
 
 onMounted(() => {
   // Check if config.value.columnCount exists and is of type object else make it an object
+  // Backwards compatibility :(
   if (columnCount.value && typeof columnCount.value !== "object") {
-    columnCount.value = reactive({ md: 12 })
+    columnCount.value = reactive({ md: columnCount.value })
   }
 })
 </script>
