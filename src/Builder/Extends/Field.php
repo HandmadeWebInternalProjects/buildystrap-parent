@@ -61,6 +61,12 @@ abstract class Field implements Htmlable
     return $this->augmented()->value;
   }
 
+  public function set(string $key, mixed $value): self
+  {
+    $this->augmented()->$key = $value;
+    return $this;
+  }
+
   public static function process_merge_tags($input_string)
   {
     preg_match_all('/{([^}|]+)(\|[^}]+)?}/', $input_string, $matches);

@@ -26,6 +26,7 @@ use Buildystrap\Builder\Fields\TitleField;
 use Buildystrap\Builder\Fields\ToggleField;
 use Buildystrap\Builder\Fields\SectionField;
 use Buildystrap\Builder\Fields\RowField;
+use Buildystrap\Builder\Fields\PlaceholderField;
 use Buildystrap\Builder\Layout\Container;
 use Buildystrap\Builder\Modules\AccordionModule;
 use Buildystrap\Builder\Modules\ButtonModule;
@@ -89,6 +90,7 @@ class Builder
     'section-field' => SectionField::class,
     'row-field' => RowField::class,
     'group-field' => GroupField::class,
+    'placeholder-field' => PlaceholderField::class,
   ];
 
   protected static array $modules = [
@@ -188,6 +190,11 @@ class Builder
     static::$fields[Str::slug($handle)] = $field;
 
     return static::fields();
+  }
+
+  public static function deRegisterField(string $handle): void
+  {
+    Arr::forget(static::$fields, Str::slug($handle));
   }
 
   public static function fields(): array
@@ -366,6 +373,11 @@ class Builder
     static::$modules[Str::slug($handle)] = $module;
 
     return static::modules();
+  }
+
+  public static function deRegisterModule(string $handle): void
+  {
+    Arr::forget(static::$modules, Str::slug($handle));
   }
 
   public static function moduleBlueprints(): Collection

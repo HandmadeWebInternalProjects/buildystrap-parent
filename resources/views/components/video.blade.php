@@ -20,7 +20,14 @@ $params = collect(compact('fullscreen', 'background', 'autoplay', 'mute', 'plays
 })->implode('&');
 
 // Instantiate the context with the default factory
-$context = new EmbedContext(url: $video_url);
+
+try {
+  $context = new EmbedContext(url: $video_url);
+} catch (\Exception $e) {
+  echo 'Huh, something went wrong. Please check the video URL.';
+  return;
+}
+
 
 $video_type = $context->getVideoType();
 

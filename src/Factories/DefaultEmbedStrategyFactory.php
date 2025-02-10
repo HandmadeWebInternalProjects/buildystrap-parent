@@ -32,6 +32,7 @@ class DefaultEmbedStrategyFactory implements EmbedStrategyFactory
       }
     }
 
-    throw new \InvalidArgumentException('Unsupported embed type');
+    // log instead of throwing an exception
+    throw new \Exception('Unsupported embed type');
   }
 }

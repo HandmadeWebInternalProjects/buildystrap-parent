@@ -79,6 +79,7 @@
         array_push($args['tax_query'], [
           'taxonomy' => $slug,
           'field' => 'term_id',
+          'operator' => $term_relation,
           'terms' => collect($terms)->toArray(),
         ]);
       }
