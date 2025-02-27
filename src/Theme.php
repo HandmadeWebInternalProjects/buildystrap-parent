@@ -139,6 +139,9 @@ class Theme
     $enable_bugherd = bs_get_field('buildystrap_debug_enable_bugherd', 'option');
     $bugherd_api_key = bs_get_field('buildystrap_debug_bugherd_api_key', 'option');
 
+    // Vimeo Player -- Now required as we have updated the Vimeo Embed Strategy
+    wp_enqueue_script('vimeo-player', 'https://player.vimeo.com/api/player.js', [], '', true);
+
     if ($enable_bugherd && $bugherd_api_key) {
       wp_enqueue_script('bugherd-async', 'https://www.bugherd.com/sidebarv2.js?apikey=' . $bugherd_api_key, [], '', false);
     }

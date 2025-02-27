@@ -7,9 +7,11 @@ use Buildystrap\Interfaces\EmbedStrategy;
 class VimeoStrategy implements EmbedStrategy
 {
   private $id;
+  private $url;
 
   public function __construct($url)
   {
+    $this->url = $url;
     $this->id = $this->extractIdFromUrl($url);
   }
 
@@ -30,7 +32,15 @@ class VimeoStrategy implements EmbedStrategy
 
   public function embed($params = '')
   {
-    return "<iframe src='{$this->embedUrl($params)}' width='100%' height='400' frameborder='0' allow='autoplay; fullscreen' allowfullscreen></iframe>";
+    $oEmbedData = $this->getOembedData($this->url, $params);
+
+    if (empty($oEmbedData)) {
+      return '';
+    }
+
+    $html = $oEmbedData->html;
+
+    return $html;
   }
 
   public function embedURL($params = '')
@@ -53,5 +63,20 @@ class VimeoStrategy implements EmbedStrategy
       $video_id = substr(parse_url($url, PHP_URL_PATH), 1);
     }
     return $video_id;
+  }
+
+  public function getOembedData($url, $params)
+  {
+    $oembed_api = "https://vimeo.com/api/oembed.json?url={$url}&{$params}";
+
+    $response = wp_remote_get($oembed_api);
+
+    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+      return '';
+    }
+
+    $response_body = wp_remote_retrieve_body($response);
+
+    return json_decode($response_body);
   }
 }

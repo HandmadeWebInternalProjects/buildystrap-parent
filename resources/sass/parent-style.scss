@@ -560,16 +560,18 @@ $utilities: map-merge(
   row-gap: var(--bs-gutter-y, var(--bs-row-gap));
 }
 
-.hide-sm {
-  @include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
+  .hide-sm {
     display: none !important;
   }
 }
+
 @include media-breakpoint-only(md) {
   .hide-md {
     display: none !important;
   }
 }
+
 @include media-breakpoint-up(lg) {
   .hide-lg {
     display: none !important;
