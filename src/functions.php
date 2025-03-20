@@ -32,10 +32,10 @@ function custom_logo($url = null, $svg = null)
 
     <?php
     if (is_front_page() && is_home()) : ?>
-      <h1 class="navbar-brand"><a rel="home" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a></h1>
+      <h1 class="navbar-brand"><a rel="home" aria-label="<?php bloginfo('name'); ?>" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a></h1>
     <?php
     else : ?>
-      <a class="navbar-brand" rel="home" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
+      <a class="navbar-brand" rel="home" aria-label="<?php bloginfo('name'); ?>" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
     <?php
     endif; ?>
 
