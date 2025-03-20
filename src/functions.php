@@ -43,13 +43,15 @@ function custom_logo($url = null, $svg = null)
   } else {
     if (isset($svg) && $svg) {
       echo sprintf(
-        '<a class="navbar-brand" href="%s">%s</a>',
+        '<a class="navbar-brand" aria-label="%s" href="%s">%s</a>',
+		    $custom_logo['alt'],
         esc_url(isset($url) ? $url : home_url('/')),
         get_svg_url($custom_logo['url'])
       );
     } else {
       echo sprintf(
-        '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+        '<a class="navbar-brand" aria-label="%s" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+		    $custom_logo['alt'],
         esc_url(isset($url) ? $url : home_url('/')),
         $custom_logo['url'],
         $custom_logo['alt']
