@@ -365,3 +365,22 @@ $utilities: map-merge(
     opacity: 1 !important;
   }
 }
+
+.buildy-section.hidden-sm,
+.buildy-section.hidden-md,
+.buildy-section.hidden-lg {
+  opacity: 0.75;
+  position: relative;
+  margin-top: 1.5em;
+  &::before{
+    content: attr(data-visibility-label);
+    position: absolute;
+    top: calc(-1.5em - 2px);
+    left: 0;
+    border: 1px solid #6612f2;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    background: #e8ebed;
+    padding: 2px 2px 0 2px;
+  }
+}

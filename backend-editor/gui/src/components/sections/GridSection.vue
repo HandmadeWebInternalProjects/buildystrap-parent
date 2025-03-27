@@ -25,6 +25,16 @@ const parentArray = ref(props.parentArray || [])
 const customSettings = ref(props.customSettings)
 const sectionIndex = computed(() => props.sectionIndex || 0)
 const rows = ref(props.component?.rows || [])
+const visibility = section?.value?.config?.visibility
+var visibility_classes = '';
+var visibility_label = '';
+if(visibility){
+  visibility_label = 'Hidden on '
+  visibility.forEach((item: any) => {
+    visibility_classes += ' hidden-' + item
+    visibility_label += item + ' '
+  })
+}
 
 import { createModule } from "../../factories/modules/moduleFactory"
 
@@ -42,7 +52,7 @@ const handleDrop = (to: any, from: any, el: any) => {
 </script>
 
 <template>
-  <div class="buildy-section d-flex bg-200 rounded">
+  <div class="buildy-section d-flex bg-200 rounded" :class="visibility_classes" :data-visibility-label="visibility_label">
     <div
       class="sortable-handle absolute top-0 left-0 h-full bg-indigo-500 rounded-start">
       <module-controls
