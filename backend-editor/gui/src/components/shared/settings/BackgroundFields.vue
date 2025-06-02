@@ -148,7 +148,7 @@ watch(background, (val: any) => {
         label: 'Wordpress Image Size (crop)',
         options: getImageSizes(),
       }"
-      v-model="background.image['size'][bp]" /> 
+      v-model="background.image['image-size'][bp]" /> 
 
     <select-field
       class="g-col-12 flex-grow-1 flex-basis-0"
