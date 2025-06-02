@@ -6,7 +6,7 @@
     $classes[] = $background['background_element_class'];
   }
 
-  $wp_image_size = $background['image']['size'] ?? 'full';
+  $wp_image_size = $background['image']['image-size'] ?? 'full';
   
   foreach ($background['image']['id'] ?? [] as $breakpoint => $value) {
     $imageUrl = collect($value)
