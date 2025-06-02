@@ -16,6 +16,7 @@ const fields: any = reactive({
   height: ref(modelValue?.value?.height || ""),
   max_width: ref(modelValue?.value?.max_width || ""),
   max_height: ref(modelValue?.value?.max_height || ""),
+  aspect_ratio: ref(modelValue?.value?.aspect_ratio || ""),
   image_size: ref(modelValue?.value?.image_size || ""),
 })
 
@@ -94,6 +95,27 @@ watch(fields, (newValue) => {
           handle="max_height"
           :config="{ label: 'Max Height' }"
           v-model="fields.max_height" />
+      </div>
+      <div>
+        <select-field
+          class="flex-grow-1 flex-basis-0"
+          handle="aspect_ratio"
+          :config="{
+            label: 'Image Aspect Ratio',
+            options: [
+              { value: '1/1', label: '1/1' },
+              { value: '16/9', label: '16/9' },
+              { value: '4/3', label: '4/3' },
+              { value: '3/2', label: '3/2' },
+              { value: '1/1', label: '1/1' },
+              { value: '3/4', label: '3/4' },
+              { value: '2/3', label: '2/3' },
+              { value: '9/16', label: '9/16' },
+            ],
+            taggable: true,
+            placeholder: 'Default',
+          }"
+          v-model="fields.aspect_ratio" />
       </div>
       <div>
         <select-field

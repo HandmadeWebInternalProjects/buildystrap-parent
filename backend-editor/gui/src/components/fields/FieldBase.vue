@@ -86,6 +86,18 @@ const fieldValue = computed({
   },
 })
 
+const enablePopovers = () => {
+  const popoverTriggerList: any =
+    root?.value && root.value.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList: any = [...popoverTriggerList].map(
+    (popoverTriggerEl) =>
+      new Popover(popoverTriggerEl, {
+        placement: "right",
+        trigger: "focus",
+      })
+  )
+}
+
 const showField = computed(() => {
   if (!props.field.config) return true
   const validator = new Validator(props?.field?.config, value.value, {}, "base")
@@ -99,15 +111,7 @@ const updateMeta = (meta: any) => {
 watch(showField, async (val) => {
   if (val) {
     await nextTick()
-    const popoverTriggerList: any =
-      root?.value && root.value.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList: any = [...popoverTriggerList].map(
-      (popoverTriggerEl) =>
-        new Popover(popoverTriggerEl, {
-          placement: "right",
-          trigger: "focus",
-        })
-    )
+    enablePopovers()
   }
 })
 
@@ -115,7 +119,7 @@ onMounted(() => {
   /**
    * Checks if the field is responsive and initializes the value for the specified breakpoint.
    * If the value for the specified breakpoint is not set, it uses the default value from the field configuration.
-   * 
+   *
    * @param {Object} props - The component props.
    * @param {Object} value - The value object.
    * @param {string} handle - The field handle.
@@ -135,6 +139,8 @@ onMounted(() => {
         : value.value[props.handle]
     }
   }
+
+  enablePopovers()
 })
 </script>
 

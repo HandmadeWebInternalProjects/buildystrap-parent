@@ -6,10 +6,12 @@
     $classes[] = $background['background_element_class'];
   }
 
+  $wp_image_size = $background['image']['size'] ?? 'full';
+  
   foreach ($background['image']['id'] ?? [] as $breakpoint => $value) {
     $imageUrl = collect($value)
       ->take(1)
-      ->map(fn ($image) => wp_get_attachment_url($image['id']))
+      ->map(fn ($image) => wp_get_attachment_image_url($image['id'], $wp_image_size[$breakpoint]))
       ->first();
 
     if (!empty($imageUrl)) {

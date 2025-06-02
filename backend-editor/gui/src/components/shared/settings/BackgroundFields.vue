@@ -2,6 +2,7 @@
 import { reactive, watch } from "vue"
 import { useFieldType } from "../../fields/useFieldType"
 import { useBreakpoints } from "../../../composables/useBreakpoints"
+import { useBuilderOptions } from "@/composables/useBuilderOptions"
 
 const props = defineProps({
   config: {
@@ -16,6 +17,8 @@ const props = defineProps({
 })
 
 const { bp } = useBreakpoints(props.breakpointHandle)
+
+const { getImageSizes } = useBuilderOptions()
 
 const emit = defineEmits(["update:modelValue"])
 const { update, filterOutEmptyValues, responsivePlaceholder } =
@@ -32,10 +35,12 @@ const background: any = reactive({
     position: {
       ...(props.modelValue?.image?.position || {}),
     },
+    "image-size": {
+      ...(props.modelValue?.image?.["image-size"] || {}),
+    },
     "blend-mode": {
       ...(props.modelValue?.image?.["blend-mode"] || {}),
     },
-
     repeat: {
       ...(props.modelValue?.image?.repeat || {}),
     },
@@ -134,6 +139,17 @@ watch(background, (val: any) => {
         }"
         v-model="background.image['repeat'][bp]" />
     </div>
+
+    <select-field
+      class="g-col-12 flex-grow-1 flex-basis-0"
+      handle="image-size"
+      :placeholder="responsivePlaceholder(background.image, 'size', bp)"
+      :config="{
+        label: 'Wordpress Image Size (crop)',
+        options: getImageSizes(),
+      }"
+      v-model="background.image['size'][bp]" /> 
+
     <select-field
       class="g-col-12 flex-grow-1 flex-basis-0"
       handle="blend-mode"
