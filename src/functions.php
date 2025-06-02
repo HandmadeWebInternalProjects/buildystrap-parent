@@ -32,10 +32,10 @@ function custom_logo($url = null, $svg = null)
 
     <?php
     if (is_front_page() && is_home()) : ?>
-      <h1 class="navbar-brand"><a rel="home" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a></h1>
+      <h1 class="navbar-brand"><a rel="home" aria-label="<?php bloginfo('name'); ?>" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a></h1>
     <?php
     else : ?>
-      <a class="navbar-brand" rel="home" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
+      <a class="navbar-brand" rel="home" aria-label="<?php bloginfo('name'); ?>" href="<?php echo esc_url(isset($url) ? $url : home_url('/')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
     <?php
     endif; ?>
 
@@ -43,13 +43,15 @@ function custom_logo($url = null, $svg = null)
   } else {
     if (isset($svg) && $svg) {
       echo sprintf(
-        '<a class="navbar-brand" href="%s">%s</a>',
+        '<a class="navbar-brand" aria-label="%s" href="%s">%s</a>',
+		    $custom_logo['alt'],
         esc_url(isset($url) ? $url : home_url('/')),
         get_svg_url($custom_logo['url'])
       );
     } else {
       echo sprintf(
-        '<a class="navbar-brand" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+        '<a class="navbar-brand" aria-label="%s" href="%s"><img class="site-logo" src="%s" alt="%s" /></a>',
+		    $custom_logo['alt'],
         esc_url(isset($url) ? $url : home_url('/')),
         $custom_logo['url'],
         $custom_logo['alt']
