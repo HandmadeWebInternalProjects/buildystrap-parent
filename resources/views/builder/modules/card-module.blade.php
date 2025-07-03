@@ -16,11 +16,12 @@
 
 @section('field_content')
     <div class="card-image">
-        @if($module->has('image'))
+        @if($module->has('image') && $module->get('image')->value() && !empty(collect($module->get('image')->value())->first()))
           @php
           $aspect_ratio = $module->get('image_aspect_ratio') ? "aspect-ratio: {$module->get('image_aspect_ratio')};" : '';
+          $image = collect($module->get('image')->value())->first();
           @endphp
-          {!! wp_get_attachment_image(collect($module->get('image')->value())->first()['id'], 'medium', '', ['class' => 'card-img object-cover h-auto', 'style' => $aspect_ratio]) !!}
+          {!! wp_get_attachment_image($image['id'] ?? null, 'medium', '', ['class' => 'card-img object-cover h-auto', 'style' => $aspect_ratio]) !!}
         @endif
     </div>
 

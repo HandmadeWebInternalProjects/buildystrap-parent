@@ -16,12 +16,12 @@ const addItem = () => {
 
 const removeItem = (uuid: string) => {
   if (confirm("Are you sure you want to delete this item?")) {
-    values.value = values.value.filter((el) => el._uuid !== uuid)
+    values.value = values.value.filter((el: any) => el._uuid !== uuid)
   }
 }
 
 const cloneItem = (uuid: string) => {
-  const item = values.value.find((el) => el._uuid === uuid)
+  const item = values.value.find((el: any) => el._uuid === uuid)
   values.value = [...values.value, { ...item, _uuid: generateID() }]
 }
 

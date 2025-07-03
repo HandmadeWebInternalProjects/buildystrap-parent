@@ -76,9 +76,10 @@ const changeLayout = (layout: number[]) => {
     })
   }
 
-  if (!row.value.config.columnCount) {
+  if (!row.value.config.columnCount || typeof row.value.config.columnCount !== "object") {
     row.value.config.columnCount = {}
   }
+
   row.value.config.columnCount.md = layout.reduce((a, b) => a + +b, 0)
 
   //   console.log(
