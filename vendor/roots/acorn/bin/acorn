@@ -1,8 +1,10 @@
 #!/usr/bin/env php
 <?php
 
+define('USING_ACORN_CLI', true);
+
 (static function () {
-    if (! is_file($autoloadPath = dirname(__DIR__, 4) . '/vendor/autoload.php')) {
+    if (!is_file($autoloadPath = dirname(__DIR__, 4) . '/vendor/autoload.php')) {
         $autoloadPath = dirname(__DIR__) . '/vendor/autoload.php';
     }
 
@@ -22,5 +24,5 @@
 
     require_once "{$rootPath}/{$composer['extra']['wordpress-install-dir']}/wp-blog-header.php";
 
-    Roots\Acorn\Bootloader::getInstance()->boot();
+    Roots\Acorn\Application::configure()->boot();
 })();

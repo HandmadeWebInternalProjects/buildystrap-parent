@@ -3,7 +3,6 @@
 namespace Illuminate\Database;
 
 use Exception;
-use Illuminate\Database\PDO\SQLiteDriver;
 use Illuminate\Database\Query\Grammars\SQLiteGrammar as QueryGrammar;
 use Illuminate\Database\Query\Processors\SQLiteProcessor;
 use Illuminate\Database\Schema\Grammars\SQLiteGrammar as SchemaGrammar;
@@ -14,27 +13,11 @@ use Illuminate\Filesystem\Filesystem;
 class SQLiteConnection extends Connection
 {
     /**
-     * Create a new database connection instance.
-     *
-     * @param  \PDO|\Closure  $pdo
-     * @param  string  $database
-     * @param  string  $tablePrefix
-     * @param  array  $config
-     * @return void
+     * {@inheritdoc}
      */
-    public function __construct($pdo, $database = '', $tablePrefix = '', array $config = [])
+    public function getDriverTitle()
     {
-        parent::__construct($pdo, $database, $tablePrefix, $config);
-
-        $enableForeignKeyConstraints = $this->getForeignKeyConstraintsConfigurationValue();
-
-        if ($enableForeignKeyConstraints === null) {
-            return;
-        }
-
-        $enableForeignKeyConstraints
-            ? $this->getSchemaBuilder()->enableForeignKeyConstraints()
-            : $this->getSchemaBuilder()->disableForeignKeyConstraints();
+        return 'SQLite';
     }
 
     /**
@@ -68,9 +51,7 @@ class SQLiteConnection extends Connection
      */
     protected function getDefaultQueryGrammar()
     {
-        ($grammar = new QueryGrammar)->setConnection($this);
-
-        return $this->withTablePrefix($grammar);
+        return new QueryGrammar($this);
     }
 
     /**
@@ -94,9 +75,7 @@ class SQLiteConnection extends Connection
      */
     protected function getDefaultSchemaGrammar()
     {
-        ($grammar = new SchemaGrammar)->setConnection($this);
-
-        return $this->withTablePrefix($grammar);
+        return new SchemaGrammar($this);
     }
 
     /**
@@ -120,25 +99,5 @@ class SQLiteConnection extends Connection
     protected function getDefaultPostProcessor()
     {
         return new SQLiteProcessor;
-    }
-
-    /**
-     * Get the Doctrine DBAL driver.
-     *
-     * @return \Illuminate\Database\PDO\SQLiteDriver
-     */
-    protected function getDoctrineDriver()
-    {
-        return new SQLiteDriver;
-    }
-
-    /**
-     * Get the database connection foreign key constraints configuration option.
-     *
-     * @return bool|null
-     */
-    protected function getForeignKeyConstraintsConfigurationValue()
-    {
-        return $this->getConfig('foreign_key_constraints');
     }
 }

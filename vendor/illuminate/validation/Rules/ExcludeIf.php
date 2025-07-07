@@ -4,8 +4,9 @@ namespace Illuminate\Validation\Rules;
 
 use Closure;
 use InvalidArgumentException;
+use Stringable;
 
-class ExcludeIf
+class ExcludeIf implements Stringable
 {
     /**
      * The condition that validates the attribute.
@@ -18,7 +19,6 @@ class ExcludeIf
      * Create a new exclude validation rule based on a condition.
      *
      * @param  \Closure|bool  $condition
-     * @return void
      *
      * @throws \InvalidArgumentException
      */

@@ -32,7 +32,6 @@ class AcornServiceProvider extends ServiceProvider
         \Illuminate\Queue\QueueServiceProvider::class => 'queue',
         \Illuminate\Session\SessionServiceProvider::class => 'session',
         \Illuminate\View\ViewServiceProvider::class => 'view',
-        \Laravel\Sanctum\SanctumServiceProvider::class => 'sanctum',
         \Roots\Acorn\Assets\AssetsServiceProvider::class => 'assets',
     ];
 
@@ -43,7 +42,7 @@ class AcornServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerConfigs();
+        //
     }
 
     /**
@@ -57,20 +56,28 @@ class AcornServiceProvider extends ServiceProvider
             $this->registerPublishables();
             $this->registerPostInitEvent();
         }
+
+        $this->poweredBy();
     }
 
     /**
-     * Register application configs.
+     * Add a header.
+     *
+     * Disable with `add_filter('acorn/powered_by', '__return_false');`
      *
      * @return void
      */
-    protected function registerConfigs()
+    protected function poweredBy()
     {
-        $configs = array_merge($this->configs, array_values($this->providerConfigs));
+        add_filter('wp_headers', function ($headers) {
+            if (! apply_filters('acorn/powered_by', true)) {
+                return $headers;
+            }
 
-        foreach ($configs as $config) {
-            $this->mergeConfigFrom(dirname(__DIR__, 4)."/config/{$config}.php", $config);
-        }
+            $headers['X-Powered-By'] = $this->app->version();
+
+            return $headers;
+        });
     }
 
     /**
@@ -91,8 +98,14 @@ class AcornServiceProvider extends ServiceProvider
     protected function publishConfigs()
     {
         foreach ($this->filterPublishableConfigs() as $config) {
+            $path = dirname(__DIR__, 4);
+
+            $file = file_exists($stub = "{$path}/config-stubs/{$config}.php")
+                ? $stub
+                : "{$path}/config/{$config}.php";
+
             $this->publishes([
-                dirname(__DIR__, 4)."/config/{$config}.php" => config_path("{$config}.php"),
+                $file => config_path("{$config}.php"),
             ], ['acorn', 'acorn-configs']);
         }
     }
@@ -129,7 +142,7 @@ class AcornServiceProvider extends ServiceProvider
                 return;
             }
 
-            $files = new Filesystem();
+            $files = new Filesystem;
 
             $files->deleteDirectory(WP_CONTENT_DIR.'/cache/acorn');
         });

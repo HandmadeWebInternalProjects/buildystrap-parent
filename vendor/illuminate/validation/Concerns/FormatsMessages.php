@@ -84,8 +84,8 @@ trait FormatsMessages
         $inlineEntry = $this->getFromLocalArray($attribute, Str::snake($rule));
 
         return is_array($inlineEntry) && in_array($rule, $this->sizeRules)
-                    ? $inlineEntry[$this->getAttributeType($attribute)]
-                    : $inlineEntry;
+            ? $inlineEntry[$this->getAttributeType($attribute)]
+            : $inlineEntry;
     }
 
     /**
@@ -126,8 +126,8 @@ trait FormatsMessages
                 if (Str::is($sourceKey, $key)) {
                     $message = $source[$sourceKey];
 
-                    if ($sourceKey === $attribute && is_array($message) && isset($message[$lowerRule])) {
-                        return $message[$lowerRule];
+                    if ($sourceKey === $attribute && is_array($message)) {
+                        return $message[$lowerRule] ?? null;
                     }
 
                     return $message;
@@ -221,7 +221,7 @@ trait FormatsMessages
         // list doesn't have it we'll just consider it a string by elimination.
         return match (true) {
             $this->hasRule($attribute, $this->numericRules) => 'numeric',
-            $this->hasRule($attribute, ['Array']) => 'array',
+            $this->hasRule($attribute, ['Array', 'List']) => 'array',
             $this->getValue($attribute) instanceof UploadedFile,
             $this->getValue($attribute) instanceof File => 'file',
             default => 'string',
@@ -267,21 +267,22 @@ trait FormatsMessages
         $primaryAttribute = $this->getPrimaryAttribute($attribute);
 
         $expectedAttributes = $attribute != $primaryAttribute
-                    ? [$attribute, $primaryAttribute] : [$attribute];
+            ? [$attribute, $primaryAttribute]
+            : [$attribute];
 
         foreach ($expectedAttributes as $name) {
             // The developer may dynamically specify the array of custom attributes on this
             // validator instance. If the attribute exists in this array it is used over
             // the other ways of pulling the attribute name for this given attributes.
-            if (isset($this->customAttributes[$name])) {
-                return $this->customAttributes[$name];
+            if ($inlineAttribute = $this->getAttributeFromLocalArray($name)) {
+                return $inlineAttribute;
             }
 
             // We allow for a developer to specify language lines for any attribute in this
             // application, which allows flexibility for displaying a unique displayable
             // version of the attribute name instead of the name used in an HTTP POST.
-            if ($line = $this->getAttributeFromTranslations($name)) {
-                return $line;
+            if ($translatedAttribute = $this->getAttributeFromTranslations($name)) {
+                return $translatedAttribute;
             }
         }
 
@@ -290,8 +291,8 @@ trait FormatsMessages
         // modify it with any of these replacements before we display the name.
         if (isset($this->implicitAttributes[$primaryAttribute])) {
             return ($formatter = $this->implicitAttributesFormatter)
-                            ? $formatter($attribute)
-                            : $attribute;
+                ? $formatter($attribute)
+                : $attribute;
         }
 
         return str_replace('_', ' ', Str::snake($attribute));
@@ -301,11 +302,41 @@ trait FormatsMessages
      * Get the given attribute from the attribute translations.
      *
      * @param  string  $name
-     * @return string
+     * @return string|null
      */
     protected function getAttributeFromTranslations($name)
     {
-        return Arr::get($this->translator->get('validation.attributes'), $name);
+        if (! is_array($attributes = $this->translator->get('validation.attributes'))) {
+            return null;
+        }
+
+        return $this->getAttributeFromLocalArray($name, Arr::dot($attributes));
+    }
+
+    /**
+     * Get the custom name for an attribute if it exists in the given array.
+     *
+     * @param  string  $attribute
+     * @param  array|null  $source
+     * @return string|null
+     */
+    protected function getAttributeFromLocalArray($attribute, $source = null)
+    {
+        $source = $source ?: $this->customAttributes;
+
+        if (isset($source[$attribute])) {
+            return $source[$attribute];
+        }
+
+        foreach (array_keys($source) as $sourceKey) {
+            if (str_contains($sourceKey, '*')) {
+                $pattern = str_replace('\*', '([^.]*)', preg_quote($sourceKey, '#'));
+
+                if (preg_match('#^'.$pattern.'\z#u', $attribute) === 1) {
+                    return $source[$sourceKey];
+                }
+            }
+        }
     }
 
     /**

@@ -18,18 +18,31 @@ class Kernel extends FoundationConsoleKernel
         \Illuminate\Cache\Console\ForgetCommand::class,
         \Illuminate\Database\Console\DbCommand::class,
         \Illuminate\Database\Console\Seeds\SeedCommand::class,
+        \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
+        \Illuminate\Database\Console\TableCommand::class,
         \Illuminate\Database\Console\WipeCommand::class,
         \Illuminate\Foundation\Console\ClearCompiledCommand::class,
         \Illuminate\Foundation\Console\ComponentMakeCommand::class,
         \Illuminate\Foundation\Console\ConfigClearCommand::class,
         \Illuminate\Foundation\Console\ConsoleMakeCommand::class,
         \Illuminate\Foundation\Console\EnvironmentCommand::class,
+        \Illuminate\Foundation\Console\JobMakeCommand::class,
         \Illuminate\Foundation\Console\PackageDiscoverCommand::class,
         \Illuminate\Foundation\Console\ProviderMakeCommand::class,
         \Illuminate\Foundation\Console\RouteClearCommand::class,
         \Illuminate\Foundation\Console\RouteListCommand::class,
         \Illuminate\Foundation\Console\ViewCacheCommand::class,
         \Illuminate\Foundation\Console\ViewClearCommand::class,
+        \Illuminate\Queue\Console\BatchesTableCommand::class,
+        \Illuminate\Queue\Console\FailedTableCommand::class,
+        \Illuminate\Queue\Console\TableCommand::class,
+        \Illuminate\Queue\Console\WorkCommand::class,
+        \Illuminate\Queue\Console\ClearCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleListCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleRunCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleWorkCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleTestCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleInterruptCommand::class,
         \Illuminate\Routing\Console\ControllerMakeCommand::class,
         \Illuminate\Routing\Console\MiddlewareMakeCommand::class,
         \Roots\Acorn\Console\Commands\AboutCommand::class,
@@ -73,10 +86,6 @@ class Kernel extends FoundationConsoleKernel
 
         $this->app = $app;
         $this->events = $events;
-
-        $this->app->booted(function () {
-            $this->defineConsoleSchedule();
-        });
     }
 
     /**
@@ -87,5 +96,9 @@ class Kernel extends FoundationConsoleKernel
     public function commands()
     {
         $this->load($this->app->path('Console/Commands'));
+
+        if (file_exists($routes = base_path('routes/console.php'))) {
+            require $routes;
+        }
     }
 }

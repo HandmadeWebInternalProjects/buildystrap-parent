@@ -2,6 +2,8 @@
 
 defined('ABSPATH') || exit;
 
+use Roots\Acorn\Application;
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -14,7 +16,7 @@ defined('ABSPATH') || exit;
 */
 
 if (!file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
-  wp_die(__('Error locating autoloader. Please run <code>composer install</code>.'));
+    wp_die(__('Error locating autoloader. Please run <code>composer install</code>.'));
 }
 
 require $composer;
@@ -31,19 +33,20 @@ require $composer;
 |
 */
 if (! function_exists('\Roots\bootloader')) {
-  wp_die(
-    __('You need to install Acorn to use this site.', 'domain'),
-    '',
-    [
-      'link_url' => 'https://roots.io/acorn/docs/installation/',
-      'link_text' => __('Acorn Docs: Installation', 'domain'),
+    wp_die(
+        __('You need to install Acorn to use this site.', 'domain'),
+        '',
+        [
+        'link_url' => 'https://roots.io/acorn/docs/installation/',
+        'link_text' => __('Acorn Docs: Installation', 'domain'),
     ]
-  );
+    );
 }
 
-
-add_action('after_setup_theme', fn() => \Roots\bootloader()->boot(), 0);
-
+Application::configure()
+  ->withProviders([])
+  ->withRouting(wordpress:true, web: base_path('routes/web.php'))
+  ->boot();
 
 // Load Understrap functions
 require __DIR__ . '/understrap/functions.php';
@@ -59,7 +62,7 @@ require __DIR__ . '/src/shortcodes.php';
 
 // Temporarily fix Gravity Forms Merge Tags not displaying
 add_action('admin_footer', function () {
-?>
+    ?>
   <script>
     if (typeof window.gform?.addFilter === 'function') {
       gform?.addFilter('gform_merge_tags', 'MaybeAddSaveLinkMergeTag');

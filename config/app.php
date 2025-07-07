@@ -58,6 +58,7 @@ return [
     */
 
   'url' => env('APP_URL', home_url()),
+  'asset_url' => env('ASSET_URL'),
 
   /*
     |--------------------------------------------------------------------------
@@ -122,9 +123,15 @@ return [
     |
     */
 
+  'cipher' => 'AES-256-CBC',
+    
   'key' => defined('APP_KEY') ? APP_KEY : env('APP_KEY'),
 
-  'cipher' => 'AES-256-CBC',
+  'previous_keys' => [
+    ...array_filter(
+      explode(',', env('APP_PREVIOUS_KEYS', ''))
+    ),
+  ],
 
   /*
      |--------------------------------------------------------------------------
