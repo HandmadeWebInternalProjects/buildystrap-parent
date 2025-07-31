@@ -31,7 +31,10 @@ class CompatibilityManager
             return;
         }
 
-        // Load built-in compatibility classes
+        // Hook for third-party developers to register BEFORE we load anything
+        do_action('buildystrap_compatibility_before_init', static::class);
+
+        // Now load ALL registered classes (built-in + third-party)
         foreach (static::$compatibilityClasses as $compatibilityClass) {
             if (class_exists($compatibilityClass) && static::isCompatibilityEnabled($compatibilityClass)) {
                 $compatibilityClass::boot();
@@ -45,8 +48,9 @@ class CompatibilityManager
             }
         }
 
-        // Hook for third-party developers to register their own compatibility
-        do_action('buildystrap_compatibility_init', static::class);
+        // Hook for extending behavior after everything is loaded
+        do_action('buildystrap_compatibility_after_init', static::class);
+
     }
 
     /**
@@ -56,7 +60,7 @@ class CompatibilityManager
     {
         if (static::$config === null) {
             $configPath = get_template_directory() . '/config/compatibility.php';
-            
+
             if (file_exists($configPath)) {
                 static::$config = require $configPath;
             } else {

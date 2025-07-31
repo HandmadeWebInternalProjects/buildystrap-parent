@@ -22,7 +22,7 @@ class WooCommerceCompatibility extends BaseCompatibility
     public static function init(): void
     {
         $config = CompatibilityManager::getPluginConfig('woocommerce');
-        
+
         // Add WooCommerce-specific hooks for page builder
         add_action('buildystrap_before_content', [static::class, 'beforeContent']);
         add_action('buildystrap_after_content', [static::class, 'afterContent']);
@@ -85,30 +85,30 @@ class WooCommerceCompatibility extends BaseCompatibility
     private static function pageContainsWooCommerceContent(): bool
     {
         global $post;
-        
+
         if (!$post) {
             return false;
         }
-        
+
         // Check if post content contains WooCommerce shortcodes
         $woocommerceShortcodes = [
             'product', 'products', 'product_category', 'product_categories',
             'sale_products', 'best_selling_products', 'top_rated_products',
             'featured_products', 'recent_products', 'product_attribute'
         ];
-        
+
         foreach ($woocommerceShortcodes as $shortcode) {
             if (has_shortcode($post->post_content, $shortcode)) {
                 return true;
             }
         }
-        
+
         // Check builder content for WooCommerce modules
         $builderContent = get_post_meta($post->ID, '_buildystrap_content', true);
         if ($builderContent && str_contains($builderContent, 'woocommerce')) {
             return true;
         }
-        
+
         return false;
     }
 

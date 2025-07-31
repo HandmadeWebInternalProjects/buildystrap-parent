@@ -11,7 +11,7 @@
   foreach ($background['image']['id'] ?? [] as $breakpoint => $value) {
     $imageUrl = collect($value)
       ->take(1)
-      ->map(fn ($image) => wp_get_attachment_image_url($image['id'], $wp_image_size[$breakpoint]))
+      ->map(fn ($image) => wp_get_attachment_image_url($image['id'] ?? null, $wp_image_size[$breakpoint] ?? 'full'))
       ->first();
 
     if (!empty($imageUrl)) {

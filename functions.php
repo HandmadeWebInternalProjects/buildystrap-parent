@@ -3,6 +3,7 @@
 defined('ABSPATH') || exit;
 
 use Roots\Acorn\Application;
+use Roots\Acorn\Configuration\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +44,23 @@ if (! function_exists('\Roots\bootloader')) {
     );
 }
 
-Application::configure()
-  ->withProviders([])
-  ->withRouting(wordpress:true, web: base_path('routes/web.php'))
-  ->boot();
+add_action('after_setup_theme', function () {
+    $middlewares = apply_filters('acorn/middleware/web', []);
+    $apiMiddlewares = apply_filters('acorn/middleware/api', []);
+
+    Application::configure()
+      ->withProviders([])
+      ->withRouting(
+          wordpress: true,
+          web: get_template_directory() . '/routes/web.php',
+          api: get_template_directory() . '/routes/api.php'
+      )
+      ->withMiddleware(function (Middleware $middleware) use ($middlewares, $apiMiddlewares) {
+          $middleware->web($middlewares);
+          $middleware->api($apiMiddlewares);
+      })
+      ->boot();
+}, 0);
 
 // Load Understrap functions
 require __DIR__ . '/understrap/functions.php';

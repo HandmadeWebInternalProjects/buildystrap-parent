@@ -22,7 +22,7 @@ class GravityFormsCompatibility extends BaseCompatibility
     public static function init(): void
     {
         $config = CompatibilityManager::getPluginConfig('gravity_forms');
-        
+
         // Ensure Gravity Forms scripts are loaded when forms are present in builder
         if ($config['auto_enqueue'] ?? true) {
             add_action('wp_enqueue_scripts', [static::class, 'enqueueAssets']);
@@ -35,7 +35,7 @@ class GravityFormsCompatibility extends BaseCompatibility
 
         // Hook into form rendering for builder content
         add_filter('gform_pre_render', [static::class, 'preRenderForm']);
-        
+
         // Preload scripts if enabled in config
         if ($config['preload_scripts'] ?? false) {
             add_action('wp_head', [static::class, 'preloadScripts']);
@@ -83,17 +83,17 @@ class GravityFormsCompatibility extends BaseCompatibility
     private static function pageContainsGravityForms(): bool
     {
         global $post;
-        
+
         if (!$post) {
             return false;
         }
-        
+
         // Check if post content contains gravity form shortcodes
-        if (has_shortcode($post->post_content, 'gravityform') || 
+        if (has_shortcode($post->post_content, 'gravityform') ||
             has_shortcode($post->post_content, 'gravityforms')) {
             return true;
         }
-        
+
         // Check builder content for Gravity Forms modules
         $builderContent = get_post_meta($post->ID, '_buildystrap_content', true);
         if ($builderContent && (
@@ -102,7 +102,7 @@ class GravityFormsCompatibility extends BaseCompatibility
         )) {
             return true;
         }
-        
+
         return false;
     }
 }
