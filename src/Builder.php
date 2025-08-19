@@ -127,7 +127,7 @@ class Builder
                 self::$modules['gravity-forms-module'] = GravityFormsModule::class;
             }
 
-            add_filter('the_content', [static::class, 'the_content'], PHP_INT_MAX);
+            add_filter('the_content', [static::class, 'the_content'], 500);
 
             static::bootFields();
             static::bootModules();
