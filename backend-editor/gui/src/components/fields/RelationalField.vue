@@ -82,8 +82,32 @@ const fetchFromDataType = async () => {
       if (Array.isArray(key)) {
         return el.types.some((el: string) => key.includes(el))
       }
-      return el.types.includes(key)
+      return el?.types?.includes(key) || el?.type === key
     })
+    return data
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+const fetchFromDependsOn = async () => {
+  try {
+    let key = depends_on.value
+    checkPerPage(data_type)
+    let res = await fetch(
+      `${builderConfig.rest_endpoint}wp/v2/${key}${per_page}`
+    )
+    // If the response is not ok, try pluralizing the key
+    if (!res.ok) {
+      const pluralKey = key.endsWith("s") ? key : `${key}s`
+      res = await fetch(
+        `${builderConfig.rest_endpoint}wp/v2/${pluralKey}${per_page}`
+      )
+      if (!res.ok) {
+        throw new Error(`Error fetching data from endpoint: ${pluralKey}`)
+      }
+    }
+    let data = await res.json()
     return data
   } catch (error: any) {
     throw new Error(error)
@@ -136,6 +160,8 @@ const mapEntries = async () => {
         } else if (typeof depends_on.value === "string") {
           mappedEntries = await fetchFromEndpoint(depends_on.value)
         }
+      } else if (data_type === "depends_on") {
+        mappedEntries = await fetchFromDependsOn()
       } else {
         mappedEntries = await fetchFromDataType()
       }
