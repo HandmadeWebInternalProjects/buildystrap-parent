@@ -52,8 +52,18 @@ add_action('after_setup_theme', function () {
       ->withProviders([])
       ->withRouting(
           wordpress: true,
-          web: get_template_directory() . '/routes/web.php',
-          api: get_template_directory() . '/routes/api.php'
+          web: array_filter([
+          get_template_directory() . '/src/routes/web.php',
+          get_stylesheet_directory() !== get_template_directory()
+            ? get_stylesheet_directory() . '/src/routes/web.php'
+            : null
+      ], 'file_exists'),
+          api: array_filter([
+          get_template_directory() . '/src/routes/api.php',
+          get_stylesheet_directory() !== get_template_directory()
+            ? get_stylesheet_directory() . '/src/routes/api.php'
+            : null
+      ], 'file_exists')
       )
       ->withMiddleware(function (Middleware $middleware) use ($middlewares, $apiMiddlewares) {
           $middleware->web($middlewares);
