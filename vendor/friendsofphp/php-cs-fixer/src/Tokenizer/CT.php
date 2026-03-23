@@ -16,6 +16,8 @@ namespace PhpCsFixer\Tokenizer;
 
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise.
  */
 final class CT
 {
@@ -58,6 +60,8 @@ final class CT
     public const T_DISJUNCTIVE_NORMAL_FORM_TYPE_PARENTHESIS_CLOSE = 10_037;
     public const T_DYNAMIC_CLASS_CONSTANT_FETCH_CURLY_BRACE_OPEN = 10_038;
     public const T_DYNAMIC_CLASS_CONSTANT_FETCH_CURLY_BRACE_CLOSE = 10_039;
+    public const T_PROPERTY_HOOK_BRACE_OPEN = 10_040;
+    public const T_PROPERTY_HOOK_BRACE_CLOSE = 10_041;
 
     private function __construct() {}
 
@@ -65,6 +69,8 @@ final class CT
      * Get name for custom token.
      *
      * @param int $value custom token value
+     *
+     * @return non-empty-string
      */
     public static function getName(int $value): string
     {
@@ -73,6 +79,8 @@ final class CT
         }
 
         $tokens = self::getMapById();
+
+        \assert(isset($tokens[$value]));
 
         return 'CT::'.$tokens[$value];
     }
@@ -90,7 +98,7 @@ final class CT
     }
 
     /**
-     * @return array<self::T_*, string>
+     * @return array<self::T_*, non-empty-string>
      */
     private static function getMapById(): array
     {

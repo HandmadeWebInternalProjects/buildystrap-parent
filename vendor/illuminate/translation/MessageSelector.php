@@ -24,7 +24,7 @@ class MessageSelector
 
         $segments = $this->stripConditions($segments);
 
-        $pluralIndex = $this->getPluralIndex($locale, $number);
+        $pluralIndex = $this->getPluralIndex($locale, (int) $number);
 
         if (count($segments) === 1 || ! isset($segments[$pluralIndex])) {
             return $segments[0];
@@ -58,7 +58,7 @@ class MessageSelector
      */
     private function extractFromString($part, $number)
     {
-        preg_match('/^[\{\[]([^\[\]\{\}]*)[\}\]](.*)/s', $part, $matches);
+        preg_match('/^[\{\[]([-?\d|*,\.*]*)[\}\]](.*)/s', $part, $matches);
 
         if (count($matches) !== 3) {
             return null;
@@ -92,7 +92,7 @@ class MessageSelector
     private function stripConditions($segments)
     {
         return (new Collection($segments))
-            ->map(fn ($part) => preg_replace('/^[\{\[]([^\[\]\{\}]*)[\}\]]/', '', $part))
+            ->map(fn ($part) => preg_replace('/^[\{\[][-?\d|*,\.*]*[\}\]]/', '', $part))
             ->all();
     }
 

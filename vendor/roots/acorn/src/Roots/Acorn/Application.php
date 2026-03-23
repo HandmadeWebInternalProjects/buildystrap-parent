@@ -28,7 +28,7 @@ class Application extends FoundationApplication
      *
      * @var string
      */
-    public const VERSION = '5.0.4';
+    public const VERSION = '5.1.0';
 
     /**
      * The custom resource path defined by the developer.
@@ -64,7 +64,7 @@ class Application extends FoundationApplication
     /**
      * Begin configuring a new Laravel application instance.
      *
-     * @return \Roots\Acorn\Configuration\ApplicationBuilder
+     * @return ApplicationBuilder
      */
     public static function configure(?string $basePath = null)
     {
@@ -253,14 +253,19 @@ class Application extends FoundationApplication
         $this->singleton(FoundationPackageManifest::class, function () {
             $files = new Filesystem;
 
+            $closestComposer = $files->closest(WP_CONTENT_DIR, 'composer.json');
+            $contentRoot = $closestComposer ? dirname($closestComposer) : null;
+
+            $composerPaths = apply_filters('acorn/composer_paths', array_filter([
+                $this->basePath(),
+                $contentRoot,
+                get_template_directory(),
+                get_stylesheet_directory(),
+            ]));
+
             $composerPaths = collect(get_option('active_plugins'))
                 ->map(fn ($plugin) => WP_PLUGIN_DIR.DIRECTORY_SEPARATOR.dirname($plugin))
-                ->merge([
-                    $this->basePath(),
-                    dirname(WP_CONTENT_DIR, 2),
-                    get_template_directory(),
-                    get_stylesheet_directory(),
-                ])
+                ->merge((array) $composerPaths)
                 ->map(fn ($path) => rtrim($files->normalizePath($path), '/'))
                 ->unique()
                 ->filter(
@@ -336,9 +341,9 @@ class Application extends FoundationApplication
     /**
      * Register a service provider with the application.
      *
-     * @param  \Illuminate\Support\ServiceProvider|string  $provider
+     * @param  ServiceProvider|string  $provider
      * @param  bool  $force
-     * @return \Illuminate\Support\ServiceProvider
+     * @return ServiceProvider
      */
     public function register($provider, $force = false)
     {
@@ -356,7 +361,7 @@ class Application extends FoundationApplication
     /**
      * Skip booting service provider and log error.
      *
-     * @param  \Illuminate\Support\ServiceProvider|string  $provider
+     * @param  ServiceProvider|string  $provider
      */
     protected function skipProvider($provider, Throwable $e): ServiceProvider
     {
@@ -392,7 +397,7 @@ class Application extends FoundationApplication
      *
      * @return string
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function getNamespace()
     {

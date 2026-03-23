@@ -18,6 +18,8 @@ namespace PhpCsFixer;
  * @author Davi Koscianski Vidal <davividal@gmail.com>
  *
  * @internal
+ *
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise.
  */
 final class StdinFileInfo extends \SplFileInfo
 {
@@ -58,6 +60,9 @@ final class StdinFileInfo extends \SplFileInfo
         return '.php';
     }
 
+    /**
+     * @param null|class-string<\SplFileInfo> $class
+     */
     public function getFileInfo($class = null): \SplFileInfo
     {
         throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
@@ -105,6 +110,9 @@ final class StdinFileInfo extends \SplFileInfo
         return '';
     }
 
+    /**
+     * @param null|class-string<\SplFileInfo> $class
+     */
     public function getPathInfo($class = null): \SplFileInfo
     {
         throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
@@ -164,8 +172,4 @@ final class StdinFileInfo extends \SplFileInfo
     {
         throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }
-
-    public function setFileClass($className = null): void {}
-
-    public function setInfoClass($className = null): void {}
 }
