@@ -46,7 +46,7 @@ return [
       'username' => DB_USER,
       'password' => DB_PASSWORD,
       'unix_socket' => env('DB_SOCKET', ''),
-      'charset' => DB_CHARSET,
+      'charset' => 'utf8mb4',
       'collation' => $GLOBALS['wpdb']->collate,
       'prefix' => $GLOBALS['wpdb']->prefix,
       'prefix_indexes' => true,

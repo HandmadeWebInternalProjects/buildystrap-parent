@@ -124,7 +124,9 @@ class BuilderApi
         register_rest_route('buildy/v1', '/fetch-library-post/(?P<id>\d+)', [
       'methods' => 'GET',
       'callback' => [static::class, 'fetch_library_post'],
-      'permission_callback' => '__return_true',
+      'permission_callback' => function () {
+          return current_user_can('edit_posts');
+      },
     ]);
 
 

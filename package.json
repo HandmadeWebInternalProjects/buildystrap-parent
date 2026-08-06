@@ -10,12 +10,12 @@
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "5.3.3",
-    "fast-glob": "^3.3.2",
-    "glightbox": "^3.3.0",
-    "sass": "^1.80.4",
-    "typescript": "~5.6.3",
-    "vite": "^8.0.1",
-    "vite-plugin-svg-icons": "^0.1.0"
+    "bootstrap": "5.3.8",
+    "fast-glob": "^3.3.3",
+    "glightbox": "^3.3.1",
+    "sass": "^1.102.0",
+    "typescript": "~7.0.2",
+    "vite": "^8.2.0",
+    "vite-plugin-svg-icons": "^2.0.1"
   }
 }

@@ -4,6 +4,7 @@ namespace Laravel\Prompts;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Laravel\Prompts\Elements\ElementContract;
 
 if (! function_exists('\Laravel\Prompts\text')) {
     /**
@@ -260,6 +261,18 @@ if (! function_exists('\Laravel\Prompts\note')) {
     }
 }
 
+if (! function_exists('\Laravel\Prompts\callout')) {
+    /**
+     * Display a callout.
+     *
+     * @param  string|list<string|ElementContract>  $content
+     */
+    function callout(string $label, string|array $content, ?string $type = null, string $info = ''): void
+    {
+        (new Callout($label, $content, $type, $info))->display();
+    }
+}
+
 if (! function_exists('\Laravel\Prompts\error')) {
     /**
      * Display an error.
@@ -424,8 +437,40 @@ if (! function_exists('\Laravel\Prompts\task')) {
      * @param  Closure(Support\Logger): TReturn  $callback
      * @return TReturn
      */
-    function task(string $label, Closure $callback, ?int $limit = null): mixed
+    function task(string $label, Closure $callback, ?int $limit = null, bool $keepSummary = false, ?string $subLabel = null): mixed
     {
-        return (new Task($label, $limit ?? 10))->run($callback);
+        return (new Task($label, $limit ?? 10, $keepSummary, $subLabel))->run($callback);
+    }
+}
+
+if (! function_exists('\Laravel\Prompts\datatable')) {
+    /**
+     * Display an interactive data table.
+     *
+     * @param  array<int, string|array<int, string>>|Collection<int, string|array<int, string>>  $headers
+     * @param  array<int|string, array<int, string>>|Collection<int|string, array<int, string>>|null  $rows
+     */
+    function datatable(
+        array|Collection $headers = [],
+        array|Collection|null $rows = null,
+        int $scroll = 10,
+        string $label = '',
+        string $hint = '',
+        bool|string $required = false,
+        mixed $validate = null,
+        ?Closure $transform = null,
+        ?Closure $filter = null,
+    ): mixed {
+        return (new DataTablePrompt(
+            headers: $headers,
+            rows: $rows,
+            scroll: $scroll,
+            label: $label,
+            hint: $hint,
+            required: $required,
+            validate: $validate,
+            transform: $transform,
+            filter: $filter,
+        ))->prompt();
     }
 }

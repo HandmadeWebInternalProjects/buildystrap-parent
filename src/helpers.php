@@ -307,8 +307,8 @@ if (!function_exists('get_svg_url')) {
 
 function get_defined_breakpoints()
 {
-  $vite_breakpoints = env('VITE_GRIDBREAKPOINTS', '');
-  return json_decode($vite_breakpoints, true);
+  $vite_breakpoints = env('VITE_GRIDBREAKPOINTS', '{"xs":0,"sm":576,"md":768,"lg":992,"xl":1300}');
+  return json_decode($vite_breakpoints, true) ?: [];
 }
 
 if (!function_exists('get_slider_options_v2')) {
